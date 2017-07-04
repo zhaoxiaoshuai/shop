@@ -14,3 +14,8 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+/*==========================后台===============================*/
+//管理员管理
+Route::resource('admin/admin','Admin\adminController');
