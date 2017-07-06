@@ -14,3 +14,8 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+// 后台分类管理
+Route::resource('admin/atype','Admin\TypeController');
+
+
