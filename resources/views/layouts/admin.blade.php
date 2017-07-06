@@ -197,6 +197,68 @@
 
             <!-- 菜单 -->
             <ul class="sidebar-nav">
+                
+                <li class="sidebar-nav-link">
+                    <a href="javascript:;" class="sidebar-nav-sub-title">
+                        <i class="am-icon-table sidebar-nav-link-logo"></i> 入驻商管理
+                        <span class="am-badge am-badge-success am-round item-feed-badge">4</span>
+                        <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                    </a>
+                    <ul class="sidebar-nav sidebar-nav-sub" style="display: none;">
+                        <li class="sidebar-nav-link">
+                            <a href="{{ url('admin/astore/create') }}">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span>入驻商管理申请列表
+                                <span class="am-badge am-badge-success am-round item-feed-badge">4</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-nav-link">
+                            <a href="{{ url('admin/astore') }}">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span>入驻商列表
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                 <li class="sidebar-nav-link">
+                    <a href="javascript:;" class="sidebar-nav-sub-title">
+                        <i class="am-icon-table sidebar-nav-link-logo"></i> 分类管理
+                        <span class="am-badge am-badge-success am-round item-feed-badge">4</span>
+                        <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                    </a>
+                    <ul class="sidebar-nav sidebar-nav-sub" style="display: none;">
+                        <li class="sidebar-nav-link">
+                            <a href="{{ url('admin/atype/create') }}">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span>添加分类
+                                <span class="am-badge am-badge-success am-round item-feed-badge">4</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-nav-link">
+                            <a href="{{ url('admin/atype') }}">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span>查看分类
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sidebar-nav-link">
+                    <a href="javascript:;" class="sidebar-nav-sub-title">
+                        <i class="am-icon-table sidebar-nav-link-logo"></i> 友情链接
+                        <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                    </a>
+                    <ul class="sidebar-nav sidebar-nav-sub">
+                        <li class="sidebar-nav-link">
+                            <a href="{{ url('link/create') }}">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 添加链接
+                            </a>
+                        </li>
+
+                        <li class="sidebar-nav-link">
+                            <a href="{{ url('link') }}">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 链接展示
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="sidebar-nav-link">
                     <a href="javascript:;" class="sidebar-nav-sub-title">
                         <i class="am-icon-table sidebar-nav-link-logo"></i> 权限管理
@@ -230,50 +292,11 @@
                     </ul>
                 </li>
                 <li class="sidebar-nav-link">
-                    <a href="javascript:;" class="sidebar-nav-sub-title">
-                        <i class="am-icon-table sidebar-nav-link-logo"></i> 入驻商管理
-                        <span class="am-badge am-badge-success am-round item-feed-badge">4</span>
-                        <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
-                    </a>
-                    <ul class="sidebar-nav sidebar-nav-sub" style="display: none;">
-                        <li class="sidebar-nav-link">
-                            <a href="{{ url('admin/astore/create') }}">
-                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span>入驻商管理申请列表
-                                <span class="am-badge am-badge-success am-round item-feed-badge">4</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-nav-link">
-                            <a href="{{ url('admin/astore') }}">
-                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span>入驻商列表
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="sidebar-nav-link">
-                    <a href="javascript:;" class="sidebar-nav-sub-title">
-                        <i class="am-icon-table sidebar-nav-link-logo"></i> 友情链接
-                        <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
-                    </a>
-                    <ul class="sidebar-nav sidebar-nav-sub">
-                        <li class="sidebar-nav-link">
-                            <a href="{{ url('link/create') }}">
-                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 添加链接
-                            </a>
-                        </li>
-
-                        <li class="sidebar-nav-link">
-                            <a href="{{ url('link') }}">
-                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 链接展示
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="sidebar-nav-link">
                     <a href="{{ url('config/1/edit') }}" class="active">
                         <i class="am-icon-gear sidebar-nav-link-logo"></i> 系统配置
                     </a>
                 </li>
+               
             </ul>
         </div>
         

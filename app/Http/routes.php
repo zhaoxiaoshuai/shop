@@ -21,6 +21,7 @@ Route::get('/', function () {
 
 
 
+
 /*==========================后台===============================*/
 //管理员管理
 Route::resource('admin/admin','Admin\adminController');
@@ -43,14 +44,15 @@ Route::resource('config','Admin\ConfController');
 Route::any('upload','Admin\ConfController@upload');//LOGO图片上传
 Route::any('upload2','Admin\ConfController@upload2');//缩略图片上传
 
-
-
-
-// 大后台商家信息路由
+// 后台商家信息路由
 Route::resource('admin/astore','Admin\StoreController');
 Route::get('admin/astoreindex/{x}','Admin\StoreController@astoreindex');
-// 大后台商家店铺路由
+// 后台商家店铺路由
 // Route::resource('admin/merchant','Admin\MerchantController');
 // 前台商家路由
 Route::resource('hstore','Home\StoreController');
+// 后台分类管理
+Route::resource('admin/atype','Admin\TypeController');
+
+
 

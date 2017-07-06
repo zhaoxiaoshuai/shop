@@ -14,6 +14,7 @@
     //        storageSave(saveSelectColor);
     //        $('body').attr('class','theme-black')
     //    }
+
     // autoLeftNav();
     // $(window).resize(function() {
     //     autoLeftNav();
@@ -319,7 +320,6 @@ $('.tpl-skiner-content-bar').find('span').on('click', function() {
     storageSave(saveSelectColor);
 
 })
-
 // 侧边菜单开关
 function autoLeftNav() {
     $('.tpl-header-switch-button').on('click', function() {
