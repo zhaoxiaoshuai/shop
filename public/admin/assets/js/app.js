@@ -14,8 +14,6 @@
     //        storageSave(saveSelectColor);
     //        $('body').attr('class','theme-black')
     //    }
-
-
     // autoLeftNav();
     // $(window).resize(function() {
     //     autoLeftNav();
@@ -311,11 +309,9 @@
 
 $(function(){
     // 风格切换
-
 $('.tpl-skiner-toggle').on('click', function() {
     $('.tpl-skiner').toggleClass('active');
 })
-
 $('.tpl-skiner-content-bar').find('span').on('click', function() {
     $('body').attr('class', $(this).attr('data-color'))
     saveSelectColor.Color = $(this).attr('data-color');
@@ -323,13 +319,9 @@ $('.tpl-skiner-content-bar').find('span').on('click', function() {
     storageSave(saveSelectColor);
 
 })
+
 // 侧边菜单开关
-
-
 function autoLeftNav() {
-
-
-
     $('.tpl-header-switch-button').on('click', function() {
         if ($('.left-sidebar').is('.active')) {
             if ($(window).width() > 1024) {
@@ -351,8 +343,6 @@ function autoLeftNav() {
         $('.left-sidebar').removeClass('active');
     }
 }
-
-
 // 侧边菜单
 $('.sidebar-nav-sub-title').on('click', function() {
     $(this).siblings('.sidebar-nav-sub').slideToggle(80)
@@ -360,3 +350,4 @@ $('.sidebar-nav-sub-title').on('click', function() {
         .find('.sidebar-nav-sub-ico').toggleClass('sidebar-nav-sub-ico-rotate');
 })
 })
+

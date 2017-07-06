@@ -10,10 +10,15 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+DB::listen(function($sql, $bindings, $time) {
+                // dump($sql);
+                // dump($bindings);
+            });
 
 Route::get('/', function () {
     return view('welcome');
 });
+
 
 
 /*==========================后台===============================*/
@@ -39,4 +44,13 @@ Route::any('upload','Admin\ConfController@upload');//LOGO图片上传
 Route::any('upload2','Admin\ConfController@upload2');//缩略图片上传
 
 
+
+
+// 大后台商家信息路由
+Route::resource('admin/astore','Admin\StoreController');
+Route::get('admin/astoreindex/{x}','Admin\StoreController@astoreindex');
+// 大后台商家店铺路由
+// Route::resource('admin/merchant','Admin\MerchantController');
+// 前台商家路由
+Route::resource('hstore','Home\StoreController');
 
