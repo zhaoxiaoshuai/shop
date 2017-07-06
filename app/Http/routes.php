@@ -18,4 +18,9 @@ Route::get('/', function () {
 
 /*==========================后台===============================*/
 //管理员管理
-Route::resource('admin/admin','Admin\adminController');
+//Route::resource('admin/admin','Admin\adminController');
+Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
+    Route::resource('admin','adminController');
+    Route::resource('good','GoodController');
+    Route::any('upload','GoodController@upload');
+});
