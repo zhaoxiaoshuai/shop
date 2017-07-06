@@ -19,3 +19,5 @@ Route::get('/', function () {
 /*==========================后台===============================*/
 //管理员管理
 Route::resource('admin/admin','Admin\adminController');
+//角色控制器
+Route::resource('admin/role','Admin\roleController');

@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{{asset('admin/assets/css/amazeui.datatables.min.css')}}" />
     <link rel="stylesheet" href="{{asset('admin/assets/css/app.css')}}">
     <script src="{{asset('admin/assets/js/jquery.min.js')}}"></script>
+    <script src="{{asset('layer/layer.js')}}"></script>
 </head>
 <body data-type="index">
     <script src="{{asset('admin/assets/js/theme.js')}}"></script>
@@ -198,19 +199,32 @@
             <ul class="sidebar-nav">
                 <li class="sidebar-nav-link">
                     <a href="javascript:;" class="sidebar-nav-sub-title">
-                        <i class="am-icon-table sidebar-nav-link-logo"></i> 管理员管理
+                        <i class="am-icon-table sidebar-nav-link-logo"></i> 权限管理
                         <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
                     </a>
                     <ul class="sidebar-nav sidebar-nav-sub">
                         <li class="sidebar-nav-link">
-                            <a href="table-list.html">
+                            <a href="{{url('admin/admin/create')}}">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 添加管理员
                             </a>
                         </li>
 
                         <li class="sidebar-nav-link">
-                            <a href="table-list-img.html">
+                            <a href="{{url('admin/admin')}}">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 管理员列表
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="sidebar-nav sidebar-nav-sub">
+                        <li class="sidebar-nav-link">
+                            <a href="{{url('admin/role/create')}}">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 添加角色
+                            </a>
+                        </li>
+
+                        <li class="sidebar-nav-link">
+                            <a href="{{url('admin/role')}}">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 角色列表
                             </a>
                         </li>
                     </ul>
