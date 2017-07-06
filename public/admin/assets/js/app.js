@@ -15,12 +15,12 @@
     //        $('body').attr('class','theme-black')
     //    }
 
+
     // autoLeftNav();
     // $(window).resize(function() {
     //     autoLeftNav();
     //     console.log($(window).width())
     // });
-
     //    if(storageLoad('SelcetColor')){
 
     //     }else{
@@ -360,8 +360,3 @@ $('.sidebar-nav-sub-title').on('click', function() {
         .find('.sidebar-nav-sub-ico').toggleClass('sidebar-nav-sub-ico-rotate');
 })
 })
-
-
-
-
-

@@ -21,3 +21,22 @@ Route::get('/', function () {
 Route::resource('admin/admin','Admin\adminController');
 //角色控制器
 Route::resource('admin/role','Admin\roleController');
+
+//后台登录页
+Route::get('/admin/login',function(){
+	return view('admin.login');
+});
+//后台首页
+Route::get('/admin/index',function(){
+    return view('admin.index');
+});
+
+//友情链接
+Route::resource('link','Admin\LinkController');
+//系统配置
+Route::resource('config','Admin\ConfController');
+Route::any('upload','Admin\ConfController@upload');//LOGO图片上传
+Route::any('upload2','Admin\ConfController@upload2');//缩略图片上传
+
+
+
