@@ -19,3 +19,5 @@ Route::get('/', function () {
 /*==========================后台===============================*/
 //管理员管理
 Route::resource('admin/admin','Admin\adminController');
+//订单管理
+Route::resource('admin/orders','Admin\Orders\OrdersController');
