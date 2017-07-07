@@ -32,6 +32,7 @@ Route::get('admin/captcha/{num}.jpg','Admin\LoginController@captcha')->where('na
 
 //管理员管理
 Route::resource('admin/admin','Admin\adminController');
+
 //角色控制器
 Route::resource('admin/role','Admin\roleController');
 //商品管理
@@ -40,6 +41,8 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
     Route::resource('good','GoodController');
     Route::any('upload','GoodController@upload');
 });
+//订单管理
+Route::resource('admin/orders','Admin\Orders\OrdersController');
 //友情链接
 Route::resource('link','Admin\LinkController');
 
@@ -58,6 +61,9 @@ Route::get('admin/astoreindex/{x}','Admin\StoreController@astoreindex');
 Route::resource('hstore','Home\StoreController');
 // 后台分类管理
 Route::resource('admin/atype','Admin\TypeController');
+
+
+
 
 
 

@@ -21,7 +21,6 @@
     <script src="{{asset('admin/assets/js/jquery.min.js')}}"></script>
     <script src="{{asset('layer/layer.js')}}"></script>
     <script type="text/javascript" src="{{asset('layer/layer.js')}}"></script>
-
 </head>
 <body data-type="index">
     <script src="{{asset('admin/assets/js/theme.js')}}"></script>
@@ -264,6 +263,22 @@
                 </li>
                 <li class="sidebar-nav-link">
                     <a href="javascript:;" class="sidebar-nav-sub-title">
+                        <i class="am-icon-table sidebar-nav-link-logo"></i> 订单管理
+                        <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                    </a>
+                    <ul class="sidebar-nav sidebar-nav-sub">
+                        <li class="sidebar-nav-link">
+                            <a href="{{url('admin/orders')}}">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 订单列表
+                            </a>
+                            <a href="{{url('admin/orders')}}">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 订单详情
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sidebar-nav-link">
+                    <a href="javascript:;" class="sidebar-nav-sub-title">
                         <i class="am-icon-table sidebar-nav-link-logo"></i> 友情链接
                         <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
                     </a>
@@ -321,10 +336,10 @@
                
             </ul>
 
+            
+                
+        
 
-            
-               
-            
         </div>
         
         <!-- 内容区域 -->
