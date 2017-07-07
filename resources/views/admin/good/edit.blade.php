@@ -84,7 +84,7 @@
                                             success: function(data) {
 //                                    console.log(data);
 //                                    alert("上传成功");
-                                                $('#pic').attr('src','/'+data);
+                                                $('#pic').attr('src','http://php182.oss-cn-beijing.aliyuncs.com/'+data);
                                                 $('#pic').show();
                                                 $('#good_pic').val(data);
 
@@ -102,7 +102,7 @@
                         <tr>
                             <th></th>
                             <td>
-                                <img src="/{{$data->good_pic}}" alt="" name="pic" id="pic" style="width:100px;" >
+                                <img src="http://php182.oss-cn-beijing.aliyuncs.com/{{$data->good_pic}}" alt="" name="pic" id="pic" style="width:100px;" >
                             </td>
                         </tr>
                     </table>

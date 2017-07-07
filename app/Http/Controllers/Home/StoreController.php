@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Home;
 
+use App\Http\Model\Store;
+use App\Http\Model\Merchant;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -83,5 +85,19 @@ class StoreController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    
+    /**
+     * 返回入驻市场页面
+     * @param 参数
+     * @return 返回值
+     * @author 邹鹏
+     * @Date 2017-7-7 14:40
+     */
+    public function MerSettled()
+    {
+        // 加载商户入驻页面
+        return view('home.store.MerSettled');
     }
 }

@@ -10,7 +10,7 @@
         文章列表
        </div> 
       </div>
-      <form>
+      <form action="{{url('admin/type')}}" method="get">
       	<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
        <div>搜索</div> 
         <div action="{{ url('admin/astore') }}" method="get" class="am-form-group tpl-table-list-select" style="margin-left:50px;margin-top:-25px;"> 
@@ -25,7 +25,9 @@
        <div class="am-u-sm-12 am-u-md-12 am-u-lg-3" style="right:455px;"> 
         <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p" > 
          <input type="text" name="keywords2" class="am-form-field" placeholder="请输入店铺名称" /> 
-         <span class="am-input-group-btn"> <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="submit">搜索</button> </span> 
+         <span class="am-input-group-btn"> 
+            <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="submit">搜索</button> 
+         </span> 
         </div> 
        </div>
       </form> 
@@ -73,23 +75,16 @@
         </table> 
        </div>
        <?php
-                    $key1 = empty($key1)?'':$key1;
-                	
+                    $key = empty($key)?'':$key;
+                  
                     ?>
-       <div class="am-u-lg-12 am-cf" style="float:left;">
-        {!! $data->appends(['keywords1' => $key1])->render() !!}
-        <div class="am-fr"> 
-         <ul class="am-pagination tpl-pagination"> 
-          <li class="am-disabled"><a href="#">&laquo;</a></li> 
-          <li class="am-active"><a href="#">1</a></li> 
-          <li><a href="#">2</a></li> 
-          <li><a href="#">3</a></li> 
-          <li><a href="#">4</a></li> 
-          <li><a href="#">5</a></li> 
-          <li><a href="#">&raquo;</a></li> 
-         </ul> 
+       <div class="am-u-lg-12 am-cf" >
+       <style>
+        .am-rf .pagination li{float:left;fone-size:20px;padding-left:10px;}
+    </style>
+        <div class='am-rf'>
+          {!! $data->appends(['keywords1' => $key1,'keywords2'=>$key2])->render() !!}
         </div> 
-       </div> 
       </div> 
      </div> 
     </div> 

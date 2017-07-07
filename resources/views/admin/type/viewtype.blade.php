@@ -18,52 +18,54 @@
               </div>
             </div>
           </div>
+
           <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
             <div class="am-form-group tpl-table-list-select">
-              <select data-am-selected="{btnSize: 'sm'}" style="display: none;">
-                <option value="option1">所有类别</option>
-                <option value="option2">IT业界</option>
-                <option value="option3">数码产品</option>
-                <option value="option3">笔记本电脑</option>
-                <option value="option3">平板电脑</option>
-                <option value="option3">只能手机</option>
-                <option value="option3">超极本</option>
-              </select>
-              
+                <th>关键字: </th>
             </div>
           </div>
+          <form action="">
           <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
             <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-              <input type="text" class="am-form-field ">
+              <input type="text"  name="keywords" class="am-form-field " placeholder="输入搜索关键字">
               <span class="am-input-group-btn">
-                <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="button"></button>
+                 <button type="submit"  class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search" ></button>
               </span>
             </div>
           </div>
+          </form>
           <div class="am-u-sm-12">
             <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black " id="example-r">
-
               <thead>
-
                 <tr>
                   <th>ID</th>
                   <th>分类名称</th>
                   <th>是否显示</th>
+                  <th>首页推荐</th>
                   <th>分类描述</th>
                   <th>操作</th>
                 </tr>
-
               </thead>
-               @foreach($data as $k=>$v)
 
               <tbody>
+              <?php
+                $arr = ['1'=>'是','否'];
+                $arr1 = ['1'=>'最新','精品','热门'];
+              ?>
+                @foreach($data as $k=>$v)
+                <?php 
+                  
+                  $n = substr_count( $v['type_npath'] ,'-')-2;
+                  $v['type_name'] = str_repeat('&nbsp;',$n*8).'|--'.$v['type_name'];
+                ?>
                 <tr class="gradeX">
                   <td>{{ $v['type_id'] }}</td>
                   <td>{{ $v['type_name'] }}</td>
-                  <td>{{ $v['type_show'] }}</td>
+                  <td>{{ $arr[$v['type_show']] }}</td>
+                  <td>{{ $arr1[$v['type_recommend']] }}</td>
                   <td>{{ $v['type_describe'] }}</td>
                     
-                <td>
+                  <td>
                     <div class="tpl-table-black-operation">
                       <a href="{{ url('admin/atype/'.$v['type_id'].'/edit')}}">
                         <i class="am-icon-pencil"></i>编辑</a>
@@ -72,35 +74,22 @@
                     </div>
                   </td>
                 </tr>
-                
-                
-                
-                
-                
-                <!-- more data --></tbody>
                 @endforeach
+            </tbody>
+                
             </table>
           </div>
           <div class="am-u-lg-12 am-cf">
-            <div class="am-fr">
-              <ul class="am-pagination tpl-pagination">
-                <li class="am-disabled">
-                  <a href="#">«</a></li>
-                <li class="am-active">
-                  <a href="#">1</a></li>
-                <li>
-                  <a href="#">2</a></li>
-                <li>
-                  <a href="#">3</a></li>
-                <li>
-                  <a href="#">4</a></li>
-                <li>
-                  <a href="#">5</a></li>
-                <li>
-                  <a href="#">»</a></li>
-              </ul>
-            </div>
-          </div>
+          <?php
+            $key = empty($key)?'':$key;
+          ?>
+       <div class="am-u-lg-12 am-cf ">
+        <style>
+        .am-rf .pagination li{float:left;fone-size:20px;padding-left:10px;}
+        </style>
+        <div class='am-rf'>
+          {!! $data->appends(['keywords1' => $key])->render() !!}
+        </div>
         </div>
       </div>
     </div>

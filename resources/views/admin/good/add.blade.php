@@ -94,7 +94,7 @@
                                             success: function(data) {
 //                                    console.log(data);
 //                                    alert("上传成功");
-                                                $('#pic').attr('src','/'+data);
+                                                $('#pic').attr('src','http://php182.oss-cn-beijing.aliyuncs.com/'+data);
                                                 $('#pic').show();
                                                 $('#good_pic').val(data);
 

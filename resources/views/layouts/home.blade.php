@@ -140,6 +140,7 @@
                         </div>
                     </div>    
                 </div>|
+
                 <div class="ss_list">
                 	<a href="#">网站导航</a>
                     <div class="ss_list_bg">
@@ -175,8 +176,6 @@
 @section('content')
 
     @show
-
-
 <!--Begin Footer Begin -->
 <div class="b_btm_bg b_btm_c">
     <div class="b_btm">
