@@ -27,13 +27,16 @@ class GoodController extends Controller
             $newName = date('YmdHis') . mt_rand(1000, 9999) . '.' . $entension;
 
 //            将图片上传到本地服务器
-//            $path = $file->move(public_path() . '/uploads', $newName);
+
+            // $path = $file->move(public_path() . '/uploads', $newName);
 
 //            将图片上传到七牛云
 //            \Storage::disk('qiniu')->writeStream('uploads/'.$newName, fopen($file->getRealPath(), 'r'));
 
 //            oss上传
+
             $result = OSS::upload('uploads/'.$newName, $file->getRealPath());
+
 
 //        返回文件的上传路径
             $filepath = 'uploads/' . $newName;

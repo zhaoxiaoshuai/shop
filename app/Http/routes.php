@@ -15,11 +15,6 @@ DB::listen(function($sql, $bindings, $time) {
                 // dump($bindings);
             });
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
 
 
 /*==========================后台===============================*/
@@ -36,6 +31,7 @@ Route::resource('admin/admin','Admin\adminController');
 
 //角色控制器
 Route::resource('admin/role','Admin\roleController');
+
 //商品管理
 Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
     Route::resource('admin','adminController');
@@ -44,6 +40,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 });
 //订单管理
 Route::resource('admin/orders','Admin\Orders\OrdersController');
+
 //友情链接
 Route::resource('link','Admin\LinkController');
 
@@ -58,17 +55,13 @@ Route::get('admin/astoreindex/{x}','Admin\StoreController@astoreindex');
 
 // 商家店铺路由
 // Route::resource('admin/merchant','Admin\MerchantController');
-// 前台商家路由
-Route::resource('hstore','Home\StoreController');
+
 // 后台分类管理
 Route::resource('admin/atype','Admin\TypeController');
 
 
 
-
-
-
-/*==========================后台===============================*/
+/*==========================前台===============================*/
 //前台登录
 Route::get('home/login','Home\LoginController@login');
 
@@ -91,3 +84,12 @@ Route::post('home/user/create','Home\UserController@create');
 Route::post('home/user/phonecreate','Home\UserController@phonecreate');
 Route::get('home/user/phonecreateto','Home\UserController@phonecreateto');
 
+//前台首页
+Route::get('/', function () {
+    return view('home.index');
+});
+
+// 前台商家路由
+Route::resource('home/hstore','Home\StoreController');
+// 入驻市场路由
+Route::get('home/MerSettled','Home\StoreController@MerSettled');
