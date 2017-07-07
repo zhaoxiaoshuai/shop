@@ -10,7 +10,7 @@
         文章列表
        </div> 
       </div>
-      <form>
+      <form action="{{url('admin/type')}}" method="get">
       	<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
        <div>搜索</div> 
         <div action="{{ url('admin/astore') }}" method="get" class="am-form-group tpl-table-list-select" style="margin-left:50px;margin-top:-25px;"> 
@@ -25,7 +25,9 @@
        <div class="am-u-sm-12 am-u-md-12 am-u-lg-3" style="right:455px;"> 
         <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p" > 
          <input type="text" name="keywords2" class="am-form-field" placeholder="请输入店铺名称" /> 
-         <span class="am-input-group-btn"> <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="submit">搜索</button> </span> 
+         <span class="am-input-group-btn"> 
+            <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="submit">搜索</button> 
+         </span> 
         </div> 
        </div>
       </form> 

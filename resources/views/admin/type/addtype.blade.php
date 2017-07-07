@@ -39,6 +39,10 @@
             <select name="good_id" data-am-selected="{searchBox: 1}" style="display: none;">
               <option value="0">==顶级分类==</option>
               @foreach($data as $k=>$v)
+                  <?php 
+                  $n = substr_count( $v['type_npath'] ,'-')-2;
+                  $v['type_name'] = str_repeat('&nbsp;',$n*8).'|--'.$v['type_name'];
+                  ?>
                   <option value="{{ $v['type_id'] }}">{{ $v['type_name'] }}</option>
               @endforeach   
              </select> 
