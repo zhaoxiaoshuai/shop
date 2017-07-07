@@ -108,7 +108,7 @@
                 btn: ['确定','取消'] //按钮
             }, function(){ 
                 //           url ==> admin/user/{user}   http://project182.com/admin/user/2
-                $.post("{{url('admin/atype/1')}}/"+type_id,{'_method':'DELETE','_token':"{{csrf_token()}}"},function(data){
+                $.post("{{url('admin/atype/')}}/"+type_id,{'_method':'DELETE','_token':"{{csrf_token()}}"},function(data){
                 if(data.status == 0){
                     location.href = location.href;
                     layer.msg(data.msg, {icon: 6});

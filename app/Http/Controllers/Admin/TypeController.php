@@ -157,20 +157,36 @@ class TypeController extends Controller
     {
 
        //删除对应id的用户
-       $re =  User::where('user_id',$id)->delete();
-       //0表示成功 其他表示失败
-       if($re){
-           $data = [
-                'status'=>0,
-                'msg'=>'删除成功！'
-           ];
-       }else{
-           $data = [
-               'status'=>1,
-               'msg'=>'删除失败！'
-           ];
-       }
-       return $data;
+
+        $res = DB::table('type')->where('type_id', $id)->delete();
+        // $res1 = DB::table('type')->value('goods_id',$id);
+        // $goods = DB::
+
+
+        // dd($res);
+        // $types = DB::table() 
+        //0表示成功 其他表示失败
+       //  if($res){
+       //     $data = [
+       //          'status'=>0,
+       //          'msg'=>'删除成功！'
+       //     ];
+       //  }else{
+       //     $data = [
+       //         'status'=>1,
+       //         'msg'=>'删除失败！'
+       //     ];
+       // }
+       // return $data;
+
+       // if($res == $res1){
+       //      $data = [
+       //          'status'=>0,
+       //          'msg'=>'分类下面有商品,不能删除!'
+       //      ];
+       //  }
+       //  return $data;
+
+
     }
-    }
-// }
+}
