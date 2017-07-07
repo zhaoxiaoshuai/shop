@@ -117,13 +117,13 @@ class ConfController extends Controller
         $ico = Input::file('conf_ico');
         if($ico->isValid()) {
             $entension = $ico->getClientOriginalExtension();//上传文件的后缀名
-            $newName = date('YmdHis') . mt_rand(1000, 9999) . '.' . $entension;
+            $newName = 'favicon.ico';
 
             //将图片上传到本地服务器
-            $path = $ico->move(public_path() . '/uploads/config/', $newName);
+            $path = $ico->move(public_path() . '/', $newName);
 
             //返回文件的上传路径
-            $icopath = 'uploads/config/' . $newName;
+            $icopath =  $newName;
             return $icopath;
         }
     }
