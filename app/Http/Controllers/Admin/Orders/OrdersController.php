@@ -70,7 +70,7 @@ class OrdersController extends Controller
      */
     public function show($id)
     {
-        //
+        echo 1111;
     }
 
     /**
