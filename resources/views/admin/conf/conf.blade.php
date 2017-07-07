@@ -41,8 +41,8 @@
                         <div class="am-u-sm-9">
                             <div class="am-form-group am-form-file">
                                 <div class="tpl-form-file-img">
+                                    <img src="http://php182.oss-cn-beijing.aliyuncs.com/{{$data->conf_logo}}" name="logo_pic" id="logo_pic" alt="" >
 
-                                    <img src="{{ url(''.$data->conf_logo) }}" name="logo_pic" id="logo_pic" alt="" >
                                 </div>
                                 <button type="button" class="am-btn am-btn-danger am-btn-sm">
                                     <i class="am-icon-cloud-upload"></i><font><font> 修改网站LOGO</font></font></button>
@@ -75,7 +75,7 @@
 
                                     $.ajax({
                                         type: "POST",
-                                        url: "{{url('upload')}}",
+                                        url: "/upload",
                                         data: formData,
                                         async: true,
                                         cache: false,
@@ -84,7 +84,7 @@
                                         success: function(data) {
                                             // console.log(data);
                                             // alert("上传成功");
-                                            $('#logo_pic').attr('src','{{url('')}}/'+data);
+                                            $('#logo_pic').attr('src','http://php182.oss-cn-beijing.aliyuncs.com/'+data);
 //                                            $('#logo_thumb').val(data);
 
                                         },
@@ -103,7 +103,7 @@
                             <div class="am-form-group am-form-file">
                                 <div class="tpl-form-file-img">
                                     {{--<input type="text" name="ico_thumb" id="ico_thumb" style="width:300px;">--}}
-                                    <img src="{{ url(''.$data->conf_ico) }}" name="ico_pic" id="ico_pic" alt="" style="width:48px;" >
+                                    <img src="http://php182.oss-cn-beijing.aliyuncs.com/{{$data->conf_favicon}}" name="ico_pic" id="ico_pic" alt="" style="width:48px;" >
                                 </div>
                                 <button type="button" class="am-btn am-btn-danger am-btn-sm">
                                     <i class="am-icon-cloud-upload"></i><font><font> 修改网站缩略标志</font></font></button>
@@ -139,7 +139,7 @@
 
                             $.ajax({
                                 type: "POST",
-                                url: "{{url('upload2')}}",
+                                url: "/upload2",
                                 data: formDatas,
                                 async: true,
                                 cache: false,
@@ -148,7 +148,7 @@
                                 success: function(data) {
                                     // console.log(data);
                                     // alert("上传成功");
-                                    $('#ico_pic').attr('src','{{url('')}}/'+data);
+                                    $('#ico_pic').attr('src','http://php182.oss-cn-beijing.aliyuncs.com/'+data);
 //                                            $('#logo_thumb').val(data);
 
                                 },

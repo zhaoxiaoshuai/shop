@@ -198,11 +198,14 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
 <<<<<<< HEAD
+<<<<<<< HEAD
 //        'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
 =======
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
 >>>>>>> 45263e71c47f4f7e4ec00ca0e7d5b0c80d55fc9c
+=======
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
+>>>>>>> 1a3dfcb5117cc9e5c25da88f9975b6e93081346b
     ],
-
 ];
