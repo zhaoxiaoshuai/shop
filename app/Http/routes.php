@@ -34,7 +34,12 @@ Route::get('admin/captcha/{num}.jpg','Admin\LoginController@captcha')->where('na
 Route::resource('admin/admin','Admin\adminController');
 //角色控制器
 Route::resource('admin/role','Admin\roleController');
-
+//商品管理
+Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
+    Route::resource('admin','adminController');
+    Route::resource('good','GoodController');
+    Route::any('upload','GoodController@upload');
+});
 //友情链接
 Route::resource('link','Admin\LinkController');
 
@@ -43,11 +48,11 @@ Route::resource('config','Admin\ConfController');
 Route::any('upload','Admin\ConfController@upload');//LOGO图片上传
 Route::any('upload2','Admin\ConfController@upload2');//缩略图片上传
 
-// 后台商家信息路由
+// 商家信息路由
 Route::resource('admin/astore','Admin\StoreController');
 Route::get('admin/astoreindex/{x}','Admin\StoreController@astoreindex');
 
-// 后台商家店铺路由
+// 商家店铺路由
 // Route::resource('admin/merchant','Admin\MerchantController');
 // 前台商家路由
 Route::resource('hstore','Home\StoreController');

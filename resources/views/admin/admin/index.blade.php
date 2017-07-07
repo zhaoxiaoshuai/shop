@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @extends('layouts.admin')
 @section('content')
 <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
