@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 
+
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use DB;
@@ -16,11 +17,21 @@ class TypeController extends Controller
      * @author 邹帅
      * @Date 2017-7-4 15:46
      */
-    public function index()
-    {
-        $data = DB::table('type')->orderBy('type_npath', 'asc')->get();
-        
-        return view('admin.type.viewtype',['data'=>$data]);
+
+    public function index(Request $request)
+    {   
+        //如果请求携带keywords参数说明是通过查询进入方法的，否则是通过用户列表导航进入的
+        if($request->has('keywords')){
+            $key = trim($request->input('keywords')) ;
+            $type = DB::table('type')->where('type_name','like',"%".$key."%")->paginate(8);
+            return view('admin.type.viewtype',['data'=>$type,'key'=>$key]);
+        }else{
+            //查询出type表的所有数据
+             $data = DB::table('type')->orderBy('type_npath', 'asc')->paginate(8);
+            
+            return view('admin.type.viewtype',['data'=>$data]);
+        }
+
     }
 
     /**
@@ -81,7 +92,6 @@ class TypeController extends Controller
         }else{
              return back()->with('error','添加失败');
 
-           
         }
 
     }
@@ -121,14 +131,24 @@ class TypeController extends Controller
     public function update(Request $request, $id)
     {
 
-        // $data = DB::table('type')->where('type_id',$id)->get();
+
+        $this->validate($request, [
+            'type_name' => 'required',
+        ],[
+            'type_name.required' => '商品名称必填',
+        ]);
+
         $input = $request->except('_token','_method');
+        
         $res = DB::table('type')->where('type_id', $id)->update($input);
-        if($res){
+        if ( $res) {
             return redirect('admin/atype');
+             
         }else{
-             return back()->with('error','添加失败');
+             return back()->with('error','修改失败');
         }
+
+
     }
 
     /**
@@ -140,22 +160,22 @@ class TypeController extends Controller
     public function destroy($id)
     {
 
-            echo 11111111;
-//          //删除对应id的用户
-//        $re =  User::where('user_id',$id)->delete();
-// //       0表示成功 其他表示失败
-//        if($re){
-//            $data = [
-//                 'status'=>0,
-//                 'msg'=>'删除成功！'
-//            ];
-//        }else{
-//            $data = [
-//                'status'=>1,
-//                'msg'=>'删除失败！'
-//            ];
-//        }
-//        return $data;
+       //删除对应id的用户
+       $re =  User::where('user_id',$id)->delete();
+       //0表示成功 其他表示失败
+       if($re){
+           $data = [
+                'status'=>0,
+                'msg'=>'删除成功！'
+           ];
+       }else{
+           $data = [
+               'status'=>1,
+               'msg'=>'删除失败！'
+           ];
+       }
+       return $data;
+
     }
     }
 // }

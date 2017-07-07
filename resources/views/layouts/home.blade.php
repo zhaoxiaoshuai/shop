@@ -139,7 +139,8 @@
                             </ul>
                         </div>
                     </div>    
-                </div>
+                </div>|
+
                 <div class="ss_list">
                 	<a href="#">网站导航</a>
                     <div class="ss_list_bg">
@@ -154,6 +155,7 @@
                 </div>
             </span>
             <div class="ss_list">
+
         <a href="javascript:void(0)">我的小店</a>
         <div class="ss_list_bg">
             <div class="s_city_t"></div>
@@ -166,6 +168,7 @@
             </div>
         </div>
     </div>
+
             <span class="fr">|&nbsp;<a href="#">手机版&nbsp;<img src="{{ asset('home/assets/images/s_tel.png') }}" align="absmiddle" /></a></span>
         </span>
     </div>
@@ -175,11 +178,6 @@
 @section('content')
 
     @show
-
-
-
-
-
 <!--Begin Footer Begin -->
 <div class="b_btm_bg b_btm_c">
     <div class="b_btm">
