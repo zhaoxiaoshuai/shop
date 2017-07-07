@@ -62,7 +62,7 @@
           <label class="am-u-sm-3 am-form-label">是否显示 :
             <span class="tpl-form-line-small-title"></span></label>
           <div class="am-u-sm-9">
-            <input name="type_show" type="radio" value="1" />是&nbsp&nbsp
+            <input name="type_show" type="radio" value="1" />是&nbsp;&nbsp;
             <input name="type_show" type="radio" value="2" checked="checked" />否
         </div><br></br>
 
@@ -70,8 +70,8 @@
           <label class="am-u-sm-3 am-form-label">设为首页推荐 :
             <span class="tpl-form-line-small-title"></span></label>
           <div class="am-u-sm-9">
-            <input name="type_recommend" type="checkbox" value="1" />精品&nbsp&nbsp
-            <input name="type_recommend" type="checkbox" value="2" checked="checked" />最新&nbsp&nbsp
+            <input name="type_recommend" type="checkbox" value="1" />精品&nbsp;&nbsp;
+            <input name="type_recommend" type="checkbox" value="2" checked="checked" />最新&nbsp;&nbsp;
             <input name="type_recommend" type="checkbox" value="3" />热门
         </div><br></br>
         

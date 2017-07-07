@@ -3,6 +3,7 @@
 
 @section('content')
     @include('layouts.home_nav')
+
     <!--Begin Menu Begin-->
     <div class="menu_bg">
         <div class="menu">

@@ -9,6 +9,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Model\Conf;
 use App\Services\OSS;
+
 class ConfController extends Controller
 {
     /**
@@ -81,6 +82,7 @@ class ConfController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->except('_token','_method');
+
         $data['conf_logo'] = 'uploads/config/'.$data['conf_logo'];
         $data['conf_ico'] = 'uploads/config/'.$data['conf_ico'];
         $res = Conf::where('id',$id)->update($data);
@@ -89,6 +91,7 @@ class ConfController extends Controller
         }else{
             return back()->with('error','修改失败');
         }
+
     }
     /**
      *LOGO 图片上传
@@ -105,10 +108,12 @@ class ConfController extends Controller
             $newName = date('YmdHis') . mt_rand(1000, 9999) . '.' . $entension;
 
             //将图片上传到本地服务器
+
             // $path = $logo->move(public_path() . '/uploads/config/', $newName);
 
             //将图片上传到oss上传
             $result = OSS::upload('uploads/config/'.$newName, $logo->getRealPath());
+
            //回文件的上传路径
             $logopath = 'uploads/config/' . $newName;
             return $logopath;
@@ -125,6 +130,7 @@ class ConfController extends Controller
         $ico = Input::file('conf_ico');
         if($ico->isValid()) {
 
+
 //            $entension = $ico->getClientOriginalExtension();//上传文件的后缀名
 
             $newName = 'favicon.ico';
@@ -137,6 +143,7 @@ class ConfController extends Controller
 
             //返回文件的上传路径
             $icopath =  $newName;
+
             return $icopath;
         }
     }

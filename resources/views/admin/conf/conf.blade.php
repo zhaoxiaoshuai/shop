@@ -41,8 +41,8 @@
                         <div class="am-u-sm-9">
                             <div class="am-form-group am-form-file">
                                 <div class="tpl-form-file-img">
-
                                     <img src="http://php182.oss-cn-beijing.aliyuncs.com/{{$data->conf_logo}}" name="logo_pic" id="logo_pic" alt="" >
+
                                 </div>
                                 <button type="button" class="am-btn am-btn-danger am-btn-sm">
                                     <i class="am-icon-cloud-upload"></i><font><font> 修改网站LOGO</font></font></button>
@@ -104,7 +104,6 @@
                                 <div class="tpl-form-file-img">
                                     {{--<input type="text" name="ico_thumb" id="ico_thumb" style="width:300px;">--}}
                                     <img src="http://php182.oss-cn-beijing.aliyuncs.com/{{$data->conf_favicon}}" name="ico_pic" id="ico_pic" alt="" style="width:48px;" >
-
                                 </div>
                                 <button type="button" class="am-btn am-btn-danger am-btn-sm">
                                     <i class="am-icon-cloud-upload"></i><font><font> 修改网站缩略标志</font></font></button>

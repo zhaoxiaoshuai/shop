@@ -75,23 +75,16 @@
         </table> 
        </div>
        <?php
-                    $key1 = empty($key1)?'':$key1;
-                	
+                    $key = empty($key)?'':$key;
+                  
                     ?>
-       <div class="am-u-lg-12 am-cf" style="float:left;">
-        {!! $data->appends(['keywords1' => $key1])->render() !!}
-        <div class="am-fr"> 
-         <ul class="am-pagination tpl-pagination"> 
-          <li class="am-disabled"><a href="#">&laquo;</a></li> 
-          <li class="am-active"><a href="#">1</a></li> 
-          <li><a href="#">2</a></li> 
-          <li><a href="#">3</a></li> 
-          <li><a href="#">4</a></li> 
-          <li><a href="#">5</a></li> 
-          <li><a href="#">&raquo;</a></li> 
-         </ul> 
+       <div class="am-u-lg-12 am-cf" >
+       <style>
+        .am-rf .pagination li{float:left;fone-size:20px;padding-left:10px;}
+    </style>
+        <div class='am-rf'>
+          {!! $data->appends(['keywords1' => $key1,'keywords2'=>$key2])->render() !!}
         </div> 
-       </div> 
       </div> 
      </div> 
     </div> 

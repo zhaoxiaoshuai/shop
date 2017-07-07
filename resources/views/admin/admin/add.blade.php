@@ -4,7 +4,9 @@
 		<div class="bg-danger">
 		    <ul>
 		        @foreach ($errors->all() as $error)
+
 		            <li  style="background:#f0ad4e"  >{{ $error }}</li>
+
 		        @endforeach
 		    </ul>
 		</div>

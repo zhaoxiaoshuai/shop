@@ -16,6 +16,7 @@ DB::listen(function($sql, $bindings, $time) {
             });
 
 
+
 /*==========================后台===============================*/
 //后台登录
 Route::get('admin/login','Admin\LoginController@login');
@@ -59,6 +60,7 @@ Route::get('admin/astoreindex/{x}','Admin\StoreController@astoreindex');
 Route::resource('admin/atype','Admin\TypeController');
 
 
+
 /*==========================前台===============================*/
 //前台登录
 Route::get('home/login','Home\LoginController@login');
@@ -86,4 +88,9 @@ Route::get('home/user/phonecreateto','Home\UserController@phonecreateto');
 Route::get('/', function () {
     return view('home.index');
 });
+
+// 前台商家路由
+Route::resource('home/hstore','Home\StoreController');
+// 入驻市场路由
+Route::get('home/MerSettled','Home\StoreController@MerSettled');
 

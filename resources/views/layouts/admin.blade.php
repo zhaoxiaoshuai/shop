@@ -333,21 +333,13 @@
                         <i class="am-icon-gear sidebar-nav-link-logo"></i> 系统配置
                     </a>
                 </li>
-               
             </ul>
-
-            
-                
-        
-
         </div>
-        
         <!-- 内容区域 -->
         <div class="tpl-content-wrapper"  style="color: #868E8E"  >
         @section('content')
         @show
         </div>
-
     </div>
     </div>
     <script src="{{asset('admin/assets/js/amazeui.min.js')}}"></script>
