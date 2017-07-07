@@ -17,6 +17,7 @@ class TypeController extends Controller
      * @author 邹帅
      * @Date 2017-7-4 15:46
      */
+
     public function index(Request $request)
     {   
         //如果请求携带keywords参数说明是通过查询进入方法的，否则是通过用户列表导航进入的
@@ -90,6 +91,7 @@ class TypeController extends Controller
              
         }else{
              return back()->with('error','添加失败');
+
         }
 
     }
@@ -129,6 +131,7 @@ class TypeController extends Controller
     public function update(Request $request, $id)
     {
 
+
         $this->validate($request, [
             'type_name' => 'required',
         ],[
@@ -144,6 +147,7 @@ class TypeController extends Controller
         }else{
              return back()->with('error','修改失败');
         }
+
 
     }
 
@@ -186,7 +190,6 @@ class TypeController extends Controller
        //      ];
        //  }
        //  return $data;
-
 
     }
 }

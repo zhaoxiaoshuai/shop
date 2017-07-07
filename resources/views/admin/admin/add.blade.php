@@ -4,7 +4,9 @@
 		<div class="bg-danger">
 		    <ul>
 		        @foreach ($errors->all() as $error)
-		            <li>{{ $error }}</li>
+
+		            <li  style="background:#f0ad4e"  >{{ $error }}</li>
+
 		        @endforeach
 		    </ul>
 		</div>
@@ -61,7 +63,7 @@
 	            <div class="am-form-group">
 	                <label for="user-phone" class="am-u-sm-3 am-form-label">角　　色</label>
 	                <div class="am-u-sm-9">
-	                    <select data-am-selected="{searchBox: 1}" name="role_id" style="display: none;">
+	                    <select data-am-selected="{searchBox: 0}" name="role_id" style="display: none;">
 	                      <option value="1">商品管理员</option>
 	                      <option value="2">店铺管理员</option>
 	                    </select>

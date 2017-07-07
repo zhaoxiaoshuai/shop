@@ -10,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" type="image/png" href="{{asset('admin/assets/i/favicon.png')}}">
     <link rel="apple-touch-icon-precomposed" href="{{asset('admin/assets/i/app-icon72x72@2x.png')}}">
     <meta name="apple-mobile-web-app-title" content="Amaze UI" />
@@ -19,6 +20,7 @@
     <link rel="stylesheet" href="{{asset('admin/assets/css/app.css')}}">
     <script src="{{asset('admin/assets/js/jquery.min.js')}}"></script>
     <script src="{{asset('layer/layer.js')}}"></script>
+    <script type="text/javascript" src="{{asset('layer/layer.js')}}"></script>
 </head>
 <body data-type="index">
     <script src="{{asset('admin/assets/js/theme.js')}}"></script>
@@ -240,9 +242,44 @@
                         </li>
                     </ul>
                 </li>
+                 <li class="sidebar-nav-link">
+                    <a href="javascript:;" class="sidebar-nav-sub-title">
+                        <i class="am-icon-table sidebar-nav-link-logo"></i> 商品管理
+                        <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                    </a>
+                    <ul class="sidebar-nav sidebar-nav-sub">
+                        <li class="sidebar-nav-link">
+                            <a href="{{url('admin/good/create')}}">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 添加商品
+                            </a>
+                        </li>
+
+                        <li class="sidebar-nav-link">
+                            <a href="{{url('admin/good')}}">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 商品列表
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="sidebar-nav-link">
                     <a href="javascript:;" class="sidebar-nav-sub-title">
-                        <i class="am-icon-table sidebar-nav-link-logo"></i> 友情链接
+                        <i class="am-icon-table sidebar-nav-link-logo"></i> 订单管理
+                        <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                    </a>
+                    <ul class="sidebar-nav sidebar-nav-sub">
+                        <li class="sidebar-nav-link">
+                            <a href="{{url('admin/orders')}}">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 订单列表
+                            </a>
+                            <a href="{{url('admin/orders')}}">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 订单详情
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sidebar-nav-link">
+                    <a href="javascript:;" class="sidebar-nav-sub-title">
+                        <i class="am-icon-link sidebar-nav-link-logo"></i> 友情链接
                         <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
                     </a>
                     <ul class="sidebar-nav sidebar-nav-sub">
@@ -261,7 +298,7 @@
                 </li>
                 <li class="sidebar-nav-link">
                     <a href="javascript:;" class="sidebar-nav-sub-title">
-                        <i class="am-icon-table sidebar-nav-link-logo"></i> 权限管理
+                        <i class="am-icon-gear sidebar-nav-link-logo"></i> 权限管理
                         <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
                     </a>
                     <ul class="sidebar-nav sidebar-nav-sub">
@@ -296,16 +333,13 @@
                         <i class="am-icon-gear sidebar-nav-link-logo"></i> 系统配置
                     </a>
                 </li>
-               
             </ul>
         </div>
-        
         <!-- 内容区域 -->
         <div class="tpl-content-wrapper"  style="color: #868E8E"  >
         @section('content')
         @show
         </div>
-
     </div>
     </div>
     <script src="{{asset('admin/assets/js/amazeui.min.js')}}"></script>

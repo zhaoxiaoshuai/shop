@@ -48,6 +48,7 @@
             </select>
           </div>
         </div>
+
         <div class="am-form-group">
           <label class="am-u-sm-3 am-form-label">关键字 :
             <span class="tpl-form-line-small-title"></span></label>
@@ -62,7 +63,7 @@
             <?php
               $res = $v['type_show'];
             ?>
-            <input name="type_show" type="radio" <?php if($res == '1'){echo 'checked';}?>  value="{{ $v['type_show'] }}" />是&nbsp&nbsp
+            <input name="type_show" type="radio" <?php if($res == '1'){echo 'checked';}?>  value="{{ $v['type_show'] }}" />是&nbsp;&nbsp;
             <input name="type_show" type="radio" <?php if($res == '2'){echo 'checked';}?> value="{{ $v['type_show'] }}"  />否
         </div><br></br>
 
@@ -73,9 +74,10 @@
           <?php
             $res = $v['type_recommend']
           ?>
-            <input name="type_recommend" <?php if($res == '1'){echo 'checked';}?> type="radio" value="{{ $v['type_recommend'] }}" />精品&nbsp&nbsp
-            <input name="type_recommend" <?php if($res == '2'){echo 'checked';}?> type="radio" value="{{ $v['type_recommend'] }}" checked="checked" />最新&nbsp&nbsp
+            <input name="type_recommend" <?php if($res == '1'){echo 'checked';}?> type="radio" value="{{ $v['type_recommend'] }}" />精品&nbsp;&nbsp;
+            <input name="type_recommend" <?php if($res == '2'){echo 'checked';}?> type="radio" value="{{ $v['type_recommend'] }}" checked="checked" />最新&nbsp;&nbsp;
             <input name="type_recommend" <?php if($res == '3'){echo 'checked';}?> type="radio" value="{{ $v['type_recommend'] }}" />热门
+
         </div><br></br>
         
         
