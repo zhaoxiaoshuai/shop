@@ -93,5 +93,3 @@ Route::get('/', function () {
 Route::resource('home/hstore','Home\StoreController');
 // 入驻市场路由
 Route::get('home/MerSettled','Home\StoreController@MerSettled');
-
-$Route::
