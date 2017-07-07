@@ -15,12 +15,6 @@ DB::listen(function($sql, $bindings, $time) {
                 // dump($bindings);
             });
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
-
 
 /*==========================后台===============================*/
 //管理员管理
@@ -31,10 +25,6 @@ Route::resource('admin/role','Admin\roleController');
 //后台登录页
 Route::get('/admin/login',function(){
 	return view('admin.login');
-});
-//后台首页
-Route::get('/admin/index',function(){
-    return view('admin.index');
 });
 
 //友情链接
@@ -49,10 +39,15 @@ Route::resource('admin/astore','Admin\StoreController');
 Route::get('admin/astoreindex/{x}','Admin\StoreController@astoreindex');
 // 后台商家店铺路由
 // Route::resource('admin/merchant','Admin\MerchantController');
-// 前台商家路由
-Route::resource('hstore','Home\StoreController');
+
 // 后台分类管理
 Route::resource('admin/atype','Admin\TypeController');
 
 
 
+
+/*==========================前台===============================*/
+//前台首页
+Route::get('/', function () {
+    return view('home.index');
+});
