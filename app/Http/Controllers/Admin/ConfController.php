@@ -81,8 +81,14 @@ class ConfController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->except('_token','_method');
-//        $res = Conf::where('id',$id)->update($data);
-        dump($data);
+        $data['conf_logo'] = 'uploads/config/'.$data['conf_logo'];
+        $data['conf_ico'] = 'uploads/config/'.$data['conf_ico'];
+        $res = Conf::where('id',$id)->update($data);
+        if($res){
+            return redirect('config/1/edit');
+        }else{
+            return back()->with('error','修改失败');
+        }
     }
     /**
      *LOGO 图片上传
@@ -116,7 +122,9 @@ class ConfController extends Controller
         //将上传的文件移动到指定目录,并为新文件命名
         $ico = Input::file('conf_ico');
         if($ico->isValid()) {
-            $entension = $ico->getClientOriginalExtension();//上传文件的后缀名
+
+//            $entension = $ico->getClientOriginalExtension();//上传文件的后缀名
+
             $newName = 'favicon.ico';
 
             //将图片上传到本地服务器
