@@ -39,6 +39,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 	    //商品管理
 	    Route::resource('good','GoodController');
 	    Route::any('upload','GoodController@upload');
+	    Route::any('good/detail/{id}','GoodController@detail');
 	    //角色控制器
 	    Route::resource('role','roleController');
 		//管理员管理

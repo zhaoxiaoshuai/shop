@@ -10,10 +10,7 @@
                     <div class="am-form-group">
                         <div class="am-btn-toolbar">
                             <div class="am-btn-group am-btn-group-xs">
-                                <button type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
-                                <button type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-save"></span> 保存</button>
-                                <button type="button" class="am-btn am-btn-default am-btn-warning"><span class="am-icon-archive"></span> 审核</button>
-                                <button type="button" class="am-btn am-btn-default am-btn-danger"  id="del_del"><span class="am-icon-trash-o"></span> 删除</button>
+                                <button type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span><a href="{{url('admin/good/create')}}"> 新增商品</button>
                             </div>
                         </div>
                     </div>
@@ -34,7 +31,7 @@
                 <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
                     <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
                         <form action="{{url('/admin/good')}}" method="get">
-                            <input type="text" class="am-form-field " name="keywords" style="width:250px">
+                            <input type="text" class="am-form-field " name="keywords" style="width:60%">
                             <span class="am-input-group-btn">
                             <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="submit"></button>
                             </span>
@@ -48,33 +45,10 @@
                             <th class="tc" width="5%"><input type="checkbox" name="" id="inp"></th>
                             <th>商品ID</th>
                             <th>商品名称</th>
-                            <th>商品标签</th>
-                            <th>商品类别ID</th>
-                            <th>商铺ID</th>
-                            <th>商铺商品分类</th>
-                            <th>商品价格</th>
-                            <th>商品库存</th>
-                            <th>商品销量</th>
-                            <th>商品浏览量</th>
                             <th>商品状态</th>
                             <th>商品创建时间</th>
                             <th>操作</th>
                         </tr>
-                        {{--<script>--}}
-                            {{--//全选按钮--}}
-                            {{--$(function(){--}}
-                                {{--$('#inp').click(function(){--}}
-                                    {{--$('#example-r').find('td').find('[type=checkbox]').prop('checked',$(this).prop('checked'));--}}
-                                {{--});--}}
-                               {{--$('#del_del').click(function () {--}}
-
-                               {{--})--}}
-
-                            {{--})--}}
-
-
-
-                        {{--</script>--}}
                         </thead>
                         <tbody>
                             @foreach ($data as $k=>$v)
@@ -82,15 +56,13 @@
                                 <td width="5%"><input type="checkbox" name="" class="cls"></td>
                                 <td>{{$v->good_id}}</td>
                                 <td>{{$v->good_name}}</td>
-                                <td>{{$v->good_label}}</td>
-                                <td>{{$v->good_type_id}}</td>
-                                <td>{{$v->good_store_id}}</td>
-                                <td>{{$v->good_store_type_id}}</td>
-                                <td>{{$v->good_price}}</td>
-                                <td>{{$v->good_count}}</td>
-                                <td>{{$v->good_salecnt}}</td>
-                                <td>{{$v->good_vcnt}}</td>
-                                <td>{{$v->good_status}}</td>
+                                @if($v->good_status==1)
+                                    <td>上架</td>
+                                @elseif($v->good_status==2)
+                                    <td>下架</td>
+                                @elseif($v->good_status==0)
+                                    <td>新品</td>
+                                @endif
                                 <td>{{date('Y-m-d H:i:s',$v->good_ctime)}}</td>
                                 <td>
                                     <div class="tpl-table-black-operation">
@@ -99,6 +71,9 @@
                                         </a>
                                         <a href="javascript:;" onclick="DelGood({{$v->good_id}})" class="tpl-table-black-operation-del">
                                             <i class="am-icon-trash"></i> 删除
+                                        </a>
+                                        <a href="{{url('admin/good/detail').'/'.$v->good_id}}">
+                                            <i class="am-icon-pencil"></i> 查看
                                         </a>
                                     </div>
                                 </td>
