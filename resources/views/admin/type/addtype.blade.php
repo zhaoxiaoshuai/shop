@@ -36,7 +36,7 @@
             <span class="tpl-form-line-small-title"></span>
           </label>
           <div class="am-u-sm-9">
-            <select name="good_id" data-am-selected="{searchBox: 1}" style="display: none;">
+            <select name="pid" data-am-selected="{searchBox: 1}" style="display: none;">
               <option value="0">==顶级分类==</option>
               @foreach($data as $k=>$v)
                   <?php 
