@@ -51,6 +51,10 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 	});
 });
 
+//订单详情
+Route::resource('admin/detail','Admin\DetailController');
+
+
 //友情链接
 Route::resource('admin/link','Admin\LinkController');
 //轮播图路由

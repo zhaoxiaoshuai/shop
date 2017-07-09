@@ -70,10 +70,7 @@ class OrdersController extends Controller
      */
     public function show()
     {
-        //订单详情列表
-        $data = Detail::join('orders','detail.order_id','=','orders.order_id')->join('goods','goods.good_id','=','detail.good_id')->get();
-        dd($data);
-        // return view('admin.orders')
+
     }
 
     /**

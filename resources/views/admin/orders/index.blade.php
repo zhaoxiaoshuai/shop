@@ -64,6 +64,11 @@
                                                 </i>
                                                 修改订单
                                             </a>
+                                            <a href="{{url('admin/detail/'.$v->order_id)}}" >
+                                                <i class="am-icon-pencil">
+                                                </i>
+                                                订单详情
+                                            </a>
                                         </div>
                                     </td>
                                 </tr>

@@ -223,9 +223,7 @@
                             <a href="{{url('admin/orders')}}">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 订单列表
                             </a>
-                            <a href="{{url('admin/orders')}}">
-                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 订单详情
-                            </a>
+                           
                         </li>
                     </ul>
                 </li>
