@@ -40,6 +40,8 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 });
 //订单管理
 Route::resource('admin/orders','Admin\Orders\OrdersController');
+//订单详情
+Route::resource('admin/detail','Admin\DetailController');
 
 //友情链接
 Route::resource('link','Admin\LinkController');
