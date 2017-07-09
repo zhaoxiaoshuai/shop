@@ -11,7 +11,17 @@
      <div class="widget-function am-fr"> 
       <a href="javascript:;" class="am-icon-cog"></a> 
      </div> 
-    </div> 
+    </div>
+    @if (count($errors) > 0)
+    <div class="btn btn-lg btn-danger">
+        <font size="5">添加失败</font>
+        <ul>
+        @foreach($errors -> all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+        </ul>
+    </div>
+  @endif 
     <div class="widget-body  widget-body-lg am-fr"> 
      <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black " id="example-r"> 
       <thead> 
@@ -28,10 +38,6 @@
        </tr> 
       </thead> 
       <tbody>
-      <?php 
-      	$arr = ['1'=>'未审核','审核通过','审核不通过'];
-      	$arr2 = ['1'=>'初级','中级','高级'];
-      ?>
       @foreach($data as $k=>$v)
        <tr class="gradeX"> 
         <td>{{ $v['user_name'] }}</td> 

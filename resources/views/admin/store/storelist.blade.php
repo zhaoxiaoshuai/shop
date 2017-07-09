@@ -10,7 +10,7 @@
         文章列表
        </div> 
       </div>
-      <form action="{{url('admin/type')}}" method="get">
+      <form action="{{url('admin/astore')}}" method="get">
       	<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
        <div>搜索</div> 
         <div action="{{ url('admin/astore') }}" method="get" class="am-form-group tpl-table-list-select" style="margin-left:50px;margin-top:-25px;"> 
@@ -50,10 +50,7 @@
           </tr> 
          </thead> 
          <tbody>
-         <?php 
-      		$arr = ['1'=>'未审核','审核通过','审核不通过'];
-      		$arr2 = ['1'=>'初级','中级','高级'];
-      		?>
+         
       	@foreach($data as $k=>$v) 
           <tr class="gradeX"> 
           	<td>{{ $v['user_name'] }}</td> 

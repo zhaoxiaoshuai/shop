@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Model\Store;
 use App\Http\Model\merchant;
+use App\Http\Model\StoreAdmin;
+use App\Http\Model\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use DB;
+use Mail;
 
 class StoreController extends Controller
 {
@@ -57,8 +60,11 @@ class StoreController extends Controller
                 ->paginate(3); 
         }
 
+        $arr = ['1'=>'未审核','审核通过','审核不通过'];
+        $arr2 = ['1'=>'初级','中级','高级'];
+
         // 加载商家列表模块
-        return view('admin.store.storelist',['data'=>$data,'key1'=>$key1,'key2'=>$key2]);
+        return view('admin.store.storelist',['data'=>$data,'arr'=>$arr,'arr2'=>$arr2,'key1'=>$key1,'key2'=>$key2]);
 
     }
 
@@ -79,8 +85,11 @@ class StoreController extends Controller
             ->select('store_id','user_name','store_username','merchant_name','merchant_leverl','store_phone','platform_use_fee','percent','audit_status')
             ->get();
 
+        $arr = ['1'=>'未审核','审核通过','审核不通过'];
+        $arr2 = ['1'=>'初级','中级','高级'];
+
         //加载商家显示模版
-        return view('admin.store.applylist',['data'=>$store]);
+        return view('admin.store.applylist',['data'=>$store,'arr'=>$arr,'arr2'=>$arr2]);
     }
 
     /**
@@ -96,7 +105,7 @@ class StoreController extends Controller
     }
 
     /**
-     * 返回后台商家信息详情页面
+     * 返回后台商家审核通过信息详情页面
      * @param 参数
      * @return 返回值
      * @author 邹鹏
@@ -109,14 +118,18 @@ class StoreController extends Controller
             ->where('store_id',$id)
             ->join('user','store.user_id','=','user.user_id')
             ->join('merchant','store.merchant_id','=','merchant.merchant_id')
-            ->get();
-        
+            ->get()[0];
+
+        $arr = ['1'=>'未审核','审核通过','审核不通过'];
+        $arr2 = ['1'=>'初级','中级','高级'];
+        $arr3 = ['1'=>'包包','配饰','内衣','运动户外','男装','女装','家电','手机数码','鞋子','家居建材','食品'];
+
        //加载商户信息模版
-        return view('admin.store.storeindex',['data'=>$store]); 
+        return view('admin.store.storeindex',['data'=>$store,'arr'=>$arr,'arr2'=>$arr2,'arr3'=>$arr3]); 
     }
 
     /**
-     * 返回后台商家详情页面
+     * 返回后台商家申请详情页面
      * @param 参数
      * @return 返回值
      * @author 邹鹏
@@ -129,10 +142,13 @@ class StoreController extends Controller
             ->where('store_id',$id)
             ->join('user','store.user_id','=','user.user_id')
             ->join('merchant','store.merchant_id','=','merchant.merchant_id')
-            ->get();
+            ->get()[0];
+
+        $arr2 = ['1'=>'初级','中级','高级'];
+        $arr3 = ['1'=>'包包','配饰','内衣','运动户外','男装','女装','家电','手机数码','鞋子','家居建材','食品'];
         
         // 加载商家详情信息页
-        return view('admin.store.storedetails',['data'=>$store]);
+        return view('admin.store.storedetails',['data'=>$store,'arr2'=>$arr2,'arr3'=>$arr3]);
     }
 
     /**
@@ -157,30 +173,71 @@ class StoreController extends Controller
     {
         // 接收数据
         $data = $request -> except('_method','_token');
+        $data['audit_time'] = time();
 
         // 执行修改
         $res = Store::where('store_id',$id)->update($data);
         
+        // 指定字段查询
+        $store = Store::where('store_id',$id)->select('store_id','merchant_id','user_id','audit_status','store_email')->get()[0];
+        
         if($res){
-            // 指定字段查询
-            $store = Store::where('store_id',$id)->select('audit_status')->get()[0];
-            // 如果 audit_status 等于3 就执行删除
-            if($store['audit_status'] == '3'){
-                // 执行删除
-                $re = Store::where('store_id',$id)->delete();
+            
+            // 如果 audit_status 等于2 就以邮箱的通知用户
+            if ($store['audit_status'] == '2') {
 
-                return redirect('admin/astore/create');
+                $merchant = Merchant::where('merchant_id',$store['merchant_id'])->select('merchant_name')->get()[0];
+                // 获取店铺名
+                $merchant_name = $merchant['merchant_name'];
+                // 获取邮箱   通过邮箱通知用户审核不通过
+                $store_email = $store['store_email'];
+                // 调用发送邮件方法
+                self::mailto2($store_email,$merchant_name);
 
-            }else{
-
-                return redirect('admin/astore/create');
+                // 执行修改用户状态( 状态 0未激活 1已激活 2商家用户)
+                $res = User::where('user_id',$store['user_id'])->update(['status'=>'2']);
 
             }
 
-        }else{
 
-            return redirect('admin/astore/create');
+            // 如果 audit_status 等于3 就执行删除
+            if ($store['audit_status'] == '3') {
+                $merchant = Merchant::where('merchant_id',$store['merchant_id'])->select('merchant_name')->get()[0];
+                // 获取店铺名
+                $merchant_name = $merchant['merchant_name'];
+                // 获取邮箱   通过邮箱通知用户审核不通过
+                $store_email = $store['store_email'];
+                // 调用发送邮件方法
+                self::mailto1($store_email,$merchant_name);
+                
+                // 执行删除 shop_merchant
+                $mer = Merchant::where('merchant_id',$store['merchant_id'])->delete();
+                // 执行删除 shop_store_admin
+                $stoadm = StoreAdmin::where('merchant_id',$store['merchant_id'])->delete();
+                // 执行删除 shop_store
+                $sto = Store::where('store_id',$store['store_id'])->delete();
+            }
+                return redirect('admin/astore/create');
+
+        }else{
+                return redirect('admin/astore/create')->with('error','审核失败');
         }
+    }
+
+    public static function mailto1($email,$merchant_name){
+
+        Mail::send('admin.email.index1', ['merchant_name'=>$merchant_name], function ($m) use ($email) {
+           
+            $m->to($email)->subject('这是一封店铺审核通知邮件邮件!');
+        });
+    }
+
+    public static function mailto2($email,$merchant_name){
+
+        Mail::send('admin.email.index2', ['merchant_name'=>$merchant_name], function ($m) use ($email) {
+           
+            $m->to($email)->subject('这是一封店铺审核通知邮件邮件!');
+        });
     }
 
     /**
@@ -192,11 +249,17 @@ class StoreController extends Controller
      */
     public function destroy($id)
     {
-        //删除对应id的用户
-        $sto = Store::where('store_id',$id)->delete();
-        $mer = Merchant::where('merchant_id',$id)->delete();
+        // 获取shop_store表中的字段 store_id   merchant_id
+        $store = Store::where('store_id',$id)->select('store_id','merchant_id')->get()[0];
 
-        if($sto == $mer){
+        // 执行删除   shop_merchant
+        $mer = Merchant::where('merchant_id',$store['merchant_id'])->delete();
+        // 执行删除   shop_store_admin
+        $stoadm = StoreAdmin::where('merchant_id',$store['merchant_id'])->delete();
+        // 执行删除   shop_store
+        $sto = Store::where('store_id',$store['store_id'])->delete();
+
+        if($stoadm && $mer && $sto){
             // 0表示成功 其他表示失败
             $data = [
                 'status'=>0,

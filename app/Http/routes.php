@@ -90,6 +90,19 @@ Route::get('/', function () {
 });
 
 // 前台商家路由
-Route::resource('home/hstore','Home\StoreController');
-// 入驻市场路由
+// 用户提交申请信息路由
+Route::post('home/CreateStore','Home\StoreController@CreateStore');
+// 用户入驻市场路由
 Route::get('home/MerSettled','Home\StoreController@MerSettled');
+// 用户入驻市场申请页面路由1(如果用户没登录走这个路由)
+Route::get('home/MerApplication1','Home\StoreController@MerApplication1');
+// 用户入驻市场申请页面路由2
+Route::get('home/MerApplication2','Home\StoreController@MerApplication2');
+// 用户入驻市场申请页面路由3
+Route::get('home/MerApplication3','Home\StoreController@MerApplication3');
+// 用户入驻市场申请图片上传
+Route::any('home/upload1','Home\StoreController@upload1');
+Route::any('home/upload2','Home\StoreController@upload2');
+
+
+

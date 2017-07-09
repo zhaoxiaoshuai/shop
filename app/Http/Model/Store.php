@@ -8,7 +8,7 @@ class Store extends Model
 {
     //连接数据库
     protected $table = 'store';
-
+    // protected $primaryKey="store_id";
     // 获取指定字段
     // protected $fillable = ['sid','uid','mid'];
 
