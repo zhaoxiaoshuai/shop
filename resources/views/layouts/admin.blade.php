@@ -58,66 +58,10 @@
                         </li>
 
                         <!-- 新邮件 -->
-                        <li class="am-dropdown tpl-dropdown" data-am-dropdown>
-                            <a href="javascript:;" class="am-dropdown-toggle tpl-dropdown-toggle" data-am-dropdown-toggle>
-                                <i class="am-icon-envelope"></i>
-                                <span class="am-badge am-badge-success am-round item-feed-badge">4</span>
-                            </a>
-                            <!-- 弹出列表 -->
-                            <ul class="am-dropdown-content tpl-dropdown-content">
-                                <li class="tpl-dropdown-menu-messages">
-                                    <a href="javascript:;" class="tpl-dropdown-menu-messages-item am-cf">
-                                        <div class="menu-messages-ico">
-                                            <img src="{{asset('admin/assets/img/user04.png')}}" alt="">
-                                        </div>
-                                        <div class="menu-messages-time">
-                                            3小时前
-                                        </div>
-                                        <div class="menu-messages-content">
-                                            <div class="menu-messages-content-title">
-                                                <i class="am-icon-circle-o am-text-success"></i>
-                                                <span>夕风色</span>
-                                            </div>
-                                            <div class="am-text-truncate"> Amaze UI 的诞生，依托于 GitHub 及其他技术社区上一些优秀的资源；Amaze UI 的成长，则离不开用户的支持。 </div>
-                                            <div class="menu-messages-content-time">2016-09-21 下午 16:40</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="tpl-dropdown-menu-messages">
-                                    <a href="javascript:;" class="tpl-dropdown-menu-messages-item am-cf">
-                                        <i class="am-icon-circle-o"></i> 进入列表…
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                        
 
                         <!-- 新提示 -->
-                        <li class="am-dropdown" data-am-dropdown>
-                            <a href="javascript:;" class="am-dropdown-toggle" data-am-dropdown-toggle>
-                                <i class="am-icon-bell"></i>
-                                <span class="am-badge am-badge-warning am-round item-feed-badge">5</span>
-                            </a>
-
-                            <!-- 弹出列表 -->
-                            <ul class="am-dropdown-content tpl-dropdown-content">
-                                <li class="tpl-dropdown-menu-notifications">
-                                    <a href="javascript:;" class="tpl-dropdown-menu-notifications-item am-cf">
-                                        <div class="tpl-dropdown-menu-notifications-title">
-                                            <i class="am-icon-line-chart"></i>
-                                            <span> 有6笔新的销售订单</span>
-                                        </div>
-                                        <div class="tpl-dropdown-menu-notifications-time">
-                                            12分钟前
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="tpl-dropdown-menu-notifications">
-                                    <a href="javascript:;" class="tpl-dropdown-menu-notifications-item am-cf">
-                                        <i class="am-icon-bell"></i> 进入列表…
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                        
 
                         <!-- 退出 -->
                         <li class="am-text-sm">
@@ -166,14 +110,12 @@
                 <li class="sidebar-nav-link">
                     <a href="javascript:;" class="sidebar-nav-sub-title">
                         <i class="am-icon-table sidebar-nav-link-logo"></i> 入驻商管理
-                        <span class="am-badge am-badge-success am-round item-feed-badge">4</span>
                         <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
                     </a>
                     <ul class="sidebar-nav sidebar-nav-sub" style="display: none;">
                         <li class="sidebar-nav-link">
                             <a href="{{ url('admin/astore/create') }}">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span>入驻商管理申请列表
-                                <span class="am-badge am-badge-success am-round item-feed-badge">4</span>
                             </a>
                         </li>
 
@@ -201,14 +143,12 @@
                 <li class="sidebar-nav-link">
                     <a href="javascript:;" class="sidebar-nav-sub-title">
                         <i class="am-icon-table sidebar-nav-link-logo"></i> 分类管理
-                        <span class="am-badge am-badge-success am-round item-feed-badge">4</span>
                         <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
                     </a>
                     <ul class="sidebar-nav sidebar-nav-sub" style="display: none;">
                         <li class="sidebar-nav-link">
                             <a href="{{ url('admin/atype/create') }}">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span>添加分类
-                                <span class="am-badge am-badge-success am-round item-feed-badge">4</span>
                             </a>
                         </li>
 

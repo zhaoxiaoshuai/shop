@@ -40,7 +40,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 	    Route::resource('good','GoodController');
 	    Route::any('upload','GoodController@upload');
 	    Route::any('good/detail/{id}','GoodController@detail');
-	    //角色控制器
+	    //角色管理
 	    Route::resource('role','roleController');
 		//管理员管理
 		Route::resource('admin','adminController');
@@ -48,37 +48,26 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 		Route::resource('orders','Orders\OrdersController');
 		// 后台分类管理
 		Route::resource('atype','TypeController');
+		// 用户管理
+		Route::resource('user','UserController');
+		//订单详情
+		Route::resource('detail','DetailController');
+		// 商家管理
+		Route::resource('astore','StoreController');
+		Route::get('astoreindex/{x}','StoreController@astoreindex');
+		//友情链接
+		Route::resource('link','LinkController');
+		//轮播图路由
+		Route::resource('carousel','CarouselController');
+		//系统配置
+		Route::resource('config','ConfController');
+		Route::any('upload','ConfController@upload');//LOGO图片上传
+		Route::any('upload2','ConfController@upload2');//缩略图片上传
 	});
 });
 
-// 用户管理
-Route::resource('admin/user','Admin\UserController');
-//订单详情
-Route::resource('admin/detail','Admin\DetailController');
-
-
-//友情链接
-Route::resource('admin/link','Admin\LinkController');
-//轮播图路由
-Route::resource('admin/carousel','Admin\CarouselController');
-
-//系统配置
-Route::resource('admin/config','Admin\ConfController');
-Route::any('admin/upload','Admin\ConfController@upload');//LOGO图片上传
-Route::any('admin/upload2','Admin\ConfController@upload2');//缩略图片上传
-
-// 商家信息路由
-Route::resource('admin/astore','Admin\StoreController');
-Route::get('admin/astoreindex/{x}','Admin\StoreController@astoreindex');
-
 // 商家店铺路由
 // Route::resource('admin/merchant','Admin\MerchantController');
-
-
-
-
-
-
 
 /*==========================前台===============================*/
 //前台登录
@@ -126,6 +115,3 @@ Route::get('home/MerApplication3','Home\StoreController@MerApplication3');
 // 用户入驻市场申请图片上传
 Route::any('home/upload1','Home\StoreController@upload1');
 Route::any('home/upload2','Home\StoreController@upload2');
-
-
-
