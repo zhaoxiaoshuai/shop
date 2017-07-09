@@ -51,6 +51,8 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 	});
 });
 
+// 用户管理
+Route::resource('admin/user','Admin\UserController');
 //订单详情
 Route::resource('admin/detail','Admin\DetailController');
 
@@ -76,9 +78,12 @@ Route::get('admin/astoreindex/{x}','Admin\StoreController@astoreindex');
 
 
 
+
+
 /*==========================前台===============================*/
 //前台登录
 Route::get('home/login','Home\LoginController@login');
+Route::post('home/login/do','Home\LoginController@logindo');
 
 //前台用户注册
 Route::get('home/user/register','Home\UserController@register');
@@ -98,6 +103,9 @@ Route::post('home/user/create','Home\UserController@create');
 //手机添加用户
 Route::post('home/user/phonecreate','Home\UserController@phonecreate');
 Route::get('home/user/phonecreateto','Home\UserController@phonecreateto');
+
+//个人中心
+Route::get('home/user/user_details','Home\UserController@user_details');
 
 //前台首页
 Route::get('/', function () {

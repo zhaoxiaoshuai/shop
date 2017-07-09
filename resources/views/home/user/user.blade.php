@@ -4,6 +4,4 @@
 @section('content')
     @include('layouts.home_user')
 
-	
-	
-@endsection
+    @endsection

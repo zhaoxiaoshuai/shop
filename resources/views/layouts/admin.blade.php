@@ -21,6 +21,17 @@
     <script src="{{asset('admin/assets/js/jquery.min.js')}}"></script>
     <script src="{{asset('layer/layer.js')}}"></script>
     <script type="text/javascript" src="{{asset('layer/layer.js')}}"></script>
+    <style>
+        .button{
+            font-size:10px;
+            padding: 5px 15px 5px;
+            margin: 2px 2px;
+            border: none;
+            background: #24a0d6;
+            color: #FFF;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body data-type="index">
     <script src="{{asset('admin/assets/js/theme.js')}}"></script>
@@ -175,6 +186,20 @@
                 </li>
                 <li class="sidebar-nav-link">
                     <a href="javascript:;" class="sidebar-nav-sub-title">
+                        <i class="am-icon-table sidebar-nav-link-logo"></i> 用户管理
+                        {{--<span class="am-badge am-badge-success am-round item-feed-badge">4</span>--}}
+                        <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                    </a>
+                    <ul class="sidebar-nav sidebar-nav-sub" style="display: none;">
+                        <li class="sidebar-nav-link">
+                            <a href="{{ url('admin/user') }}">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span>用户列表
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sidebar-nav-link">
+                    <a href="javascript:;" class="sidebar-nav-sub-title">
                         <i class="am-icon-table sidebar-nav-link-logo"></i> 分类管理
                         <span class="am-badge am-badge-success am-round item-feed-badge">4</span>
                         <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
@@ -302,6 +327,7 @@
                         <i class="am-icon-gear sidebar-nav-link-logo"></i> 系统配置
                     </a>
                 </li>
+
             </ul>
         </div>
         <!-- 内容区域 -->

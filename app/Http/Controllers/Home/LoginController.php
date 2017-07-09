@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers\Home;
 
+use App\Http\Model\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Gregwar\Captcha\CaptchaBuilder;
+use Illuminate\Support\Facades\Crypt;
+
 
 class LoginController extends Controller
 {
@@ -16,9 +20,39 @@ class LoginController extends Controller
      */
     public function login(Request $request)
     {
+
         //加载登录视图
         return view('home.login.login');
     }
 
+    //登录验证
+    public function logindo(Request $request)
+    {
+        //获取输入的值
+        $request -> except('_token');
+        //查询用户名是否存在
+        $res = User::where('user_email',$request['username']) -> orwhere('user_phone',$request['username']) ->first();
+//        dd($res);
+        if(!$res){
+            //不存在 返回
+            return back()->with('error','用户不存在');
+        }else{
+            //存在 查询密码是否正确
+            if(Crypt::decrypt($res['user_password'])!=$request['user_password'])
+            {
+                //不正确 返回
+                return back()->with('errors','账号或密码错误');
+            }else{
+                if($res['status']>0){
+                    //加入session
+                    session(['logins'=>$res]);
+                    //正确 返回主页
+                    return redirect('/');
+                }else{
+                    return back()->with('activation','请激活后重新登录');
+                }
 
+            }
+        }
+    }
 }

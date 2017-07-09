@@ -66,11 +66,11 @@
                                 var res = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
                                 var email = $('#email').val();
                                 if(email==''){
-                                    layer.alert('邮箱不能为空');
+                                    layer.msg('邮箱不能为空',{icon:2});
                                     return false;
                                 }
                                 if(!res.test(email)){
-                                    layer.alert('请输入正确的邮箱格式');
+                                    layer.msg('请输入正确的邮箱格式',{icon:5});
                                     return false;
                                 }else{
                                     $.get('emailajax',{email:email},function(data){
@@ -89,7 +89,7 @@
                                 var res = /^[A-Za-z0-9]{6,20}$/;
                                 var password = $('#password').val();
                                 if(!res.test(password)){
-                                    layer.alert('请输入6-18位,小写字母,大写字母,数字三种组合的密码');
+                                    layer.msg('请输入6-18位,小写字母,大写字母,数字三种组合的密码',{icon:7});
                                     return false;
                                 }else{
                                     bb = true;
@@ -97,7 +97,7 @@
                             });
                             $('#repassword').blur(function(){
                                 if($('#repassword').val() != $('#password').val()){
-                                    layer.msg('重复密码不一致',{icon:5});
+                                    layer.msg('重复密码不一致',{icon:2});
                                     return false;
                                 }else{
                                     cc = true;
@@ -157,20 +157,30 @@
                                var res = /^1(3|4|5|7|8)\d{9}$/;
                                var phone = $('#phone').val();
                                if(phone==''){
-                                   layer.alert('手机号不能为空');
+                                   layer.msg('手机号不能为空',{icon:5});
                                    return false;
                                }
                                if(!res.test(phone)){
-                                   layer.alert('请输入正确的手机号码');
+                                   layer.msg('请输入正确的手机号码',{icon:5});
                                    return false;
                                }
                             });
                             codeTime=null;
                             var i=60;
                             $('#dyMobileButton').click(function(){
+
+                                if($('#phone').val() == ''){
+                                    layer.msg('请输入手机号',{icon:5});
+                                    return false;
+                                }
+                                var res = /^1(3|4|5|7|8)\d{9}$/;
                                 var phone = $('#phone').val();
-                                if(codeTime === null){
+                                if(!res.test(phone)){
+                                    layer.msg('请输入正确的手机号码',{icon:5});
+                                    return false;
+                                }else{
                                     // 发送ajax 注册手机号
+
                                     $.get('phoneajax',{phone:phone},function(msg){
 
                                         if(msg.code == 'no'){
@@ -181,14 +191,16 @@
                                             return;
                                         }
                                     },'json');
-                                    codeTime=setInterval(function () {
+                                    codeTime=setInterval(function() {
                                         $('#dyMobileButton').html(i);
                                         i--;
+
                                         if(i<0){
                                             clearInterval(codeTime);
                                             codeTime=null;
                                             i=60;
                                             $('#dyMobileButton').html('获取');
+
                                         }
                                     },1000);
                                 }
@@ -196,18 +208,18 @@
                             });
                             $('#phonecode').blur(function(){
                                 if($('#phonecode').val() != "{{session('phone_code')}}"){
-                                    layer.alert('验证码错误');
+                                    layer.msg('验证码错误',{icon:2});
+                                    t1 = false;
                                 }else{
                                     t1 = true;
                                 }
-
                             });
                             $('#apassword').blur(function(){
                                 var res = /^[A-Za-z0-9]{6,20}$/;
                                 var password = $('#apassword').val();
                                 if(!res.test(password)){
-                                    layer.alert('请输入6-18位,小写字母,大写字母,数字三种组合的密码');
-                                    return false;
+                                    layer.msg('请输入6-18位,小写字母,大写字母,数字三种组合的密码',{icon:7});
+                                    t2 = false;
                                 }else{
                                     t2 = true;
                                 }
@@ -215,12 +227,13 @@
                             $('#arepassword').blur(function(){
                                 if($('#arepassword').val() != $('#apassword').val()){
                                     layer.msg('重复密码不一致',{icon:5});
-                                    return false;
+                                    t3 = false;
                                 }else{
                                     t3 = true;
                                 }
                             });
                             $('#submit_to').click(function(){
+
                                 if(t1 == true && t2 == true && t3 == true){
                                     return true;
                                 } else{
@@ -230,6 +243,11 @@
                             });
 
                         </script>
+                        @if(session('error'))
+                        <script>
+                            layer.msg('用户已注册',{icon:5});
+                        </script>
+                        @endif
                         <div class="login-links">
                             <label for="reader-me">
                                 <input id="reader-me" type="checkbox" checked>点击表示您同意商城《服务协议》</label></div>

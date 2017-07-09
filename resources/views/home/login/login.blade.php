@@ -11,7 +11,8 @@
     <meta http-equiv="Cache-Control" content="no-siteapp" />
     <link rel="stylesheet" href="AmazeUI-2.4.2/assets/css/amazeui.css" />
     <link href="{{asset('home/css/dlstyle.css')}}" rel="stylesheet" type="text/css"></head>
-
+    <script src="{{asset('home/AmazeUI-2.4.2/assets/js/jquery.min.js')}}"></script>
+    <script src="{{asset('layer/layer.js')}}"></script>
 <body>
 <div class="login-boxtitle">
     <a href="home.html">
@@ -26,27 +27,44 @@
             <h3 class="title">登录商城</h3>
             <div class="clear"></div>
             <div class="login-form">
-                <form>
+                <form action="{{url('home/login/do')}}" method="post">
+                    {{csrf_field()}}
                     <div class="user-name">
                         <label for="user">
                             <i class="am-icon-user"></i>
                         </label>
-                        <input type="text" name="" id="user" placeholder="邮箱/手机/用户名"></div>
+                        <input type="text" name="username" id="username" placeholder="邮箱/手机/用户名"></div>
                     <div class="user-pass">
                         <label for="password">
                             <i class="am-icon-lock"></i>
                         </label>
-                        <input type="password" name="" id="password" placeholder="请输入密码"></div>
+                        <input type="password" name="user_password" id="user_password" placeholder="请输入密码"></div>
+                    <div class="am-cf">
+                        <input type="submit" name="" value="登 录" class="am-btn am-btn-primary am-btn-sm"></div>
                 </form>
             </div>
+            @if(session('error'))
+            <script>
+                layer.msg('用户不存在',{icon:5});
+            </script>
+            @endif
+            @if(session('errors'))
+                <script>
+                    layer.msg('账号或密码错误',{icon:5});
+                </script>
+            @endif
+            @if(session('activation'))
+                <script>
+                    layer.msg('请激活后重新登录',{icon:7});
+                </script>
+            @endif
             <div class="login-links">
                 <label for="remember-me">
                     <input id="remember-me" type="checkbox">记住密码</label>
                 <a href="#" class="am-fr">忘记密码</a>
                 <a href="{{url('home/user/register')}}" class="zcnext am-fr am-btn-default">注册</a>
                 <br /></div>
-            <div class="am-cf">
-                <input type="submit" name="" value="登 录" class="am-btn am-btn-primary am-btn-sm"></div>
+
             <div class="partner">
                 <h3>合作账号</h3>
                 <div class="am-btn-group">
