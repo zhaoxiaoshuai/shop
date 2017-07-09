@@ -284,13 +284,13 @@
                     </a>
                     <ul class="sidebar-nav sidebar-nav-sub">
                         <li class="sidebar-nav-link">
-                            <a href="{{ url('link/create') }}">
+                            <a href="{{ url('admin/link/create') }}">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 添加链接
                             </a>
                         </li>
 
                         <li class="sidebar-nav-link">
-                            <a href="{{ url('link') }}">
+                            <a href="{{ url('admin/link') }}">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 链接展示
                             </a>
                         </li>
@@ -329,7 +329,26 @@
                     </ul>
                 </li>
                 <li class="sidebar-nav-link">
-                    <a href="{{ url('config/1/edit') }}" class="active">
+                    <a href="javascript:;" class="sidebar-nav-sub-title">
+                        <i class="am-icon-link sidebar-nav-link-logo"></i> 轮播图管理
+                        <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                    </a>
+                    <ul class="sidebar-nav sidebar-nav-sub">
+                        <li class="sidebar-nav-link">
+                            <a href="{{ url('admin/carousel/create') }}">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span>添加轮播图
+                            </a>
+                        </li>
+
+                        <li class="sidebar-nav-link">
+                            <a href="{{ url('admin/carousel') }}">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 轮播图列表
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sidebar-nav-link">
+                    <a href="{{ url('admin/config/1/edit') }}" class="active">
                         <i class="am-icon-gear sidebar-nav-link-logo"></i> 系统配置
                     </a>
                 </li>

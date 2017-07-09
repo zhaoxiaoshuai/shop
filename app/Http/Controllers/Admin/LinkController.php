@@ -66,7 +66,7 @@ class LinkController extends Controller
         $link->link_href = $res['link_href'];
         $re = $link->save();//执行添加语句
              if($re){
-                 return redirect('link');
+                 return redirect('admin/link');
              }else{
                  return back()->with('error','添加失败');
              }
@@ -114,7 +114,7 @@ class LinkController extends Controller
         $res = Link::where('id',$id)->update($data);
         //判断是否修改成功
         if($res){
-            return redirect('link'); //成功返回到列表页
+            return redirect('admin/link'); //成功返回到列表页
         }else{
             return back()->with('error','修改失败');//失败返回上一级操作
         }

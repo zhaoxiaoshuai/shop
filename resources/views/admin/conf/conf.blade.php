@@ -11,7 +11,7 @@
             </div>
             <div class="widget-body am-fr">
 
-                <form method="post" action="{{ url('config/1') }}" id="conf_form" class="am-form tpl-form-border-form tpl-form-border-br">
+                <form method="post" action="{{ url('admin/config/1') }}" id="conf_form" class="am-form tpl-form-border-form tpl-form-border-br">
                     <input type="hidden" name="_method" value="put">
                     {{ csrf_field() }}
                     <div class="am-form-group">
@@ -42,11 +42,11 @@
                             <div class="am-form-group am-form-file">
                                 <div class="tpl-form-file-img">
                                     <img src="http://php182.oss-cn-beijing.aliyuncs.com/{{$data->conf_logo}}" name="logo_pic" id="logo_pic" alt="" >
-
+                                    <input type="hidden" name="logo_thumb" value="" id="logo_thumb">
                                 </div>
                                 <button type="button" class="am-btn am-btn-danger am-btn-sm">
                                     <i class="am-icon-cloud-upload"></i><font><font> 修改网站LOGO</font></font></button>
-                                <input id="conf_logo" type="file" name="conf_logo"  value="" multiple="" style="height:120px;">
+                                <input id="conf_logo" type="file" name="conf_logo"  value="" multiple="" >
                             </div>
                             <script>
                                 $('#conf_logo').change(function(){
@@ -75,7 +75,7 @@
 
                                     $.ajax({
                                         type: "POST",
-                                        url: "/upload",
+                                        url: "admin/upload",
                                         data: formData,
                                         async: true,
                                         cache: false,
@@ -85,7 +85,7 @@
                                             // console.log(data);
                                             // alert("上传成功");
                                             $('#logo_pic').attr('src','http://php182.oss-cn-beijing.aliyuncs.com/'+data);
-//                                            $('#logo_thumb').val(data);
+                                            $('#logo_thumb').val(data);
 
                                         },
                                         error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -97,67 +97,8 @@
 
                         </div>
                     </div>
-                    <div class="am-form-group">
-                        <label for="user-weibo" class="am-u-sm-3 am-form-label"><font><font>网站缩略标志</font></font><span class="tpl-form-line-small-title"><font><font>图片</font></font></span></label>
-                        <div class="am-u-sm-9">
-                            <div class="am-form-group am-form-file">
-                                <div class="tpl-form-file-img">
-                                    {{--<input type="text" name="ico_thumb" id="ico_thumb" style="width:300px;">--}}
-                                    <img src="http://php182.oss-cn-beijing.aliyuncs.com/{{$data->conf_favicon}}" name="ico_pic" id="ico_pic" alt="" style="width:48px;" >
-                                </div>
-                                <button type="button" class="am-btn am-btn-danger am-btn-sm">
-                                    <i class="am-icon-cloud-upload"></i><font><font> 修改网站缩略标志</font></font></button>
-                                <input type="file" name="conf_ico" id="conf_ico" value="" multiple="" style="height:120px;">
-                            </div>
 
-                        </div>
-                    </div>
-                    <script>
-                        $('#conf_ico').change(function(){
 
-                            uploadImages();
-                        })
-
-                        function uploadImages(){
-                            //判断是否有文件上传
-
-                            var imgPath = $('#conf_ico').val();
-                            if(imgPath == ''){
-                                alert('请选择图片上传');
-                                return;
-                            }
-
-                            //判断上传文件的后缀名
-                            var strExtension = imgPath.substr(imgPath.lastIndexOf('.') + 1);
-                            if (strExtension != 'jpg' && strExtension != 'gif'
-                                && strExtension != 'png' && strExtension != 'bmp') {
-                                alert("请选择图片文件");
-                                return;
-                            }
-
-                            var formDatas = new FormData($('#conf_form')[0]);
-
-                            $.ajax({
-                                type: "POST",
-                                url: "/upload2",
-                                data: formDatas,
-                                async: true,
-                                cache: false,
-                                contentType: false,
-                                processData: false,
-                                success: function(data) {
-                                    // console.log(data);
-                                    // alert("上传成功");
-                                    $('#ico_pic').attr('src','http://php182.oss-cn-beijing.aliyuncs.com/'+data);
-//                                            $('#logo_thumb').val(data);
-
-                                },
-                                error: function(XMLHttpRequest, textStatus, errorThrown) {
-                                    alert("上传失败，请检查网络后重试");
-                                }
-                            });
-                        }
-                    </script>
                     <div class="am-form-group">
                         <div class="am-u-sm-9 am-u-sm-push-3">
                             <button type="submit" class="am-btn am-btn-primary tpl-btn-bg-color-success "><font><font>提交</font></font></button>

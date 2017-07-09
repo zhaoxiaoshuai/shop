@@ -3,7 +3,7 @@
 @section('content')
     <div class="widget-body am-fr">
 
-        <form action="{{ url('link/'.$data->id) }}" method="POST" class="am-form tpl-form-border-form tpl-form-border-br">
+        <form action="{{ url('admin/link/'.$data->id) }}" method="POST" class="am-form tpl-form-border-form tpl-form-border-br">
             <input type="hidden" name="_method" value="put">
             {{ csrf_field() }}
             <div class="am-form-group">

@@ -9,6 +9,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Model\Conf;
 use App\Services\OSS;
+use DB;
 
 class ConfController extends Controller
 {
@@ -81,17 +82,42 @@ class ConfController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->except('_token','_method');
+        $data = $request->except('_token','_method','conf_logo');
+       // $data['conf_logo'] = 'uploads/config/'.$data['conf_logo'];
+        $data['conf_logo'] = $data['logo_thumb'];
+        unset($data['logo_thumb']);
 
-        $data['conf_logo'] = 'uploads/config/'.$data['conf_logo'];
-        $data['conf_ico'] = 'uploads/config/'.$data['conf_ico'];
+        //dd($data);
         $res = Conf::where('id',$id)->update($data);
         if($res){
-            return redirect('config/1/edit');
+            $this->putFile();
+            return redirect('admin/config/1/edit');
+
         }else{
             return back()->with('error','修改失败');
         }
 
+    }
+
+    /**
+     * 从数据库中读取系统配置,写入到指定文件
+     */
+    public function putFile()
+    {
+       // 读出config数据表中的conf_name,conf_content这两列数据，
+        $arr = DB::table('config')->where('id',1)->first();
+//        dd($arr);
+       // 变成字符串形式
+        $str ='<?php  return '.var_export($arr,true).';';
+        //找到要写入的文件的路径
+//        base_path函数返回项目根目录的绝对路径：
+//        config_path函数返回应用配置目录的绝对路径：
+        $path = base_path().'\config\web.php';
+//        dd($path);
+        file_put_contents($path,$str);
+
+
+//        写入config/web.php文件
     }
     /**
      *LOGO 图片上传
@@ -120,33 +146,8 @@ class ConfController extends Controller
          }
     }
 
-    /**
-     *缩略 图片上传
-     */
-
-    public function upload2()
-    {
-        //将上传的文件移动到指定目录,并为新文件命名
-        $ico = Input::file('conf_ico');
-        if($ico->isValid()) {
 
 
-//            $entension = $ico->getClientOriginalExtension();//上传文件的后缀名
-
-            $newName = 'favicon.ico';
-
-            //将图片上传到本地服务器
-
-            // $path = $ico->move(public_path() . '/uploads/config/', $newName);
-            //将图片上传到oss上传
-            $result = OSS::upload('uploads/config/'.$newName, $ico->getRealPath());
-
-            //返回文件的上传路径
-            $icopath =  $newName;
-
-            return $icopath;
-        }
-    }
     /**
      * Remove the specified resource from storage.
      *
