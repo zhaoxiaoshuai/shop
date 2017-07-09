@@ -51,13 +51,14 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 });
 
 //友情链接
-Route::resource('link','Admin\LinkController');
+Route::resource('admin/link','Admin\LinkController');
+//轮播图路由
+Route::resource('admin/carousel','Admin\CarouselController');
+
 //系统配置
-Route::resource('config','Admin\ConfController');
-//LOGO图片上传
-Route::any('upload','Admin\ConfController@upload');
-//缩略图片上传
-Route::any('upload2','Admin\ConfController@upload2');
+Route::resource('admin/config','Admin\ConfController');
+Route::any('admin/upload','Admin\ConfController@upload');//LOGO图片上传
+Route::any('admin/upload2','Admin\ConfController@upload2');//缩略图片上传
 
 // 商家信息路由
 Route::resource('admin/astore','Admin\StoreController');

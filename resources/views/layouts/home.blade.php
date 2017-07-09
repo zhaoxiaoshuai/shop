@@ -1,6 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+    <title>{{ config('web.conf_title') }}</title>
+    <meta name="description" content="{{ config('web.conf_description') }}" />
+    <meta name="keywords" content="{{ config('web.conf_keywords') }}" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link type="text/css" rel="stylesheet" href="{{ asset('home/assets/css/style.css') }}" />
     <!--[if IE 6]>
@@ -30,7 +33,7 @@
     <script type="text/javascript" src="{{ asset('home/assets/js/lrscroll_1.js') }}"></script>
 
 
-    <title>尤洪</title>
+
 </head>
 <body>
 <!--Begin Header Begin-->
@@ -248,7 +251,7 @@
     </div>
     <div class="b_er">
         <div class="b_er_c"><img src="{{ asset('home/assets/images/er.gif') }}" width="118" height="118" /></div>
-        <img src="images/ss.png" />
+
     </div>
 </div>
 <div class="btmbg">

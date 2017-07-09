@@ -3,7 +3,7 @@
 @section('content')
     <div class="widget-body am-fr">
 
-        <form action="{{ url('link') }}" method="POST" class="am-form tpl-form-border-form tpl-form-border-br">
+        <form action="{{ url('admin/link') }}" method="POST" class="am-form tpl-form-border-form tpl-form-border-br">
             @if (count($errors) > 0)
                 <ul style="margin-left:350px;color:red">
                     @foreach($errors->all() as $error)
