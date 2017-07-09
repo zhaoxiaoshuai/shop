@@ -4,11 +4,11 @@ namespace App\Http\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Store extends Model
+class StoreAdmin extends Model
 {
-    //连接数据库
-    protected $table = 'store';
-    // protected $primaryKey="store_id";
+    //连接数据库  shop_store_admin
+    protected $table = 'store_admin';
+    // protected $primaryKey="store_admin_id";
     // 获取指定字段
     // protected $fillable = ['sid','uid','mid'];
 

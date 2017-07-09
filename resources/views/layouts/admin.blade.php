@@ -307,6 +307,7 @@
         <!-- 内容区域 -->
         <div class="tpl-content-wrapper"  style="color: #868E8E"  >
         @section('content')
+        
         @show
         </div>
     </div>
