@@ -116,7 +116,8 @@ class UserController extends Controller
     public function phoneajax(Request $request)
     {
         $phone = $request -> input('phone');
-        $res = User::where('user_phone',$phone) -> first();
+        $res = User::where('user_phone',$phone)-> first();
+
         if(!$res){
             $res = self::phoneto($phone);
             echo $res;
@@ -145,6 +146,10 @@ class UserController extends Controller
     {
         //获取数据
         $input = $request -> except('_token','user_repassword');
+        $re = User::where('user_phone',$input['user_phone']) -> first();
+        if($re){
+            return back()->with('error','用户已存在');
+        }
         $input['user_password'] = Crypt::encrypt($input['user_password']);
         $input['createtime'] = time();
         $input['status'] = 1;
@@ -161,5 +166,14 @@ class UserController extends Controller
     public function phonecreateto()
     {
         return view('home.user.okregister');
+    }
+    
+    
+    /*
+     * 查询用户详情
+     * */
+    public function user_details()
+    {
+        return view('home.user.user');
     }
 }
