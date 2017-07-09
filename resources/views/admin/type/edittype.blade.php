@@ -38,7 +38,7 @@
             <span class="tpl-form-line-small-title"></span>
           </label>
           <div class="am-u-sm-9 ">
-            <select name="good_id" data-am-selected="{searchBox: 1}" disabled="disabled" style="display: none;">
+            <select name="pid" data-am-selected="{searchBox: 1}" disabled="disabled" style="display: none;">
                   <?php 
                     $n = substr_count( $v['type_npath'] ,'-')-2;
                     $v['type_name'] = str_repeat('&nbsp;',$n*8).'|--'.$v['type_name'];

@@ -59,10 +59,10 @@ class TypeController extends Controller
     {
         
        $this->validate($request, [
-            'good_id' => 'required',
+            'pid' => 'required',
             'type_name' => 'required',
         ],[
-            'good_id.required' => '商品类型名称必填',
+            'pid.required' => '商品类型名称必填',
             'type_name.required' => '商品名称必填',
 
         ]);
@@ -71,14 +71,13 @@ class TypeController extends Controller
        // 获取
         $data = $request->except('_token');
         
-        if($data['good_id'] == '0'){
+        if($data['pid'] == '0'){
             $data['type_path'] = '0-';
         }else{
             // 根据子类的pid获取到父类的信息
-            $res = DB::table('type')->where('type_id',$data['good_id'])->get()[0];
+            $res = DB::table('type')->where('type_id',$data['pid'])->get()[0];
             $data['type_path'] = $res['type_npath'];
         }
-        
         // 先插入一个半成品 获取tid
         $tid = DB::table('type')->insertGetId($data);
         // 自己的 npath  =  自己的path.自己的tid.'-'
@@ -161,14 +160,14 @@ class TypeController extends Controller
     {
 
        //删除对应id的用户
-       $re =  User::where('user_id',$id)->delete();
-       //0表示成功 其他表示失败
-       if($re){
+        $res = DB::table('type')->where('type_id', $id)->delete();
+        //0表示成功 其他表示失败
+        if($res){
            $data = [
                 'status'=>0,
                 'msg'=>'删除成功！'
            ];
-       }else{
+        }else{
            $data = [
                'status'=>1,
                'msg'=>'删除失败！'
@@ -177,5 +176,7 @@ class TypeController extends Controller
        return $data;
 
     }
-    }
-// }
+}
+
+
+
