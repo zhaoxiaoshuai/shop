@@ -7,13 +7,15 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Model\Orders;
+use App\Http\Model\Detail;
 use App\Http\Model\User;
-use DB;
+
 class OrdersController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
+     * 订单管理
+     * author:杨滨瑞
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
@@ -21,8 +23,6 @@ class OrdersController extends Controller
         
 
         //通过user_id查询user_name
-        // $res = Orders::join('user','user.user_id','=','orders.user_id')->get();
-        // dd($res);
         //带搜索条件分页查询
         if($request->has('orders')){
             //查询的订单号
@@ -34,7 +34,7 @@ class OrdersController extends Controller
         }else{
             $data = Orders::join('user','user.user_id','=','orders.user_id')->orderBy('id','desc')->paginate(5);
             // dd($data);
-            // dd($data);
+            
             return view('admin.orders.index',['data'=>$data]);
         };
         
@@ -68,9 +68,12 @@ class OrdersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        //订单详情列表
+        $data = Detail::join('orders','detail.order_id','=','orders.order_id')->join('goods','goods.good_id','=','detail.good_id')->get();
+        dd($data);
+        // return view('admin.orders')
     }
 
     /**
@@ -84,7 +87,7 @@ class OrdersController extends Controller
         //找到要修改的订单,显示到页面
         $data = Orders::join('user','user.user_id','=','orders.user_id')->where('order_id',$orders)->first();
         // dd(date('Y-m-d H:i:s',$data['order_time']));
-        // dd($data->user_id);
+        
         return view('admin.orders.edit',['data'=>$data]);
     }
 
