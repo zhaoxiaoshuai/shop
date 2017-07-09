@@ -37,6 +37,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
     Route::resource('admin','adminController');
     Route::resource('good','GoodController');
     Route::any('upload','GoodController@upload');
+    Route::any('good/detail/{id}','GoodController@detail');
 });
 //订单管理
 Route::resource('admin/orders','Admin\Orders\OrdersController');

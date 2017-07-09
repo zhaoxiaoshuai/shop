@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Services\OSS;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Input;
 use Validator;
 
@@ -52,12 +54,26 @@ class GoodController extends Controller
             $good = Good::where('good_name','like',"%".$key."%")->paginate(10);;
             return view('admin.good.index',['data'=>$good,'key'=>$key]);
         }else{
-            //查询出good表的所有数据
-            $data =  Good::orderBy('good_id','asc')->paginate(10);
+            //两表联查shop_goods shop_type
+            $data =  Good::join('type','goods.type_id','=','type.type_id')->orderBy('goods.good_id','asc')->paginate(10);
+//            dd($data);
             //      向前台模板传变量的一种方法
             return view('admin.good.index',compact('data'));
         }
     }
+
+    public function detail($id)
+    {
+
+            //两表联查shop_goods shop_type
+            $data =  Good::join('type','goods.type_id','=','type.type_id')->where('goods.good_id',$id)->first();
+//            dd($data);
+            //      向前台模板传变量的一种方法
+            return view('admin.good.detail',compact('data','id'));
+
+    }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -66,8 +82,9 @@ class GoodController extends Controller
      */
     public function create()
     {
-
-        return view('admin.good.add');
+        $type = DB::table('type')->get();
+//        dd($type);
+        return view('admin.good.add',compact('type'));
     }
 
     /**
@@ -87,18 +104,22 @@ class GoodController extends Controller
             'good_label' => 'required',
             'good_price' => 'required|numeric',
             'good_desc' => 'required',
-            'good_count' => 'required',
+            'good_count' => 'required|numeric',
             'good_pic' => 'required',
+            'good_status' => 'required',
         ];
 //       提示信息
         $mess=[
-            'good_name.required'=>'必须输入商品名',
-            'type_id.required'=>'类别必选',
-            'good_label.required'=>'标签必填',
-            'good_price.required'=>'价格必填',
-            'good_desc.required'=>'描述必填',
-            'good_count.required'=>'库存必填',
+            'good_name.required'=>'请填写商品名称',
+            'type_id.required'=>'请选择商品分类',
+            'good_label.required'=>'请选择商品标签',
+            'good_price.required'=>'请填写商品价格',
+            'good_price.numeric'=>'商品价格请填写数字',
+            'good_desc.required'=>'请填写商品描述',
+            'good_count.required'=>'请填写商品库存',
+            'good_count.numeric'=>'商品库存请填写数字',
             'good_pic.required'=>'请上传图片',
+            'good_status.required'=>'请选择商品状态',
         ];
 //       表单验证
       $validator =  Validator::make($input,$role,$mess);
@@ -137,12 +158,17 @@ class GoodController extends Controller
      */
     public function edit($id)
     {
-        //找到要修改的用户记录，返回给修改页面
-//        find(1) 也会返回一个对象
+        //通过shop_good表type_id查询到对应的shop_type的值
+//        $type = Good::join('type','goods.type_id','=','type.type_id')->get();
+//        dd($type);
         //根据传入的要修改的记录ID 获取商品记录
         $data = Good::where('good_id',$id)->first();
+//        dd($data->good_status);
+        $type = DB::table('type')->where('type_id',$data->type_id)->first();
 //        dd($data);
-        return view('admin.good.edit',compact('data'));
+        $types = DB::table('type')->get();
+//        dd($types);
+        return view('admin.good.edit',compact('data','type','types'));
     }
 
     /**
@@ -158,6 +184,7 @@ class GoodController extends Controller
         $good = Good::find($id);
         //根据请求传过来的参数获取到要修改成的记录
         $input = Input::except('_token','_method','file_upload');
+//        dd($input);
         //更新
         $re = $good->update($input);
         //如果成功跳转到列表页  失败返回修改页
@@ -167,6 +194,7 @@ class GoodController extends Controller
             return back()->with('error','修改失败');
         }
     }
+
 
     /**
      * Remove the specified resource from storage.

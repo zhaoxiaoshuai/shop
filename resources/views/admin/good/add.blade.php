@@ -25,9 +25,14 @@
             <label for="user-phone" class="am-u-sm-3 am-form-label">商品分类 <span class="tpl-form-line-small-title"></span></label>
             <div class="am-u-sm-9">
                 <select data-am-selected="{searchBox: 0}"  name="type_id">
-                    <option value=""></option>
-                    <option value="1">家电</option>
-                    <option value="2">服装</option>
+                    <option value="">请选择</option>
+                    @foreach($type as $k=>$v)
+                        <?php
+                        $n = substr_count( $v['type_npath'] ,'-')-2;
+                        $v['type_name'] = str_repeat('&nbsp;',$n*8).'|--'.$v['type_name'];
+                        ?>
+                        <option value="{{ $v['type_id'] }}">{{ $v['type_name'] }}</option>
+                    @endforeach
                 </select>
             </div>
         </div>
@@ -36,8 +41,19 @@
             <div class="am-u-sm-9">
                 <select data-am-selected="{searchBox: 0}"  name="good_label">
                     <option value=""></option>
-                    <option value="1">家电</option>
+                    <option value="1" selected>家电</option>
                     <option value="2">服装</option>
+                </select>
+            </div>
+        </div>
+        <div class="am-form-group">
+            <label for="user-phone" class="am-u-sm-3 am-form-label">商品状态 <span class="tpl-form-line-small-title"></span></label>
+            <div class="am-u-sm-9">
+                <select data-am-selected="{searchBox: 0}"  name="good_status">
+                    <option value=""></option>
+                    <option value="1" selected>下架</option>
+                    <option value="2">上架</option>
+                    <option value="3">新品</option>
                 </select>
             </div>
         </div>
