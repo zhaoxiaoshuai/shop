@@ -1,17 +1,17 @@
 <?php
 
-namespace App\http\Model;
+namespace App\Http\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Admin extends Model
+class Admin_role extends Model
 {
     /**
     * 与模型关联的数据表。
     *
     * @var string
     */
-    protected $table = 'admin';
+    protected $table = 'admin_role';
     /**
      * 指定是否模型应该被戳记时间。
      *
@@ -23,17 +23,11 @@ class Admin extends Model
      *
      * @var string
      */
-    protected $primaryKey="admin_id";
+    protected $primaryKey="ar_id";
     /**
      * 指定可以操作的字段.
      *
      * @var array
      */
-    protected $fillable = ['admin_name', 'admin_password','admin_phone','admin_email','admin_lasttime','admin_create'];
-
-    public function admin_role()
-    {
-        return $this->hasMany('App\Http\Model\Admin_role','admin_id','admin_id');
-    }
-
+    protected $fillable = ['admin_id', 'role_id'];
 }

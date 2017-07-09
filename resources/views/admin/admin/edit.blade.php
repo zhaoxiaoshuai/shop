@@ -51,9 +51,14 @@
 	            <div class="am-form-group">
 	                <label for="user-phone" class="am-u-sm-3 am-form-label">角　　色</label>
 	                <div class="am-u-sm-9">
-	                    <select data-am-selected="{searchBox: 1}" name="role_id" style="display: none;">
-	                      <option  value="1">商品管理员</option>
-	                      <option value="2">店铺管理员</option>
+	                    <select data-am-selected="{searchBox: 0}" name="role_id" style="display: none;">
+	                    @foreach($role as $k=>$v)
+	                      <option  
+							@if($v['role_id'] == $data['admin_role'][0]['role_id'])
+							 selected
+							@endif
+	                       value="{{$v['role_id']}}">{{$v['role_name']}}</option>
+	                    @endforeach
 	                    </select>
 	                </div>
 	            </div>
@@ -67,5 +72,4 @@
 	    </div>
 	</div>
 </div>
-
 @endsection

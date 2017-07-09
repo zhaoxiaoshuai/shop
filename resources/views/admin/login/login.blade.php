@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{{asset('admin/assets/css/app.css')}}">
     <script src="{{asset('admin/assets/js/jquery.min.js')}}"></script>
     <script src="{{asset('layer/layer.js')}}"></script>
+     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
 </head>
 <body data-type="login">
@@ -41,28 +42,31 @@
             <div class="tpl-login-content">
                 <div class="tpl-login-logo">
                 </div>
-                <form action="{{url('admin/dologin')}}" method="post" class="am-form tpl-form-line-form">
+                @if(session('error'))
+                   <p style="background:#f0ad4e">  {{session('error')}}</p>
+                @endif
+                <form action="{{url('admin/dologin')}}" method="post" class="am-form tpl-form-line-form" id="myform">
                     {{csrf_field()}}
                     <div class="am-form-group">
-                        <input type="text" class="tpl-form-input" id="user-name" placeholder="请输入账号">
+                        <input name="admin_name" value="{{$cookie['admin_name'] or ''}}" type="text" class="tpl-form-input" id="admin_name" placeholder="请输入账号">
                     </div>
                     <div class="am-form-group">
-                        <input type="password" class="tpl-form-input" id="user-name" placeholder="请输入密码">
+                        <input name="admin_password" value="{{$cookie['admin_password'] or ''}}" type="password" class="tpl-form-input" id="admin_password" placeholder="请输入密码">
                     </div>
                     <div class="am-form-group">
-                        <input type="password" style="float: left;width: 56%; margin-top: 10px;"  class="tpl-form-input" id="user-name" placeholder="请输入验证码">
+                        <input type="text" style="float: left;width: 56%; margin-top: 10px;"  class="tpl-form-input" id="code" placeholder="请输入验证码">
                         <div style="float:right" id="imgCode" ><img id="img_img" src="{{url('admin/captcha/123.jpg')}}" alt="点击切换验证码"></div>
                     </div>
 
                     <div class="am-form-group tpl-login-remember-me">
-                        <input id="remember-me" type="checkbox">
+                        <input id="remember-me" checked type="checkbox" name="remember" value="remember me">
                         <label for="remember-me">
                         记住密码
                          </label>
                     </div>
 
                     <div class="am-form-group">
-                        <button type="submit" class="am-btn am-btn-primary  am-btn-block tpl-btn-bg-color-success  tpl-login-btn">提交</button>
+                        <button type="submit"class="am-btn am-btn-primary  am-btn-block tpl-btn-bg-color-success  tpl-login-btn">提交</button>
                     </div>
                 </form>
             </div>
@@ -75,7 +79,62 @@
         $('#img_img').click(function(){
             $(this).attr('src','/admin/captcha/'+Math.ceil(Math.random()*10000000)+'.jpg');
         })
-    })
+        var flag1 = false;
+        var flag2 = false;
+        var flag3 = false;
+        var flag4 = false;
+        $('#code').blur(function(){
+            $.ajaxSetup({
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
+            });
+            if($(this).val()==''){
+                layer.msg('验证码是必填的哦^^^^^^',{icon:5});
+            }else{
+                $.post('/admin/proving', {code: $(this).val()}, function(msg) { 
+                    if (msg.status == 1) {
+                        layer.msg(msg.msg,{icon:5});
+                    }else{
+                       flag4 = true; 
+                    };
+                });
+            }
+         })
+        
+        $('#myform').submit(function(){
+            var name = $('#admin_name').val();
+            var password = $('#admin_password').val();
+            var codeval = $('#code').val();
+            if(name==''){
+                layer.msg('帐号是必填的哦^^^^^^',{icon:5});
+                return false;
+            }else{
+                flag1 = true;
+            }
+            if(password==''){
+                layer.msg('密码是必填的哦^^^^^^',{icon:5});
+                return false;
+            }else{
+                flag2 = true;
+            }
+            if(codeval==''){
+                layer.msg('验证码是必填的哦^^^^^^',{icon:5});
+                return false;
+            }else{
+                flag3 = true;
+            }
+
+            if(flag1 && flag2 && flag3 && flag4){
+                return true;
+            }else{
+                return false;
+            }
+            
+        });
+         
+    });
     </script>
 </body>
 </html>
+
+
+

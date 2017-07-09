@@ -95,9 +95,7 @@
                     location.href = location.href;
                     layer.msg(data.msg, {icon: 5});
                 }
-            });
-
-         
+            });    
         }, function(){
         });
 

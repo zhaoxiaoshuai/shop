@@ -64,8 +64,9 @@
 	                <label for="user-phone" class="am-u-sm-3 am-form-label">角　　色</label>
 	                <div class="am-u-sm-9">
 	                    <select data-am-selected="{searchBox: 0}" name="role_id" style="display: none;">
-	                      <option value="1">商品管理员</option>
-	                      <option value="2">店铺管理员</option>
+	                    @foreach($data as $k=>$v)
+	                      <option value="{{$v['role_id']}}">{{$v['role_name']}}</option>
+	                    @endforeach
 	                    </select>
 	                </div>
 	            </div>

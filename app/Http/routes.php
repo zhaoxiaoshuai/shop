@@ -13,41 +13,51 @@
 DB::listen(function($sql, $bindings, $time) {
                 // dump($sql);
                 // dump($bindings);
-            });
-
-
+});
 
 /*==========================后台===============================*/
-//后台登录
-Route::get('admin/login','Admin\LoginController@login');
-//处理登录
-Route::post('admin/dologin','Admin\LoginController@dologin');
-//生成验证码
-Route::get('admin/captcha/{num}.jpg','Admin\LoginController@captcha')->where('name','[0-9]+');
-
-//管理员管理
-Route::resource('admin/admin','Admin\adminController');
-
-
-//角色控制器
-Route::resource('admin/role','Admin\roleController');
-
-//商品管理
 Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
-    Route::resource('admin','adminController');
-    Route::resource('good','GoodController');
-    Route::any('upload','GoodController@upload');
+	//后台登录
+	Route::get('login','LoginController@login');
+	//处理登录
+	Route::post('dologin','LoginController@dologin');
+	//生成验证码
+	Route::get('captcha/{num}.jpg','LoginController@captcha')->where('name','[0-9]+');
+	//ajax判断验证码
+	Route::post('proving','LoginController@proving');
+
+	Route::group(['middleware' => 'login'],function(){
+		//后台退出
+		Route::get('logout','LoginController@logout');
+		//后台首页
+		Route::get('index','LoginController@index');
+	    //管理员管理
+	    Route::resource('admin','adminController');
+	    //管理员修改自己信息
+	    Route::get('admin/editself/{id}','adminController@editself');
+	    Route::post('admin/updateself/','adminController@updateself');
+	    //商品管理
+	    Route::resource('good','GoodController');
+	    Route::any('upload','GoodController@upload');
+	    //角色控制器
+	    Route::resource('role','roleController');
+		//管理员管理
+		Route::resource('admin','adminController');
+		//订单管理
+		Route::resource('orders','Orders\OrdersController');
+		// 后台分类管理
+		Route::resource('atype','TypeController');
+	});
 });
-//订单管理
-Route::resource('admin/orders','Admin\Orders\OrdersController');
 
 //友情链接
 Route::resource('link','Admin\LinkController');
-
 //系统配置
 Route::resource('config','Admin\ConfController');
-Route::any('upload','Admin\ConfController@upload');//LOGO图片上传
-Route::any('upload2','Admin\ConfController@upload2');//缩略图片上传
+//LOGO图片上传
+Route::any('upload','Admin\ConfController@upload');
+//缩略图片上传
+Route::any('upload2','Admin\ConfController@upload2');
 
 // 商家信息路由
 Route::resource('admin/astore','Admin\StoreController');
@@ -56,8 +66,7 @@ Route::get('admin/astoreindex/{x}','Admin\StoreController@astoreindex');
 // 商家店铺路由
 // Route::resource('admin/merchant','Admin\MerchantController');
 
-// 后台分类管理
-Route::resource('admin/atype','Admin\TypeController');
+
 
 
 

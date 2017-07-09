@@ -8,8 +8,11 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Validator;
-use App\http\Model\admin;
+use App\http\Model\Admin;
 use Illuminate\Support\Facades\Crypt;
+use App\http\Model\Role;
+use App\http\Model\Admin_role;
+use DB;
 class AdminController extends Controller
 {
     /**
@@ -21,7 +24,7 @@ class AdminController extends Controller
      */
     public function index(Request $request)
     {
-        $count = 2;
+        $count = 3;
         if($request->has('keywords')){
             $key = trim($request->input('keywords')) ;
             $admins = Admin::where('admin_name','like',"%".$key."%")->paginate($count);
@@ -46,8 +49,10 @@ class AdminController extends Controller
      */
     public function create()
     {
+        //获取所有角色信息
+        $role = Role::get();
         //引入添加管理员表单
-        return view('admin.admin.add');
+        return view('admin.admin.add',['data'=>$role]);
     }
 
     /**
@@ -59,8 +64,6 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-
-
         //获取请求数据
         $data = $request -> except('_token');
 
@@ -106,15 +109,23 @@ class AdminController extends Controller
                 $data['admin_create'] = time();
                 $data['admin_lasttime'] = 0;
                 unset($data['repassword']);
+                $role_id = $data['role_id'];
                 unset($data['role_id']);
-
                 $data['admin_password'] = Crypt::encrypt($data['admin_password']);
                 //插入数据库
-                $re = Admin::create($data);
+                DB::beginTransaction();
+                $re1 = Admin::insertGetId($data);
+                $arr = [
+                    'admin_id'=>$re1,
+                    'role_id'=>$role_id
+                ];
+                $re2 = Admin_role::create($arr);
                 //判断
-                if($re){
+                if($re1 && $re2){
+                    DB::commit();
                     return redirect('admin/admin');
                 }else{
+                    DB::rollBack();  
                     return back()->with('error','添加失败');
                 }
             }
@@ -146,7 +157,9 @@ class AdminController extends Controller
     {
         //取数据
         $admin = Admin::find($id);
-        return view('admin.admin.edit',['data'=>$admin]);
+        $admin -> admin_role;
+        $role = Role::get();
+        return view('admin.admin.edit',['data'=>$admin,'role'=>$role]);
     }
 
     /**
@@ -161,13 +174,13 @@ class AdminController extends Controller
         //接受数据
         $data = $request -> except(['_token','_method']);
         
-         $rule = [
+        //设置规则
+        $rule = [
             'admin_phone' => 'required',
             'admin_phone' => ['regex:/^1[3|4|5|8][0-9]\d{4,8}$/'],
             'admin_email' => 'required|email',
             'role_id' => 'required',
         ];
-
         //提示信息
          $mess=[
             'admin_phone.required'=>'必须输入电话',
@@ -184,16 +197,22 @@ class AdminController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }else{
+            $arr = [
+                'role_id' => $data['role_id'],
+            ];
             unset($data['role_id']);
-            $re = Admin::where('admin_id',$id) ->update($data);
+            DB::beginTransaction();
+
+            $re1 = Admin::where('admin_id',$id) ->update($data);
+            $re2 = Admin_role::where('admin_id',$id) ->update($arr);
             
-            if($re){
+            if($re1 or $re2){
+                DB::commit();
                 return redirect('admin/admin');
             }else{
+                DB::rollBack();  
                 return back()->with('error','修改失败');
             }
-            
-
         }
 
     }
@@ -223,7 +242,65 @@ class AdminController extends Controller
        }
         return $data;
     }
-    
+    /**
+     * 管理员修改自己密码
+     * @param 参数:管理员id
+     * @return 返回 
+     * @author zxs
+     * @Date 2017-7-8
+     */
+    public function editself($id)
+    {
+        $admin = Admin::where('admin_id',$id) -> first();
+        return view('admin.admin.editself',['data'=>$admin]);
+    }
+    /**
+     * 管理员修改自己密码更新到数据库
+     * @param 参数:请求数据
+     * @return 返回 
+     * @author zxs
+     * @Date 2017-7-8
+     */
+    public function updateself(Request $request)
+    {
+        $data = $request->except('_token');
+        
+         //验证规则
+        $rule = [
+            'oldpassword' => 'required',
+            'admin_password' => 'required',
+            'admin_password' => ['regex:/^[a-zA-Z\d_]{6,16}$/'],
+            'repassword' => 'required|same:admin_password',
+        ];
 
+        //提示信息
+         $mess=[
+            'oldpassword.required'=>'必须输入管理员名',
+            'admin_password.required'=>'必须输入密码',
+            'admin_password.regex'=>'密码必须为6到16位字母数字下划线',
+            'repassword.required'=>'确认密码必须填写',
+            'repassword.same'=>'两次密码输入不一致',
+
+        ];
+        //进行验证
+        $validator = Validator::make($data,$rule,$mess);
+         if ($validator->fails()) {
+            return redirect("admin/admin/editself/".$data['admin_id'])
+                        ->withErrors($validator)
+                        ->withInput();
+         }else{
+            unset($data['oldpassword']);
+            unset($data['repassword']);
+           
+            $data['admin_password'] = Crypt::encrypt($data['admin_password']);
+            $re = Admin::where('admin_id',$data['admin_id']) ->update($data);
+            
+            if($re){
+                return redirect('admin/index');
+            }else{
+                return back()->with('error','修改失败');
+            }
+        }
+    }
 
 }
