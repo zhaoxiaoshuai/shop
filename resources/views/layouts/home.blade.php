@@ -142,7 +142,7 @@
                             </ul>
                         </div>
                     </div>    
-                </div>|
+                </div>
 
                 <div class="ss_list">
                 	<a href="#">网站导航</a>

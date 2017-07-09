@@ -15708,7 +15708,7 @@ blockquote {
        <div class="account-wrapper module-background" data-reactid=".3.0.1">
         <p data-reactid=".3.0.1.0" style="color:red;font-size:32px;">申请成功,请等待审核结果。我们将以邮箱的方式通知您!φ(゜▽゜*)♪</p>
         <div data-reactid=".3.0.1.1">
-         <a href="http://www.lamp182.com">去蘑菇街逛逛!</a>
+         <a href="{{url()}}">去蘑菇街逛逛!</a>
         </div>
         <div data-reactid=".3.0.1.2">
          

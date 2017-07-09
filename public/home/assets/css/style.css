@@ -92,7 +92,7 @@ table.c_tab tr th{
 	width:220px; height:35px; overflow:hidden; float:left;
 }*/
 .ss{
-	width:225px; height:35px; float:left;
+	width:240px; height:35px; float:left;
 }
 .ss_list{
 	height:35px; background:url(../images/t_arrow.gif) no-repeat right center; float:left; display:inline; margin-left:10px; padding-right:15px; cursor:pointer; position:relative;
