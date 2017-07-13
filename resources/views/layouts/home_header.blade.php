@@ -169,11 +169,12 @@
             <div class="ss_list">
                 	<a href="javascript:void(0)">我的小店</a>
                     <div class="ss_list_bg">
-                    	<div class="s_city_t"></div>
+
+                        <div class="s_city_t"></div>
                         <div class="ss_list_c">
-                        	<ul>
-                            	<li><a href="javascript:void(0)">管理后台</a></li>
-                                <li><a href="javascript:void(0)">市场入驻</a></li>
+                            <ul>
+                                <li><a href="{{ url('store/login') }}">管理后台</a></li>
+                                <li><a href="{{ url('home/MerSettled') }}">市场入驻</a></li>
                                 <li><a href="javascript:void(0)">商家社区</a></li>
                             </ul>
                         </div>

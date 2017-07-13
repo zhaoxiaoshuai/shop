@@ -122,7 +122,7 @@
 		<div class="am-form-group"> 
 			<label for="user-name" class="am-u-sm-3 am-form-label">审核意见</label> 
 			<div class="am-u-sm-9"> 
-				<textarea class="" name="audit_opinion" value="" rows="10" id="user-intro" placeholder="">{{ $data['audit_opinion'] }}</textarea> 
+				<textarea class="" name="audit_opinion" value="" rows="10" id="user-intro" placeholder="审核意见由审核人填写返回给商户">{{ $data['audit_opinion'] }}</textarea> 
 			</div> 
 		</div>
 		<div class="am-form-group"> 

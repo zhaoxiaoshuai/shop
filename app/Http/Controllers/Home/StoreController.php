@@ -83,7 +83,7 @@ class StoreController extends Controller
             $data3['insert_time'] = time();
             $sto_adm = StoreAdmin::create($data3);
 
-            return view('home.store.MerApplication3');
+            return redirect('home/MerApplication3');
         }else{
             return back()->with('error','申请失败(请检查相关信息！)');
         }
@@ -145,16 +145,16 @@ class StoreController extends Controller
             $entension = $file->getClientOriginalExtension();//上传文件的后缀名
             $newName = date('YmdHis') . mt_rand(1000, 9999) . '.' . $entension;
 
-//            将图片上传到本地服务器
+           // 将图片上传到本地服务器
             // $path = $file->move(public_path() . '/uploads', $newName);
 
-//            将图片上传到七牛云
-//            \Storage::disk('qiniu')->writeStream('uploads/'.$newName, fopen($file->getRealPath(), 'r'));
+           // 将图片上传到七牛云
+           // \Storage::disk('qiniu')->writeStream('uploads/'.$newName, fopen($file->getRealPath(), 'r'));
 
-//            oss上传
+           // oss上传
            $result = OSS::upload('uploads/store/'.$newName, $file->getRealPath());
 
-//        返回文件的上传路径
+       // 返回文件的上传路径
             $filepath = 'uploads/store/' . $newName;
             return $filepath;
         }
@@ -162,22 +162,22 @@ class StoreController extends Controller
 
     public function upload2()
     {
-//        将上传文件移动到制定目录，并以新文件名命名
+       // 将上传文件移动到制定目录，并以新文件名命名
         $file = Input::file('store_pic2');
         if($file->isValid()) {
             $entension = $file->getClientOriginalExtension();//上传文件的后缀名
             $newName = date('YmdHis') . mt_rand(1000, 9999) . '.' . $entension;
 
-//            将图片上传到本地服务器
+           // 将图片上传到本地服务器
             // $path = $file->move(public_path() . '/uploads', $newName);
 
-//            将图片上传到七牛云
-//            \Storage::disk('qiniu')->writeStream('uploads/'.$newName, fopen($file->getRealPath(), 'r'));
+           // 将图片上传到七牛云
+           // \Storage::disk('qiniu')->writeStream('uploads/'.$newName, fopen($file->getRealPath(), 'r'));
 
-//            oss上传
+           // oss上传
            $result = OSS::upload('uploads/store/'.$newName, $file->getRealPath());
 
-//        返回文件的上传路径
+       // 返回文件的上传路径
             $filepath = 'uploads/store/' . $newName;
             return $filepath;
         }
