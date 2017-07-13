@@ -1,6 +1,6 @@
-@extends('layouts.home')
+@include('layouts.home_header')
 
-@section('content')
+
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <script type="text/javascript">
         window.isMeilishuoMine = window.location.href.indexOf('meilishuo.com') > -1 ? true : false;
@@ -191,4 +191,4 @@
   <script type="text/javascript" src="{{ asset('home/assets/js/trace.min.js') }}"></script> 
   <script type="text/javascript" src="{{ asset('home/assets/js/188116820283.js') }}" name="MTAH5" sid="500333767" cid="500333775" opts="{&quot;senseHash&quot;:false}"></script> 
  </body>
-@endsection
+@include('layouts.home_footer') 

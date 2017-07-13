@@ -11,10 +11,10 @@ use DB;
 class TypeController extends Controller
 {
     /**
-     * 返回后台商家列表页面
+     * 返回后台分类列表页面
      * @param 参数
      * @return 返回值
-     * @author 邹帅
+     * @author 邹鹏
      * @Date 2017-7-4 15:46
      */
 

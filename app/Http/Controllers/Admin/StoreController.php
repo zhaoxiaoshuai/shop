@@ -34,7 +34,8 @@ class StoreController extends Controller
                 ->join('merchant','store.merchant_id','=','merchant.merchant_id')
                 ->select('store_id','user_name','store_username','merchant_name','merchant_leverl','store_phone','platform_use_fee','percent','audit_status')
                 ->where('audit_status','=','2')
-                ->paginate(3);
+                ->orderBy('store_id','desc')
+                ->paginate(5);
       
         // has 确认是否有输入值
         if($request->has('keywords1')){
@@ -45,7 +46,7 @@ class StoreController extends Controller
                 ->select('store_id','user_name','store_username','merchant_name','merchant_leverl','store_phone','platform_use_fee','percent','audit_status')
                 ->where('merchant_leverl','=',"{$key1}")
                 ->where('audit_status','=','2')
-                ->paginate(3);
+                ->paginate(5);
         }
 
         // has 确认是否有输入值
@@ -57,7 +58,7 @@ class StoreController extends Controller
                 ->select('store_id','user_name','store_username','merchant_name','merchant_leverl','store_phone','platform_use_fee','percent','audit_status')
                 ->where('audit_status','=','2')
                 ->where('merchant_name','like',"%".$key2."%")
-                ->paginate(3); 
+                ->paginate(5); 
         }
 
         $arr = ['1'=>'未审核','审核通过','审核不通过'];
@@ -83,6 +84,7 @@ class StoreController extends Controller
             ->join('user','store.user_id','=','user.user_id')
             ->join('merchant','store.merchant_id','=','merchant.merchant_id')
             ->select('store_id','user_name','store_username','merchant_name','merchant_leverl','store_phone','platform_use_fee','percent','audit_status')
+            ->orderBy('store_id','desc')
             ->get();
 
         $arr = ['1'=>'未审核','审核通过','审核不通过'];
@@ -179,7 +181,7 @@ class StoreController extends Controller
         $res = Store::where('store_id',$id)->update($data);
         
         // 指定字段查询
-        $store = Store::where('store_id',$id)->select('store_id','merchant_id','user_id','audit_status','store_email')->get()[0];
+        $store = Store::where('store_id',$id)->select('store_id','merchant_id','user_id','store_username','audit_status','store_email','audit_opinion')->get()[0];
         
         if($res){
             
@@ -187,12 +189,16 @@ class StoreController extends Controller
             if ($store['audit_status'] == '2') {
 
                 $merchant = Merchant::where('merchant_id',$store['merchant_id'])->select('merchant_name')->get()[0];
+                // 获取姓名
+                $store_username = $store['store_username'];
                 // 获取店铺名
                 $merchant_name = $merchant['merchant_name'];
                 // 获取邮箱   通过邮箱通知用户审核不通过
                 $store_email = $store['store_email'];
+                // 获取审核意见  发给用户
+                $audit_opinion = $store['audit_opinion'];
                 // 调用发送邮件方法
-                self::mailto2($store_email,$merchant_name);
+                self::mailto2($store_email,$merchant_name,$audit_opinion,$store_username);
 
                 // 执行修改用户状态( 状态 0未激活 1已激活 2商家用户)
                 $res = User::where('user_id',$store['user_id'])->update(['status'=>'2']);
@@ -203,12 +209,16 @@ class StoreController extends Controller
             // 如果 audit_status 等于3 就执行删除
             if ($store['audit_status'] == '3') {
                 $merchant = Merchant::where('merchant_id',$store['merchant_id'])->select('merchant_name')->get()[0];
+                // 获取姓名
+                $store_username = $store['store_username'];
                 // 获取店铺名
                 $merchant_name = $merchant['merchant_name'];
                 // 获取邮箱   通过邮箱通知用户审核不通过
                 $store_email = $store['store_email'];
+                // 获取审核意见  发给用户
+                $audit_opinion = $store['audit_opinion'];
                 // 调用发送邮件方法
-                self::mailto1($store_email,$merchant_name);
+                self::mailto1($store_email,$merchant_name,$audit_opinion,$store_username);
                 
                 // 执行删除 shop_merchant
                 $mer = Merchant::where('merchant_id',$store['merchant_id'])->delete();
@@ -224,19 +234,21 @@ class StoreController extends Controller
         }
     }
 
-    public static function mailto1($email,$merchant_name){
+    // 审核不通过
+    public static function mailto1($email,$merchant_name,$audit_opinion,$store_username){
 
-        Mail::send('admin.email.index1', ['merchant_name'=>$merchant_name], function ($m) use ($email) {
+        Mail::send('admin.email.index1', ['merchant_name'=>$merchant_name,'audit_opinion'=>$audit_opinion,'store_username'=>$store_username], function ($m) use ($email) {
            
-            $m->to($email)->subject('这是一封店铺审核通知邮件邮件!');
+            $m->to($email)->subject('这是一封店铺审核通知邮件!');
         });
     }
 
-    public static function mailto2($email,$merchant_name){
+    // 审核通过
+    public static function mailto2($email,$merchant_name,$audit_opinion,$store_username){
 
-        Mail::send('admin.email.index2', ['merchant_name'=>$merchant_name], function ($m) use ($email) {
+        Mail::send('admin.email.index2', ['merchant_name'=>$merchant_name,'audit_opinion'=>$audit_opinion,'store_username'=>$store_username], function ($m) use ($email) {
            
-            $m->to($email)->subject('这是一封店铺审核通知邮件邮件!');
+            $m->to($email)->subject('这是一封店铺审核通知邮件!');
         });
     }
 
@@ -263,12 +275,12 @@ class StoreController extends Controller
             // 0表示成功 其他表示失败
             $data = [
                 'status'=>0,
-                'msg'=>'删除成功！'
+                'msg'=>'删除成功!'
             ];
         }else{
             $data = [
                 'status'=>1,
-                'msg'=>'删除失败！'
+                'msg'=>'删除失败!'
             ];
         }
 

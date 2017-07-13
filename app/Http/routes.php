@@ -115,3 +115,26 @@ Route::get('home/MerApplication3','Home\StoreController@MerApplication3');
 // 用户入驻市场申请图片上传
 Route::any('home/upload1','Home\StoreController@upload1');
 Route::any('home/upload2','Home\StoreController@upload2');
+
+
+/*==========================商家后台===============================*/
+// 商家后台商品管理
+Route::resource('store/goods','Store\GoodsController');
+// 添加商品上传图片
+Route::any('store/upload','Store\GoodsController@upload');
+// 商家后台分类管理
+Route::resource('store/type','Store\TypeController');
+// 商家后台订单管理
+Route::resource('store/orders','Store\OrderController');
+// 商家后台登录
+Route::get('store/login','Store\LoginController@login');
+// 处理登录
+Route::post('store/dologin','Store\LoginController@dologin');
+// 生成验证码
+Route::get('store/captcha/{num}.jpg','Store\LoginController@captcha')->where('name','[0-9]+');
+// ajax判断验证码
+Route::post('store/proving','Store\LoginController@proving');
+// 商家后台首页
+Route::get('store/index','Store\LoginController@index');
+
+
