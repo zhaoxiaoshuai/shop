@@ -17,6 +17,10 @@ DB::listen(function($sql, $bindings, $time) {
 
 /*==========================后台===============================*/
 Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
+	//没有权限返回页面
+	Route::get('back',function(){
+    	return view('errors.403');
+	});
 	//后台登录
 	Route::get('login','LoginController@login');
 	//处理登录
@@ -26,7 +30,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 	//ajax判断验证码
 	Route::post('proving','LoginController@proving');
 
-	Route::group(['middleware' => 'login'],function(){
+	Route::group(['middleware' =>['login','has.auth']] ,function(){
 		//后台退出
 		Route::get('logout','LoginController@logout');
 		//后台首页
@@ -41,7 +45,10 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 	    Route::any('upload','GoodController@upload');
 	    Route::any('good/detail/{id}','GoodController@detail');
 	    //角色管理
-	    Route::resource('role','roleController');
+	    Route::resource('role','RoleController');
+	    //给角色授权
+	    Route::get('role/roleauth/{id}','RoleController@addAuth');
+	    Route::post('role/doroleauth','RoleController@doaddAuth');
 		//管理员管理
 		Route::resource('admin','adminController');
 		//订单管理
@@ -61,8 +68,10 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 		Route::resource('carousel','CarouselController');
 		//系统配置
 		Route::resource('config','ConfController');
-		Route::any('upload','ConfController@upload');//LOGO图片上传
-		Route::any('upload2','ConfController@upload2');//缩略图片上传
+		// Route::any('upload','ConfController@upload');//LOGO图片上传
+		// Route::any('upload2','ConfController@upload2');//缩略图片上传
+		//权限注册
+		Route::resource('auth','AuthController');
 	});
 });
 
@@ -115,3 +124,5 @@ Route::get('home/MerApplication3','Home\StoreController@MerApplication3');
 // 用户入驻市场申请图片上传
 Route::any('home/upload1','Home\StoreController@upload1');
 Route::any('home/upload2','Home\StoreController@upload2');
+
+

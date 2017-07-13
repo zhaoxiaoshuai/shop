@@ -91,6 +91,8 @@
                 layer.msg('验证码是必填的哦^^^^^^',{icon:5});
             }else{
                 $.post('/admin/proving', {code: $(this).val()}, function(msg) { 
+                    // console.log(msg);
+                    // console.log(msg);
                     if (msg.status == 1) {
                         layer.msg(msg.msg,{icon:5});
                     }else{

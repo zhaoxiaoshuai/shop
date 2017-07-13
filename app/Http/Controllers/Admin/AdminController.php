@@ -24,7 +24,7 @@ class AdminController extends Controller
      */
     public function index(Request $request)
     {
-        $count = 3;
+        $count = 5;
         if($request->has('keywords')){
             $key = trim($request->input('keywords')) ;
             $admins = Admin::where('admin_name','like',"%".$key."%")->paginate($count);
@@ -66,7 +66,7 @@ class AdminController extends Controller
     {
         //获取请求数据
         $data = $request -> except('_token');
-
+        
         //验证规则
         $rule = [
             'admin_name' => 'required',
@@ -115,11 +115,17 @@ class AdminController extends Controller
                 //插入数据库
                 DB::beginTransaction();
                 $re1 = Admin::insertGetId($data);
-                $arr = [
-                    'admin_id'=>$re1,
-                    'role_id'=>$role_id
-                ];
-                $re2 = Admin_role::create($arr);
+                
+                $arr = [];
+                foreach($role_id as $k => $v) {
+                    $arr[] = [
+                        'admin_id'=>$re1,
+                        'role_id'=>$v
+                     ];
+                }
+                
+                $re2 = DB::table('admin_role')->insert($arr);
+                
                 //判断
                 if($re1 && $re2){
                     DB::commit();
@@ -157,9 +163,9 @@ class AdminController extends Controller
     {
         //取数据
         $admin = Admin::find($id);
-        $admin -> admin_role;
+        $admin_role =Admin::find($id)->roles()->get();
         $role = Role::get();
-        return view('admin.admin.edit',['data'=>$admin,'role'=>$role]);
+        return view('admin.admin.edit',['data'=>$admin,'role'=>$role,'admin_role'=>$admin_role]);
     }
 
     /**
@@ -197,16 +203,24 @@ class AdminController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }else{
-            $arr = [
-                'role_id' => $data['role_id'],
-            ];
+            $arr = [];
+            foreach ($data['role_id'] as $k => $v) {
+                $arr[] = [
+                    'admin_id' => $id,
+                    'role_id' => $v,
+                ];
+            }
             unset($data['role_id']);
+            //开启事务
             DB::beginTransaction();
-
+            //更新管理员表
             $re1 = Admin::where('admin_id',$id) ->update($data);
-            $re2 = Admin_role::where('admin_id',$id) ->update($arr);
+            //删除原有管理员和角色的关联
+            $re2 = DB::table('admin_role')->where('admin_id', $id)->delete();
+            //插入新的关联
+            $re3 = DB::table('admin_role')->insert($arr);
             
-            if($re1 or $re2){
+            if($re1 or $re2 && $re3){
                 DB::commit();
                 return redirect('admin/admin');
             }else{
@@ -226,19 +240,28 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
+        //开启事务
+        DB::beginTransaction();
         //删除指定管理员
-        $res = Admin::where('admin_id',$id)->delete();
+        $res1 = Admin::where('admin_id',$id)->delete();
+        //删除管理员和角色的关联表中数据
+        $res2 = DB::table('admin_role')->where('admin_id', $id)->delete();
+
         //0表示成功 其他表示失败
-       if($res){
+       if($res1 && $res2){
+            
            $data = [
                 'status'=>0,
                 'msg'=>'删除成功！'
            ];
+           DB::commit();
        }else{
+            
            $data = [
                'status'=>1,
                'msg'=>'删除失败！'
            ];
+           DB::rollBack();
        }
         return $data;
     }

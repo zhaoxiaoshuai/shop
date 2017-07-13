@@ -25,6 +25,9 @@ class LoginController extends Controller
      */
     public function login(Request $request)
     {
+        if (session('adminFlag')) {
+            return redirect('admin/index');
+        }
         $cookie = $request->cookie('admin');
         // dd($cookie);
         //返回登录视图
@@ -39,7 +42,6 @@ class LoginController extends Controller
      */
     public function dologin(Request $request)
     {
-        
         //接受数据
         $data = $request -> except('_token');
 
@@ -76,18 +78,25 @@ class LoginController extends Controller
                      }else{
                         Cookie::queue('admin','',-1);
                     }
+                    
+
                     //设置标志位  将用户信息存入session
                     session(['adminFlag'=>true]);
                     session(['admin'=>$admin]);
+
                     //跟新用户最后登录时间
                     $lasttime=['admin_lasttime'=>time()];
                     Admin::where('admin_name',$data['admin_name'])->update($lasttime);
+                    
+
                     //判断用户是否第一次登录
                     if($admin['admin_lasttime']){
                         $str = ',上次登录时间为'.date('Y年m月d日H时i分s秒',$admin['admin_lasttime']);
                     }else{
                         $str = ',这是您第一次登录';
                     }
+                    
+
                     //返回后台首页
                     return redirect('admin/index')-> with('success','登录成功,现在时间为'.date('Y年m月d日H时i分s秒',time()).$str);
                     
@@ -111,8 +120,8 @@ class LoginController extends Controller
     public function proving(Request $request)
     {
         $code = $request->input('code');
-
-        if($code != session('captcha')){
+        $code = strtolower($code);
+        if($code != session('code')){
             $data = [
                 'status'=>1,
                 'msg'=>'验证码不正确！'
@@ -134,20 +143,26 @@ class LoginController extends Controller
      */
     public function captcha()
     {
-    	$phraseBuilder   = new PhraseBuilder(2);
-    	// $str = $phraseBuilder -> build();
-        //生成验证码图片的Builder对象，配置相应属性
-        $builder = new CaptchaBuilder(null,$phraseBuilder);
-        //可以设置图片宽高及字体
-        $builder->build($width = 130, $height = 40, $font = null);
-        //获取验证码的内容
+    	
+        $phrase = new PhraseBuilder;
+        // 设置验证码位数
+        $code = $phrase->build(4);
+        // 生成验证码图片的Builder对象，配置相应属性
+        $builder = new CaptchaBuilder($code, $phrase);
+        // 设置背景颜色
+        $builder->setBackgroundColor(220, 210, 230);
+        $builder->setMaxAngle(25);
+        $builder->setMaxBehindLines(0);
+        $builder->setMaxFrontLines(0);
+        // 可以设置图片宽高及字体
+        $builder->build($width = 130, $height = 50, $font = null);
+        // 获取验证码的内容
         $phrase = $builder->getPhrase();
-
-        //把内容存入session
-        session(['captcha'=>$phrase]);
-        //生成图片
+        // 把内容存入session
+        \Session::flash('code', $phrase);
+        // 生成图片
         header("Cache-Control: no-cache, must-revalidate");
-        header('Content-Type: image/jpeg');
+        header("Content-Type:image/jpeg");
         $builder->output();
     }
     /**

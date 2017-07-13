@@ -1,17 +1,17 @@
 <?php
 
-namespace App\http\Model;
+namespace App\Http\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class Auth extends Model
 {
     /**
     * 与模型关联的数据表。
     *
     * @var string
     */
-    protected $table = 'role';
+    protected $table = 'auth';
     /**
      * 指定是否模型应该被戳记时间。
      *
@@ -23,15 +23,11 @@ class Role extends Model
      *
      * @var string
      */
-    protected $primaryKey="role_id";
+    protected $primaryKey="auth_id";
     /**
      * 指定可以操作的字段.
      *
      * @var array
      */
-    protected $fillable = ['role_name', 'role_description'];
-     public function auths()
-    {
-        return $this->belongsToMany('App\Http\Model\Auth','role_auth', 'role_id', 'auth_id');
-    }
+    protected $fillable = ['auth_id', 'auth_name','auth_content','auth_description','auth_group'];
 }

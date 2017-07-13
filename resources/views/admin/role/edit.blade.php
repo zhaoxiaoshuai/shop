@@ -25,14 +25,14 @@
 	        <form action="{{url('admin/role/'.$data['role_id'])}}" class="am-form tpl-form-border-form tpl-form-border-br" method="POST" >
 	       		 <input type="hidden" name="_method" value="put">
 	            <div class="am-form-group">
-	                <label for="admin_name" class="am-u-sm-3 am-form-label">角色名</label>
+	                <label for="role_name" class="am-u-sm-3 am-form-label">角色名</label>
 	                <div class="am-u-sm-9">
 	                    <input type="text" class="tpl-form-input" id="role_name" name="role_name" value="{{$data['role_name']}}" placeholder="请输入要添加的角色名">
 	                    <small></small>
 	                </div>
 	            </div>
 	            <div class="am-form-group">
-	                <label for="admin_phone" class="am-u-sm-3 am-form-label">角色描述</label>
+	                <label for="role_description" class="am-u-sm-3 am-form-label">角色描述</label>
 	                <div class="am-u-sm-9">
                         <textarea class="" name="role_description" rows="10" id="user-intro" placeholder="请输入角色描述">{{$data['role_description']}}</textarea>
                     </div>

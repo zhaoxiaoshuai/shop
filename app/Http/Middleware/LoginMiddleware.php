@@ -16,6 +16,8 @@ class LoginMiddleware
      */
     public function handle($request, Closure $next)
     {
+        // $route = \Route::current()->getName();
+        // dd($route);
         if(session('adminFlag')){
             return $next($request);
         }else{
@@ -23,4 +25,8 @@ class LoginMiddleware
         }
         
     }
+//     admin.index.admin
+// admin.admin.edit
+// admin.admin.destroy
+// admin.admin.create
 }

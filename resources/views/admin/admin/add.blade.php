@@ -61,13 +61,15 @@
 	                </div>
 	            </div>
 	            <div class="am-form-group">
-	                <label for="user-phone" class="am-u-sm-3 am-form-label">角　　色</label>
+	                <label for="" class="am-u-sm-3 am-form-label">角　　色</label>
 	                <div class="am-u-sm-9">
-	                    <select data-am-selected="{searchBox: 0}" name="role_id" style="display: none;">
 	                    @foreach($data as $k=>$v)
-	                      <option value="{{$v['role_id']}}">{{$v['role_name']}}</option>
+	                    <div style="float:left;width:20%">
+	                    	<input id="user_role{{$v['role_id']}}" type="checkbox" name='role_id[]' value="{{$v['role_id']}}">
+	                      <label for="user_role{{$v['role_id']}}">{{$v['role_name']}}</label>
+	                    </div>
+	                      
 	                    @endforeach
-	                    </select>
 	                </div>
 	            </div>
 	            <div class="am-form-group">

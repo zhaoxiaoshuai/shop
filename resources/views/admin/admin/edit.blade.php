@@ -49,18 +49,18 @@
 	                </div>
 	            </div>
 	            <div class="am-form-group">
-	                <label for="user-phone" class="am-u-sm-3 am-form-label">角　　色</label>
+	                <label for="" class="am-u-sm-3 am-form-label">角　　色</label>
 	                <div class="am-u-sm-9">
-	                    <select data-am-selected="{searchBox: 0}" name="role_id" style="display: none;">
 	                    @foreach($role as $k=>$v)
-	                      <option  
-							@if($v['role_id'] == $data['admin_role'][0]['role_id'])
-							 selected
-							@endif
-	                       value="{{$v['role_id']}}">{{$v['role_name']}}</option>
+	                      <input id="admin_role{{$v['role_id']}}" 
+	                      @foreach($admin_role as $kk=>$vv) 
+	                     	 @if($vv['role_id'] == $v['role_id'])checked @endif
+	                      @endforeach 
+	                       type="checkbox" name='role_id[]' value="{{$v['role_id']}}">
+	                      <label for="admin_role{{$v['role_id']}}">{{$v['role_name']}}</label>
 	                    @endforeach
-	                    </select>
 	                </div>
+					
 	            </div>
 	            <div class="am-form-group">
 	                <div class="am-u-sm-9 am-u-sm-push-3">

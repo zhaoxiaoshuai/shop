@@ -31,9 +31,9 @@ class Admin extends Model
      */
     protected $fillable = ['admin_name', 'admin_password','admin_phone','admin_email','admin_lasttime','admin_create'];
 
-    public function admin_role()
+    public function roles()
     {
-        return $this->hasMany('App\Http\Model\Admin_role','admin_id','admin_id');
+        return $this->belongsToMany('App\Http\Model\Role','admin_role', 'admin_id', 'role_id');
     }
 
 }

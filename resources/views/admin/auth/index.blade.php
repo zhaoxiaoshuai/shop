@@ -31,24 +31,24 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>角色名</th>
-                            <th>角色描述</th>
+                            <th>权限名</th>
+                            <th>权限内容</th>
+                            <th>权限描述</th>
                             <th>操作</th>
                         </tr>
                     </thead>
                     <tbody>
 	                    @foreach($data as $k => $v)
 	                        <tr class="even gradeC">
-	                            <td>{{$v['role_id']}}</td>
-	                            <td>{{$v['role_name']}}</td>
-	                            <td>{{$v['role_description']}}</td>
+	                            <td>{{$v['auth_id']}}</td>
+	                            <td>{{$v['auth_name']}}</td>
+                                <td>{{$v['auth_content']}}</td>
+	                            <td>{{$v['auth_description']}}</td>
 	                            <td>
 	                                <div class="tpl-table-black-operation">
-	                                    <a href="{{url('admin/role/roleauth/'.$v['role_id'])}}">
-	                                        <i class="am-icon-pencil"></i>分配权限</a>
-                                        <a href="{{url('admin/role/'.$v['role_id'].'/edit')}}">
-                                        <i class="am-icon-pencil"></i>编辑</a>
-	                                    <a href="javascript:;" onclick="Del({{$v['role_id']}})"  class="tpl-table-black-operation-del">
+	                                    <a href="{{url('admin/auth/'.$v['auth_id'].'/edit')}}">
+	                                        <i class="am-icon-pencil"></i>编辑</a>
+	                                    <a href="javascript:;" onclick="Del({{$v['auth_id']}})"  class="tpl-table-black-operation-del">
 	                                        <i class="am-icon-trash"></i>删除</a>
 	                                </div>
 	                            </td>
@@ -74,7 +74,7 @@
         layer.confirm('是否确认删除？', {
           btn: ['确认','取消'] //按钮
         }, function(){
-            $.post("{{url('admin/role/')}}/"+id, {'_method':'DELETE','_token':"{{csrf_token()}}"}, function(data) {
+            $.post("{{url('admin/auth/')}}/"+id, {'_method':'DELETE','_token':"{{csrf_token()}}"}, function(data) {
                  if(data.status == 0){
                     location.href = location.href;
                     layer.msg(data.msg, {icon: 6});
