@@ -14,6 +14,7 @@
     <script src="{{asset('home/AmazeUI-2.4.2/assets/js/jquery.min.js')}}"></script>
     <script src="{{asset('home/AmazeUI-2.4.2/assets/js/amazeui.min.js')}}"></script>
     <script src="{{asset('layer/layer.js')}}"></script>
+
 </head>
 
 <body>
@@ -65,10 +66,6 @@
                             $('#email').blur(function(){
                                 var res = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
                                 var email = $('#email').val();
-                                if(email==''){
-                                    layer.msg('邮箱不能为空',{icon:2});
-                                    return false;
-                                }
                                 if(!res.test(email)){
                                     layer.msg('请输入正确的邮箱格式',{icon:5});
                                     return false;
@@ -88,6 +85,7 @@
                             $('#password').blur(function(){
                                 var res = /^[A-Za-z0-9]{6,20}$/;
                                 var password = $('#password').val();
+
                                 if(!res.test(password)){
                                     layer.msg('请输入6-18位,小写字母,大写字母,数字三种组合的密码',{icon:7});
                                     return false;
@@ -104,6 +102,18 @@
                                 }
                             });
                             $('#submit_submit').click(function(){
+                                if($('#email').val()==''){
+                                    layer.msg('邮箱不能为空',{icon:2});
+                                    return false;
+                                }
+                                if($('#password').val()==''){
+                                    layer.msg('密码不能为空',{icon:2});
+                                    return false;
+                                }
+                                if($('#repassword').val()==''){
+                                    layer.msg('确认密码不能为空',{icon:2});
+                                    return false;
+                                }
                                 if(aa == true && bb == true && cc == true){
                                     return true;
                                 } else{
@@ -156,10 +166,10 @@
                             $('#phone').blur(function(){
                                var res = /^1(3|4|5|7|8)\d{9}$/;
                                var phone = $('#phone').val();
-                               if(phone==''){
-                                   layer.msg('手机号不能为空',{icon:5});
-                                   return false;
-                               }
+                                if(phone==''){
+                                    layer.msg('手机号不能为空',{icon:5});
+                                    return false;
+                                }
                                if(!res.test(phone)){
                                    layer.msg('请输入正确的手机号码',{icon:5});
                                    return false;

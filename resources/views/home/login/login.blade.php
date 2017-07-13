@@ -58,33 +58,18 @@
                     layer.msg('请激活后重新登录',{icon:7});
                 </script>
             @endif
+            @if(session('okfindpwd'))
+                <script>
+                    layer.msg('修改成功',{icon:1});
+                </script>
+            @endif
             <div class="login-links">
                 <label for="remember-me">
                     <input id="remember-me" type="checkbox">记住密码</label>
-                <a href="#" class="am-fr">忘记密码</a>
+                <a href="{{url('home/user/findpwd')}}" class="am-fr">忘记密码</a>
                 <a href="{{url('home/user/register')}}" class="zcnext am-fr am-btn-default">注册</a>
                 <br /></div>
 
-            <div class="partner">
-                <h3>合作账号</h3>
-                <div class="am-btn-group">
-                    <li>
-                        <a href="#">
-                            <i class="am-icon-qq am-icon-sm"></i>
-                            <span>QQ登录</span></a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="am-icon-weibo am-icon-sm"></i>
-                            <span>微博登录</span></a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="am-icon-weixin am-icon-sm"></i>
-                            <span>微信登录</span></a>
-                    </li>
-                </div>
-            </div>
         </div>
     </div>
 </div>

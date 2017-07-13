@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Home;
 
 use App\Http\Model\User;
+use App\Http\Model\User_details;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -44,8 +45,14 @@ class LoginController extends Controller
                 return back()->with('errors','账号或密码错误');
             }else{
                 if($res['status']>0){
-                    //加入session
+                    //查询昵称
+                    $dd = User_details::where('user_id',$res['user_id'])->first();
+                    //用户加入session
                     session(['logins'=>$res]);
+                    //昵称加入session
+                    session(['deta_name'=>$dd['deta_name']]);
+                    $lasttime = ['lasttime'=>time()];
+                    User::where('user_id',$res['user_id']) -> update($lasttime);
                     //正确 返回主页
                     return redirect('/');
                 }else{

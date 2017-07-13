@@ -13,66 +13,64 @@
 DB::listen(function($sql, $bindings, $time) {
                 // dump($sql);
                 // dump($bindings);
-});
+            });
+
+
 
 /*==========================后台===============================*/
-Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
-	//后台登录
-	Route::get('login','LoginController@login');
-	//处理登录
-	Route::post('dologin','LoginController@dologin');
-	//生成验证码
-	Route::get('captcha/{num}.jpg','LoginController@captcha')->where('name','[0-9]+');
-	//ajax判断验证码
-	Route::post('proving','LoginController@proving');
+//后台登录
+Route::get('admin/login','Admin\LoginController@login');
+//处理登录
+Route::post('admin/dologin','Admin\LoginController@dologin');
+//生成验证码
+Route::get('admin/captcha/{num}.jpg','Admin\LoginController@captcha')->where('name','[0-9]+');
 
-	Route::group(['middleware' => 'login'],function(){
-		//后台退出
-		Route::get('logout','LoginController@logout');
-		//后台首页
-		Route::get('index','LoginController@index');
-	    //管理员管理
-	    Route::resource('admin','adminController');
-	    //管理员修改自己信息
-	    Route::get('admin/editself/{id}','adminController@editself');
-	    Route::post('admin/updateself/','adminController@updateself');
-	    //商品管理
-	    Route::resource('good','GoodController');
-	    Route::any('upload','GoodController@upload');
-	    Route::any('good/detail/{id}','GoodController@detail');
-	    //角色管理
-	    Route::resource('role','roleController');
-		//管理员管理
-		Route::resource('admin','adminController');
-		//订单管理
-		Route::resource('orders','Orders\OrdersController');
-		// 后台分类管理
-		Route::resource('atype','TypeController');
-		// 用户管理
-		Route::resource('user','UserController');
-		//订单详情
-		Route::resource('detail','DetailController');
-		// 商家管理
-		Route::resource('astore','StoreController');
-		Route::get('astoreindex/{x}','StoreController@astoreindex');
-		//友情链接
-		Route::resource('link','LinkController');
-		//轮播图路由
-		Route::resource('carousel','CarouselController');
-		//系统配置
-		Route::resource('config','ConfController');
-		Route::any('upload','ConfController@upload');//LOGO图片上传
-		Route::any('upload2','ConfController@upload2');//缩略图片上传
-	});
+//管理员管理
+Route::resource('admin/admin','Admin\adminController');
+
+
+//角色控制器
+Route::resource('admin/role','Admin\roleController');
+
+//商品管理
+Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
+    Route::resource('admin','adminController');
+    Route::resource('good','GoodController');
+    Route::any('upload','GoodController@upload');
 });
+//订单管理
+Route::resource('admin/orders','Admin\Orders\OrdersController');
+
+//友情链接
+Route::resource('link','Admin\LinkController');
+
+//系统配置
+Route::resource('config','Admin\ConfController');
+Route::any('upload','Admin\ConfController@upload');//LOGO图片上传
+Route::any('upload2','Admin\ConfController@upload2');//缩略图片上传
+
+// 商家信息路由
+Route::resource('admin/astore','Admin\StoreController');
+Route::get('admin/astoreindex/{x}','Admin\StoreController@astoreindex');
 
 // 商家店铺路由
 // Route::resource('admin/merchant','Admin\MerchantController');
+
+// 后台分类管理
+Route::resource('admin/atype','Admin\TypeController');
+
+// 用户管理
+Route::resource('admin/user','Admin\UserController');
+
+
 
 /*==========================前台===============================*/
 //前台登录
 Route::get('home/login','Home\LoginController@login');
 Route::post('home/login/do','Home\LoginController@logindo');
+
+//前台退出
+Route::get('home/user/exit','Home\UserController@exit');
 
 //前台用户注册
 Route::get('home/user/register','Home\UserController@register');
@@ -94,7 +92,32 @@ Route::post('home/user/phonecreate','Home\UserController@phonecreate');
 Route::get('home/user/phonecreateto','Home\UserController@phonecreateto');
 
 //个人中心
+Route::get('home/user/mycenter','Home\UserController@mycenter');
+
+//用户详情
 Route::get('home/user/user_details','Home\UserController@user_details');
+
+//修改信息
+Route::post('home/user/update','Home\UserController@update');
+
+//头像上传
+Route::post('home/user/upload','Home\UserController@upload');
+
+//修改密码
+Route::get('home/user/edit/{id}','Home\UserController@edit');
+Route::post('home/user/editpassword','Home\UserController@editpassword');
+Route::post('home/user/updatepassword','Home\UserController@updatepassword');
+
+//找回密码页面
+Route::get('home/user/findpwd','Home\UserController@findpwd');
+//发送验证码
+Route::get('home/user/dofindpwd','Home\UserController@dofindpwd');
+//确认验证码
+Route::post('home/user/okfindpwd','Home\UserController@okfindpwd');
+//邮箱修改密码
+Route::get('home/user/emailfindpwd','Home\UserController@emailfindpwd');
+//确认修改密码
+Route::post('home/user/findpwdok','Home\UserController@findpwdok');
 
 //前台首页
 Route::get('/', function () {
@@ -102,16 +125,6 @@ Route::get('/', function () {
 });
 
 // 前台商家路由
-// 用户提交申请信息路由
-Route::post('home/CreateStore','Home\StoreController@CreateStore');
-// 用户入驻市场路由
+Route::resource('home/hstore','Home\StoreController');
+// 入驻市场路由
 Route::get('home/MerSettled','Home\StoreController@MerSettled');
-// 用户入驻市场申请页面路由1(如果用户没登录走这个路由)
-Route::get('home/MerApplication1','Home\StoreController@MerApplication1');
-// 用户入驻市场申请页面路由2
-Route::get('home/MerApplication2','Home\StoreController@MerApplication2');
-// 用户入驻市场申请页面路由3
-Route::get('home/MerApplication3','Home\StoreController@MerApplication3');
-// 用户入驻市场申请图片上传
-Route::any('home/upload1','Home\StoreController@upload1');
-Route::any('home/upload2','Home\StoreController@upload2');
