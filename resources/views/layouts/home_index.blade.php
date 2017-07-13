@@ -8,7 +8,6 @@
             <form action="home/search" method="post">
                 {{ csrf_field() }}
                 <input type="text" value="" name="search" class="s_ipt" />
-
                 <input type="submit" value="搜索" class="s_btn" />
             </form>
             <span class="fl"><a href="#">咖啡</a><a href="#">iphone 6S</a><a href="#">新鲜美食</a><a href="#">蛋糕</a><a href="#">日用品</a><a href="#">连衣裙</a></span>
@@ -24,19 +23,16 @@
                 <ul class="cars">
                     <li>
                         <div class="img"><a href="#"><img src="{{ asset('home/assets/images/car1.jpg')}}" width="58" height="58" /></a></div>
-
                         <div class="name"><a href="#">法颂浪漫梦境50ML 香水女士持久清新淡香 送2ML小样3只</a></div>
                         <div class="price"><font color="#ff4e00">￥399</font> X1</div>
                     </li>
                     <li>
                         <div class="img"><a href="#"><img src="{{ asset('home/assets/images/car2.jpg')}}" width="58" height="58" /></a></div>
-
                         <div class="name"><a href="#">香奈儿（Chanel）邂逅活力淡香水50ml</a></div>
                         <div class="price"><font color="#ff4e00">￥399</font> X1</div>
                     </li>
                     <li>
                         <div class="img"><a href="#"><img src="{{ asset('home/assets/images/car2.jpg')}}" width="58" height="58" /></a></div>
-
                         <div class="name"><a href="#">香奈儿（Chanel）邂逅活力淡香水50ml</a></div>
                         <div class="price"><font color="#ff4e00">￥399</font> X1</div>
                     </li>

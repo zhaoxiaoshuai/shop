@@ -92,7 +92,7 @@
 
                                         $.ajax({
                                             type: "POST",
-                                            url: "/admin/upload",
+                                            url: "/admin/goods/upload",
                                             data: formData,
                                             async: true,
                                             cache: false,

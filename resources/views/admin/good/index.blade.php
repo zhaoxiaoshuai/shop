@@ -10,7 +10,8 @@
                     <div class="am-form-group">
                         <div class="am-btn-toolbar">
                             <div class="am-btn-group am-btn-group-xs">
-                                <button type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span><a href="{{url('admin/good/create')}}"> 新增商品</button>
+                                <button type="button" class="am-btn am-btn-default am-btn-success"><a
+                                            href="{{url('admin/good/create')}}"><span class="am-icon-plus">新增</span></a></button>
                             </div>
                         </div>
                     </div>

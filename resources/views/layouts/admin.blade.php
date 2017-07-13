@@ -21,6 +21,9 @@
     <script src="{{asset('admin/assets/js/jquery.min.js')}}"></script>
     <script src="{{asset('layer/layer.js')}}"></script>
     <script type="text/javascript" src="{{asset('layer/layer.js')}}"></script>
+
+
+
     <style>
         .button{
             font-size:10px;

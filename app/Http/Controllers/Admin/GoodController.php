@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Model\Good;
+use App\Http\Model\Goodpic;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -24,26 +25,29 @@ class GoodController extends Controller
     {
 //        将上传文件移动到制定目录，并以新文件名命名
         $file = Input::file('file_upload');
-        if($file->isValid()) {
-            $entension = $file->getClientOriginalExtension();//上传文件的后缀名
-            $newName = date('YmdHis') . mt_rand(1000, 9999) . '.' . $entension;
+//        return($file);
+            if ($file->isValid()) {
+                $entension = $file->getClientOriginalExtension();//上传文件的后缀名
+                $newName = date('YmdHis') . mt_rand(1000, 9999) . '.' . $entension;
 
 //            将图片上传到本地服务器
 
-            // $path = $file->move(public_path() . '/uploads', $newName);
+                // $path = $file->move(public_path() . '/uploads', $newName);
 
 //            将图片上传到七牛云
 //            \Storage::disk('qiniu')->writeStream('uploads/'.$newName, fopen($file->getRealPath(), 'r'));
 
 //            oss上传
 
-            $result = OSS::upload('uploads/'.$newName, $file->getRealPath());
+                $result = OSS::upload('uploads/' . $newName, $file->getRealPath());
 
 
 //        返回文件的上传路径
-            $filepath = 'uploads/' . $newName;
-            return $filepath;
+                $filepath = 'uploads/' . $newName;
+
+
         }
+        return $filepath;
     }
 
     public function index(Request $request)
@@ -51,11 +55,12 @@ class GoodController extends Controller
 //        如果请求携带keywords参数说明是通过查询进入index方法的，否则是通过商品列表导航进入的
         if($request->has('keywords')){
             $key = trim($request->input('keywords')) ;
-            $good = Good::where('good_name','like',"%".$key."%")->paginate(10);;
+//            dd($key);
+            $good = Good::where('good_name','like',"%".$key."%")->paginate(5);
             return view('admin.good.index',['data'=>$good,'key'=>$key]);
         }else{
             //两表联查shop_goods shop_type
-            $data =  Good::join('type','goods.type_id','=','type.type_id')->orderBy('goods.good_id','asc')->paginate(10);
+            $data =  Good::join('type','goods.type_id','=','type.type_id')->orderBy('goods.good_id','asc')->paginate(5);
 //            dd($data);
             //      向前台模板传变量的一种方法
             return view('admin.good.index',compact('data'));
@@ -95,8 +100,10 @@ class GoodController extends Controller
      */
     public function store(Request $request)
     {
+
 //        dd($request->all());
       $input =  Input::except('_token','file_upload');
+//      dd($input);
       $input['good_ctime'] = time();
       $role =  [
             'good_name' => 'required',
@@ -107,6 +114,7 @@ class GoodController extends Controller
             'good_count' => 'required|numeric',
             'good_pic' => 'required',
             'good_status' => 'required',
+            'good_pics' => 'required',
         ];
 //       提示信息
         $mess=[
@@ -118,19 +126,55 @@ class GoodController extends Controller
             'good_desc.required'=>'请填写商品描述',
             'good_count.required'=>'请填写商品库存',
             'good_count.numeric'=>'商品库存请填写数字',
-            'good_pic.required'=>'请上传图片',
+            'good_pic.required'=>'请上传商品大图',
             'good_status.required'=>'请选择商品状态',
+            'good_pics.required'=>'请上传商品缩略图',
         ];
 //       表单验证
       $validator =  Validator::make($input,$role,$mess);
 //      dd($validator);
 //      如果通过表单验证
       if($validator->passes()){
-          $re = Good::create($input);
+          $file = Input::file('good_pics');
+//        dd($file);
+          $arr = [];
+          foreach ($file as $k=>$v){
+              if ($v->isValid()) {
+                  $entension = $v->getClientOriginalExtension();//上传文件的后缀名
+                  $newName = date('YmdHis') . mt_rand(1000, 9999) . '.' . $entension;
+//                dd($)
+//            oss上传
+
+                  $result = OSS::upload('uploads/' . $newName, $v->getRealPath());
+
+
+//        返回文件的上传路径
+                  $filepath = 'uploads/' . $newName;
+
+                  $arr[] = $filepath;
+              }
+          }
+//        dd($arr);
+
+          DB::beginTransaction();
+          $re = Good::insertGetId($input);
+          $goodpics = [];
+          foreach ($arr as $k=>$v){
+              $goodpics[]=[
+                  'good_id'=>$re,
+                  'good_pics'=>$v,
+              ];
+          }
+         $res = Goodpic::insert($goodpics);
+
+//          dd($res);
+
          if($re){
+             DB::commit();
 //             如果添加成功添加到商品列表页
              return redirect('admin/good');
          }else{
+             DB::rollBack();
              return back()->with('error','添加失败');
          }
       }else{
@@ -182,6 +226,7 @@ class GoodController extends Controller
     {
         //根据id获取修改记录
         $good = Good::find($id);
+//        dd($good);
         //根据请求传过来的参数获取到要修改成的记录
         $input = Input::except('_token','_method','file_upload');
 //        dd($input);

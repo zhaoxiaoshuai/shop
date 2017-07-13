@@ -3,10 +3,12 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link type="text/css" rel="stylesheet" href="{{ asset('home/assets/css/style.css') }}" />
+
     <link type="text/css" rel="stylesheet" href="{{ asset('home/css/button.css') }}" />
     <title>{{ config('web.conf_title') }}</title>
     <meta name="description" content="{{ config('web.conf_description') }}" />
     <meta name="keywords" content="{{ config('web.conf_keywords') }}" />
+
     <!--[if IE 6]>
     <script src="js/iepng.js" type="text/javascript"></script>
     <script type="text/javascript">
@@ -34,7 +36,6 @@
     <script type="text/javascript" src="{{ asset('home/assets/js/lrscroll_1.js') }}"></script>
     <script type="text/javascript" src="{{ asset('home/js/PCASClass.js') }}"></script>
     <link type="text/css" rel="stylesheet" href="{{asset('assets/css/style.css')}}" />
-
     <script type="text/javascript" src="{{asset('home/assets/js/jquery-1.8.2.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('home/assets/js/menu.js')}}"></script>
 
@@ -137,7 +138,9 @@
              @if(session('logins'))
                 <span class="fl" style="margin-left:400px">
 
+
                     会员 : <a href="{{url('home/user/user_details')}}">{{session('deta_name')}}</a> &nbsp;&nbsp;&nbsp;
+
                     <a href="{{url('home/user/exit')}}">退出</a>
                     &nbsp;|&nbsp;<a href="#">我的订单</a>&nbsp;|
                 </span>

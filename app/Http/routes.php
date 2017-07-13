@@ -58,8 +58,13 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 	    Route::get('admin/editself/{id}','adminController@editself');
 	    Route::post('admin/updateself/','adminController@updateself');
 	    //商品管理
+        //上传商品大图
+        Route::any('goods/upload','GoodController@upload');
+        //上传商品其他图片
+        Route::any('goods/uploadpic','GoodController@uploadpic');
+//        商品资源路由
 	    Route::resource('good','GoodController');
-	    Route::any('upload','GoodController@upload');
+        //商品详情路由
 	    Route::any('good/detail/{id}','GoodController@detail');
 	    //角色管理
 	    Route::resource('role','RoleController');
@@ -120,10 +125,8 @@ Route::resource('admin/user','Admin\UserController');
 //前台登录
 Route::get('home/login','Home\LoginController@login');
 Route::post('home/login/do','Home\LoginController@logindo');
-
 //前台退出
 Route::get('home/user/exit','Home\UserController@exit');
-
 //前台用户注册
 Route::get('home/user/register','Home\UserController@register');
 //发送邮箱Ajax
@@ -186,6 +189,13 @@ Route::get('home/MerApplication3','Home\StoreController@MerApplication3');
 // 用户入驻市场申请图片上传
 Route::any('home/upload1','Home\StoreController@upload1');
 Route::any('home/upload2','Home\StoreController@upload2');
+//前台商品路由
+//前台商品列表页路由
+Route::any('home/goodlist/{id}','Home\GoodController@goodList');
+//前台商品详情页路由
+Route::any('/home/gooddetail/{id}','Home\GoodController@goodDetail');
+//前台新品商品列表页路由
+Route::any('home/newgoodlist/{id}','Home\GoodController@newgoodList');
 
 
 /*==========================商家后台===============================*/
@@ -207,3 +217,5 @@ Route::get('store/captcha/{num}.jpg','Store\LoginController@captcha')->where('na
 Route::post('store/proving','Store\LoginController@proving');
 // 商家后台首页
 Route::get('store/index','Store\LoginController@index');
+
+
