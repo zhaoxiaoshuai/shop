@@ -21,7 +21,7 @@ class OrdersController extends Controller
     public function index(Request $request)
     {   
         
-
+    	
         //通过user_id查询user_name
         //带搜索条件分页查询
         if($request->has('orders')){

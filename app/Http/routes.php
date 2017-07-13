@@ -95,8 +95,6 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 		Route::any('uploadconf','ConfController@uploadconf');//LOGO图片上传
 	});
 });
-//订单管理
-Route::resource('admin/orders','Admin\Orders\OrdersController');
 
 //友情链接
 Route::resource('link','Admin\LinkController');

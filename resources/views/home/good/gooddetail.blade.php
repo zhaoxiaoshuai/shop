@@ -1,4 +1,4 @@
-@extends('layouts.home_index')
+@extends('layouts.home_good')
 
 @section('content')
 

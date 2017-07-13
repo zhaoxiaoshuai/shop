@@ -47,7 +47,6 @@
     <!--Begin Menu Begin-->
     <div class="menu_bg">
         <div class="menu">
-@include('layouts.home_list')
             <ul class="menu_r">
                 <li><a href="Index.html">首页</a></li>
                 <li><a href="Food.html">美食</a></li>
