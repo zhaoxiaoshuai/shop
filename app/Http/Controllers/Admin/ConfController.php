@@ -123,7 +123,7 @@ class ConfController extends Controller
      *LOGO 图片上传
      */
 
-    public function upload()
+    public function uploadconf()
     {
         //将上传的文件移动到指定目录,并为新文件命名
 

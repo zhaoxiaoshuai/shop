@@ -11,7 +11,8 @@
         "barryvdh/laravel-debugbar": "^2.4",
         "overtrue/flysystem-qiniu": "^0.0.2",
         "overtrue/laravel-filesystem-qiniu": "^0.0.3",
-        "johnlui/aliyun-oss": "~1.0"
+        "johnlui/aliyun-oss": "~1.0",
+        "predis/predis": "~1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

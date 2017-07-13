@@ -3,7 +3,7 @@
 
 <head lang="en">
     <meta charset="UTF-8">
-    <title>注册</title>
+    <title>用户注册</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="format-detection" content="telephone=no">
@@ -19,7 +19,7 @@
 <body>
 <div class="login-boxtitle">
     <a href="home/demo.html">
-        <img alt="" src="{{asset('home/images/logobig.png')}}" /></a>
+        <img alt="" src="{{'http://php182.oss-cn-beijing.aliyuncs.com/'.config('web.conf_logo')}}" /></a>
 </div>
 <div class="res-banner">
     <div class="res-main">
