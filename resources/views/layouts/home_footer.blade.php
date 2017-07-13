@@ -69,13 +69,23 @@
         </p>
     </div>
     <div class="b_er">
-        <div class="b_er_c"><img src="{{ asset('home/assets/images/er.gif') }}" width="118" height="118" /></div>
+        <div class="b_er_c"><img src="{{ asset('home/assets/images/erweima.jpg') }}" width="118" height="118" /></div>
+
         <img src="" />
     </div>
 </div>
 <div class="btmbg">
+
+     <div style="margin-left:35%;">
+        @if(!empty($link))
+        @foreach($link as $k => $v)
+            <span class="btn btn-link"><a href="{{ $v['link_href'] }}" title="{{ $v['link_name'] }}">{{ $v['link_name'] }}</a></span>&nbsp;&nbsp;
+        @endforeach
+        @endif
+    </div>
     <div class="btm">
-        备案/许可证编号：蜀ICP备12009302号-1-www.dingguagua.com   Copyright © 2015-2018 尤洪商城网 All Rights Reserved. 复制必究 , Technical Support: Dgg Group <br />
+        备案/许可证编号：京ICP备12009302号-1-www.mogujie.com   Copyright © 2015-2018 蘑菇街商城网 All Rights Reserved. 复制必究 , Technical Support: Dgg Group <br />
+
         <img src="{{ asset('home/assets/images/b_1.gif') }}" width="98" height="33" /><img src="{{ asset('home/assets/images/b_2.gif') }}" width="98" height="33" /><img src="{{ asset('home/assets/images/b_3.gif') }}" width="98" height="33" /><img src="{{ asset('home/assets/images/b_4.gif') }}" width="98" height="33" /><img src="{{ asset('home/assets/images/b_5.gif') }}" width="98" height="33" /><img src="{{ asset('home/assets/images/b_6.gif') }}" width="98" height="33" />
     </div>
 </div>

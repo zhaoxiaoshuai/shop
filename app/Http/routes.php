@@ -68,10 +68,9 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 		Route::resource('carousel','CarouselController');
 		//系统配置
 		Route::resource('config','ConfController');
-		// Route::any('upload','ConfController@upload');//LOGO图片上传
-		// Route::any('upload2','ConfController@upload2');//缩略图片上传
 		//权限注册
 		Route::resource('auth','AuthController');
+		Route::any('uploadconf','ConfController@uploadconf');//LOGO图片上传
 	});
 });
 
@@ -104,11 +103,13 @@ Route::get('home/user/phonecreateto','Home\UserController@phonecreateto');
 
 //个人中心
 Route::get('home/user/user_details','Home\UserController@user_details');
-
+//用户评论
+Route::resource('home/user/user_comment','Home\CommentController');
 //前台首页
-Route::get('/', function () {
-    return view('home.index');
-});
+Route::get('/', 'Home\IndexController@index');
+//前台全局搜索
+Route::post('home/search','Home\SearchController@search');
+
 
 // 前台商家路由
 // 用户提交申请信息路由

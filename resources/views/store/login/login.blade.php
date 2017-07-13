@@ -11,7 +11,7 @@
     <meta http-equiv="Cache-Control" content="no-siteapp" />
     <link rel="icon" type="image/png" href="{{asset('admin/assets/i/favicon.png')}}">
     <link rel="apple-touch-icon-precomposed" href="{{asset('admin/assets/i/app-icon72x72@2x.png')}}">
-   $cookie <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
     <script src="{{asset('admin/assets/js/echarts.min.js')}}"></script>
     <link rel="stylesheet" href="{{asset('admin/assets/css/amazeui.min.css')}}" />
     <link rel="stylesheet" href="{{asset('admin/assets/css/amazeui.datatables.min.css')}}" />

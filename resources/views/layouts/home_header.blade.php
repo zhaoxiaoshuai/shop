@@ -3,7 +3,11 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link type="text/css" rel="stylesheet" href="{{ asset('home/assets/css/style.css') }}" />
-    <link type="text/css" rel="stylesheet" href="{{ asset('home/assets/css/button.css') }}" />
+
+    <link type="text/css" rel="stylesheet" href="{{ asset('home/css/button.css') }}" />
+    <title>{{ config('web.conf_title') }}</title>
+    <meta name="description" content="{{ config('web.conf_description') }}" />
+    <meta name="keywords" content="{{ config('web.conf_keywords') }}" />
     <!--[if IE 6]>
     <script src="js/iepng.js" type="text/javascript"></script>
     <script type="text/javascript">
@@ -169,7 +173,6 @@
             <div class="ss_list">
                 	<a href="javascript:void(0)">我的小店</a>
                     <div class="ss_list_bg">
-
                         <div class="s_city_t"></div>
                         <div class="ss_list_c">
                             <ul>

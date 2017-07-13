@@ -75,7 +75,7 @@
 
                                     $.ajax({
                                         type: "POST",
-                                        url: "admin/upload",
+                                        url: "admin/uploadconf",
                                         data: formData,
                                         async: true,
                                         cache: false,
