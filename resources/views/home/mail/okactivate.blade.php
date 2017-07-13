@@ -23,7 +23,7 @@
             <td>
                 <div style="padding:25px 35px 40px; background-color:#fff;">
                     <h2 style="margin: 5px 0px; "><font color="#333333" style="line-height: 20px; "><font style="line-height: 22px; " size="4">恭喜您,激活成功!</font></font></h2>
-                    <a href="http://www.lamp.com/home/login">点击跳转登录</a>
+                    <a href="http://www.lamp.com/home/login">点击跳转登录商城</a>
                 </div>
             </td>
         </tr>

@@ -13,9 +13,26 @@
 DB::listen(function($sql, $bindings, $time) {
                 // dump($sql);
                 // dump($bindings);
-});
+            });
+
+
 
 /*==========================后台===============================*/
+//后台登录
+Route::get('admin/login','Admin\LoginController@login');
+//处理登录
+Route::post('admin/dologin','Admin\LoginController@dologin');
+//生成验证码
+Route::get('admin/captcha/{num}.jpg','Admin\LoginController@captcha')->where('name','[0-9]+');
+
+//管理员管理
+Route::resource('admin/admin','Admin\adminController');
+
+
+//角色控制器
+Route::resource('admin/role','Admin\roleController');
+
+//商品管理
 Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 	//没有权限返回页面
 	Route::get('back',function(){
@@ -73,38 +90,79 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 		Route::any('uploadconf','ConfController@uploadconf');//LOGO图片上传
 	});
 });
+//订单管理
+Route::resource('admin/orders','Admin\Orders\OrdersController');
+
+//友情链接
+Route::resource('link','Admin\LinkController');
+
+//系统配置
+Route::resource('config','Admin\ConfController');
+Route::any('upload','Admin\ConfController@upload');//LOGO图片上传
+Route::any('upload2','Admin\ConfController@upload2');//缩略图片上传
+
+// 商家信息路由
+Route::resource('admin/astore','Admin\StoreController');
+Route::get('admin/astoreindex/{x}','Admin\StoreController@astoreindex');
 
 // 商家店铺路由
 // Route::resource('admin/merchant','Admin\MerchantController');
+
+// 后台分类管理
+Route::resource('admin/atype','Admin\TypeController');
+
+// 用户管理
+Route::resource('admin/user','Admin\UserController');
+
+
 
 /*==========================前台===============================*/
 //前台登录
 Route::get('home/login','Home\LoginController@login');
 Route::post('home/login/do','Home\LoginController@logindo');
 
+//前台退出
+Route::get('home/user/exit','Home\UserController@exit');
+
 //前台用户注册
 Route::get('home/user/register','Home\UserController@register');
-
 //发送邮箱Ajax
 Route::get('home/user/emailajax','Home\UserController@emailajax');
-
 //激活邮箱
 Route::get('home/user/activate','Home\UserController@activate');
 Route::get('home/user/okactivate','Home\UserController@okactivate');
-
 //发送手机Ajax
 Route::get('home/user/phoneajax','Home\UserController@phoneajax');
-
 //邮箱添加用户
 Route::post('home/user/create','Home\UserController@create');
 //手机添加用户
 Route::post('home/user/phonecreate','Home\UserController@phonecreate');
 Route::get('home/user/phonecreateto','Home\UserController@phonecreateto');
-
 //个人中心
+Route::get('home/user/mycenter','Home\UserController@mycenter');
+//用户详情
 Route::get('home/user/user_details','Home\UserController@user_details');
 //用户评论
 Route::resource('home/user/user_comment','Home\CommentController');
+//修改信息
+Route::post('home/user/update','Home\UserController@update');
+//头像上传
+Route::post('home/user/upload','Home\UserController@upload');
+//修改密码
+Route::get('home/user/edit/{id}','Home\UserController@edit');
+Route::post('home/user/editpassword','Home\UserController@editpassword');
+Route::post('home/user/updatepassword','Home\UserController@updatepassword');
+//找回密码页面
+Route::get('home/user/findpwd','Home\UserController@findpwd');
+//发送验证码
+Route::get('home/user/dofindpwd','Home\UserController@dofindpwd');
+//确认验证码
+Route::post('home/user/okfindpwd','Home\UserController@okfindpwd');
+//邮箱修改密码
+Route::get('home/user/emailfindpwd','Home\UserController@emailfindpwd');
+//确认修改密码
+Route::post('home/user/findpwdok','Home\UserController@findpwdok');
+
 //前台首页
 Route::get('/', 'Home\IndexController@index');
 //前台全局搜索
@@ -115,10 +173,10 @@ Route::resource('home/address','Home\AddressController');
 Route::resource('home/mycart','Home\MycartController');
 
 // 前台商家路由
-// 用户提交申请信息路由
-Route::post('home/CreateStore','Home\StoreController@CreateStore');
-// 用户入驻市场路由
+Route::resource('home/hstore','Home\StoreController');
+// 入驻市场路由
 Route::get('home/MerSettled','Home\StoreController@MerSettled');
+
 // 用户入驻市场申请页面路由1(如果用户没登录走这个路由)
 Route::get('home/MerApplication1','Home\StoreController@MerApplication1');
 // 用户入驻市场申请页面路由2
@@ -149,9 +207,3 @@ Route::get('store/captcha/{num}.jpg','Store\LoginController@captcha')->where('na
 Route::post('store/proving','Store\LoginController@proving');
 // 商家后台首页
 Route::get('store/index','Store\LoginController@index');
-
-
-
-
-
-

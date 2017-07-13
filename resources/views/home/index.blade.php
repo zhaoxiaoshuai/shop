@@ -90,6 +90,7 @@
                                             <div class="imgbg">
                                                 <a href="home/gooddetail/{{ $v['good_id'] }}"><img src="{{ 'http://php182.oss-cn-beijing.aliyuncs.com/'.$v['good_pic'] }}" width="160" height="136" /></a>
 
+
                                             </div>
                                             <div class="name">
                                                 <a href="home/gooddetail/{{ $v['good_id'] }}">
@@ -154,7 +155,6 @@
                     @foreach($good as $gk=>$gv)
                     <li>
                         <div class="name"><a href="home/gooddetail/{{ $gv['good_id'] }}">{{ $gv['good_name'] }}</a></div>
-
                         <div class="price">
                             <font>￥<span>{{ $gv['good_price'] }}</span></font>
                         </div>
@@ -171,7 +171,9 @@
             </div>
         </div>
         <!--End 食品饮料 End-->
+
         @endforeach
+
         <!--Begin 猜你喜欢 Begin-->
         <div class="i_t mar_10">
             <span class="fl">猜你喜欢</span>

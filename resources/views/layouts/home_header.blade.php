@@ -136,7 +136,8 @@
         <!--End 所在收货地区 End-->
              @if(session('logins'))
                 <span class="fl" style="margin-left:400px">
-                    会员 : <a href="{{url('home/user/mycenter')}}">{{session('deta_name')}}</a> &nbsp;&nbsp;&nbsp;
+
+                    会员 : <a href="{{url('home/user/user_details')}}">{{session('deta_name')}}</a> &nbsp;&nbsp;&nbsp;
                     <a href="{{url('home/user/exit')}}">退出</a>
                     &nbsp;|&nbsp;<a href="#">我的订单</a>&nbsp;|
                 </span>
