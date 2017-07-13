@@ -3,7 +3,6 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link type="text/css" rel="stylesheet" href="{{ asset('home/assets/css/style.css') }}" />
-
     <link type="text/css" rel="stylesheet" href="{{ asset('home/css/button.css') }}" />
     <title>{{ config('web.conf_title') }}</title>
     <meta name="description" content="{{ config('web.conf_description') }}" />
@@ -33,8 +32,26 @@
     <script type="text/javascript" src="{{ asset('home/assets/js/tban.js') }}"></script>
     <script src="{{asset('layer/layer.js')}}"></script>
     <script type="text/javascript" src="{{ asset('home/assets/js/lrscroll_1.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('home/js/PCASClass.js') }}"></script>
+    <link type="text/css" rel="stylesheet" href="{{asset('assets/css/style.css')}}" />
 
+    <script type="text/javascript" src="{{asset('home/assets/js/jquery-1.8.2.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('home/assets/js/menu.js')}}"></script>
 
+    <script type="text/javascript" src="{{asset('home/assets/js/lrscroll_1.js')}}"></script>
+    <script type="text/javascript" src="{{asset('home/assets/js/n_nav.js')}}"></script>
+
+    <link rel="stylesheet" type="text/css" href="{{asset('home/assets/css/ShopShow.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset('home/assets/css/MagicZoom.css')}}" />
+    <script type="text/javascript" src="{{asset('home/assets/js/MagicZoom.js')}}"></script>
+
+    <script type="text/javascript" src="{{asset('home/assets/js/num.js')}}">
+        var jq = jQuery.noConflict();
+    </script>
+
+    <script type="text/javascript" src="{{asset('home/assets/js/p_tab.js')}}"></script>
+
+    <script type="text/javascript" src="{{asset('home/assets/js/shade.js')}}"></script>
     <title>尤洪</title>
 </head>
 <body>

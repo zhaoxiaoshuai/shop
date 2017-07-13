@@ -52,7 +52,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 		//管理员管理
 		Route::resource('admin','adminController');
 		//订单管理
-		Route::resource('orders','Orders\OrdersController');
+		Route::resource('orders','OrdersController');
 		// 后台分类管理
 		Route::resource('atype','TypeController');
 		// 用户管理
@@ -109,7 +109,10 @@ Route::resource('home/user/user_comment','Home\CommentController');
 Route::get('/', 'Home\IndexController@index');
 //前台全局搜索
 Route::post('home/search','Home\SearchController@search');
-
+// 前台收货地址
+Route::resource('home/address','Home\AddressController');
+// 加载购物车
+Route::resource('home/mycart','Home\MycartController');
 
 // 前台商家路由
 // 用户提交申请信息路由
@@ -146,6 +149,9 @@ Route::get('store/captcha/{num}.jpg','Store\LoginController@captcha')->where('na
 Route::post('store/proving','Store\LoginController@proving');
 // 商家后台首页
 Route::get('store/index','Store\LoginController@index');
+
+
+
 
 
 
