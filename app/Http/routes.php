@@ -45,7 +45,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 		//管理员管理
 		Route::resource('admin','adminController');
 		//订单管理
-		Route::resource('orders','Orders\OrdersController');
+		Route::resource('orders','OrdersController');
 		// 后台分类管理
 		Route::resource('atype','TypeController');
 		// 用户管理
@@ -115,3 +115,8 @@ Route::get('home/MerApplication3','Home\StoreController@MerApplication3');
 // 用户入驻市场申请图片上传
 Route::any('home/upload1','Home\StoreController@upload1');
 Route::any('home/upload2','Home\StoreController@upload2');
+// 前台收货地址
+Route::resource('home/address','Home\AddressController');
+
+// 加载购物车
+Route::resource('home/mycart','Home\MycartController');

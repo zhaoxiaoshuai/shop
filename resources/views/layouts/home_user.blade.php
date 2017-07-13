@@ -1,3 +1,4 @@
+@include('layouts.home_header')
 <div class="m_top_bg">
         <div class="top">
             <div class="m_logo"><a href="Index.html"><img src="{{ asset('home/assets/images/logo1.png') }}"></a></div>
@@ -39,6 +40,7 @@
             </div>
         </div>
     </div>
+
 <!--Begin 用户中心 Begin -->
 <div class="m_content">
     <div class="m_left">
@@ -47,7 +49,7 @@
             <div class="left_m_t t_bg1">订单中心</div>
             <ul>
                 <li><a href="Member_Order.html">我的订单</a></li>
-                <li><a href="Member_Address.html">收货地址</a></li>
+                <li><a href="{{url('home/address')}}">收货地址</a></li>
                 <li><a href="#">缺货登记</a></li>
                 <li><a href="#">跟踪订单</a></li>
             </ul>
@@ -55,8 +57,8 @@
         <div class="left_m">
             <div class="left_m_t t_bg2">会员中心</div>
             <ul>
-                <li><a href="Member_User.html">用户信息</a></li>
-                <li><a href="Member_Collect.html">我的收藏</a></li>
+                <li><a href="{{url('home/user/user_details')}}"  class="now">用户信息</a></li>
+                <li><a href="{{url('home/user/edit/{id}')}}">修改密码</a></li>
                 <li><a href="Member_Msg.html">我的留言</a></li>
                 <li><a href="Member_Links.html">推广链接</a></li>
                 <li><a href="#">我的评论</a></li>
@@ -74,47 +76,13 @@
             <div class="left_m_t t_bg4">分销中心</div>
             <ul>
                 <li><a href="Member_Member.html">我的会员</a></li>
-                <li><a href="Member_Results.html" class="now">我的业绩</a></li>
+                <li><a href="Member_Results.html">我的业绩</a></li>
                 <li><a href="Member_Commission.html">我的佣金</a></li>
                 <li><a href="Member_Cash.html">申请提现</a></li>
             </ul>
         </div>
     </div>
-    <div class="m_right">
-        <p></p>
+    @section('content')
+        @show
 
-        <div class="mem_t">
-            我的业绩
-        </div>
-        <table border="1" class="mem_tab" style="width:870px; text-align:center; margin-top:20px;" cellspacing="0" cellpadding="0">
-            <tr>
-                <td class="th_bg1" colspan="6">我的业绩</td>
-            </tr>
-            <tr>
-                <td width="145" class="td_bg">会员等级</td>
-                <td width="145">一级会员</td>
-                <td width="145" class="td_bg">预存消费</td>
-                <td width="145">1000R</td>
-                <td width="145" class="td_bg">联盟消费</td>
-                <td width="145">1000R</td>
-            </tr>
-            <tr>
-                <td width="145" class="td_bg">消费积分</td>
-                <td width="145">100R</td>
-                <td width="145" class="td_bg">已消费</td>
-                <td width="145">1000R</td>
-                <td width="145" class="td_bg">联盟积分</td>
-                <td width="145">1000R</td>
-            </tr>
-        </table>
-
-
-
-
-
-
-
-
-    </div>
-</div>
-<!--End 用户中心 End-->
+    @include('layouts.home_footer')

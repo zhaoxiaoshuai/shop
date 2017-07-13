@@ -1,7 +1,7 @@
-@extends('layouts.home')
+@extends('layouts.home_user')
 
 
 @section('content')
-    @include('layouts.home_user')
 
-    @endsection
+
+@endsection

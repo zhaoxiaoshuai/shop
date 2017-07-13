@@ -54,6 +54,7 @@ class LoginController extends Controller
             'admin_name.required'=>'必须输入管理员名',
             'admin_password.required'=>'必须输入密码',
         ];
+
         //进行验证
         $validator = Validator::make($data,$rule,$mess);
         
@@ -63,9 +64,12 @@ class LoginController extends Controller
                         ->withInput();
         }else{
             //查询这个用户的密码
-            $admin = Admin::where('admin_name',$data['admin_name'])->first();
+            
+             $admin = Admin::where('admin_name',$data['admin_name'])->first();
+            
             //判断用户是否存在
             if($admin){
+
                 //Crypt解析必须是自己加密的,否则回报错
                 $res = Crypt::decrypt($admin['admin_password']);
                 //判断密码是否正确
