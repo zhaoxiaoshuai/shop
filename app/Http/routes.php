@@ -177,7 +177,8 @@ Route::resource('home/mycart','Home\MycartController');
 Route::resource('home/hstore','Home\StoreController');
 // 入驻市场路由
 Route::get('home/MerSettled','Home\StoreController@MerSettled');
-
+//入驻市场提交
+Route::post('home/CreateStore','Home\StoreController@CreateStore');
 // 用户入驻市场申请页面路由1(如果用户没登录走这个路由)
 Route::get('home/MerApplication1','Home\StoreController@MerApplication1');
 // 用户入驻市场申请页面路由2
