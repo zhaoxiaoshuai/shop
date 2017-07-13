@@ -70,15 +70,16 @@
                 <div class="am-form-group am-form-file" style="width:500px">
                     <table>
                         <tr>
-                            <th>点击选择图片：</th>
+                            <th>点击上传商品大图：</th>
                             <td>
                                 <input type="text" name="good_pic" id="good_pic" style="width:300px;" value="">
-                                <input type="file" name="file_upload" id="file_upload" value="">
+                                <input type="file" name="file_upload" id="file_upload" value="" ><br>
                                 <script type="text/javascript">
                                     $(function () {
                                         $("#file_upload").change(function () {
 
                                             uploadImage();
+
                                         });
                                     });
 
@@ -101,26 +102,31 @@
 
                                         $.ajax({
                                             type: "POST",
-                                            url: "/admin/upload",
+                                            url: "/admin/goods/upload",
                                             data: formData,
                                             async: true,
                                             cache: false,
                                             contentType: false,
                                             processData: false,
                                             success: function(data) {
-//                                    console.log(data);
-//                                    alert("上传成功");
+                                    console.log(data);
+                                    alert("上传成功");
+//                                                for(var i=0;i<data.length;i++){
+//                                                    $('#pic').clone(true).insertAfter('#pic');
+//                                                    $('#good_pic').clone(true).insertAfter('#good_pic');
+                                                    $('#pic').attr('src','http://php182.oss-cn-beijing.aliyuncs.com/'+data);
+                                                    $('#pic').show();
+                                                    $('#good_pic').val(data);
+//                                                }
 
-                                                $('#pic').attr('src','http://php182.oss-cn-beijing.aliyuncs.com/'+data);
 
-                                                $('#pic').show();
-                                                $('#good_pic').val(data);
 
                                             },
                                             error: function(XMLHttpRequest, textStatus, errorThrown) {
                                                 alert("上传失败，请检查网络后重试");
                                             }
                                         });
+
                                     }
 
                                 </script>
@@ -130,12 +136,19 @@
                         <tr>
                             <th></th>
                             <td>
-                                <img src="" alt="" name="pic" id="pic" style="width:100px;display:none;" >
+                                <img src="" alt="" name="pic" id="pic" style="width:70px; height:100px; display:none;" >
                             </td>
                         </tr>
+
                     </table>
                 </div>
 
+            </div>
+        </div>
+        <div class="am-form-group">
+            <label for="user-name" class="am-u-sm-3 am-form-label">上传商品缩略图 <span class="tpl-form-line-small-title"></span></label>
+            <div class="am-u-sm-9">
+                <input type="file" class="tpl-form-input" id="user-name" name="good_pics" placeholder="点击上传商品缩略图" multiple>
             </div>
         </div>
         <div class="am-form-group">

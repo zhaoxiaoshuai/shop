@@ -121,6 +121,12 @@
                 <input type="text" class="tpl-form-input" id="user-name" name="good_count" placeholder="请输入商品库存" value="{{$data->good_count}}" readonly>
             </div>
         </div>
+        <div class="am-form-group">
+            <label for="user-name" class="am-u-sm-3 am-form-label">商品浏览量 <span class="tpl-form-line-small-title"></span></label>
+            <div class="am-u-sm-9">
+                <input type="text" class="tpl-form-input" id="user-name" name="good_count" placeholder="请输入商品库存" value="{{$data->good_vcnt}}" readonly>
+            </div>
+        </div>
         <div class="am-form-group" readonly="false">
             <label for="user-intro" class="am-u-sm-3 am-form-label">商品描述</label>
             <table readonly>
