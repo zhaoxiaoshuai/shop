@@ -48,7 +48,7 @@ class LoginController extends Controller
             'store_admin_name' => 'required',
             'store_admin_password' => 'required',
         ];
-
+        
         //提示信息
          $mess=[
             'store_admin_name.required'=>'必须输入管理员名',

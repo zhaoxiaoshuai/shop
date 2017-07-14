@@ -25,14 +25,6 @@ Route::post('admin/dologin','Admin\LoginController@dologin');
 //生成验证码
 Route::get('admin/captcha/{num}.jpg','Admin\LoginController@captcha')->where('name','[0-9]+');
 
-//管理员管理
-Route::resource('admin/admin','Admin\adminController');
-
-
-//角色控制器
-Route::resource('admin/role','Admin\roleController');
-
-//商品管理
 Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 	//没有权限返回页面
 	Route::get('back',function(){
@@ -144,7 +136,7 @@ Route::get('home/user/mycenter','Home\UserController@mycenter');
 //用户详情
 Route::get('home/user/user_details','Home\UserController@user_details');
 //用户评论
-Route::resource('home/user/user_comment','Home\CommentController');
+// Route::resource('home/user/user_comment','Home\CommentController');
 //修改信息
 Route::post('home/user/update','Home\UserController@update');
 //头像上传

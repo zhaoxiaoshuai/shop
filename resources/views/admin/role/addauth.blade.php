@@ -41,10 +41,10 @@
 	                            </td>
 	                            <td>
 	                            	@foreach($auth[$k] as $kk =>$vv)
-	                            	<div style="float:left;width:160px" >
+	                            	<div style="float:left;width:200px;height:30px" >
 	                            		<input type="checkbox"
 											@if(in_array($vv['auth_id'],$id)) checked @endif
-	                            		 name="auth_id[]" value="{{$vv['auth_id']}}" >{{$vv['auth_name']}}
+	                            		 name="auth_id[]" value="{{$vv['auth_id']}}" >&nbsp;&nbsp;{{$vv['auth_name']}}
 	                            	</div>
 	                            	@endforeach
 	                            </td>

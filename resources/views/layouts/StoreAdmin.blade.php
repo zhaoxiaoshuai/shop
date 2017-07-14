@@ -139,7 +139,7 @@
                         </li>
 
                         <li class="sidebar-nav-link">
-                            <a href="{{ url('store/goods') }}">
+                            <a href="{{ url('store/type') }}">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span>分类列表
                             </a>
                         </li>
@@ -162,6 +162,20 @@
         </div>
         <!-- 内容区域 -->
         <div class="tpl-content-wrapper"  style="color: #868E8E"  >
+        @if (count($errors) > 0)
+        <div class="bg-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+
+                    <li  style="background:#f0ad4e"  >{{ $error }}</li>
+
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    @if(session('error'))
+       <p style="background:#f0ad4e">  {{session('error')}}</p>
+    @endif
         @section('content')
         
         @show

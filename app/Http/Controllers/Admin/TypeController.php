@@ -158,7 +158,7 @@ class TypeController extends Controller
      */
     public function destroy($id)
     {
-
+        
        //删除对应id的用户
         $res = DB::table('type')->where('type_id', $id)->delete();
         //0表示成功 其他表示失败

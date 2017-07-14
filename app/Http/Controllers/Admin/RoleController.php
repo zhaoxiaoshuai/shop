@@ -39,8 +39,8 @@ class RoleController extends Controller
         //获取所有的权限
         $auth = Auth::get();
         $tmp = [];
-        foreach($arr as $k =>$v){
-            $tmp[$k] = [];
+        foreach($arr as $k=>$v){
+            $tmp[$k]=[];
         }
         foreach($auth as $k=>$v){
             array_push($tmp[$v['auth_group']],$auth[$k]);
