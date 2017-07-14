@@ -65,7 +65,7 @@
 
                         <!-- 退出 -->
                         <li class="am-text-sm">
-                            <a href="javascript:;" onclick='Logout()'>
+                            <a href="javascript:;" onclick='Store_Logout()'>
                                 <span class="am-icon-sign-out"></span> 退出
                             </a>
                         </li>
@@ -100,7 +100,7 @@
                     <span class="user-panel-logged-in-text">
                          
                     </span>
-                    <span style="color:#868E8E" >{{session('admin')['admin_name']}}</span> 
+                    <span style="color:#868E8E" >{{session('store_admin')['store_admin_name']}}</span> 
                 </div>
             </div>
 
@@ -174,19 +174,19 @@
     <script src="{{asset('admin/assets/js/app.js')}}"></script>
     <script type="text/javascript">
         
-        // function Logout()
-        // {
-        //     layer.confirm('是否确认退出？', {
-        //       btn: ['确认','取消'] 
-        //     }, function(){
-        //         $.get("{{url('admin/logout')}}", {}, function(data) {
-        //             layer.msg('正在退出', {icon: 6});
-        //             location.href="{{url('admin/login')}}";
-        //         });
-        //     }, function(){
-        //     });
+        function Store_Logout()
+        {
+            layer.confirm('是否确认退出？', {
+              btn: ['确认','取消'] 
+            }, function(){
+                $.get("{{url('store/logout')}}", {}, function(data) {
+                    layer.msg('正在退出', {icon: 6});
+                    location.href="{{url('store/login')}}";
+                });
+            }, function(){
+            });
 
-        //  }
+         }
        
     </script>
 </body>
