@@ -120,7 +120,7 @@ class GoodsController extends Controller
     }
 
 
-    public function upload()
+    public function postUpload()
     {
        // 将上传文件移动到制定目录，并以新文件名命名
         $file = Input::file('file_upload');
@@ -128,19 +128,14 @@ class GoodsController extends Controller
             $entension = $file->getClientOriginalExtension();//上传文件的后缀名
             $newName = date('YmdHis') . mt_rand(1000, 9999) . '.' . $entension;
 
-           // 将图片上传到本地服务器
-
+            // 将图片上传到本地服务器
             // $path = $file->move(public_path() . '/uploads', $newName);
+            // 将图片上传到七牛云
+            // \Storage::disk('qiniu')->writeStream('uploads/'.$newName, fopen($file->getRealPath(), 'r'));
 
-           // 将图片上传到七牛云
-           // \Storage::disk('qiniu')->writeStream('uploads/'.$newName, fopen($file->getRealPath(), 'r'));
-
-           // oss上传
-
+            // oss上传
             $result = OSS::upload('uploads/'.$newName, $file->getRealPath());
-
-
-       // 返回文件的上传路径
+            // 返回文件的上传路径
             $filepath = 'uploads/' . $newName;
             return $filepath;
         }

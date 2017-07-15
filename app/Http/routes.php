@@ -188,6 +188,9 @@ Route::any('/home/gooddetail/{id}','Home\GoodController@goodDetail');
 //前台新品商品列表页路由
 Route::any('home/newgoodlist/{id}','Home\GoodController@newgoodList');
 
+//前台店铺路由
+Route::controller('/home/merchant','Home\MerchantController');
+
 
 /*==========================商家后台===============================*/
 // 商家后台商品管理
@@ -208,5 +211,4 @@ Route::get('store/captcha/{num}.jpg','Store\LoginController@captcha')->where('na
 Route::post('store/proving','Store\LoginController@proving');
 // 商家后台首页
 Route::get('store/index','Store\LoginController@index');
-
 
