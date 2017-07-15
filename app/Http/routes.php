@@ -25,14 +25,6 @@ Route::post('admin/dologin','Admin\LoginController@dologin');
 //生成验证码
 Route::get('admin/captcha/{num}.jpg','Admin\LoginController@captcha')->where('name','[0-9]+');
 
-//管理员管理
-Route::resource('admin/admin','Admin\adminController');
-
-
-//角色控制器
-Route::resource('admin/role','Admin\roleController');
-
-//商品管理
 Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 	//没有权限返回页面
 	Route::get('back',function(){
@@ -196,6 +188,8 @@ Route::any('home/newgoodlist/{id}','Home\GoodController@newgoodList');
 
 
 /*==========================商家后台===============================*/
+// 商家后台店铺管理
+Route::controller('store/setup','Store\MersetupController');
 // 商家后台商品管理
 Route::resource('store/goods','Store\GoodsController');
 // 添加商品上传图片

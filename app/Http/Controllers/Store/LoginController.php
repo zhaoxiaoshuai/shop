@@ -48,6 +48,7 @@ class LoginController extends Controller
             echo '<script>alert("亲,您还没有登录，去登录！")</script>';
             return view('home.login.login');
         }
+
         
     }
     /**
@@ -68,7 +69,7 @@ class LoginController extends Controller
             'store_admin_name' => 'required',
             'store_admin_password' => 'required',
         ];
-
+        
         //提示信息
          $mess=[
             'store_admin_name.required'=>'必须输入管理员名',

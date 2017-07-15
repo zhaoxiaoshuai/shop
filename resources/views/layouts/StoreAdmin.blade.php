@@ -139,7 +139,7 @@
                         </li>
 
                         <li class="sidebar-nav-link">
-                            <a href="{{ url('store/goods') }}">
+                            <a href="{{ url('store/type') }}">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span>分类列表
                             </a>
                         </li>
@@ -158,10 +158,42 @@
                         </li>
                     </ul>
                 </li>
+                <li class="sidebar-nav-link">
+                    <a href="javascript:;" class="sidebar-nav-sub-title">
+                        <i class="am-icon-table sidebar-nav-link-logo"></i> 店铺设置
+                        <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                    </a>
+                    <ul class="sidebar-nav sidebar-nav-sub" style="display: none;">
+                        <li class="sidebar-nav-link">
+                            <a href="{{ url('store/setup/basicsetup') }}">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span>店铺基本设置
+                            </a>
+                        </li>
+                        <li class="sidebar-nav-link">
+                            <a href="{{ url('store/setup/information') }}">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span>店铺基本信息
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </div>
         <!-- 内容区域 -->
         <div class="tpl-content-wrapper"  style="color: #868E8E"  >
+        @if (count($errors) > 0)
+        <div class="bg-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+
+                    <li  style="background:#f0ad4e"  >{{ $error }}</li>
+
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    @if(session('error'))
+       <p style="background:#f0ad4e">  {{session('error')}}</p>
+    @endif
         @section('content')
         
         @show
