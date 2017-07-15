@@ -50,6 +50,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 	    Route::get('admin/editself/{id}','adminController@editself');
 	    Route::post('admin/updateself/','adminController@updateself');
 	    //商品管理
+
         //上传商品大图
         Route::any('goods/upload','GoodController@upload');
         //上传商品其他图片
@@ -88,13 +89,11 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 	});
 });
 
-//友情链接
-Route::resource('link','Admin\LinkController');
 
 //系统配置
 Route::resource('config','Admin\ConfController');
-Route::any('upload','Admin\ConfController@upload');//LOGO图片上传
-Route::any('upload2','Admin\ConfController@upload2');//缩略图片上传
+Route::any('admin/uploadconf','Admin\ConfController@uploadconf');//LOGO图片上传
+
 
 // 商家信息路由
 Route::resource('admin/astore','Admin\StoreController');
@@ -135,8 +134,7 @@ Route::get('home/user/phonecreateto','Home\UserController@phonecreateto');
 Route::get('home/user/mycenter','Home\UserController@mycenter');
 //用户详情
 Route::get('home/user/user_details','Home\UserController@user_details');
-//用户评论
-// Route::resource('home/user/user_comment','Home\CommentController');
+
 //修改信息
 Route::post('home/user/update','Home\UserController@update');
 //头像上传
@@ -193,6 +191,8 @@ Route::controller('/home/merchant','Home\MerchantController');
 
 
 /*==========================商家后台===============================*/
+// 商家后台店铺管理
+Route::controller('store/setup','Store\MersetupController');
 // 商家后台商品管理
 Route::resource('store/goods','Store\GoodsController');
 // 添加商品上传图片
@@ -203,6 +203,8 @@ Route::resource('store/type','Store\TypeController');
 Route::resource('store/orders','Store\OrderController');
 // 商家后台登录
 Route::get('store/login','Store\LoginController@login');
+//后台退出
+Route::get('store/logout','Store\LoginController@logout');
 // 处理登录
 Route::post('store/dologin','Store\LoginController@dologin');
 // 生成验证码

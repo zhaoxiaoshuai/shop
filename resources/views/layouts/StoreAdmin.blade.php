@@ -65,7 +65,7 @@
 
                         <!-- 退出 -->
                         <li class="am-text-sm">
-                            <a href="javascript:;" onclick='Logout()'>
+                            <a href="javascript:;" onclick='Store_Logout()'>
                                 <span class="am-icon-sign-out"></span> 退出
                             </a>
                         </li>
@@ -100,7 +100,7 @@
                     <span class="user-panel-logged-in-text">
                          
                     </span>
-                    <span style="color:#868E8E" >{{session('admin')['admin_name']}}</span> 
+                    <span style="color:#868E8E" >{{session('store_admin')['store_admin_name']}}</span> 
                 </div>
             </div>
 
@@ -158,7 +158,24 @@
                         </li>
                     </ul>
                 </li>
-          
+                <li class="sidebar-nav-link">
+                    <a href="javascript:;" class="sidebar-nav-sub-title">
+                        <i class="am-icon-table sidebar-nav-link-logo"></i> 店铺设置
+                        <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                    </a>
+                    <ul class="sidebar-nav sidebar-nav-sub" style="display: none;">
+                        <li class="sidebar-nav-link">
+                            <a href="{{ url('store/setup/basicsetup') }}">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span>店铺基本设置
+                            </a>
+                        </li>
+                        <li class="sidebar-nav-link">
+                            <a href="{{ url('store/setup/information') }}">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span>店铺基本信息
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </div>
         <!-- 内容区域 -->
@@ -189,19 +206,19 @@
     <script src="{{asset('admin/assets/js/app.js')}}"></script>
     <script type="text/javascript">
         
-        // function Logout()
-        // {
-        //     layer.confirm('是否确认退出？', {
-        //       btn: ['确认','取消'] 
-        //     }, function(){
-        //         $.get("{{url('admin/logout')}}", {}, function(data) {
-        //             layer.msg('正在退出', {icon: 6});
-        //             location.href="{{url('admin/login')}}";
-        //         });
-        //     }, function(){
-        //     });
+        function Store_Logout()
+        {
+            layer.confirm('是否确认退出？', {
+              btn: ['确认','取消'] 
+            }, function(){
+                $.get("{{url('store/logout')}}", {}, function(data) {
+                    layer.msg('正在退出', {icon: 6});
+                    location.href="{{url('store/login')}}";
+                });
+            }, function(){
+            });
 
-        //  }
+         }
        
     </script>
 </body>

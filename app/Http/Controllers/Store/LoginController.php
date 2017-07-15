@@ -25,10 +25,31 @@ class LoginController extends Controller
      */
     public function login(Request $request)
     {
-        $cookie = $request->cookie('store_admin');
-        // dd($cookie);
-        //返回登录视图
-        return view('store.login.login',['cookie'=>$cookie]);
+        // 从session中或登录用户的信息
+        $res = session('logins');
+
+        // 判断是否登录
+        if(!empty($res)){
+            // 如果不是商家返回到商家登录
+            if($res['status'] == 2){
+
+            $cookie = $request->cookie('store_admin');
+            // // dd($cookie);
+            // //返回登录视图
+            return view('store.login.login',['cookie'=>$cookie]);
+            }else{
+                // 如果不是商家就返回到申请入驻
+                echo '<script>alert("亲,您还不是商家，去申请入驻！")</script>';
+                return view('home.store.MerSettled');
+            }
+           
+        }else{
+            // 如果没登陆就返回前台登录视图
+            echo '<script>alert("亲,您还没有登录，去登录！")</script>';
+            return view('home.login.login');
+        }
+
+        
     }
     /**
      * 判断登录
@@ -87,7 +108,7 @@ class LoginController extends Controller
                         $str = ',这是您第一次登录';
                     }
                     //返回后台首页
-                    return redirect('store/index')->with('success','登录成功,现在时间为'.date('Y年m月d日H时i分s秒',time()).$str);
+                    return redirect('store/index')->with('store_success','登录成功,现在时间为'.date('Y年m月d日H时i分s秒',time()).$str);
                     
                 }else{
                     //返回错误
@@ -143,7 +164,7 @@ class LoginController extends Controller
 
         //把内容存入session
         session(['captcha'=>$phrase]);
-        //生成图片
+        //生成
         header("Cache-Control: no-cache, must-revalidate");
         header('Content-Type: image/jpeg');
         $builder->output();
@@ -169,6 +190,6 @@ class LoginController extends Controller
      */
     public function logout()
     {
-        session()->flush();
+        session()->forget('store_admin');
     }
 }
