@@ -135,6 +135,7 @@ class GoodController extends Controller
        }
        return $data;
     }
+    
      public  function getparent($type)
     {
         //获取全部分类

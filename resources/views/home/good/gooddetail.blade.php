@@ -67,7 +67,29 @@
                 
                  
                 <div  class="d_care"><a href="javascript:;" onclick="Collection({{$good->good_id}})">收藏商品</a></div>
-                
+                <script>
+                  function Collection(good_id){
+                            //询问框
+                            layer.confirm('是否确认删除？', {
+                                btn: ['确定','取消'] //按钮
+                            }, function(){ 
+                                $.get("{{url('home/collection')}}/"+good_id,{},function(data){
+                                if(data.status == 0){
+                                    location.href = location.href;
+                                    layer.msg(data.msg,{icon: 6});
+                                }else{
+                                    location.href = location.href;
+                                    layer.msg(data.msg,{icon: 5});
+                                }
+                                });
+
+
+                            }, function(){
+
+                            });
+
+                        }
+                </script>
 
 
               
@@ -371,28 +393,5 @@
     </div>
     <!--End 弹出层-加入购物车 End-->
     
-<script>
-  function Collection(good_id){
-            //询问框
-            layer.confirm('是否确认收藏？', {
-                btn: ['确定','取消'] //按钮
-            }, function(){ 
-                
-                $.get("{{url('home/collection')}}/"+good_id,{},function(data){
-                if(data.status == 0){
-                    location.href = location.href;
-                    layer.msg(data.msg, {icon: 6});
-                }else{
-                    location.href = location.href;
-                    layer.msg(data.msg, {icon: 5});
-                }
-                });
-            }, function(){
 
-            });
-
-        }
-
-
-</script>
    @endsection

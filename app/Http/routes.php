@@ -1,4 +1,4 @@
-<?php
+,m<?php
 
 /*
 |--------------------------------------------------------------------------
@@ -246,4 +246,3 @@ Route::get('store/index','Store\LoginController@index');
 //收藏详情页
 Route::resource('home/Collectiongoods','Home\CollectiongoodsController');
 Route::get('home/collection','Home\GoodController@collection');
-

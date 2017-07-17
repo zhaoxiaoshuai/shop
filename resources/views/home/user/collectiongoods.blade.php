@@ -28,8 +28,6 @@
                     
                     <a href="#" style="color:#ff4e00;">加入购物车</a>&nbsp; &nbsp;
                     <a href="javascript:;" onclick="DelCollect({{ $v['good_id'] }})">删除</a>
-                    <a href="javascript:;" onclick="Collect({{ $v['good_id'] }})">收藏</a>
-					
                     </td>
               </tr>
               @endforeach   
@@ -39,7 +37,7 @@
             </tbody></table>
         </div>
 <script>
-  function Collection(good_id){
+  function DelCollect(good_id){
             //询问框
             layer.confirm('是否确认删除？', {
                 btn: ['确定','取消'] //按钮
