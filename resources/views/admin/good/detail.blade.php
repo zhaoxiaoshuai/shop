@@ -28,17 +28,6 @@
             </div>
         </div>
         <div class="am-form-group">
-            <label for="user-phone" class="am-u-sm-3 am-form-label">商品标签 <span class="tpl-form-line-small-title"></span></label>
-            <div class="am-u-sm-9">
-                <select data-am-selected="{searchBox: 0}"  name="good_label" disabled="disabled">
-                    <option value=""></option>
-                    <option value=""></option>
-                    <option value=""></option>
-                    <option value=""></option>
-                </select>
-            </div>
-        </div>
-        <div class="am-form-group">
             <label for="user-name" class="am-u-sm-3 am-form-label">商品价格 <span class="tpl-form-line-small-title"></span></label>
             <div class="am-u-sm-9">
                 <input type="text" class="tpl-form-input" id="user-name" name="good_price" value="{{$data->good_price}}" readonly>

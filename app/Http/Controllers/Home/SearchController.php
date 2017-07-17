@@ -14,6 +14,7 @@ class SearchController extends Controller
     {
         $search = $request ->except('_token')['search'];
         $type = DB::table('type')->where('type_name','like','%'.$search.'%')->get();
+//        dd($type);
         $arr = [];
         foreach ($type as $v){
             $arr[] = $v['type_id'];
@@ -28,7 +29,7 @@ class SearchController extends Controller
         }
 //        dd($arr);
         $data = DB::table('goods')->whereIn('type_id',$arr)->orWhere('good_name',$search)->get();
-        dd($data);
-        return view('home/goodlist',['data'=>$data]);
+//        dd($data);
+//        return view('home/goodlist',['data'=>$data]);
     }
 }

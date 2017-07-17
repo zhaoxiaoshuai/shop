@@ -36,45 +36,19 @@
     <div class="content mar_20">
     	<div class="l_history">
         	<div class="his_t">
-            	<span class="fl">浏览历史</span>
-                <span class="fr"><a href="#">清空</a></span>
+            	<span class="fl">热销</span>
+                <span class="fr"><a href="#"></a></span>
             </div>
         	<ul>
+                @foreach($good as $n)
             	<li>
-                    <div class="img"><a href="#"><img src="images/his_1.jpg" width="185" height="162" /></a></div>
-                	<div class="name"><a href="#">Dior/迪奥香水2件套装</a></div>
+                    <div class="img"><a href="{{url('home/gooddetail')}}/{{$n->good_id}}"><img src="http://php182.oss-cn-beijing.aliyuncs.com/{{$n->good_pic}}" width="185" height="162" /></a></div>
+                	<div class="name"><a href="{{url('home/gooddetail')}}/{{$n->good_id}}">{{$n->good_name}}</a></div>
                     <div class="price">
-                    	<font>￥<span>368.00</span></font> &nbsp; 18R
+                    	<font>￥<span>{{$n->good_price}}</span></font> &nbsp;
                     </div>
                 </li>
-                <li>
-                    <div class="img"><a href="#"><img src="images/his_2.jpg" width="185" height="162" /></a></div>
-                	<div class="name"><a href="#">Dior/迪奥香水2件套装</a></div>
-                    <div class="price">
-                    	<font>￥<span>768.00</span></font> &nbsp; 18R
-                    </div>
-                </li>
-                <li>
-                    <div class="img"><a href="#"><img src="images/his_3.jpg" width="185" height="162" /></a></div>
-                	<div class="name"><a href="#">Dior/迪奥香水2件套装</a></div>
-                    <div class="price">
-                    	<font>￥<span>680.00</span></font> &nbsp; 18R
-                    </div>
-                </li>
-                <li>
-                    <div class="img"><a href="#"><img src="images/his_4.jpg" width="185" height="162" /></a></div>
-                	<div class="name"><a href="#">Dior/迪奥香水2件套装</a></div>
-                    <div class="price">
-                    	<font>￥<span>368.00</span></font> &nbsp; 18R
-                    </div>
-                </li>
-                <li>
-                    <div class="img"><a href="#"><img src="images/his_5.jpg" width="185" height="162" /></a></div>
-                	<div class="name"><a href="#">Dior/迪奥香水2件套装</a></div>
-                    <div class="price">
-                    	<font>￥<span>368.00</span></font> &nbsp; 18R
-                    </div>
-                </li>
+                @endforeach
         	</ul>
         </div>
         <div class="l_list">
@@ -94,7 +68,7 @@
                     </a>
                     <a href="{{url('home/newgoodlist/').'/'.$type_id}}">新品</a>
                 </span>
-                <span class="fr">共发现120件</span>
+                <span class="fr"></span>
             </div>
 
 
@@ -145,7 +119,6 @@
                         color:#FFF;
                     }
                 </style>
-                
             </div>
         </div>
     </div>

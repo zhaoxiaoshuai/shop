@@ -37,14 +37,6 @@
             </div>
         </div>
         <div class="am-form-group">
-            <label for="user-phone" class="am-u-sm-3 am-form-label">商品标签 <span class="tpl-form-line-small-title"></span></label>
-            <div class="am-u-sm-9">
-                @foreach($label as $k=>$v)
-                <input type="checkbox" name="good_label" value="{{ $v['id'] }}">{{ $v['label_name'] }}&nbsp;
-                    @endforeach
-            </div>
-        </div>
-        <div class="am-form-group">
             <label for="user-phone" class="am-u-sm-3 am-form-label">商品状态 <span class="tpl-form-line-small-title"></span></label>
             <div class="am-u-sm-9">
                 <select data-am-selected="{searchBox: 0}"  name="good_status">
