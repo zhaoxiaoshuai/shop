@@ -11,10 +11,9 @@ use DB;
 class TypeController extends Controller
 {
     /**
-     * 返回后台分类列表页面
      * @param 参数
      * @return 返回值
-     * @author 邹鹏
+     * @author 邹帅
      * @Date 2017-7-4 15:46
      */
 
@@ -44,7 +43,7 @@ class TypeController extends Controller
         //加载添加分类模版
         //获取一级分类
         $data = DB::table('type')->select('type_id','type_name','type_path','type_npath')->orderBy('type_npath', 'asc')->get();
-        
+
         return view('admin.type.addtype',['data'=>$data]);
 
     }
@@ -115,6 +114,10 @@ class TypeController extends Controller
     public function edit($id)
     {
         
+        
+       
+
+
         $data = DB::table('type')->where('type_id',$id)->get();
         // dd($data);
         return view('admin.type.edittype',['data'=>$data]);
@@ -140,6 +143,7 @@ class TypeController extends Controller
         $input = $request->except('_token','_method');
         
         $res = DB::table('type')->where('type_id', $id)->update($input);
+        dd($input);
         if ( $res) {
             return redirect('admin/atype');
              
@@ -159,9 +163,31 @@ class TypeController extends Controller
     public function destroy($id)
     {
 
-       //删除对应id的用户
+        $arr = DB::table('type')->where('pid',$id)->get();
+        $arr1 = DB::table('goods')->where('type_id',$id)->get();
+        
+        if($arr){
+            $data =[
+                'status'=>1,
+                'msg'=>'分类下有子类'
+            ];
+            return;
+        }
+
+        if($arr1){
+            $data =[
+                'status'=>1,
+                'msg'=>'分类下有商品'  
+            ];
+            return;
+        }
+        
+
+        
+        //删除对应id的用户
         $res = DB::table('type')->where('type_id', $id)->delete();
-        //0表示成功 其他表示失败
+
+        // 0表示成功 其他表示失败
         if($res){
            $data = [
                 'status'=>0,

@@ -216,5 +216,8 @@ Route::get('store/captcha/{num}.jpg','Store\LoginController@captcha')->where('na
 Route::post('store/proving','Store\LoginController@proving');
 // 商家后台首页
 Route::get('store/index','Store\LoginController@index');
+//收藏详情页
+Route::resource('home/Collectiongoods','Home\CollectiongoodsController');
 
+Route::get('home/collection','Home\GoodController@collection');
 

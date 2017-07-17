@@ -55,6 +55,7 @@
                 </ul>
             </div>
             <div class="des_share">
+                
             	<div class="d_sh">
                 	分享
                     <div class="d_sh_bg">
@@ -65,7 +66,13 @@
                         <a href="#"><img src="images/sh_5.gif" /></a>
                     </div>
                 </div>
-                <div class="d_care"><a onclick="ShowDiv('MyDiv','fade')">关注商品</a></div>
+                
+                 
+                <div  class="d_care"><a href="javascript:;" onclick="Collection({{$good->good_id}})">收藏商品</a></div>
+                
+
+
+              
             </div>
             <div class="des_join">
             	<div class="j_nums">
@@ -327,31 +334,6 @@
     
     <!--Begin 弹出层-收藏成功 Begin-->
     <div id="fade" class="black_overlay"></div>
-    <div id="MyDiv" class="white_content">             
-        <div class="white_d">
-            <div class="notice_t">
-                <span class="fr" style="margin-top:10px; cursor:pointer;" onclick="CloseDiv('MyDiv','fade')"><img src="images/close.gif" /></span>
-            </div>
-            <div class="notice_c">
-           		
-                <table border="0" align="center" style="margin-top:;" cellspacing="0" cellpadding="0">
-                  <tr valign="top">
-                    <td width="40"><img src="images/suc.png" /></td>
-                    <td>
-                    	<span style="color:#3e3e3e; font-size:18px; font-weight:bold;">您已成功收藏该商品</span><br />
-                    	<a href="#">查看我的关注 >></a>
-                    </td>
-                  </tr>
-                  <tr height="50" valign="bottom">
-                  	<td>&nbsp;</td>
-                    <td><a href="#" class="b_sure">确定</a></td>
-                  </tr>
-                </table>
-                    
-            </div>
-        </div>
-    </div>    
-    <!--End 弹出层-收藏成功 End-->
     
     
     <!--Begin 弹出层-加入购物车 Begin-->
@@ -382,6 +364,29 @@
     </div>    
     <!--End 弹出层-加入购物车 End-->
     
-    
-    
+<script>
+  function Collection(good_id){
+            //询问框
+            layer.confirm('是否确认收藏？', {
+                btn: ['确定','取消'] //按钮
+            }, function(){ 
+                
+                $.get("{{url('home/collection')}}/"+good_id,{},function(data){
+                if(data.status == 0){
+                    location.href = location.href;
+                    layer.msg(data.msg, {icon: 6});
+                }else{
+                    location.href = location.href;
+                    layer.msg(data.msg, {icon: 5});
+                }
+                });
+            }, function(){
+
+            });
+
+        }
+
+
+</script>
+
    @endsection

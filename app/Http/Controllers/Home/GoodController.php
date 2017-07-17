@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Home;
 
+use App\Http\Model\Collectiongoods;
 use App\Http\Model\Good;
 use Illuminate\Http\Request;
 
@@ -46,7 +47,35 @@ class GoodController extends Controller
 //        dd($a);
         //关联分类表
         $good =   Good::join('type','goods.type_id','=','type.type_id')->where('good_id',$id)->first();
-//        dd($good);
+       // dd($good);
         return view('home.good.gooddetail',compact('good'));
     }
+
+
+
+     /**
+     * 商品收藏
+     * @author 邹帅
+    */
+     public function collection($id)
+    {   
+
+        $user_id = '48';
+        $res = Collectiongoods::insert(['user_id' => $user_id, 'good_id' => $id]);
+         if($res){
+           $data = [
+                'status'=>0,
+                'msg'=>'收藏成功！'
+           ];
+        }else{
+           $data = [
+               'status'=>1,
+               'msg'=>'收藏失败！'
+           ];
+       }
+       return $data;
+    }
+    
+
+
 }
