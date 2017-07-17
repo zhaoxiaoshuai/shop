@@ -53,7 +53,7 @@
                     <ul>
                         <!-- 欢迎语 -->
                         <li class="am-text-sm tpl-header-navbar-welcome">
-                            <a href=""><span>修改密码</span> </a>
+                            <a href="{{ url('store/admin/upassword') }}"><span>修改密码</span> </a>
 
                         </li>
 
@@ -176,6 +176,24 @@
                         </li>
                     </ul>
                 </li>
+                <li class="sidebar-nav-link">
+                    <a href="javascript:;" class="sidebar-nav-sub-title">
+                        <i class="am-icon-table sidebar-nav-link-logo"></i> 权限管理
+                        <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                    </a>
+                    <ul class="sidebar-nav sidebar-nav-sub" style="display: none;">
+                        <li class="sidebar-nav-link">
+                            <a href="">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span>添加管理员
+                            </a>
+                        </li>
+                        <li class="sidebar-nav-link">
+                            <a href="">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span>添加角色
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </div>
         <!-- 内容区域 -->
@@ -211,9 +229,9 @@
             layer.confirm('是否确认退出？', {
               btn: ['确认','取消'] 
             }, function(){
-                $.get("{{url('store/logout')}}", {}, function(data) {
+                $.get("{{url('store/admin/logout')}}", {}, function(data) {
                     layer.msg('正在退出', {icon: 6});
-                    location.href="{{url('store/login')}}";
+                    location.href="{{url('store/admin/login')}}";
                 });
             }, function(){
             });

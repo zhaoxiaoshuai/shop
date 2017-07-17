@@ -45,7 +45,7 @@
                 @if(session('error'))
                    <p style="background:#f0ad4e">  {{session('error')}}</p>
                 @endif
-                <form action="{{url('store/dologin')}}" method="post" class="am-form tpl-form-line-form" id="myform">
+                <form action="{{url('store/admin/dologin')}}" method="post" class="am-form tpl-form-line-form" id="myform">
                     {{csrf_field()}}
                     <div class="am-form-group">
                         <input name="store_admin_name" value="{{$cookie['store_admin_name'] or ''}}" type="text" class="tpl-form-input" id="store_admin_name" placeholder="请输入账号">
@@ -90,7 +90,7 @@
             if($(this).val()==''){
                 layer.msg('验证码是必填的哦^^^^^^',{icon:5});
             }else{
-                $.post('/store/proving', {code: $(this).val()}, function(msg) { 
+                $.post('/store/admin/proving', {code: $(this).val()}, function(msg) { 
                     if (msg.status == 1) {
                         layer.msg(msg.msg,{icon:5});
                     }else{

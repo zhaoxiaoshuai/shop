@@ -95,7 +95,7 @@ class GoodsController extends Controller
       $role =  [
             'good_name' => 'required',
             'type_id' => 'required',
-            'good_label' => 'required',
+            'mtype_id' => 'required',
             'good_price' => 'required|numeric',
             'good_desc' => 'required',
             'good_count' => 'required|numeric',
@@ -106,7 +106,7 @@ class GoodsController extends Controller
         $mess=[
             'good_name.required'=>'请填写商品名称',
             'type_id.required'=>'请选择商品分类',
-            'good_label.required'=>'请选择商品标签',
+            'mtype_id.required'=>'请选择店铺分类',
             'good_price.required'=>'请填写商品价格',
             'good_price.numeric'=>'商品价格请填写数字',
             'good_desc.required'=>'请填写商品描述',
@@ -167,9 +167,13 @@ class GoodsController extends Controller
         $data =  Good::join('type','goods.type_id','=','type.type_id')
                 ->where('goods.good_id',$id)
                 ->first();
-       
+         // 获取店铺的id
+        $merchant_id = session('store_admin')['merchant_id'];
+       // 获取店铺分类
+        $mtype = Mtype::where('merchant_id',$merchant_id)->first();
+        $mtype_name = $mtype['mtype_name'];
         // 向前台模板传变量的一种方法
-        return view('store.goods.details',compact('data','id'));
+        return view('store.goods.details',compact('data','id','mtype_name'));
     }
 
     /**

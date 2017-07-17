@@ -206,16 +206,14 @@ Route::any('store/upload','Store\GoodsController@upload');
 Route::resource('store/type','Store\TypeController');
 // 商家后台订单管理
 Route::resource('store/orders','Store\OrderController');
-// 商家后台登录
-Route::get('store/login','Store\LoginController@login');
-//后台退出
-Route::get('store/logout','Store\LoginController@logout');
-// 处理登录
-Route::post('store/dologin','Store\LoginController@dologin');
+// 商家后台登录 处理登录 退出 首页 修改密码
+Route::controller('store/admin','Store\LoginController');
 // 生成验证码
 Route::get('store/captcha/{num}.jpg','Store\LoginController@captcha')->where('name','[0-9]+');
 // ajax判断验证码
 Route::post('store/proving','Store\LoginController@proving');
-// 商家后台首页
-Route::get('store/index','Store\LoginController@index');
+// 商家后台登录页(用于商家中的管理员登录)
+Route::get('store/login2','Store\LoginController@login2');
+
+
 

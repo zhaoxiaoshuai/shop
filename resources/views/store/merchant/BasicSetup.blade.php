@@ -113,16 +113,16 @@
 				<option @if($data['merchant_style']==8) selected @endif value="8">手机数码</option>
 				<option @if($data['merchant_style']==9) selected @endif value="9">鞋子</option>
 				<option @if($data['merchant_style']==10) selected @endif value="10">家居建材</option>
-				<option @if($data['merchant_style']==11) selected @endif value="10">食品</option>
+				<option @if($data['merchant_style']==11) selected @endif value="11">食品</option>
 			</select>
 			</div> 
 		</div>
 		<div class="am-form-group"> 
-			<label for="user-phone" class="am-u-sm-3 am-form-label">关闭店铺</label> 
+			<label for="user-phone" class="am-u-sm-3 am-form-label">店铺营业状态</label> 
 			<div class="am-u-sm-9"> 
 			<select name="close_merchant" style="color:black;">
-				<option @if($data['close_merchant']==1) selected @endif value="1">开启</option>
-				<option @if($data['close_merchant']==2) selected @endif value="2">关闭</option>
+				<option @if($data['close_merchant']==1) selected @endif value="1">营业中</option>
+				<option @if($data['close_merchant']==2) selected @endif value="2">非营业</option>
 			</select>
 			</div> 
 		</div>

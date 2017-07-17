@@ -208,6 +208,19 @@ class StoreController extends Controller
     }
 
     /**
+     * 返回申请入驻市场页面(一)
+     * @param 参数
+     * @return 返回值
+     * @author 邹鹏
+     * @Date 2017-7-7 23:15
+     */
+    public function MerApplication1()
+    {
+        // 加载商户申请入驻页面1
+        return view('home.store.MerApplication1');
+    }
+
+    /**
      * 返回申请入驻市场页面(二)
      * @param 参数
      * @return 返回值

@@ -3,17 +3,6 @@
 @section('content')
     <form class="am-form tpl-form-line-form" action="{{ url('store/goods') }}" method="post" enctype="multipart/form-data" id="good_form">
         {{csrf_field()}}
-        @if (count($errors) > 0)
-            <div class="mark" style="color:red;margin-left:300px" >
-                <ul style="background-color: yellow">
-           
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-            
-                </ul>
-            </div>
-        @endif
         <div class="am-form-group">
             <label for="user-name" class="am-u-sm-3 am-form-label">商品名称 <span class="tpl-form-line-small-title"></span></label>
             <div class="am-u-sm-9">
@@ -38,7 +27,7 @@
         <div class="am-form-group">
             <label for="user-phone" class="am-u-sm-3 am-form-label">店铺分类 <span class="tpl-form-line-small-title"></span></label>
             <div class="am-u-sm-9">
-                <select data-am-selected="{searchBox: 0}"  name="good_label">
+                <select data-am-selected="{searchBox: 0}"  name="mtype_id">
                     @foreach($mtype as $k=>$v)
                     <option value="{{ $v['mtype_id'] }}">{{ $v['_name'] }}</option>
                 @endforeach   
