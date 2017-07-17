@@ -29,7 +29,7 @@
           <div class="am-u-sm-9">
             <input type="text" name="type_name" class="tpl-form-input" id="user-name" placeholder="请输入分类文字">
           </div>
-        </div>
+        </div> 
         
         <div class="am-form-group">
           <label for="user-phone" class="am-u-sm-3 am-form-label">父级分类 :
@@ -44,7 +44,7 @@
                   $v['type_name'] = str_repeat('&nbsp;',$n*8).'|--'.$v['type_name'];
                   ?>
                   <option value="{{ $v['type_id'] }}">{{ $v['type_name'] }}</option>
-              @endforeach   
+              @endforeach
              </select> 
              
             </select>
