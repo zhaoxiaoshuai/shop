@@ -12,4 +12,6 @@ class Type extends Model
    // protected $fillable = ['user_name', 'user_pass'];
     protected $guarded = [];
     public $timestamps = false;
+
+
 }

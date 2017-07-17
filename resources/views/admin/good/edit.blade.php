@@ -1,7 +1,20 @@
 @extends('layouts.admin')
 @section('content')
-    <form class="am-form tpl-form-line-form" action="{{url('admin/good/'.$data->good_id)}}" method="post"  id="good_form">
+    <form class="am-form tpl-form-line-form" action="{{url('admin/good/'.$data->good_id)}}" method="post"  id="good_form" enctype="multipart/form-data">
         {{csrf_field()}}
+        @if (count($errors) > 0)
+            <div class="mark" style="color:red;margin-left:300px" >
+                <ul style="background-color: yellow">
+                    @if(is_object($errors))
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    @else
+                        <li>{{ $errors }}</li>
+                    @endif
+                </ul>
+            </div>
+        @endif
         @if(session('error'))
             <p style="background:#f0ad4e">  {{session('error')}}</p>
         @endif
@@ -125,6 +138,15 @@
                     </table>
                 </div>
             </div>
+        </div>
+        <div class="am-form-group">
+            <label for="user-name" class="am-u-sm-3 am-form-label">上传商品缩略图 <span class="tpl-form-line-small-title"></span></label>
+            <div class="am-u-sm-9">
+                @foreach($pics as $k=>$v)
+                <img src="http://php182.oss-cn-beijing.aliyuncs.com/{{$v['good_pics']}}" alt="" name="pic" id="pic" style="width:100px;" >
+                @endforeach
+                    <input type="file" class="tpl-form-input" id="user-name" name="good_pics[]" placeholder="点击上传商品缩略图" multiple>
+                </div>
         </div>
         <div class="am-form-group">
             <label for="user-name" class="am-u-sm-3 am-form-label">商品库存 <span class="tpl-form-line-small-title"></span></label>

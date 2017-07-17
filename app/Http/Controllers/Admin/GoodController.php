@@ -17,15 +17,17 @@ use Validator;
 class GoodController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * 上传商品大图
+     * @param
+     * @return 文件上传路径
+     * @author gcj
+     * @Date
      */
     public function upload()
     {
 //        将上传文件移动到制定目录，并以新文件名命名
         $file = Input::file('file_upload');
-//        return($file);
+//        dd($file);
             if ($file->isValid()) {
                 $entension = $file->getClientOriginalExtension();//上传文件的后缀名
                 $newName = date('YmdHis') . mt_rand(1000, 9999) . '.' . $entension;
@@ -50,6 +52,13 @@ class GoodController extends Controller
         return $filepath;
     }
 
+    /**
+     * 商品列表
+     * @param  Request $request
+     * @return 商品列表页面
+     * @author gcj
+     * @Date
+     */
     public function index(Request $request)
     {
 //        如果请求携带keywords参数说明是通过查询进入index方法的，否则是通过商品列表导航进入的
@@ -67,6 +76,13 @@ class GoodController extends Controller
         }
     }
 
+    /**
+     * 商品详情
+     * @param  商品id $id
+     * @return 商品详情页面
+     * @author gcj
+     * @Date
+     */
     public function detail($id)
     {
 
@@ -81,9 +97,11 @@ class GoodController extends Controller
 
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * 添加商品
+     * @param
+     * @return 添加商品页面
+     * @author gcj
+     * @Date
      */
     public function create()
     {
@@ -93,10 +111,11 @@ class GoodController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * 添加商品
+     * @param  Request $request
+     * @return 成功商品列表页 失败商品添加页
+     * @author gcj
+     * @Date
      */
     public function store(Request $request)
     {
@@ -114,7 +133,7 @@ class GoodController extends Controller
             'good_count' => 'required|numeric',
             'good_pic' => 'required',
             'good_status' => 'required',
-            'good_pics' => 'required',
+//            'good_pics' => 'required',
         ];
 //       提示信息
         $mess=[
@@ -128,7 +147,7 @@ class GoodController extends Controller
             'good_count.numeric'=>'商品库存请填写数字',
             'good_pic.required'=>'请上传商品大图',
             'good_status.required'=>'请选择商品状态',
-            'good_pics.required'=>'请上传商品缩略图',
+//            'good_pics.required'=>'请上传商品缩略图',
         ];
 //       表单验证
       $validator =  Validator::make($input,$role,$mess);
@@ -155,7 +174,8 @@ class GoodController extends Controller
               }
           }
 //        dd($arr);
-
+          $good_pics= $input['good_pics'];
+          unset($input['good_pics']);
           DB::beginTransaction();
           $re = Good::insertGetId($input);
           $goodpics = [];
@@ -165,11 +185,12 @@ class GoodController extends Controller
                   'good_pics'=>$v,
               ];
           }
+//          dd($goodpics);
          $res = Goodpic::insert($goodpics);
 
 //          dd($res);
 
-         if($re){
+         if($res){
              DB::commit();
 //             如果添加成功添加到商品列表页
              return redirect('admin/good');
@@ -195,10 +216,11 @@ class GoodController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * 修改商品
+     * @param  商品id $id
+     * @return 商品修改页面
+     * @author gcj
+     * @Date
      */
     public function edit($id)
     {
@@ -212,47 +234,171 @@ class GoodController extends Controller
 //        dd($data);
         $types = DB::table('type')->get();
 //        dd($types);
-        return view('admin.good.edit',compact('data','type','types'));
+        $pics = DB::table('goodpic')->where('good_id',$id)->get();
+//        dd($pics);
+        return view('admin.good.edit',compact('data','type','types','pics'));
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * 添加商品
+     * @param  Request $request 商品id $id
+     * @return 成功商品列表页 失败商品修改页
+     * @author gcj
+     * @Date
      */
     public function update(Request $request, $id)
     {
-        //根据id获取修改记录
-        $good = Good::find($id);
-//        dd($good);
-        //根据请求传过来的参数获取到要修改成的记录
-        $input = Input::except('_token','_method','file_upload');
-//        dd($input);
-        //更新
-        $re = $good->update($input);
-        //如果成功跳转到列表页  失败返回修改页
-        if($re){
-            return redirect('admin/good');
+//        //根据id获取修改记录
+//        $good = Good::find($id);
+////        dd($good);
+//        $pics = Goodpic::where('good_id',$id)->get();
+//        $file = Input::file('good_pics');
+//        dd($file);
+////        dd($pics);
+//        //根据请求传过来的参数获取到要修改成的记录
+//        $input = Input::except('_token','_method','file_upload','good_pics');
+////        dd($input);
+//        $input2 = Input::only('good_pics');
+//        dd($input2);
+//        $arr = [];
+//        foreach ($input2 as $k=>$v){
+//
+//        }
+//
+//        //更新
+//        $re = $good->update($input);
+//        dd($arr);
+//        $res = $pics->update($arr);
+//        //如果成功跳转到列表页  失败返回修改页
+//        if($re && $res){
+////            echo 1;
+//            return redirect('admin/good');
+//        }else{
+//            return back()->with('error','修改失败');
+//        }
+
+//        dd($request->all());
+        $input =  Input::except('_token','file_upload','_method');
+//      dd($input);
+        $role =  [
+            'good_name' => 'required',
+            'type_id' => 'required',
+            'good_label' => 'required',
+            'good_price' => 'required|numeric',
+            'good_desc' => 'required',
+            'good_count' => 'required|numeric',
+            'good_pic' => 'required',
+            'good_status' => 'required',
+//            'good_pics' => 'required',
+        ];
+//       提示信息
+        $mess=[
+            'good_name.required'=>'请填写商品名称',
+            'type_id.required'=>'请选择商品分类',
+            'good_label.required'=>'请选择商品标签',
+            'good_price.required'=>'请填写商品价格',
+            'good_price.numeric'=>'商品价格请填写数字',
+            'good_desc.required'=>'请填写商品描述',
+            'good_count.required'=>'请填写商品库存',
+            'good_count.numeric'=>'商品库存请填写数字',
+            'good_pic.required'=>'请上传商品大图',
+            'good_status.required'=>'请选择商品状态',
+//            'good_pics.required'=>'请上传商品缩略图',
+        ];
+//       表单验证
+        $validator =  Validator::make($input,$role,$mess);
+//      dd($validator);
+//      如果通过表单验证
+        if($validator->passes()){
+            $good = Good::find($id);
+            $file = Input::file('good_pics');
+//            dd($file);
+            if($file[0] != null){
+                $arr = [];
+                foreach ($file as $k=>$v){
+                    if ($v->isValid()) {
+                        $entension = $v->getClientOriginalExtension();//上传文件的后缀名
+                        $newName = date('YmdHis') . mt_rand(1000, 9999) . '.' . $entension;
+//                dd($)
+//            oss上传
+
+                        $result = OSS::upload('uploads/' . $newName, $v->getRealPath());
+
+
+//        返回文件的上传路径
+                        $filepath = 'uploads/' . $newName;
+
+                        $arr[] = $filepath;
+                    }
+                }
+
+
+//        dd($arr);
+            $good_pics= $input['good_pics'];
+            unset($input['good_pics']);
+            DB::beginTransaction();
+//            $re = Good::insertGetId($input);
+//            dd($re);
+            $goodpics = [];
+            foreach ($arr as $k=>$v){
+                $goodpics[]=[
+                    'good_id'=>$id,
+                    'good_pics'=>$v,
+                ];
+
+
+//          dd($goodpics);
+            $re = Goodpic::where('good_id',$id)->delete();
+//            dd($re);
+            $res = Goodpic::insert($goodpics);
+
+            $r = $good->update($input);
+//            dd($r);
+            }
+
+//          dd($re);
+
+            if($res && $re && $r ){
+                DB::commit();
+//             如果修改成功添加到商品列表页
+                return redirect('admin/good');
+            }else{
+                DB::rollBack();
+                return back()->with('error','修改失败');
+            }
+            }else{
+                $put =  Input::except('_token','file_upload','_method','good_pics');
+                $r = $good->update($put);
+                if($r){
+                   // 如果修改成功添加到商品列表页
+                return redirect('admin/good');
+                }else{
+                    return back()->with('error','修改失败');
+                }
+            }
         }else{
-            return back()->with('error','修改失败');
+//          如果没有通过表单验证
+            return back()->withErrors($validator);
         }
+
     }
 
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * 删除商品
+     * @param   商品id $id
+     * @return 回调函数 $data
+     * @author gcj
+     * @Date
      */
     public function destroy($id)
     {
         ////删除对应id的商品
         $re =  Good::where('good_id',$id)->delete();
+        $res = Goodpic::where('good_id',$id)->delete();
+//        return($re);
 //       0表示成功 其他表示失败
-        if($re){
+        if($re && $res){
             $data = [
                 'status'=>0,
                 'msg'=>'删除成功！'

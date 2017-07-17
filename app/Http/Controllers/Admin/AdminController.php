@@ -125,7 +125,6 @@ class AdminController extends Controller
                 }
                 
                 $re2 = DB::table('admin_role')->insert($arr);
-                
                 //判断
                 if($re1 && $re2){
                     DB::commit();
@@ -210,6 +209,7 @@ class AdminController extends Controller
                     'role_id' => $v,
                 ];
             }
+            dd($arr);
             unset($data['role_id']);
             //开启事务
             DB::beginTransaction();
