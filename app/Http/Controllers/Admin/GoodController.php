@@ -62,14 +62,15 @@ class GoodController extends Controller
     public function index(Request $request)
     {
 //        如果请求携带keywords参数说明是通过查询进入index方法的，否则是通过商品列表导航进入的
+        $page = 10;
         if($request->has('keywords')){
             $key = trim($request->input('keywords')) ;
 //            dd($key);
-            $good = Good::where('good_name','like',"%".$key."%")->paginate(5);
+            $good = Good::where('good_name','like',"%".$key."%")->paginate($page);
             return view('admin.good.index',['data'=>$good,'key'=>$key]);
         }else{
             //两表联查shop_goods shop_type
-            $data =  Good::join('type','goods.type_id','=','type.type_id')->orderBy('goods.good_id','asc')->paginate(5);
+            $data =  Good::join('type','goods.type_id','=','type.type_id')->orderBy('goods.good_id','asc')->paginate($page);
 //            dd($data);
             //      向前台模板传变量的一种方法
             return view('admin.good.index',compact('data'));
@@ -398,7 +399,7 @@ class GoodController extends Controller
         $res = Goodpic::where('good_id',$id)->delete();
 //        return($re);
 //       0表示成功 其他表示失败
-        if($re && $res){
+        if($re){
             $data = [
                 'status'=>0,
                 'msg'=>'删除成功！'

@@ -18,7 +18,7 @@
             </div>
         </div>
         <div class="am-form-group">
-            <label for="user-phone" class="am-u-sm-3 am-form-label">商品标签 <span class="tpl-form-line-small-title"></span></label>
+            <label for="user-phone" class="am-u-sm-3 am-form-label">商品状态 <span class="tpl-form-line-small-title"></span></label>
             <div class="am-u-sm-9">
                 <select data-am-selected="{searchBox: 0}"  name="good_label" disabled="disabled">
                     <option @if($data->good_status==2)  selected @endif value="2">下架</option>
@@ -28,13 +28,13 @@
             </div>
         </div>
         <div class="am-form-group">
-            <label for="user-phone" class="am-u-sm-3 am-form-label">商品状态 <span class="tpl-form-line-small-title"></span></label>
+            <label for="user-phone" class="am-u-sm-3 am-form-label">商品标签 <span class="tpl-form-line-small-title"></span></label>
             <div class="am-u-sm-9">
                 <select data-am-selected="{searchBox: 0}"  name="good_label" disabled="disabled">
                     <option value=""></option>
-                    <option value="1">下架</option>
-                    <option value="2">上架</option>
-                    <option value="3">新品</option>
+                    <option value=""></option>
+                    <option value=""></option>
+                    <option value=""></option>
                 </select>
             </div>
         </div>

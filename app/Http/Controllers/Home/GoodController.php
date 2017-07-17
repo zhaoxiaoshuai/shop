@@ -35,6 +35,7 @@ class GoodController extends Controller
         $goods = Good::where('good_status','!=','2')->where('type_id','=',$id)->paginate($perpage);
 //        dd($goods);
 
+
         return view('home.good.goodlist',['goods'=>$goods,'type_id'=>$id]);
     }
 
@@ -62,18 +63,7 @@ class GoodController extends Controller
         return view('home.good.newgoodlist',['newgoods'=>$newgoods,'type_id'=>$id]);
     }
 
-    /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * 商品按销量排序
-     */
-//    public function saleList()
-//    {
-//        //取出所有商品 商品状态0新品 1上架 2下架
-//        $goods = Good::where('good_status','!=','2')->orderBy('good_salecnt')->paginate(4);
-////        dd($goods);
-////        return view('home.good.newgoodlist',compact('goods'));
-//        return $goods;
-//    }
+
 
     /**
      * @param $id
