@@ -17,11 +17,22 @@ class AddressController extends Controller
      */
     public function index()
     {   
+        
+        // dd(session('logins')->user_id);
+
         //加载收货地址的表单
-        // $uid = session('adminuser')->id;
+        $uid = session('logins')['user_id'];
         // dd($uid);
-        $data = Address::join('user','delivery_address.user_id','=','user.user_id')->paginate(2);
-        return view('home.address.index',compact('data'));
+        $data = Address::join('user','delivery_address.user_id','=','user.user_id')->where('user.user_id',$uid)->paginate(2);
+        $res = Address::where('user_id',$uid)->first();
+        if(empty($res)){
+            return view('home.address.show');
+        }else{
+            return view('home.address.index',['data'=>$data]);
+        }
+        
+        
+        
     }
 
     /**
@@ -45,12 +56,16 @@ class AddressController extends Controller
     {
         //执行添加操作
         //获取指定部分的数据
+        $uid = session('logins')->user_id;
+        // dd($uid);
         $data = $request -> except('_token');
         // dd($data);
         $data1['name'] = $data['name'];
         $data1['phone'] = $data['phone'];
         $arr = [$data['province'],$data['city'],$data['area'],$data['address']];
         $data1['address'] = implode(' ',$arr);
+        $data1['user_id'] = $uid;
+        $data1['email'] = $data['email'];
         // dd($data1);
         $res = Address::create($data1);
         if($res){

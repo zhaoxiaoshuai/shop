@@ -1,4 +1,4 @@
-@extends('layouts.home_index')
+@extends('layouts.home_good')
 
 @section('content')
 
@@ -32,7 +32,7 @@
                     操作
                 </td>
             </tr>
-            @foreach($data as $k=>$v)
+            @foreach($data1 as $k=>$v)
             <tr class="car_tr">
                 <td width="5%"><input type="checkbox"  name="" class="child"></td>
                 <td>
@@ -46,21 +46,23 @@
                 </td>
                 <td align="center">
                     <div class="c_num">
-                        <input type="button" value="" onclick="jianUpdate1(jq(this));" class="car_btn_1"
+                        <input type="button" value="" class="car_btn_1" onclick="jianUpdate1(jq(this));" 
                         />
                         <input type="text" value="{{$v->cart_cnt}}" name="" class="car_ipt" />
-                        <input type="button" value="" onclick="addUpdate1(jq(this));" class="car_btn_2"
+                        <input type="button" value="" class="car_btn_2" onclick="addUpdate1(jq(this));" 
                         />
+                        
                     </div>
+
                 </td>
-                <td align="center" style="color:#ff4e00;">
+                <td align="center" style="color:#ff4e00;" >
                     {{$v->good_price}}
                 </td>
-                <td align="center">
-                    {{ $v->good_price*$v->cart_cnt }}
+                <td align="center" >
+                    {{$v->cart_cnt * $v->good_price }}
                 </td>
                 <td align="center" >
-                    <a href="#" onclick="ShowDiv('MyDiv','fade')">
+                    <a href="javascript:;" onclick="DelGood({{$v->cart_id}})" >
                         删除
                     </a>
                      
@@ -70,6 +72,33 @@
                 </td>
             </tr>
             @endforeach
+                <script>
+
+        function DelGood(cart_id){
+            //询问框
+            layer.confirm('是否确认删除？', {
+                btn: ['确定','取消'] //按钮
+            }, function(){
+                //           url ==> admin/user/{user}   http://project182.com/admin/user/2
+                $.post("{{url('home/mycart/')}}/"+cart_id,{'_method':'DELETE','_token':"{{csrf_token()}}"},function(data){
+                if(data.status == 0){
+                    location.href = location.href;
+                    layer.msg(data.msg, {icon: 6});
+                }else{
+                    location.href = location.href;
+                    layer.msg(data.msg, {icon: 5});
+                }
+                });
+
+
+            }, function(){
+
+            });
+
+        }
+
+
+    </script>
             <tr height="70">
                 <td colspan="6" style="font-family:'Microsoft YaHei'; border-bottom:0;">
                     <label class="r_rad">
@@ -77,23 +106,23 @@
                     </label>
                     
                     <label class="r_txt">
-                       &nbsp; &nbsp; &nbsp;  <a>清空购物车</a>
+                       &nbsp; &nbsp; &nbsp;  <a href="{{url('home/mycart/delete')}}">清空购物车</a>
                     </label>
                     <span class="fr">
                         商品总价：
                         <b style="font-size:22px; color:#ff4e00;">
-                           {{$total}}
+                           
                         </b>
                     </span>
                 </td>
             </tr>
             <tr valign="top" height="150" >
                 <td colspan="6" align="right">
-                    <a href="#">
+                    <a href="{{url('/')}}">
                         <img src="{{ asset('home/images/buy1.gif') }}" />
                     </a>
                     &nbsp; &nbsp;
-                    <a href="#">
+                    <a href="{{url('home/orders/commit')}}">
                         <img src="{{ asset('home/images/buy2.gif') }}" />
                     </a>
                 </td>
@@ -144,30 +173,7 @@
                 $('.child').prop("checked", false);
                 
             }
-        })
-
-
-
-
-
-
-
-        var num=$("#num_id").html();
-    num--;
-    if(num<1){
-        $("#num_id").html(0);
-        $("#pay_num_id").val(0);
-        $("#total_price").html(0);
-        $("#total_prices").html(0);
-    }else{
-        $("#num_id").html(num);
-        $("#pay_num_id").val(num);
-        var price = $("#one_price").html();
-        $("#total_price").html(price * num);
-        $("#pay_total_id").val(price * num);        
-    }
-
-       
+        }) 
     </script>
     <!--End 弹出层-删除商品 End-->
 @endsection
