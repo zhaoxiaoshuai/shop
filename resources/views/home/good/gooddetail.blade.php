@@ -4,31 +4,28 @@
 
 <div class="i_bg">
 	<div class="postion">
-    	<span class="fl">全部 >{{$good->type_name}}></span>
-    </div>    
+            <span class="fl">{{$line}}</span>
+    </div>
+>
     <div class="content">
-    	                    
+
         <div id="tsShopContainer">
             <div id="tsImgS"><a href="images/p_big.jpg" title="Images" class="MagicZoom" id="MagicZoom"><img src="http://php182.oss-cn-beijing.aliyuncs.com/{{$good->good_pic}}" width="390" height="390" /></a></div>
             <div id="tsPicContainer">
                 <div id="tsImgSArrL" onclick="tsScrollArrLeft()"></div>
-                <div id="tsImgSCon">
+                <div id="tsImgSCon" style="width: 360px">
                     <ul>
-                        <li onclick="showPic(0)" rel="MagicZoom" class="tsSelectImg"><img src="images/ps1.jpg" tsImgS="images/ps1.jpg" width="79" height="79" /></li>
-                        <li onclick="showPic(1)" rel="MagicZoom"><img src="images/ps2.jpg" tsImgS="images/ps2.jpg" width="79" height="79" /></li>
-                        <li onclick="showPic(2)" rel="MagicZoom"><img src="images/ps3.jpg" tsImgS="images/ps3.jpg" width="79" height="79" /></li>
-                        <li onclick="showPic(3)" rel="MagicZoom"><img src="images/ps4.jpg" tsImgS="images/ps4.jpg" width="79" height="79" /></li>
-                        <li onclick="showPic(4)" rel="MagicZoom"><img src="images/ps1.jpg" tsImgS="images/ps1.jpg" width="79" height="79" /></li>
-                        <li onclick="showPic(5)" rel="MagicZoom"><img src="images/ps2.jpg" tsImgS="images/ps2.jpg" width="79" height="79" /></li>
-                        <li onclick="showPic(6)" rel="MagicZoom"><img src="images/ps3.jpg" tsImgS="images/ps3.jpg" width="79" height="79" /></li>
-                        <li onclick="showPic(7)" rel="MagicZoom"><img src="images/ps4.jpg" tsImgS="images/ps4.jpg" width="79" height="79" /></li>
+                        <li onclick="showPic(0)" rel="MagicZoom" class="tsSelectImg"><img src="http://php182.oss-cn-beijing.aliyuncs.com/{{$good->good_pic}}" tsImgS="images/ps1.jpg" width="79" height="79" style="display: block"/></li>
+                    @foreach($pics as $k=>$v)
+                        <li onclick="showPic(0)" rel="MagicZoom" class="tsSelectImg"><img src="http://php182.oss-cn-beijing.aliyuncs.com/{{$v->good_pics}}" tsImgS="images/ps1.jpg" width="79" height="79" style="display: block"/></li>
+                        @endforeach
                     </ul>
                 </div>
                 <div id="tsImgSArrR" onclick="tsScrollArrRight()"></div>
             </div>
             {{--<img class="MagicZoomLoading" width="16" height="16" src="" alt="Loading..." />--}}
         </div>
-        
+
         <div class="pro_des">
         	<div class="des_name">
             	<p>{{$good->good_name}}</p>
@@ -78,18 +75,18 @@
             	<div class="j_nums">
                 	<input type="text" value="1" name="" class="n_ipt" />
                     <input type="button" value="" onclick="addUpdate(jq(this));" class="n_btn_1" />
-                    <input type="button" value="" onclick="jianUpdate(jq(this));" class="n_btn_2" />   
+                    <input type="button" value="" onclick="jianUpdate(jq(this));" class="n_btn_2" />
                 </div>
                 <span class="fl"><a onclick="ShowDiv_1('MyDiv1','fade1')"><img src="{{asset('home/images/j_car.png')}}" /></a></span>
-            </div>            
-        </div>    
-        
+            </div>
+        </div>
+
         <div class="s_brand">
         	<div class="s_brand_img"><img src="images/sbrand.jpg" width="188" height="132" /></div>
             <div class="s_brand_c"><a href="#">进入品牌专区</a></div>
-        </div>    
-        
-        
+        </div>
+
+
     </div>
     <div class="content mar_20">
     	<div class="l_history">
@@ -132,7 +129,7 @@
                 </li>
         	</ul>
         </div>
-        <div class="l_list">        	
+        <div class="l_list">
             <div class="des_border">
             	<div class="des_tit">
                 	<ul>
@@ -169,20 +166,20 @@
                 <div class="team_sum">
                 	套餐价：￥<span>1517</span><br />
                     <input type="text" value="1" class="sum_ipt" /><br />
-                    <a href="#"><img src="images/z_buy.gif" /></a> 
+                    <a href="#"><img src="images/z_buy.gif" /></a>
                 </div>
-                
+
             </div>
             <div class="des_border">
                 <div class="des_tit">
                 	<ul>
-                    	<li class="current"><a href="#p_attribute">商品属性</a></li>
+                    	{{--<li class="current"><a href="#p_attribute">商品属性</a></li>--}}
                         {{--<li><a href="#p_details">商品详情</a></li>--}}
                         <li><a href="#p_comment">商品评论</a></li>
                     </ul>
                 </div>
                 <div class="des_con" id="p_attribute">
-                	
+
                 	<table border="0" align="center" style="width:100%; font-family:'宋体'; margin:10px auto;" cellspacing="0" cellpadding="0">
                       {{--<tr>--}}
                         {{--<td>商品名称：迪奥香水</td>--}}
@@ -202,19 +199,19 @@
                         {{--<td>&nbsp;</td>--}}
                         {{--<td>&nbsp;</td>--}}
                       {{--</tr>--}}
-                        {!!$good->good_desc!!}
-                    </table>                                               
-                                            
-                        
+                        {{--{!!$good->good_desc!!}--}}
+                    </table>
+
+
                 </div>
-          	</div>  
-            
+          	</div>
+
             <div class="des_border" id="p_details">
                 <div class="des_t">商品详情</div>
                 <div class="des_con">
                 	<table border="0" align="center" style="width:745px; font-size:14px; font-family:'宋体';" cellspacing="0" cellpadding="0">
                       <tr>
-                        <td width="265"><img src="" width="206" height="412" /></td>
+                        {{--<td width="265"><img src="" width="206" height="412" /></td>--}}
                         <td>
                         	{{--<b>迪奥真我香水(Q版)</b><br />--}}
                             {{--【商品规格】：5ml<br />--}}
@@ -225,23 +222,32 @@
                             {{--【商品香调】：花束花香调<br />--}}
                             {{--【适用人群】：适合女性（都市白领，性感，有女人味的成熟女性）<br />--}}
                             {{--{!! $good->good_desc !!}--}}
+                            {!!$good->good_desc!!}
+                            @foreach($pics as $k=>$v)
+                                <img src="http://php182.oss-cn-beijing.aliyuncs.com/{{$v->good_pics}}" tsImgS="images/ps1.jpg" width="750" height="410" style="display: block"/>
+                                <br>
+                            @endforeach
                         </td>
                       </tr>
                     </table>
-                    
+
                     <p align="center">
-                    <img src="" width="746" height="425" /><br /><br />
-                    <img src="images/de3.jpg" width="750" height="417" /><br /><br />
-                    <img src="images/de4.jpg" width="750" height="409" /><br /><br />
-                    <img src="images/de5.jpg" width="750" height="409" />
+                    {{--@foreach($pics as $k=>$v)--}}
+                        {{--<img src="http://php182.oss-cn-beijing.aliyuncs.com/{{$v->good_pics}}" tsImgS="images/ps1.jpg" width="79" height="79" style="display: block"/>--}}
+                            {{--<br>--}}
+                    {{--@endforeach--}}
+                    {{--<img src="" width="746" height="425" /><br /><br />--}}
+                    {{--<img src="images/de3.jpg" width="750" height="417" /><br /><br />--}}
+                    {{--<img src="images/de4.jpg" width="750" height="409" /><br /><br />--}}
+                    {{--<img src="images/de5.jpg" width="750" height="409" />--}}
 					</p>
-                    
+
                 </div>
-          	</div>  
-            
+          	</div>
+
             <div class="des_border" id="p_comment">
             	<div class="des_t">商品评论</div>
-                
+
                 <table border="0" class="jud_tab" cellspacing="0" cellpadding="0">
                   <tr>
                     <td width="175" class="jud_per">
@@ -268,9 +274,9 @@
                     </td>
                   </tr>
                 </table>
-                
-                
-                				
+
+
+
                 <table border="0" class="jud_list" style="width:100%; margin-top:30px;" cellspacing="0" cellpadding="0">
                     @foreach($comment as $v)
                   <tr valign="top">
@@ -287,27 +293,50 @@
                 <div class="pages">
                     {!! $comment->render() !!}
                 </div>
-                
+
           	</div>
-            
-            
+
+
         </div>
     </div>
-    
-    
+
+
     <!--Begin 弹出层-收藏成功 Begin-->
     <div id="fade" class="black_overlay"></div>
-    
-    
+    <div id="MyDiv" class="white_content">
+        <div class="white_d">
+            <div class="notice_t">
+                <span class="fr" style="margin-top:10px; cursor:pointer;" onclick="CloseDiv('MyDiv','fade')"><img src="images/close.gif" /></span>
+            </div>
+            <div class="notice_c">
+
+                <table border="0" align="center" style="margin-top:;" cellspacing="0" cellpadding="0">
+                  <tr valign="top">
+                    <td width="40"><img src="images/suc.png" /></td>
+                    <td>
+                    	<span style="color:#3e3e3e; font-size:18px; font-weight:bold;">您已成功收藏该商品</span><br />
+                    	<a href="#">查看我的关注 >></a>
+                    </td>
+                  </tr>
+                  <tr height="50" valign="bottom">
+                  	<td>&nbsp;</td>
+                    <td><a href="#" class="b_sure">确定</a></td>
+                  </tr>
+                </table>
+
+            </div>
+        </div>
+    </div>
+    <!--End 弹出层-收藏成功 End-->
     <!--Begin 弹出层-加入购物车 Begin-->
     <div id="fade1" class="black_overlay"></div>
-    <div id="MyDiv1" class="white_content">             
+    <div id="MyDiv1" class="white_content">
         <div class="white_d">
             <div class="notice_t">
                 <span class="fr" style="margin-top:10px; cursor:pointer;" onclick="CloseDiv_1('MyDiv1','fade1')"><img src="{{asset('home/images/close.gif')}}" /></span>
             </div>
             <div class="notice_c">
-           		
+
                 <table border="0" align="center" style="margin-top:;" cellspacing="0" cellpadding="0">
                   <tr valign="top">
                     <td width="40"><img src="{{asset('home/images/suc.png')}}" /></td>
@@ -321,10 +350,10 @@
                     <td><a href="#" class="b_sure">去购物车结算</a><a href="#商品首页" class="b_buy">继续购物</a></td>
                   </tr>
                 </table>
-                    
+
             </div>
         </div>
-    </div>    
+    </div>
     <!--End 弹出层-加入购物车 End-->
     
 <script>
@@ -351,5 +380,4 @@
 
 
 </script>
-
    @endsection

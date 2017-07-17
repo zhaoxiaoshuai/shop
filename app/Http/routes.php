@@ -140,6 +140,8 @@ Route::get('home/user/mycenter','Home\UserController@mycenter');
 //用户详情
 Route::get('home/user/user_details','Home\UserController@user_details');
 
+//用户评论
+//Route::resource('home/user/user_comment','Home\CommentController');
 //修改信息
 Route::post('home/user/update','Home\UserController@update');
 //头像上传
@@ -202,9 +204,13 @@ Route::any('/home/gooddetail/{id}','Home\GoodController@goodDetail');
 //前台新品商品列表页路由
 Route::any('home/newgoodlist/{id}','Home\GoodController@newgoodList');
 
+
 //前台店铺路由
 Route::controller('/home/merchant','Home\MerchantController');
 
+
+////前台商品按销量排序列表页路由
+//Route::any('home/salelist/{id}','Home\GoodController@saleList');
 
 /*==========================商家后台===============================*/
 // 商家后台店铺管理

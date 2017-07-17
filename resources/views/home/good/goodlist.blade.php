@@ -4,7 +4,7 @@
 
 <div class="i_bg">
 	<div class="postion">
-    	<span class="fl">全部 > {{ $type_name }} > </span>
+    	<span class="fl">全部 >  </span>
         <!-- <span class="n_ch">
             <span class="fl">品牌：<font>香奈儿</font></span>
             <a href="#"><img src="images/s_close.gif" /></a>
@@ -80,18 +80,19 @@
         <div class="l_list">
         	<div class="list_t">
             	<span class="fl list_or">
-                	<a href="#" class="now">默认</a>
-                    <a href="#">
+                	<a href="{{url('home/goodlist/').'/'.$type_id}}" class="now">默认</a>
+                    <a href="{{url('home/goodlist/').'/'.$type_id.'?salecnt=good_salecnt'}}" id="sale">
                     	<span class="fl">销量</span>                        
                         <span class="i_up">销量从低到高显示</span>
-                        <span class="i_down">销量从高到低显示</span>                                                     
+                        <span class="i_down">销量从高到低显示</span>
                     </a>
-                    <a href="#">
+
+                    <a href="{{url('home/goodlist/').'/'.$type_id.'?salecnt=good_price'}}">
                     	<span class="fl">价格</span>                        
                         <span class="i_up">价格从低到高显示</span>
                         <span class="i_down">价格从高到低显示</span>     
                     </a>
-                    <a href="{{url('home/newgoodlist/{id}')}}">新品</a>
+                    <a href="{{url('home/newgoodlist/').'/'.$type_id}}">新品</a>
                 </span>
                 <span class="fr">共发现120件</span>
             </div>

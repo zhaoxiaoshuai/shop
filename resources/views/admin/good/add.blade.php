@@ -49,9 +49,9 @@
             <div class="am-u-sm-9">
                 <select data-am-selected="{searchBox: 0}"  name="good_status">
                     <option value=""></option>
-                    <option value="1" selected>下架</option>
-                    <option value="2">上架</option>
-                    <option value="3">新品</option>
+                    <option value="2" selected>下架</option>
+                    <option value="1">上架</option>
+                    <option value="0">新品</option>
                 </select>
             </div>
         </div>
@@ -107,8 +107,8 @@
                                             contentType: false,
                                             processData: false,
                                             success: function(data) {
-                                    console.log(data);
-                                    alert("上传成功");
+//                                    console.log(data);
+//                                    alert("上传成功");
 //                                                for(var i=0;i<data.length;i++){
 //                                                    $('#pic').clone(true).insertAfter('#pic');
 //                                                    $('#good_pic').clone(true).insertAfter('#good_pic');
@@ -146,7 +146,7 @@
         <div class="am-form-group">
             <label for="user-name" class="am-u-sm-3 am-form-label">上传商品缩略图 <span class="tpl-form-line-small-title"></span></label>
             <div class="am-u-sm-9">
-                <input type="file" class="tpl-form-input" id="user-name" name="good_pics" placeholder="点击上传商品缩略图" multiple>
+                <input type="file" class="tpl-form-input" id="user-name" name="good_pics[]" placeholder="点击上传商品缩略图" multiple>
             </div>
         </div>
         <div class="am-form-group">
