@@ -179,7 +179,15 @@ Route::any('home/shouhuo/{id}','Home\OrdersController@shouhuo');
 //前台订单评价
 Route::resource('home/comment','Home\CommentController');
 // 加载购物车
+Route::get('home/mycart/addmycart','Home\MycartController@addmycart');
+//清空购物车
+Route::get('home/mycart/delete','Home\MycartController@delete');
 Route::resource('home/mycart','Home\MycartController');
+// 订单路由
+Route::get('home/orders/commit','Home\OrdersController@commit');  //提交订单
+
+
+
 
 // 前台商家路由
 Route::resource('home/hstore','Home\StoreController');

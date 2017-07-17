@@ -30,6 +30,7 @@
         	<div class="des_name">
             	<p>{{$good->good_name}}</p>
                 {{--{!!$good->good_desc!!}--}}
+                <input id="eeeee" type="hidden" value="{{$good->good_id}}">
             </div>
             <div class="des_price">
             	本店价格：<b>{{$good->good_price}}</b><br />
@@ -73,13 +74,26 @@
             </div>
             <div class="des_join">
             	<div class="j_nums">
-                	<input type="text" value="1" name="" class="n_ipt" />
+                	<input type="text" value="1" name="" id="n_ipt_n" class="n_ipt" />
                     <input type="button" value="" onclick="addUpdate(jq(this));" class="n_btn_1" />
                     <input type="button" value="" onclick="jianUpdate(jq(this));" class="n_btn_2" />
                 </div>
-                <span class="fl"><a onclick="ShowDiv_1('MyDiv1','fade1')"><img src="{{asset('home/images/j_car.png')}}" /></a></span>
-            </div>
-        </div>
+
+                <span id="fffff" class="fl"><a onclick="ShowDiv_1('MyDiv1','fade1')"><img src="{{asset('home/images/j_car.png')}}" /></a></span>
+                <script type="text/javascript">
+                    $(function(){
+                        $('#fffff').click(function(){
+                            var n_ipt = $('#n_ipt_n').val();
+                            var good_id = $('#eeeee').val();
+                            $.get('{{url('home/mycart/addmycart')}}', {n_ipt: n_ipt,good_id:good_id}, function(data) {
+                                console.log(data);
+                            });
+                        })
+                    })
+
+                </script>
+            </div>            
+        </div>    
 
         <div class="s_brand">
         	<div class="s_brand_img"><img src="images/sbrand.jpg" width="188" height="132" /></div>
@@ -341,13 +355,14 @@
                   <tr valign="top">
                     <td width="40"><img src="{{asset('home/images/suc.png')}}" /></td>
                     <td>
+
                     	<span style="color:#3e3e3e; font-size:18px; font-weight:bold;">宝贝已成功添加到购物车</span><br />
-                    	购物车共有1种宝贝（3件） &nbsp; &nbsp; 合计：1120元
+                    	
                     </td>
                   </tr>
                   <tr height="50" valign="bottom">
                   	<td>&nbsp;</td>
-                    <td><a href="#" class="b_sure">去购物车结算</a><a href="#商品首页" class="b_buy">继续购物</a></td>
+                    <td><a href="{{url('home/mycart')}}" class="b_sure">去购物车结算</a><a href="{{url('/')}}" class="b_buy">继续购物</a></td>
                   </tr>
                 </table>
 

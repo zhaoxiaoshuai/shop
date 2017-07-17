@@ -117,5 +117,6 @@ class OrdersController extends Controller
     public function destroy($id)
     {
         //
+
     }
 }
