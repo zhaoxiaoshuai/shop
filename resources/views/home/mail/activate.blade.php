@@ -23,7 +23,7 @@
                     <p>首先感谢您加入shop！
                         请您前往邮箱激活账号!
                         如果您有什么疑问可以联系管理员，Email: 1378485551@qq.com。</p>
-                    <a href="http://www.lamp.com/home/login">点击跳转登录商城</a>
+                    <a href="{{url('home/login')}}">点击跳转登录商城</a>
                     <p align="right">shop! 官方团队</p>
                     <p align="right"><?php echo date('Y-m-d H:i:s')?></p>
                 </div>
