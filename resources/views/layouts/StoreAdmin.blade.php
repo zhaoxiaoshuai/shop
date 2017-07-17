@@ -53,7 +53,7 @@
                     <ul>
                         <!-- 欢迎语 -->
                         <li class="am-text-sm tpl-header-navbar-welcome">
-                            <a href=""><span>修改密码</span> </a>
+                            <a href="{{ url('store/admin/upassword') }}"><span>修改密码</span> </a>
 
                         </li>
 
@@ -65,7 +65,7 @@
 
                         <!-- 退出 -->
                         <li class="am-text-sm">
-                            <a href="javascript:;" onclick='Logout()'>
+                            <a href="javascript:;" onclick='Store_Logout()'>
                                 <span class="am-icon-sign-out"></span> 退出
                             </a>
                         </li>
@@ -100,7 +100,7 @@
                     <span class="user-panel-logged-in-text">
                          
                     </span>
-                    <span style="color:#868E8E" >{{session('admin')['admin_name']}}</span> 
+                    <span style="color:#868E8E" >{{session('store_admin')['store_admin_name']}}</span> 
                 </div>
             </div>
 
@@ -139,7 +139,7 @@
                         </li>
 
                         <li class="sidebar-nav-link">
-                            <a href="{{ url('store/goods') }}">
+                            <a href="{{ url('store/type') }}">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span>分类列表
                             </a>
                         </li>
@@ -158,10 +158,60 @@
                         </li>
                     </ul>
                 </li>
+                <li class="sidebar-nav-link">
+                    <a href="javascript:;" class="sidebar-nav-sub-title">
+                        <i class="am-icon-table sidebar-nav-link-logo"></i> 店铺设置
+                        <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                    </a>
+                    <ul class="sidebar-nav sidebar-nav-sub" style="display: none;">
+                        <li class="sidebar-nav-link">
+                            <a href="{{ url('store/setup/basicsetup') }}">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span>店铺基本设置
+                            </a>
+                        </li>
+                        <li class="sidebar-nav-link">
+                            <a href="{{ url('store/setup/information') }}">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span>店铺基本信息
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sidebar-nav-link">
+                    <a href="javascript:;" class="sidebar-nav-sub-title">
+                        <i class="am-icon-table sidebar-nav-link-logo"></i> 权限管理
+                        <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                    </a>
+                    <ul class="sidebar-nav sidebar-nav-sub" style="display: none;">
+                        <li class="sidebar-nav-link">
+                            <a href="">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span>添加管理员
+                            </a>
+                        </li>
+                        <li class="sidebar-nav-link">
+                            <a href="">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span>添加角色
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </div>
         <!-- 内容区域 -->
         <div class="tpl-content-wrapper"  style="color: #868E8E"  >
+        @if (count($errors) > 0)
+        <div class="bg-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+
+                    <li  style="background:#f0ad4e"  >{{ $error }}</li>
+
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    @if(session('error'))
+       <p style="background:#f0ad4e">  {{session('error')}}</p>
+    @endif
         @section('content')
         
         @show
@@ -174,19 +224,19 @@
     <script src="{{asset('admin/assets/js/app.js')}}"></script>
     <script type="text/javascript">
         
-        // function Logout()
-        // {
-        //     layer.confirm('是否确认退出？', {
-        //       btn: ['确认','取消'] 
-        //     }, function(){
-        //         $.get("{{url('admin/logout')}}", {}, function(data) {
-        //             layer.msg('正在退出', {icon: 6});
-        //             location.href="{{url('admin/login')}}";
-        //         });
-        //     }, function(){
-        //     });
+        function Store_Logout()
+        {
+            layer.confirm('是否确认退出？', {
+              btn: ['确认','取消'] 
+            }, function(){
+                $.get("{{url('store/admin/logout')}}", {}, function(data) {
+                    layer.msg('正在退出', {icon: 6});
+                    location.href="{{url('store/admin/login')}}";
+                });
+            }, function(){
+            });
 
-        //  }
+         }
        
     </script>
 </body>

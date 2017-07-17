@@ -22,8 +22,8 @@
                                 <div>积分 : <strong style="color:red;">{{$deta->deta_score}}</strong></div>
                                 <p>
                                     上一次登录时间:
-                                        @if($data -> lasttime == '0')
-                                             {{('第一次登陆') }}
+                                        @if($data -> lasttime == 0)
+                                             {{('您是第一次登陆哦!') }}
                                         @else
                                             {{date('Y年-m月-d日 H:i:s',session('logins')['lasttime'])}}
                                         @endif
@@ -40,6 +40,11 @@
                         layer.msg('修改失败',{icon:5});
                     </script>
                     @endif
+                @if(session('okupdate'))
+                    <script>
+                        layer.msg('修改成功',{icon:1});
+                    </script>
+                @endif
                 <div class="mem_t">账号信息</div>
 
                     {{csrf_field()}}

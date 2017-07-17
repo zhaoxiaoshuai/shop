@@ -58,7 +58,6 @@ class LoginController extends Controller
                 }else{
                     return back()->with('activation','请激活后重新登录');
                 }
-
             }
         }
     }

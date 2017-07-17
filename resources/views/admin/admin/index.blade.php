@@ -8,17 +8,18 @@
             <div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
                 <div class="am-form-group">
                     <div class="am-btn-toolbar">
-                       
+                        <div class="am-btn-group am-btn-group-xs">
+                            <button type="button" class="am-btn am-btn-default am-btn-success">
+                                <a href="{{url('admin/admin/create')}}"><span class="am-icon-plus"></span>新增</a>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
             <form action="{{url('admin/admin')}}" method="get">
                 <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
                     <div class="am-form-group tpl-table-list-select">
-                        <select data-am-selected="{btnSize: 'sm'}" style="display: none;">
-                            <option value="option1">所有类别</option>
-                            <option value="option2">IT业界</option>
-                        </select>
+                        
                       
                     </div>
                 </div>
@@ -39,8 +40,28 @@
                             <th>用户名</th>
                             <th>联系电话</th>
                             <th>Email</th>
-                            <th>创建时间</th>
-                            <th>最后登录时间</th>
+                            <th>
+                                @if(empty($d) || $d == 'asc')
+                                <a href="{{url('admin/admin/').'?o=admin_create&d=desc'}}">
+                                创建时间
+                                </a>
+                                @else
+                                <a href="{{url('admin/admin/').'?o=admin_create'}}">
+                                创建时间
+                                </a>
+                                @endif
+                            </th>
+                            <th>
+                                @if(empty($d) || $d == 'asc')
+                                <a href="{{url('admin/admin/').'?o=admin_lasttime&d=desc'}}">
+                                最后登录时间
+                                </a>
+                                @else
+                                <a href="{{url('admin/admin/').'?o=admin_lasttime'}}">
+                                创建时间
+                                </a>
+                                @endif
+                            </th>
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -73,8 +94,8 @@
             </div>
             <div class="am-u-lg-12 am-cf">
                 <div class="am-fr">
-                <??>
-                {!! $data ->appends(['keywords'=>$key])-> render() !!}
+                
+                {!! $data ->appends(['keywords'=>$key,'o'=>$o])-> render() !!}
                 </div>
             </div>
             

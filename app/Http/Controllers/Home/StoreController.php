@@ -48,9 +48,12 @@ class StoreController extends Controller
         // 将信息存入闪存中
         $request->flash();
 
+        // 从session中或登录用户的信息
+        $res = session('logins');
+
         // 获取指定数据存在相对应的表中shop_merchant
         $data1 = $request -> only('merchant_name','merchant_title','merchant_leverl','merchant_style');
-        $data1['user_id'] = '29';  // 用户id。。。。。。。。。。。。。。。
+        $data1['user_id'] = $res['user_id']; // 用户id。。。。。。。。。。。。。。。。
         $data1['merchant_ctime'] = time();
         $merid = Merchant::insertGetId($data1); // 返回插入Id
         // dump($data1);
@@ -64,19 +67,20 @@ class StoreController extends Controller
             
             // 获取指定数据存在相对应的表中shop_store
             $data2 = $request -> only('store_username','store_phone','store_email','detailed_address','number_id','number_pic1','number_pic2','bank_username','bank_account','bank_name','platform_use_fee','store_margin','percent');
-            $data2['user_id'] = '29';   // 用户id。。。。。。。。。。。。。。。。
+            $data2['user_id'] = $res['user_id'];   // 用户id。。。。。。。。。。。。。。。。
             $data2['merchant_id'] = $merid;
             $data2['contact_address'] = "{$province}"."{$city}"."{$area}";
             $data2['apply_time'] = time();
             $sto = Store::create($data2);
             // dump($data2);
             
-            // 获取当前用户的用户名和密码存入到商家管理表(shop_store_admin)
-            $user_id = '29'; // 用户id。。。。。。。。。。。。。。。
+            // 获取当前用户的用户id，用户名和密码存入到商家管理表(shop_store_admin)
+            $user_id = $res['user_id']; // 用户id。。。。。。。。。。。。。。。
             $user = User::where('user_id',$user_id)->first();
             
             // 获取指定数据存在相对应的表中shop_store_admin
             $data3['merchant_id'] = $merid;
+            $data3['user_id'] = $res['user_id'];
             $data3['store_admin_name'] = $user['user_name'];
             $data3['store_admin_password'] = $user['user_password'];
             $data3['status'] = '1';
@@ -192,8 +196,15 @@ class StoreController extends Controller
      */
     public function MerSettled()
     {
-        // 加载商户入驻页面
-        return view('home.store.MerSettled');
+        // 如果登录了就执行
+        if(!empty(session('logins'))){
+            // 加载商户入驻页面
+            return view('home.store.MerSettled');
+        }else{
+            // 加载商户申请入驻页面1(如果用户没登录加载这个视图)
+            return view('home.store.MerApplication1');
+        }
+        
     }
 
     /**

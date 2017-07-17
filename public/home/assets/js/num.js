@@ -24,14 +24,20 @@ function addUpdate1(jia){
 	var c = jia.parent().find(".car_ipt").val();
 	c=parseInt(c)+1;	
 	jia.parent().find(".car_ipt").val(c);
+	var price = jia.parent().parent().next();
+	price.next().html(price.text() * c);	
 }
 
 function jianUpdate1(jian){    
 	var c = jian.parent().find(".car_ipt").val();
 	if(c==1){    
-		c=1;    
+		c=1; 
+		var price = jian.parent().parent().next();
+		price.next().html(price.text() * c);  
 	}else{    
 		c=parseInt(c)-1;    
 		jian.parent().find(".car_ipt").val(c);
+		var price = jian.parent().parent().next();
+		price.next().html(price.text() * c);
 	}
 }    

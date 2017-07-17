@@ -22,36 +22,27 @@
 	    </div>
 	    <div class="widget-body am-fr">
 
-	        <form action="{{url('admin/auth/'.$data['auth_id'])}}" class="am-form tpl-form-border-form tpl-form-border-br" method="POST" >
+	        <form action="{{url('admin/auth/'.$auth['auth_id'])}}" class="am-form tpl-form-border-form tpl-form-border-br" method="POST" >
 	        <input type="hidden" name="_method" value="put">
 	            <div class="am-form-group">
 	                <label for="auth_name" class="am-u-sm-3 am-form-label">权限名称</label>
 	                <div class="am-u-sm-9">
-	                    <input type="text" class="tpl-form-input" id="auth_name" name="auth_name" value="{{$data['auth_name']}}">
+	                    <input type="text" class="tpl-form-input" id="auth_name" name="auth_name" value="{{$auth['auth_name']}}">
 	                    <small></small>
 	                </div>
 	            </div>
 	            <div class="am-form-group">
 	                <label for="auth_content" class="am-u-sm-3 am-form-label">权限内容</label>
 	                <div class="am-u-sm-9">
-	                    <input type="text" class="tpl-form-input" id="auth_content" name="auth_content" value="{{$data['auth_content']}}">
+	                    <input type="text" class="tpl-form-input" id="auth_content" name="auth_content" value="{{$auth['auth_content']}}">
 	                    <small></small>
 	                </div>
 	            </div>
-	            <div class="am-form-group">
-	                <label for="auth_description" class="am-u-sm-3 am-form-label">权限描述</label>
-	                <div class="am-u-sm-9">
-                        <textarea class="" name="auth_description" rows="10" id="auth_description">{{$data['auth_description']}}</textarea>
-                    </div>
-	            </div>
 				<div class="am-form-group">
-	                <label for="user-phone" class="am-u-sm-3 am-form-label">权 限 组</label>
+	                <label for="auth_group" class="am-u-sm-3 am-form-label">权限组</label>
 	                <div class="am-u-sm-9">
-	                    <select data-am-selected="{searchBox: 0}" name="auth_group" style="display: none;">
-	                   	@foreach($arr as $k=>$v)
-	                      <option  @if($data['auth_group'] == $k) selected @endif value="{{$k}}">{{$v}}</option>
-						@endforeach
-	                    </select>
+	                    <input type="text" class="tpl-form-input" id="auth_group" name="auth_group" value="{{$pauth['auth_name'] or ''}}" disabled="disabled">
+	                    <small></small>
 	                </div>
 	            </div>
 	            

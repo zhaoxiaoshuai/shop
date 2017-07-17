@@ -39,16 +39,19 @@
 				 <div class="am-form-group">
 	                <table style="margin-left: 150px;width:86%;" border=1>
 	                    <tbody>
-	                    @foreach($arr as $k => $v)	
+	                    @foreach($pauths as $k => $v)	
 	                        <tr class="gradeX">
 	                            <td style="width: 160px;">
-	                            	{{$v}}
+	                            <input type="checkbox" name="auth_id[]" value="{{$v['auth_id']}}" >{{$v['auth_name']}}
+	                            	
 	                            </td>
 	                            <td>
-	                            	@foreach($data[$k] as $kk =>$vv)
-	                            	<div style="float:left;width:160px" >
-	                            		<input type="checkbox" name="auth_id[]" value="{{$vv['auth_id']}}" >{{$vv['auth_name']}}
-	                            	</div>
+	                            	@foreach($auths as $kk =>$vv)
+	                            	@if($vv['auth_group'] == $v['auth_id'])
+		                            	<div style="float:left;width:160px;height:40px" >
+			                            		<input type="checkbox" name="auth_id[]" value="{{$vv['auth_id']}}" >{{$vv['auth_name']}}
+		                            	</div>
+		                            	@endif
 	                            	@endforeach
 	                            </td>
 	                        </tr> 

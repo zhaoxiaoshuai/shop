@@ -15,7 +15,7 @@
     <script src="{{asset('layer/layer.js')}}"></script>
 <body>
 <div class="login-boxtitle">
-    <a href="home.html">
+    <a href="{{url('/')}}">
         <img alt="logo" src="{{ 'http://php182.oss-cn-beijing.aliyuncs.com/'.config('web.conf_logo')}}" /></a>
 </div>
 <div class="login-banner">
@@ -65,11 +65,11 @@
             @endif
             <div class="login-links">
                 <label for="remember-me">
-                    <input id="remember-me" type="checkbox">记住密码</label>
+                    <input id="remember-me" type="checkbox" checked>记住密码</label>
                 <a href="{{url('home/user/findpwd')}}" class="am-fr">忘记密码</a>
                 <a href="{{url('home/user/register')}}" class="zcnext am-fr am-btn-default">注册</a>
-                <br /></div>
-
+                <br />
+            </div>
         </div>
     </div>
 </div>

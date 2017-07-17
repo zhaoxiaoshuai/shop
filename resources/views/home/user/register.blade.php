@@ -19,7 +19,7 @@
 
 <body>
 <div class="login-boxtitle">
-    <a href="home/demo.html">
+    <a href="{{url('/')}}">
         <img alt="" src="{{'http://php182.oss-cn-beijing.aliyuncs.com/'.config('web.conf_logo')}}" /></a>
 </div>
 <div class="res-banner">
@@ -177,8 +177,8 @@
                             });
                             codeTime=null;
                             var i=60;
+                            var phone_code = '';
                             $('#dyMobileButton').click(function(){
-
                                 if($('#phone').val() == ''){
                                     layer.msg('请输入手机号',{icon:5});
                                     return false;
@@ -190,34 +190,30 @@
                                     return false;
                                 }else{
                                     // 发送ajax 注册手机号
-
-                                    $.get('phoneajax',{phone:phone},function(msg){
-
+                                    $.get('{{url('home/user/phoneajax')}}',{phone:phone},function(msg){
+//                                        console.log(msg);
+                                        phone_code = msg.code;
                                         if(msg.code == 'no'){
-                                            layer.msg(msg,{icon:5});
-                                            return;
+                                            layer.msg('用户已存在',{icon:2});
                                         }else{
-                                            layer.msg(msg,{icon:6});
-                                            return;
+                                            layer.msg('已发送验证码',{icon:5});
                                         }
                                     },'json');
                                     codeTime=setInterval(function() {
                                         $('#dyMobileButton').html(i);
                                         i--;
-
                                         if(i<0){
                                             clearInterval(codeTime);
                                             codeTime=null;
                                             i=60;
                                             $('#dyMobileButton').html('获取');
-
                                         }
                                     },1000);
                                 }
                                 return false;
                             });
                             $('#phonecode').blur(function(){
-                                if($('#phonecode').val() != "{{session('phone_code')}}"){
+                                if($('#phonecode').val() != phone_code){
                                     layer.msg('验证码错误',{icon:2});
                                     t1 = false;
                                 }else{
@@ -243,7 +239,6 @@
                                 }
                             });
                             $('#submit_to').click(function(){
-
                                 if(t1 == true && t2 == true && t3 == true){
                                     return true;
                                 } else{
@@ -251,7 +246,6 @@
                                 }
                                 return false;
                             });
-
                         </script>
                         @if(session('error'))
                         <script>
@@ -267,6 +261,14 @@
                             $('#doc-my-tabs').tabs();
                         })</script>
                 </div>
+                @if (count($errors) > 0)
+                    <div>
+                        @foreach ($errors->all() as $error)
+                            <div style="color:red;">{{ $error }}</div>
+                        @endforeach
+                    </div>
+                @endif
+
             </div>
         </div>
     </div>
@@ -290,6 +292,9 @@
                 <em>© 2015-2025 Hengwang.com 版权所有</em></p>
         </div>
     </div>
+
+
+
 </body>
 
 </html>

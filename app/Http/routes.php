@@ -24,15 +24,6 @@ Route::get('admin/login','Admin\LoginController@login');
 Route::post('admin/dologin','Admin\LoginController@dologin');
 //生成验证码
 Route::get('admin/captcha/{num}.jpg','Admin\LoginController@captcha')->where('name','[0-9]+');
-
-//管理员管理
-Route::resource('admin/admin','Admin\adminController');
-
-
-//角色控制器
-Route::resource('admin/role','Admin\roleController');
-
-//商品管理
 Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 	//没有权限返回页面
 	Route::get('back',function(){
@@ -58,6 +49,10 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 	    Route::get('admin/editself/{id}','adminController@editself');
 	    Route::post('admin/updateself/','adminController@updateself');
 	    //商品管理
+
+        // //商品标签
+        // Route::resource('label','LabelController');
+
         //上传商品大图
         Route::any('goods/upload','GoodController@upload');
         //上传商品其他图片
@@ -91,18 +86,19 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 		//系统配置
 		Route::resource('config','ConfController');
 		//权限注册
+		Route::get('auth/createauth','AuthController@createauth');
 		Route::resource('auth','AuthController');
-		Route::any('uploadconf','ConfController@uploadconf');//LOGO图片上传
+
+		//LOGO图片上传
+		Route::any('uploadconf','ConfController@uploadconf');
 	});
 });
 
-//友情链接
-Route::resource('link','Admin\LinkController');
 
 //系统配置
 Route::resource('config','Admin\ConfController');
-Route::any('upload','Admin\ConfController@upload');//LOGO图片上传
-Route::any('upload2','Admin\ConfController@upload2');//缩略图片上传
+Route::any('admin/uploadconf','Admin\ConfController@uploadconf');//LOGO图片上传
+
 
 // 商家信息路由
 Route::resource('admin/astore','Admin\StoreController');
@@ -143,6 +139,7 @@ Route::get('home/user/phonecreateto','Home\UserController@phonecreateto');
 Route::get('home/user/mycenter','Home\UserController@mycenter');
 //用户详情
 Route::get('home/user/user_details','Home\UserController@user_details');
+
 //用户评论
 //Route::resource('home/user/user_comment','Home\CommentController');
 //修改信息
@@ -163,15 +160,34 @@ Route::post('home/user/okfindpwd','Home\UserController@okfindpwd');
 Route::get('home/user/emailfindpwd','Home\UserController@emailfindpwd');
 //确认修改密码
 Route::post('home/user/findpwdok','Home\UserController@findpwdok');
-
+//手机修改密码
+Route::post('home/user/phonefindpwd','Home\UserController@phonefindpwd');
+//确认手机修改密码
+Route::post('home/user/phonepwdfind','Home\UserController@phonepwdfind');
 //前台首页
 Route::get('/', 'Home\IndexController@index');
 //前台全局搜索
 Route::post('home/search','Home\SearchController@search');
 // 前台收货地址
 Route::resource('home/address','Home\AddressController');
+//前台个人订单显示
+Route::resource('home/orders','Home\OrdersController');
+//取消订单
+Route::any('home/changeorders/{id}','Home\OrdersController@changeorders');
+//确认收货
+Route::any('home/shouhuo/{id}','Home\OrdersController@shouhuo');
+//前台订单评价
+Route::resource('home/comment','Home\CommentController');
 // 加载购物车
+Route::get('home/mycart/addmycart','Home\MycartController@addmycart');
+//清空购物车
+Route::get('home/mycart/delete','Home\MycartController@delete');
 Route::resource('home/mycart','Home\MycartController');
+// 订单路由
+Route::get('home/orders/commit','Home\OrdersController@commit');  //提交订单
+
+
+
 
 // 前台商家路由
 Route::resource('home/hstore','Home\StoreController');
@@ -195,10 +211,18 @@ Route::any('home/goodlist/{id}','Home\GoodController@goodList');
 Route::any('/home/gooddetail/{id}','Home\GoodController@goodDetail');
 //前台新品商品列表页路由
 Route::any('home/newgoodlist/{id}','Home\GoodController@newgoodList');
+
+
+//前台店铺路由
+Route::controller('/home/merchant','Home\MerchantController');
+
+
 ////前台商品按销量排序列表页路由
 //Route::any('home/salelist/{id}','Home\GoodController@saleList');
 
 /*==========================商家后台===============================*/
+// 商家后台店铺管理
+Route::controller('store/setup','Store\MersetupController');
 // 商家后台商品管理
 Route::resource('store/goods','Store\GoodsController');
 // 添加商品上传图片
@@ -207,15 +231,19 @@ Route::any('store/upload','Store\GoodsController@upload');
 Route::resource('store/type','Store\TypeController');
 // 商家后台订单管理
 Route::resource('store/orders','Store\OrderController');
-// 商家后台登录
-Route::get('store/login','Store\LoginController@login');
-// 处理登录
-Route::post('store/dologin','Store\LoginController@dologin');
+// 商家后台登录 处理登录 退出 首页 修改密码
+Route::controller('store/admin','Store\LoginController');
 // 生成验证码
 Route::get('store/captcha/{num}.jpg','Store\LoginController@captcha')->where('name','[0-9]+');
 // ajax判断验证码
 Route::post('store/proving','Store\LoginController@proving');
+
+// 商家后台登录页(用于商家中的管理员登录)
+Route::get('store/login2','Store\LoginController@login2');
+
 // 商家后台首页
 Route::get('store/index','Store\LoginController@index');
-
+//收藏详情页
+Route::resource('home/Collectiongoods','Home\CollectiongoodsController');
+Route::get('home/collection','Home\GoodController@collection');
 

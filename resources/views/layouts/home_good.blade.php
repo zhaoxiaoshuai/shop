@@ -3,7 +3,7 @@
 
     <div class="top">
 
-        <div class="logo"><a href="Index.html"><img src="{{ 'http://php182.oss-cn-beijing.aliyuncs.com/'.config('web.conf_logo') }}" /></a></div>
+        <div class="logo" style="height:110px;margin-top:10px;"><a href="Index.html"><img src="{{ 'http://php182.oss-cn-beijing.aliyuncs.com/'.config('web.conf_logo') }}" /></a></div>
         <div class="search">
             <form action="home/search" method="post">
                 {{ csrf_field() }}

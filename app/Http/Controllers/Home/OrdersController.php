@@ -6,17 +6,25 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use DB;
+use App\Http\Model\Orders;
+use App\Http\Model\Detail;
+use App\Http\Model\Comment;
 
-class CommmentController extends Controller
+class OrdersController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * 订单显示页面
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+
+        $orders = Orders::join('user','orders.user_id','=','user.user_id')
+            ->orderBy('order_time','desc')
+            ->paginate(5);
+        return view('home.orders.index',compact('orders'));
     }
 
     /**
@@ -41,16 +49,42 @@ class CommmentController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * 订单详情
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
+        //订单详情列表
+        $data = Detail::join('orders','detail.order_id','=','orders.order_id')
+            ->join('goods','goods.good_id','=','detail.good_id')
+            ->where('orders.order_id','=',$id)
+            ->get();
+        return view('home.orders.detail',['data'=>$data]);
     }
 
+    //取消订单
+    public function changeorders($id)
+    {
+        $data = Orders::where('order_id',$id)->update(['order_status'=>5]);
+        if($data){
+            return redirect('home/orders');
+        }else{
+            return back()->with('error','取消失败');
+        }
+    }
+
+    //确认收货
+    public function shouhuo($id)
+    {
+        $data = Orders::where('order_id',$id)->update(['order_status'=>3]);
+        if($data){
+            return redirect('home/orders');
+        }else{
+            return back()->with('error','取消失败');
+        }
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -83,5 +117,6 @@ class CommmentController extends Controller
     public function destroy($id)
     {
         //
+
     }
 }

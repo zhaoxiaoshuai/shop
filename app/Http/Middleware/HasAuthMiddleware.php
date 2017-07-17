@@ -17,8 +17,9 @@ class HasAuthMiddleware
     public function handle($request, Closure $next)
     {
 
-        //  //获取所请求的方法名字
-        // $route = \Route::current()->getName();
+         //获取所请求的方法名字
+        // $route = \Route::current()->getActionName();
+        // // dd($route);
         // //获取登录用户角色
         // $roles = Admin::find(session('admin')['admin_id'])->roles()->get();
         // // dd($roles);
@@ -32,7 +33,7 @@ class HasAuthMiddleware
         // }
         // //将重复的权限去掉
         // $arr = array_unique($arr);
-
+        // // dd($arr);
         // //判断用户是否拥有权限
         // if(!in_array($route,$arr)){
         //     return redirect('admin/back');

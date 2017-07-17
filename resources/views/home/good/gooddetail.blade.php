@@ -4,9 +4,9 @@
 
 <div class="i_bg">
 	<div class="postion">
-
             <span class="fl">{{$line}}</span>
     </div>
+>
     <div class="content">
 
         <div id="tsShopContainer">
@@ -30,6 +30,7 @@
         	<div class="des_name">
             	<p>{{$good->good_name}}</p>
                 {{--{!!$good->good_desc!!}--}}
+                <input id="eeeee" type="hidden" value="{{$good->good_id}}">
             </div>
             <div class="des_price">
             	本店价格：<b>{{$good->good_price}}</b><br />
@@ -52,6 +53,7 @@
                 </ul>
             </div>
             <div class="des_share">
+                
             	<div class="d_sh">
                 	分享
                     <div class="d_sh_bg">
@@ -62,17 +64,36 @@
                         <a href="#"><img src="images/sh_5.gif" /></a>
                     </div>
                 </div>
-                <div class="d_care"><a onclick="ShowDiv('MyDiv','fade')">关注商品</a></div>
+                
+                 
+                <div  class="d_care"><a href="javascript:;" onclick="Collection({{$good->good_id}})">收藏商品</a></div>
+                
+
+
+              
             </div>
             <div class="des_join">
             	<div class="j_nums">
-                	<input type="text" value="1" name="" class="n_ipt" />
+                	<input type="text" value="1" name="" id="n_ipt_n" class="n_ipt" />
                     <input type="button" value="" onclick="addUpdate(jq(this));" class="n_btn_1" />
                     <input type="button" value="" onclick="jianUpdate(jq(this));" class="n_btn_2" />
                 </div>
-                <span class="fl"><a onclick="ShowDiv_1('MyDiv1','fade1')"><img src="{{asset('home/images/j_car.png')}}" /></a></span>
-            </div>
-        </div>
+
+                <span id="fffff" class="fl"><a onclick="ShowDiv_1('MyDiv1','fade1')"><img src="{{asset('home/images/j_car.png')}}" /></a></span>
+                <script type="text/javascript">
+                    $(function(){
+                        $('#fffff').click(function(){
+                            var n_ipt = $('#n_ipt_n').val();
+                            var good_id = $('#eeeee').val();
+                            $.get('{{url('home/mycart/addmycart')}}', {n_ipt: n_ipt,good_id:good_id}, function(data) {
+                                console.log(data);
+                            });
+                        })
+                    })
+
+                </script>
+            </div>            
+        </div>    
 
         <div class="s_brand">
         	<div class="s_brand_img"><img src="images/sbrand.jpg" width="188" height="132" /></div>
@@ -240,78 +261,41 @@
                     	<table border="0" style="width:100%;" cellspacing="0" cellpadding="0">
                           <tr>
                             <td width="90">好评<font color="#999999">（80%）</font></td>
-                            <td><img src="images/pl.gif" align="absmiddle" /></td>
+                            <td><img src="{{ asset('home/assets/images/pl.gif') }}" align="absmiddle" /></td>
                           </tr>
                           <tr>
                             <td>中评<font color="#999999">（20%）</font></td>
-                            <td><img src="images/pl.gif" align="absmiddle" /></td>
+                            <td><img src="{{ asset('home/assets/images/pl.gif') }}" align="absmiddle" /></td>
                           </tr>
                           <tr>
                             <td>差评<font color="#999999">（0%）</font></td>
-                            <td><img src="images/pl.gif" align="absmiddle" /></td>
+                            <td><img src="{{ asset('home/assets/images/pl.gif') }}" align="absmiddle" /></td>
                           </tr>
                         </table>
                     </td>
                     <td width="185" class="jud_bg">
                     	购买过雅诗兰黛第六代特润精华露50ml的顾客，在收到商品才可以对该商品发表评论
                     </td>
-                    <td class="jud_bg">您可对已购买商品进行评价<br /><a href="#"><img src="images/btn_jud.gif" /></a></td>
                   </tr>
                 </table>
 
 
 
                 <table border="0" class="jud_list" style="width:100%; margin-top:30px;" cellspacing="0" cellpadding="0">
+                    @foreach($comment as $v)
                   <tr valign="top">
-                    <td width="160"><img src="images/peo1.jpg" width="20" height="20" align="absmiddle" />&nbsp;向死而生</td>
-                    <td width="180">
-                    	颜色分类：<font color="#999999">粉色</font> <br />
-                        型号：<font color="#999999">50ml</font>
-                    </td>
+                    <td width="160"><img src="http://php182.oss-cn-beijing.aliyuncs.com/{{ $v['deta_face'] }}" width="20" height="20" align="absmiddle" />&nbsp;{{ $v['deta_name'] }}</td>
                     <td>
-                    	产品很好，香味很喜欢，必须给赞。 <br />
-                        <font color="#999999">2015-09-24</font>
+                    	{{ $v['comment_connect'] }} <br />
+                        <font color="#999999">{{ date('Y-m-d H:i:s',$v['comment_time']) }}</font>
                     </td>
                   </tr>
-                  <tr valign="top">
-                    <td width="160"><img src="images/peo2.jpg" width="20" height="20" align="absmiddle" />&nbsp;就是这么想的</td>
-                    <td width="180">
-                    	颜色分类：<font color="#999999">粉色</font> <br />
-                        型号：<font color="#999999">50ml</font>
-                    </td>
-                    <td>
-                    	送朋友，她很喜欢，大爱。 <br />
-                        <font color="#999999">2015-09-24</font>
-                    </td>
-                  </tr>
-                  <tr valign="top">
-                    <td width="160"><img src="images/peo3.jpg" width="20" height="20" align="absmiddle" />&nbsp;墨镜墨镜</td>
-                    <td width="180">
-                    	颜色分类：<font color="#999999">粉色</font> <br />
-                        型号：<font color="#999999">50ml</font>
-                    </td>
-                    <td>
-                    	大家都说不错<br />
-                        <font color="#999999">2015-09-24</font>
-                    </td>
-                  </tr>
-                  <tr valign="top">
-                    <td width="160"><img src="images/peo4.jpg" width="20" height="20" align="absmiddle" />&nbsp;那*****洋 <br /><font color="#999999">（匿名用户）</font></td>
-                    <td width="180">
-                    	颜色分类：<font color="#999999">粉色</font> <br />
-                        型号：<font color="#999999">50ml</font>
-                    </td>
-                    <td>
-                    	下次还会来买，推荐。<br />
-                        <font color="#999999">2015-09-24</font>
-                    </td>
-                  </tr>
+                    @endforeach
+
                 </table>
 
-
-
                 <div class="pages">
-                    <a href="#" class="p_pre">上一页</a><a href="#" class="cur">1</a><a href="#">2</a><a href="#">3</a>...<a href="#">20</a><a href="#" class="p_pre">下一页</a>
+                    {!! $comment->render() !!}
                 </div>
 
           	</div>
@@ -348,8 +332,6 @@
         </div>
     </div>
     <!--End 弹出层-收藏成功 End-->
-
-
     <!--Begin 弹出层-加入购物车 Begin-->
     <div id="fade1" class="black_overlay"></div>
     <div id="MyDiv1" class="white_content">
@@ -363,13 +345,14 @@
                   <tr valign="top">
                     <td width="40"><img src="{{asset('home/images/suc.png')}}" /></td>
                     <td>
+
                     	<span style="color:#3e3e3e; font-size:18px; font-weight:bold;">宝贝已成功添加到购物车</span><br />
-                    	购物车共有1种宝贝（3件） &nbsp; &nbsp; 合计：1120元
+                    	
                     </td>
                   </tr>
                   <tr height="50" valign="bottom">
                   	<td>&nbsp;</td>
-                    <td><a href="#" class="b_sure">去购物车结算</a><a href="#商品首页" class="b_buy">继续购物</a></td>
+                    <td><a href="{{url('home/mycart')}}" class="b_sure">去购物车结算</a><a href="{{url('/')}}" class="b_buy">继续购物</a></td>
                   </tr>
                 </table>
 
@@ -377,7 +360,29 @@
         </div>
     </div>
     <!--End 弹出层-加入购物车 End-->
+    
+<script>
+  function Collection(good_id){
+            //询问框
+            layer.confirm('是否确认收藏？', {
+                btn: ['确定','取消'] //按钮
+            }, function(){ 
+                
+                $.get("{{url('home/collection')}}/"+good_id,{},function(data){
+                if(data.status == 0){
+                    location.href = location.href;
+                    layer.msg(data.msg, {icon: 6});
+                }else{
+                    location.href = location.href;
+                    layer.msg(data.msg, {icon: 5});
+                }
+                });
+            }, function(){
+
+            });
+
+        }
 
 
-
+</script>
    @endsection

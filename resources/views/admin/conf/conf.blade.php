@@ -72,18 +72,17 @@
                                     }
 
                                     var formData = new FormData($('#conf_form')[0]);
-
                                     $.ajax({
                                         type: "POST",
-                                        url: "admin/uploadconf",
+                                        url: "/admin/uploadconf",
                                         data: formData,
                                         async: true,
                                         cache: false,
                                         contentType: false,
                                         processData: false,
                                         success: function(data) {
-                                            // console.log(data);
-                                            // alert("上传成功");
+//                                             console.log(data);
+//                                             alert("上传成功");
                                             $('#logo_pic').attr('src','http://php182.oss-cn-beijing.aliyuncs.com/'+data);
                                             $('#logo_thumb').val(data);
 
@@ -97,8 +96,6 @@
 
                         </div>
                     </div>
-
-
                     <div class="am-form-group">
                         <div class="am-u-sm-9 am-u-sm-push-3">
                             <button type="submit" class="am-btn am-btn-primary tpl-btn-bg-color-success "><font><font>提交</font></font></button>

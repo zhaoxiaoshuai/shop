@@ -24,18 +24,29 @@ class AdminController extends Controller
      */
     public function index(Request $request)
     {
+    	// dd(1);
         $count = 5;
         if($request->has('keywords')){
             $key = trim($request->input('keywords')) ;
             $admins = Admin::where('admin_name','like',"%".$key."%")->paginate($count);
             return view('admin.admin.index',['data'=>$admins,'key'=>$key]);
         }else{
+        	//判断排序
+        	if($request->has('o')){
+        		$order = $request->input('o');
+        		$d = empty($request->input('d')) ? 'asc' : $request->input('d');
+        		// dd($order);
+        		//取数据
+        		$key = '';
+        		$admins = Admin::orderBy($order,$d) -> paginate($count);
+        		return view('admin.admin.index',['data'=>$admins,'key'=>$key,'o'=>$order,'d'=>$d]);
+        	}
             //取出数据
             $admins = Admin::paginate($count);
-            // dd($admins);
             //设置返回页面
             $key = '';
-            return view('admin.admin.index',['data'=>$admins,'key'=>$key]);
+            $order = '';
+            return view('admin.admin.index',['data'=>$admins,'key'=>$key,'o'=>$order]);
         }
         
     }
@@ -70,7 +81,7 @@ class AdminController extends Controller
         //验证规则
         $rule = [
             'admin_name' => 'required',
-            'admin_name' => ['regex:/[a-zA-Z0-9_]{5,16}/ '],
+            'admin_name' => ['regex:/[a-zA-Z0-9_]{5,16}/'],
             'admin_password' => 'required',
             'admin_password' => ['regex:/^[a-zA-Z\d_]{6,16}$/'],
             'repassword' => 'required|same:admin_password',
@@ -102,7 +113,8 @@ class AdminController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }else{
-            $admin = Admin::where('admin_name',$data['admin_name']) ->find(1);
+            $admin = Admin::where('admin_name',$data['admin_name']) ->first();
+
             if (!empty($admin)) {
                 return back()->with('error','该用户名以存在');
             }else{

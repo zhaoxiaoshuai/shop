@@ -12,6 +12,7 @@ use DB;
 use Validator;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Input;
+use App\Http\Model\Mtype;
 
 
 class GoodsController extends Controller
@@ -26,7 +27,7 @@ class GoodsController extends Controller
     public function index(Request $request)
     {
         // 获取店铺的id
-        $merchant_id = '3';
+        $merchant_id = session('store_admin')['merchant_id'];
         // 如果keywords参数有值说明是通过查询进入index方法的，否则是通过商品列表导航进入的
         if($request->has('keywords')){
             $key = trim($request->input('keywords')) ;
@@ -39,7 +40,7 @@ class GoodsController extends Controller
             $data =  Good::join('type','goods.type_id','=','type.type_id')
                             ->where('merchant_id',$merchant_id)
                             ->orderBy('goods.good_id','asc')
-                            ->paginate(3);
+                            ->paginate(10);
            // dd($data);
                  // 向前台模板传变量的一种方法
             return view('store.goods.index',compact('data'));
@@ -61,9 +62,18 @@ class GoodsController extends Controller
      */
     public function create()
     {
+
+        // 获取商城分类
         $type = DB::table('type')->get();
+        
+         // 获取店铺的id
+        $merchant_id = session('store_admin')['merchant_id'];
+        // 获取分类
+        $mtype = Mtype::where('merchant_id',$merchant_id)->get();
+        //获取分类树
+        $mtype = Mtype::tree($mtype);
         // 加载添加商品页面
-        return view('store.goods.add',compact('type'));
+        return view('store.goods.add',compact('type','mtype'));
     }
 
     /**
@@ -75,15 +85,17 @@ class GoodsController extends Controller
      */
     public function store(Request $request)
     {
+
         // 接收数据
         // dd($request->all());
       $data =  $request -> except('_token','file_upload');
       $data['good_ctime'] = time();
-      $data['merchant_id'] = '3';
+      $data['merchant_id'] = session('store_admin')['merchant_id'];
+     
       $role =  [
             'good_name' => 'required',
             'type_id' => 'required',
-            'good_label' => 'required',
+            'mtype_id' => 'required',
             'good_price' => 'required|numeric',
             'good_desc' => 'required',
             'good_count' => 'required|numeric',
@@ -94,7 +106,7 @@ class GoodsController extends Controller
         $mess=[
             'good_name.required'=>'请填写商品名称',
             'type_id.required'=>'请选择商品分类',
-            'good_label.required'=>'请选择商品标签',
+            'mtype_id.required'=>'请选择店铺分类',
             'good_price.required'=>'请填写商品价格',
             'good_price.numeric'=>'商品价格请填写数字',
             'good_desc.required'=>'请填写商品描述',
@@ -109,7 +121,7 @@ class GoodsController extends Controller
         //执行添加
         $goods = Good::create($data);
         if($goods){
-            return redirce('store/goods');
+            return redirect('store/goods');
         }else{
             return back()->with('error','添加失败'); 
         }
@@ -128,19 +140,14 @@ class GoodsController extends Controller
             $entension = $file->getClientOriginalExtension();//上传文件的后缀名
             $newName = date('YmdHis') . mt_rand(1000, 9999) . '.' . $entension;
 
-           // 将图片上传到本地服务器
-
+            // 将图片上传到本地服务器
             // $path = $file->move(public_path() . '/uploads', $newName);
+            // 将图片上传到七牛云
+            // \Storage::disk('qiniu')->writeStream('uploads/'.$newName, fopen($file->getRealPath(), 'r'));
 
-           // 将图片上传到七牛云
-           // \Storage::disk('qiniu')->writeStream('uploads/'.$newName, fopen($file->getRealPath(), 'r'));
-
-           // oss上传
-
+            // oss上传
             $result = OSS::upload('uploads/'.$newName, $file->getRealPath());
-
-
-       // 返回文件的上传路径
+            // 返回文件的上传路径
             $filepath = 'uploads/' . $newName;
             return $filepath;
         }
@@ -160,9 +167,13 @@ class GoodsController extends Controller
         $data =  Good::join('type','goods.type_id','=','type.type_id')
                 ->where('goods.good_id',$id)
                 ->first();
-       
+         // 获取店铺的id
+        $merchant_id = session('store_admin')['merchant_id'];
+       // 获取店铺分类
+        $mtype = Mtype::where('merchant_id',$merchant_id)->first();
+        $mtype_name = $mtype['mtype_name'];
         // 向前台模板传变量的一种方法
-        return view('store.goods.details',compact('data','id'));
+        return view('store.goods.details',compact('data','id','mtype_name'));
     }
 
     /**
@@ -199,7 +210,6 @@ class GoodsController extends Controller
         // 接收指定值
         $data = Input::except('_token','_method','file_upload');
         //执行修改
-        
         $res = Good::where('good_id',$id)->update($data);
 
         //如果成功跳转到列表页  失败返回修改页

@@ -6,9 +6,9 @@
 
 .file_file{
 	 width: 90px;  
-        position: absolute;  
-        top:200px;
-        left:295px;
+        position: relative;  
+        top:24px;
+        left:-1px;
         cursor: pointer;  
         opacity: 0; 
         border:1px solid red; 
