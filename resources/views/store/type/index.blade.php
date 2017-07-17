@@ -20,7 +20,7 @@
             </div>
           </div>
 
-          <<!-- div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
+          <!-- div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
             <div class="am-form-group tpl-table-list-select">
                 <th>关键字: </th>
             </div>
@@ -49,7 +49,7 @@
                 @foreach($mtype as $k=>$v)
                 <tr class="gradeX">
                   <td>{{ $v['mtype_id'] }}</td>
-                  <td>{{ $v['mtype_name'] }}</td>
+                  <td>{{ $v['_name'] }}</td>
                   <td>{{ $v['mtype_pid']}}</td>
                   <td>
                     <div class="tpl-table-black-operation">

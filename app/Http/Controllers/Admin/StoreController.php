@@ -202,6 +202,8 @@ class StoreController extends Controller
 
                 // 执行修改用户状态( 状态 0未激活 1已激活 2商家用户)
                 $res = User::where('user_id',$store['user_id'])->update(['status'=>'2']);
+                // 修改用户存在session中的状态
+                session('logins')['status'] = '2';
 
             }
 

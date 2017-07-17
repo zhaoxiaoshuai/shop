@@ -4,7 +4,7 @@
 
 <div class="i_bg">
 	<div class="postion">
-    	<span class="fl">{{$good->type_name}}</span>
+    	<span class="fl">全部 >{{$good->type_name}}></span>
     </div>    
     <div class="content">
     	                    

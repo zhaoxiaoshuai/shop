@@ -9,6 +9,9 @@
         <a href="javascript:;" class="am-icon-cog"></a>
       </div>
     </div>
+    @if(session('error'))
+       <p style="background:#f0ad4e">  {{session('error')}}</p>
+    @endif
     <div class="widget-body am-fr">
       <form action="{{url('store/type/'.$mtype['mtype_id'])}}"  method="post" class="am-form tpl-form-border-form tpl-form-border-br">
        {{csrf_field()}}

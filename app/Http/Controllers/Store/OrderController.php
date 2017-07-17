@@ -21,7 +21,7 @@ class OrderController extends Controller
     public function index(Request $request)
     {
         //获取店铺id
-        $merchant_id = '3';
+        $merchant_id = session('store_admin')['merchant_id'];
         //通过user_id查询user_name
         //带搜索条件分页查询
         if($request->has('orders')){

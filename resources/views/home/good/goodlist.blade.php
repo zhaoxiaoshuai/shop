@@ -4,11 +4,11 @@
 
 <div class="i_bg">
 	<div class="postion">
-    	<span class="fl">全部 > 美妆个护 > 香水 > </span>
-        <span class="n_ch">
+    	<span class="fl">全部 > {{ $type_name }} > </span>
+        <!-- <span class="n_ch">
             <span class="fl">品牌：<font>香奈儿</font></span>
             <a href="#"><img src="images/s_close.gif" /></a>
-        </span>
+        </span> -->
     </div>
     <!--Begin 筛选条件 Begin-->
     <div class="content mar_10">
