@@ -111,6 +111,7 @@
                             <input type="radio"  class="tpl-form-input" id="user-name" name="order_status" @if($data->order_status=='2') checked @endif value="2" > 出库,未发货
                             <input type="radio"  class="tpl-form-input" id="user-name" name="order_status" @if($data->order_status=='3') checked @endif value="3"> 收货完成
                             <input  type="radio"  class="tpl-form-input" id="user-name"  name="order_status" @if($data->order_status=='4') checked @endif value="4"> 作废
+                            <input  type="radio"  class="tpl-form-input" id="user-name"  name="order_status" @if($data->order_status=='5') checked @endif value="5"> 订单已取消
                         </div>
                  
                     </div>

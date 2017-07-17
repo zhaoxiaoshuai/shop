@@ -82,7 +82,7 @@
         @endif
     </div>
     <div class="btm">
-        备案/许可证编号：京ICP备12009302号-1-www.mogujie.com   Copyright © 2015-2018 蘑菇街商城网 All Rights Reserved. 复制必究 , Technical Support: Dgg Group <br />
+        备案/许可证编号：京ICP备12009302号-1-www.surprise.com   Copyright © 2015-2018 意外网 All Rights Reserved. 复制必究 , Technical Support: Dgg Group <br />
         <img src="{{ asset('home/assets/images/b_1.gif') }}" width="98" height="33" /><img src="{{ asset('home/assets/images/b_2.gif') }}" width="98" height="33" /><img src="{{ asset('home/assets/images/b_3.gif') }}" width="98" height="33" /><img src="{{ asset('home/assets/images/b_4.gif') }}" width="98" height="33" /><img src="{{ asset('home/assets/images/b_5.gif') }}" width="98" height="33" /><img src="{{ asset('home/assets/images/b_6.gif') }}" width="98" height="33" />
     </div>
 </div>

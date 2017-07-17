@@ -6,8 +6,11 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Http\Model\Orders;
+use App\Http\Model\Detail;
+use App\Http\Model\Comment;
 
-class CommmentController extends Controller
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -37,29 +40,48 @@ class CommmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request ->except('_token');
+        $comment = new Comment();
+        $comment->user_id = $data['user_id'];
+        $comment->good_id = $data['good_id'];
+        $comment->merchant_id = $data['merchant_id'];
+        $comment->order_id = $data['order_id'];
+        $comment->comment_level = $data['level'];
+        $comment->comment_connect = $data['connect'];
+        $comment->comment_time = time();
+        $res = $comment->save();//执行添加语句
+        if($res){
+            return redirect('home/orders');
+        }else{
+            return back()->with('error','添加失败');
+        }
     }
 
     /**
-     * Display the specified resource.
+     * 加载评论页面
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
+//        评论列表
+        $data = Detail::join('orders','detail.order_id','=','orders.order_id')
+            ->join('goods','goods.good_id','=','detail.good_id')
+            ->where('orders.order_id','=',$id)
+            ->get();
+        return view('home.comment.index',['data'=>$data]);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     *
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**

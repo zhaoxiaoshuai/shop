@@ -3,6 +3,10 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link type="text/css" rel="stylesheet" href="{{url('home/assets/css/style.css')}}" />
+
+    <title>{{ config('web.conf_title') }}</title>
+    <meta name="description" content="{{ config('web.conf_description') }}" />
+    <meta name="keywords" content="{{ config('web.conf_keywords') }}" />
     <!--[if IE 6]>
     <script src="{{url('home/assets/js/iepng.js')}}" type="text/javascript"></script>
     <script type="text/javascript">
@@ -57,7 +61,7 @@
 <!--Begin Footer Begin-->
 <div class="btmbg">
     <div class="btm">
-        备案/许可证编号：蜀ICP备12009302号-1-www.dingguagua.com   Copyright © 2015-2018 尤洪商城网 All Rights Reserved. 复制必究 , Technical Support: Dgg Group <br />
+        备案/许可证编号：京ICP备12009302号-1-www.surprise.com   Copyright © 2015-2018 意外网 All Rights Reserved. 复制必究 , Technical Support: Dgg Group <br />
         <img src="{{url('home/assets/images/b_1.gif')}}" width="98" height="33" /><img src="{{url('home/assets/images/b_2.gif')}}" width="98" height="33" /><img src="{{url('home/assets/images/b_3.gif')}}" width="98" height="33" /><img src="{{url('home/assets/images/b_4.gif')}}" width="98" height="33" /><img src="{{url('home/assets/images/b_5.gif')}}" width="98" height="33" /><img src="{{url('home/assets/images/b_6.gif')}}" width="98" height="33" />
     </div>
 </div>

@@ -72,18 +72,17 @@
                                     }
 
                                     var formData = new FormData($('#conf_form')[0]);
-
                                     $.ajax({
                                         type: "POST",
-                                        url: "admin/uploadconf",
+                                        url: "/admin/uploadconf",
                                         data: formData,
                                         async: true,
                                         cache: false,
                                         contentType: false,
                                         processData: false,
                                         success: function(data) {
-                                            // console.log(data);
-                                            // alert("上传成功");
+//                                             console.log(data);
+//                                             alert("上传成功");
                                             $('#logo_pic').attr('src','http://php182.oss-cn-beijing.aliyuncs.com/'+data);
                                             $('#logo_thumb').val(data);
 

@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Home;
 
 use App\Http\Model\Good;
+use App\Http\Model\Comment;
 use Illuminate\Http\Request;
-
+use DB;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -47,6 +48,11 @@ class GoodController extends Controller
         //关联分类表
         $good =   Good::join('type','goods.type_id','=','type.type_id')->where('good_id',$id)->first();
 //        dd($good);
-        return view('home.good.gooddetail',compact('good'));
+        //关联评论表
+        $comment = Good::join('comment','goods.good_id','=','comment.good_id')
+            ->join('user_details','comment.user_id','=','user_details.user_id')
+            ->where('goods.good_id',$id)
+            ->paginate(10);
+        return view('home.good.gooddetail',['good'=>$good,'comment'=>$comment]);
     }
 }

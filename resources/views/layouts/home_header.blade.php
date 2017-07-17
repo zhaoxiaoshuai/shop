@@ -8,7 +8,7 @@
     <title>{{ config('web.conf_title') }}</title>
     <meta name="description" content="{{ config('web.conf_description') }}" />
     <meta name="keywords" content="{{ config('web.conf_keywords') }}" />
-
+    <link href="favicon.ico" rel="icon" type="image/x-icon" />
     <!--[if IE 6]>
     <script src="js/iepng.js" type="text/javascript"></script>
     <script type="text/javascript">
@@ -53,7 +53,6 @@
     <script type="text/javascript" src="{{asset('home/assets/js/p_tab.js')}}"></script>
 
     <script type="text/javascript" src="{{asset('home/assets/js/shade.js')}}"></script>
-    <title>尤洪</title>
 </head>
 <body>
 <!--Begin Header Begin-->

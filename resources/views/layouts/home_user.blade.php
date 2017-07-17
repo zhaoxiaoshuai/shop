@@ -1,10 +1,10 @@
 @include('layouts.home_header')
 <div class="m_top_bg">
         <div class="top">
-            <div class="m_logo"><a href="Index.html"><img src="{{ asset('home/assets/images/logo1.png') }}"></a></div>
-            <div class="m_search">
+            <div class="m_logo" style="height:110px;width:210px;margin-top:15px;"><a href="Index.html"><img src="{{ 'http://php182.oss-cn-beijing.aliyuncs.com/'.config('web.conf_logo') }}"></a></div>
+            <div class="m_search" style="width:360px;margin-left:370px;">
                 <form>
-                    <input type="text" value="" class="m_ipt">
+                    <input type="text" value="" class="m_ipt" style="width:250px;">
                     <input type="submit" value="搜索" class="m_btn">
                 </form>
                 <span class="fl"><a href="#">咖啡</a><a href="#">iphone 6S</a><a href="#">新鲜美食</a><a href="#">蛋糕</a><a href="#">日用品</a><a href="#">连衣裙</a></span>
@@ -48,7 +48,7 @@
         <div class="left_m">
             <div class="left_m_t t_bg1">订单中心</div>
             <ul>
-                <li><a href="Member_Order.html">我的订单</a></li>
+                <li><a href="{{ url('home/orders') }}">我的订单</a></li>
                 <li><a href="{{url('home/address')}}">收货地址</a></li>
                 <li><a href="#">缺货登记</a></li>
                 <li><a href="#">跟踪订单</a></li>

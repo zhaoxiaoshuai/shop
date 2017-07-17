@@ -58,6 +58,8 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 	    Route::get('admin/editself/{id}','adminController@editself');
 	    Route::post('admin/updateself/','adminController@updateself');
 	    //商品管理
+        //商品标签
+        Route::resource('label','LabelController');
         //上传商品大图
         Route::any('goods/upload','GoodController@upload');
         //上传商品其他图片
@@ -96,13 +98,11 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 	});
 });
 
-//友情链接
-Route::resource('link','Admin\LinkController');
 
 //系统配置
 Route::resource('config','Admin\ConfController');
-Route::any('upload','Admin\ConfController@upload');//LOGO图片上传
-Route::any('upload2','Admin\ConfController@upload2');//缩略图片上传
+Route::any('admin/uploadconf','Admin\ConfController@uploadconf');//LOGO图片上传
+
 
 // 商家信息路由
 Route::resource('admin/astore','Admin\StoreController');
@@ -143,8 +143,7 @@ Route::get('home/user/phonecreateto','Home\UserController@phonecreateto');
 Route::get('home/user/mycenter','Home\UserController@mycenter');
 //用户详情
 Route::get('home/user/user_details','Home\UserController@user_details');
-//用户评论
-Route::resource('home/user/user_comment','Home\CommentController');
+
 //修改信息
 Route::post('home/user/update','Home\UserController@update');
 //头像上传
@@ -170,6 +169,14 @@ Route::get('/', 'Home\IndexController@index');
 Route::post('home/search','Home\SearchController@search');
 // 前台收货地址
 Route::resource('home/address','Home\AddressController');
+//前台个人订单显示
+Route::resource('home/orders','Home\OrdersController');
+//取消订单
+Route::any('home/changeorders/{id}','Home\OrdersController@changeorders');
+//确认收货
+Route::any('home/shouhuo/{id}','Home\OrdersController@shouhuo');
+//前台订单评价
+Route::resource('home/comment','Home\CommentController');
 // 加载购物车
 Route::resource('home/mycart','Home\MycartController');
 

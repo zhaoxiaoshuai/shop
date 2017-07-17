@@ -87,9 +87,11 @@ class GoodController extends Controller
      */
     public function create()
     {
-        $type = DB::table('type')->get();
+        $type = DB::table('type')->orderBy('type_npath','asc')->get();
+        $label = DB::table('label')->get();
+//        dd($label);
 //        dd($type);
-        return view('admin.good.add',compact('type'));
+        return view('admin.good.add',['type'=>$type,'label'=>$label]);
     }
 
     /**
