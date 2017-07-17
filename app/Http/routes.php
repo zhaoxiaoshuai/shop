@@ -163,7 +163,10 @@ Route::post('home/user/okfindpwd','Home\UserController@okfindpwd');
 Route::get('home/user/emailfindpwd','Home\UserController@emailfindpwd');
 //确认修改密码
 Route::post('home/user/findpwdok','Home\UserController@findpwdok');
-
+//手机修改密码
+Route::post('home/user/phonefindpwd','Home\UserController@phonefindpwd');
+//确认手机修改密码
+Route::post('home/user/phonepwdfind','Home\UserController@phonepwdfind');
 //前台首页
 Route::get('/', 'Home\IndexController@index');
 //前台全局搜索

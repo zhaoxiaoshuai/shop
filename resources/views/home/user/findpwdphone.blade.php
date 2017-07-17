@@ -42,32 +42,53 @@
     <div class="login">
         <div class="log_img"><img src="{{url('home/assets/images/l_img.png')}}" width="611" height="425" /></div>
         <div class="log_c">
-            <form action="{{url('home/user/phonefindpwd')}}" method="post">
+            <form action="{{url('home/user/phonepwdfind')}}" method="post">
                 {{csrf_field()}}
-                <div style="margin-top:100px;margin-left:30px;">手机用户:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$phone}}<br><br></div>
-                <input type="hidden" name="user_phone" value="{{$phone}}"  />
-                <div style="margin-left:30px;">手机验证码:<input type="text" style="width:140px;height:40px;font-size:20px;" name="code" id="phone_code" value="" placeholder="请输入验证码"/>
-                    <div id="v_container" style="width:150px;height:50px;float:right;margin-right:69px;"></div>
+                <h1 style="margin:50px 0px -55px 175px;">重置密码</h1>
+                <div style="margin-top:100px;margin-left:33px;">
+                    <td>新 密 码 : </td>
+                    <td><input type="password" id="newpassword" value="" name="newpassword" class="l_pwd" /></td>
+                    <br><br>
+                </div>
+                <input type="hidden" name="user_phone" value="{{$user_phone}}" />
+                <div style="margin-left:30px">
+                    <td>重复密码 : </td>
+                    <td><input type="password" value="" id="repassword" name="repassword" class="l_pwd" /></td>
                 </div>
                 <div style="margin:60px 60px;"><input type="submit" id="submit" value="确认" class="log_btn" /></div>
             </form>
             <script>
                 $(function(){
-                    var aa = false;
-                    $('#phone_code').blur(function(){
-                       if($('#phone_code').val() != {{$phonecode}}){
-                           layer.msg('验证码错误',{icon:2});
-                           return false;
-                       }else{
-                           aa=true;
-                       }
+                    var bb = false;
+                    var cc = false;
+                     $('#newpassword').blur(function(){
+                                var res = /^[A-Za-z0-9]{6,20}$/;
+                                var password = $('#newpassword').val();
+                                if(!res.test(password)){
+                                    layer.msg('请输入6-18位,小写字母,大写字母,数字三种组合的密码',{icon:7});
+                                    return false;
+                                }else{
+                                    bb = true;
+                                }
+                            });
+                    $('#repassword').blur(function(){
+                        if($('#repassword').val() != $('#newpassword').val()){
+                            layer.msg('重复密码不一致',{icon:2});
+                            return false;
+                        }else{
+                            cc = true;
+                        }
                     });
                     $('#submit').click(function(){
-                       if(aa==true){
-                           return true;
-                       }
-                       return false;
-                    });
+                        if($('#newpassword').val() != $('#repassword').val()){
+                            layer.msg('两次输入密码不一致',{icon:2});
+                            return false;
+                        }
+                        if(bb==true && cc==true){
+                            return true;
+                        }
+                        return false;
+                    })
                 })
             </script>
         </div>

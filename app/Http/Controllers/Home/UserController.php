@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Home;
 
 use App\Http\Model\User;
 use App\Http\Model\User_details;
+use Validator;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -26,7 +27,6 @@ class UserController extends Controller
 
     public function register()
     {
-
         //返回注册视图
         return view('home.user.register');
     }
@@ -34,17 +34,19 @@ class UserController extends Controller
     //ajax查询用户是否注册
     public function emailajax(Request $request)
     {
-        //ajax验证邮箱
+        //获取输入的邮箱
         $email=$request->input('email');
-
+        //查询邮箱是否注册
         $res = User::where('user_email','=',$email)->first();
 
         if($res){
+            //存在
             $data = [
                 'status'=>2,
                 'msg'=>'邮箱已存在'
             ];
         }else{
+            //不存在
             $data = [
                 'status'=>1,
                 'msg'=>'邮箱可用'
@@ -56,33 +58,59 @@ class UserController extends Controller
     //邮箱添加用户操作
     public function create(Request $request)
     {
-        //获取数据
-        $input = $request -> except('_token','user_repassword');
-        $input['user_password'] = Crypt::encrypt($input['user_password']);
-        $input['user_name'] = str_random(5);
-        $input['createtime'] = time();
-        $input['token'] = str_random(50);
-        //添加用户
-        $res = User::insertGetId($input);
-        $deta_name = str_random(10);
-        $re = User_details::insert(['user_id'=>$res,'deta_name'=>$deta_name]);
-        if($res && $re){
-//            dd(1111);
-            //发送激活邮件
-            $email = $input['user_email'];
-//            dd($email);
-            $id = $res;
+        //验证用户输入的信息
+        $inputs = $request -> except('_token');
+        $rule=[
+            'user_email'=>'required',
+            'user_email'=>['regex:/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/'],
+            'user_password'=>'required|between:6,18',
+            'user_repassword'=>'required|same:user_password',
+        ];
+        $mess=[
+            'user_email.required'=>'用户名必须输入',
+            'user_email.between'=>'用户名在6到18位之间',
+            'user_password.required'=>'密码必须输入',
+            'user_password.between'=>'密码在6-18位之间',
+            'user_repassword.required'=>'重复密码必须输入',
+            'user_repassword.same'=>'两次密码输入不一致',
+        ];
 
-            $token = $input['token'];
-            self::mailto($id,$email,$token);
-            return redirect('home/user/activate');
+        $validator =  Validator::make($inputs,$rule,$mess);
+
+        if($validator->passes()){
+            //获取数据
+            $input = $request -> except('_token','user_repassword');
+            $input['user_password'] = Crypt::encrypt($input['user_password']);
+            $input['user_name'] = str_random(5);
+            $input['createtime'] = time();
+            $input['token'] = str_random(50);
+            //添加用户
+            $res = User::insertGetId($input);
+            $deta_name = str_random(10);
+            $re = User_details::insert(['user_id'=>$res,'deta_name'=>$deta_name]);
+            if($res && $re){
+//            dd(1111);
+                //发送激活邮件
+                $email = $input['user_email'];
+//            dd($email);
+                $id = $res;
+
+                $token = $input['token'];
+                //调用发送邮件方法
+                self::mailto($id,$email,$token);
+                return redirect('home/user/activate');
+            }else{
+                //发送失败 返回
+                return back()->with('error','注册失败');
+            }
         }else{
-            return back()->with('error','注册失败');
+            return back()->withErrors($validator);
         }
+
     }
 
     /*
-     * 发送邮箱验证
+     * 发送邮箱验证方法
      */
     public static function mailto($id,$email,$token)
     {
@@ -107,6 +135,7 @@ class UserController extends Controller
 
     public function activate()
     {
+        //加载静态页面
         return view('home.mail.activate');
     }
 
@@ -115,7 +144,7 @@ class UserController extends Controller
      * */
     public function okactivate(Request $request)
     {
-
+        //获取数据
         $id = $request -> id;
         $token = $request -> token;
         //查询用户信息
@@ -129,27 +158,28 @@ class UserController extends Controller
             }
         }
     }
-    
-    
-    
+
     /*
      * 手机注册用户
      */
     public function phoneajax(Request $request)
     {
+        //获取手机号
         $phone = $request -> input('phone');
+        //查询手机号是否注册
         $res = User::where('user_phone',$phone)-> first();
-
         if(!$res){
-            $res = self::phoneto($phone);
-            echo $res;
+            //没有注册  调用发送手机验证码方法
+            $re = self::phoneto($phone);
+            return [$re,'code'=>session('phone_code')];
         }else{
+            //已注册  返回
             echo json_encode(['code'=>'no']);
         }
     }
 
     /*
-     * 发送手机验证码
+     * 发送手机验证码方法
      */
     public static function phoneto($phone){
 
@@ -166,30 +196,61 @@ class UserController extends Controller
      */
     public function phonecreate(Request $request)
     {
-        //获取数据
-        $input = $request -> except('_token','user_repassword','phonecode');
-        $re = User::where('user_phone',$input['user_phone']) -> first();
-        if($re){
-            return back()->with('error','用户已存在');
-        }
-        $input['user_password'] = Crypt::encrypt($input['user_password']);
-        $input['user_name'] = str_random(5);
-        $input['createtime'] = time();
-        $input['status'] = 1;
-        $input['token'] = str_random(50);
-        //添加用户
-        $res = User::insertGetId($input);
-        $deta_name = str_random(10);
-        $re = User_details::insert(['user_id'=>$res,'deta_name'=>$deta_name]);
-        if($res && $re){
-            return redirect('home/user/phonecreateto');
+        $inputs = $request -> except('_token');
+        $rule=[
+            'phonecode'=>'required',
+            'user_email'=>'required',
+            'user_email'=>['regex:/^1(3|4|5|7|8)\d{9}$/'],
+            'user_password'=>'required|between:6,18',
+            'user_repassword'=>'required|same:user_password',
+        ];
+        $mess=[
+            'phonecode.required'=>'手机验证码必须输入',
+            'user_email.required'=>'用户名必须输入',
+            'user_email.between'=>'用户名在6到18位之间',
+            'user_password.required'=>'密码必须输入',
+            'user_password.between'=>'密码在6-18位之间',
+            'user_repassword.required'=>'重复密码必须输入',
+            'user_repassword.same'=>'两次密码输入不一致',
+        ];
+        $validator =  Validator::make($inputs,$rule,$mess);
+        if($validator->passes()){
+            //获取数据
+            $input = $request -> except('_token','user_repassword','phonecode');
+            //查询用户是否存在
+            $re = User::where('user_phone',$input['user_phone']) -> first();
+            if($re){
+                //存在返回
+                return back()->with('error','用户已存在');
+            }else{
+                //不存在 添加用户
+                $input['user_password'] = Crypt::encrypt($input['user_password']);
+                $input['user_name'] = str_random(5);
+                $input['createtime'] = time();
+                $input['status'] = 1;
+                $input['token'] = str_random(50);
+                //添加用户
+                $res = User::insertGetId($input);
+                $deta_name = str_random(10);
+                $re = User_details::insert(['user_id'=>$res,'deta_name'=>$deta_name]);
+                if($res && $re){
+                    //注册成功跳转页面
+                    return redirect('home/user/phonecreateto');
+                }else{
+                    //注册失败返回
+                    return back()->with('error','注册失败');
+                }
+            }
         }else{
-            return back()->with('error','注册失败');
+            return back()->withErrors($validator);
         }
+
+
     }
 
     public function phonecreateto()
     {
+        //加载静态页面
         return view('home.user.okregister');
     }
 
@@ -200,10 +261,11 @@ class UserController extends Controller
     public function user_details(Request $request)
     {
 //        $res = $request->session()->all(session('logins'));
+        //查询用户信息
         $id = session('logins')['user_id'];
         $data = User::where('user_id',$id)->first();
         $deta = User_details::where('user_id',$data['user_id']) -> first();
-
+        //将数据返回给页面
         return view('home.user.details',compact('data','deta'));
     }
 
@@ -243,15 +305,18 @@ class UserController extends Controller
     public function update(Request $request)
     {
 //        dd($request->all());
+        //获取用户信息
         $data = $request -> except('_token','file_upload');
 //        $data['deta_face'] = 'http://php182.oss-cn-beijing.aliyuncs.com/'.$data['deta_face'];
         $name = $request -> only('user_name');
 //        $res = User::where('user_id',$data['user_id']) -> update($name);
+        //修改信息
         $re = User_details::where('user_id',$data['user_id']) ->update($data);
         if($re){
-            return redirect('home/user/user_details');
+            //修改成功跳转信息详情页
+            return redirect('home/user/user_details')->with('okupdate','修改成功');
         }else{
-
+            //修改失败 返回上一步
             return back()->with('error');
         }
     }
@@ -261,6 +326,7 @@ class UserController extends Controller
      * */
     public function edit(Request $request,$id )
     {
+        //加载修改密码页面  给页面返回用户id
         return view('home.user.editpassword',compact('id'));
     }
 
@@ -269,11 +335,12 @@ class UserController extends Controller
      * */
     public function editpassword(Request $request)
     {
-
+        //获取用户信息
         $input = $request->except('_token');
         $id = $input['id'];
         $password = $input['jpass'];
         $data = User::where('user_id',$id) -> first();
+        //判断输入的密码是否和数据库密码一致
         if($password !=  Crypt::decrypt($data['user_password'])){
             return 1;
         }
@@ -285,14 +352,19 @@ class UserController extends Controller
      * */
     public function updatepassword(Request $request)
     {
+        //获取数据
         $input = $request -> except('_token');
+        //查询用户信息
         $re = User::where('user_id',$input['id']) -> first();
         $newpassword = Crypt::encrypt($input['newpassword']);
-
+        //判断新输入的密码是否和数据库原来的密码一致
         if(Crypt::decrypt($re['user_password']) != $input['password']){
+            //一致返回
             return back()->with('error');
         }else{
+            //不一致确认修改
             User::where('user_id',$input['id']) -> update(['user_password'=>$newpassword]);
+            //修改成功返回用户详情页面
             return redirect('home/user/user_details')->with('updateok','修改成功');
         }
     }
@@ -310,7 +382,9 @@ class UserController extends Controller
      * */
     public function dofindpwd(Request $request)
     {
+        //获取用户输入的账号
         $user = $request-> user;
+        //判断账号是否存在
         $re = User::where('user_phone',$user) -> orwhere('user_email',$user)->first();
         if(!$re){
             echo '2';
@@ -321,7 +395,9 @@ class UserController extends Controller
      * */
     public function okfindpwd(Request $request)
     {
+        //获取用户信息
         $input = $request -> except('_token','code');
+        //查询用户信息
         $user = User::where('user_phone',$input['user']) -> orwhere('user_email',$input['user']) -> first();
         $id = $user -> user_id;
         $token = $user -> token;
@@ -333,12 +409,47 @@ class UserController extends Controller
             self::mailfindpwd($id,$email,$token);
             return back()->with('okemail','邮件已发送');
         }
-        $phones = "/^1(3|4|5|7|8)\d{9}$/;";
+        $phones = "/^1(3|4|5|7|8)[1,2,3,4,5,6,7,8,9,0]{9}$/";
         $phone = $input['user'];
         if(preg_match($phones,$phone)){
             //如果是手机号  发送验证码
-            $phonecode = self::phoneto($phone);
+            self::phoneto($phone);
+            $phonecode = session('phone_code');
             return view('home.user.phonefindpwd',compact('phonecode','phone'));
+        }
+    }
+
+    /*
+     * 手机修改密码
+     * */
+    public function phonefindpwd(Request $request)
+    {
+        //获去用户输入的账号
+        $request -> except('_token','code');
+        $user_phone = $request -> user_phone;
+        return view('home.user.findpwdphone',compact('user_phone'));
+    }
+
+    /*
+     *手机确认修改密码
+     */
+    public function phonepwdfind(Request $request)
+    {
+        //获取用户输入的账号
+        $input = $request -> except('_token');
+        //判断两次输入的密码是否一致
+        if($input['newpassword'] != $input['repassword']){
+            //不一致返回上一步
+            return back()->with('error','密码输入不一致');
+        }else{
+            //一致  给新密码加密
+            $password = Crypt::encrypt($input['newpassword']);
+            //重写token
+            $token = str_random(50);
+            //修改用户密码
+            User::where('user_phone',$input['user_phone']) -> update(['user_password'=>$password,'token'=>$token]);
+            //修改成功  跳转登录页
+            return redirect('home/login') -> with('okfindpwd','修改成功');
         }
     }
 
@@ -348,28 +459,39 @@ class UserController extends Controller
     public function emailfindpwd(Request $request)
     {
 //        dd($request -> all());
+        //获取用户信息
         $id = $request -> id;
         $token = $request -> token;
+        //查询用户是否是点连接过来  带的token是否是数据库存的token
         $re= User::where('user_id',$id) -> where('token',$token) -> first();
         if($re){
+            //将参数返回给页面
             return view('home.mail.okfindpwd',compact('id','token'));
         }else{
+            //token不正确  跳转密码找回页
             return redirect('home/user/findpwd')->with('reemail','地址失效请重新发送邮件');
         }
     }
 
     /*
-     * 确认修改密码
+     * email确认修改密码
      * */
     public function findpwdok(Request $request)
     {
+        //获取信息
         $input = $request -> except('_token');
+        //判断两次密码是否输入一致
         if($input['newpassword'] != $input['repassword']){
+            //不一致返回上一步
             return back()->with('error','密码输入不一致');
         }else{
+            //一致 给新密码加密
             $newpassword = Crypt::encrypt($input['newpassword']);
+            //重写token
             $token = str_random(50);
+            //修改用户密码
             User::where('user_id',$input['id']) -> update(['user_password'=>$newpassword,'token'=>$token]);
+            //修改成功  跳转登录页
             return redirect('home/login')->with('okfindpwd','修改成功');
         }
     }
@@ -379,7 +501,9 @@ class UserController extends Controller
      * */
     public function exit(Request $request)
     {
+        //清除session中存的用户信息
         $request->session()->flush();
+        //跳转到主页
         return redirect('/');
 
     }
