@@ -244,78 +244,41 @@
                     	<table border="0" style="width:100%;" cellspacing="0" cellpadding="0">
                           <tr>
                             <td width="90">好评<font color="#999999">（80%）</font></td>
-                            <td><img src="images/pl.gif" align="absmiddle" /></td>
+                            <td><img src="{{ asset('home/assets/images/pl.gif') }}" align="absmiddle" /></td>
                           </tr>
                           <tr>
                             <td>中评<font color="#999999">（20%）</font></td>
-                            <td><img src="images/pl.gif" align="absmiddle" /></td>
+                            <td><img src="{{ asset('home/assets/images/pl.gif') }}" align="absmiddle" /></td>
                           </tr>
                           <tr>
                             <td>差评<font color="#999999">（0%）</font></td>
-                            <td><img src="images/pl.gif" align="absmiddle" /></td>
+                            <td><img src="{{ asset('home/assets/images/pl.gif') }}" align="absmiddle" /></td>
                           </tr>
                         </table>
                     </td>
                     <td width="185" class="jud_bg">
                     	购买过雅诗兰黛第六代特润精华露50ml的顾客，在收到商品才可以对该商品发表评论
                     </td>
-                    <td class="jud_bg">您可对已购买商品进行评价<br /><a href="#"><img src="images/btn_jud.gif" /></a></td>
                   </tr>
                 </table>
                 
                 
                 				
                 <table border="0" class="jud_list" style="width:100%; margin-top:30px;" cellspacing="0" cellpadding="0">
+                    @foreach($comment as $v)
                   <tr valign="top">
-                    <td width="160"><img src="images/peo1.jpg" width="20" height="20" align="absmiddle" />&nbsp;向死而生</td>
-                    <td width="180">
-                    	颜色分类：<font color="#999999">粉色</font> <br />
-                        型号：<font color="#999999">50ml</font>
-                    </td>
+                    <td width="160"><img src="http://php182.oss-cn-beijing.aliyuncs.com/{{ $v['deta_face'] }}" width="20" height="20" align="absmiddle" />&nbsp;{{ $v['deta_name'] }}</td>
                     <td>
-                    	产品很好，香味很喜欢，必须给赞。 <br />
-                        <font color="#999999">2015-09-24</font>
+                    	{{ $v['comment_connect'] }} <br />
+                        <font color="#999999">{{ date('Y-m-d H:i:s',$v['comment_time']) }}</font>
                     </td>
                   </tr>
-                  <tr valign="top">
-                    <td width="160"><img src="images/peo2.jpg" width="20" height="20" align="absmiddle" />&nbsp;就是这么想的</td>
-                    <td width="180">
-                    	颜色分类：<font color="#999999">粉色</font> <br />
-                        型号：<font color="#999999">50ml</font>
-                    </td>
-                    <td>
-                    	送朋友，她很喜欢，大爱。 <br />
-                        <font color="#999999">2015-09-24</font>
-                    </td>
-                  </tr>
-                  <tr valign="top">
-                    <td width="160"><img src="images/peo3.jpg" width="20" height="20" align="absmiddle" />&nbsp;墨镜墨镜</td>
-                    <td width="180">
-                    	颜色分类：<font color="#999999">粉色</font> <br />
-                        型号：<font color="#999999">50ml</font>
-                    </td>
-                    <td>
-                    	大家都说不错<br />
-                        <font color="#999999">2015-09-24</font>
-                    </td>
-                  </tr>
-                  <tr valign="top">
-                    <td width="160"><img src="images/peo4.jpg" width="20" height="20" align="absmiddle" />&nbsp;那*****洋 <br /><font color="#999999">（匿名用户）</font></td>
-                    <td width="180">
-                    	颜色分类：<font color="#999999">粉色</font> <br />
-                        型号：<font color="#999999">50ml</font>
-                    </td>
-                    <td>
-                    	下次还会来买，推荐。<br />
-                        <font color="#999999">2015-09-24</font>
-                    </td>
-                  </tr>
+                    @endforeach
+
                 </table>
 
-                	
-                    
                 <div class="pages">
-                    <a href="#" class="p_pre">上一页</a><a href="#" class="cur">1</a><a href="#">2</a><a href="#">3</a>...<a href="#">20</a><a href="#" class="p_pre">下一页</a>
+                    {!! $comment->render() !!}
                 </div>
                 
           	</div>

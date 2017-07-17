@@ -50,6 +50,9 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 	    Route::post('admin/updateself/','adminController@updateself');
 	    //商品管理
 
+        // //商品标签
+        // Route::resource('label','LabelController');
+
         //上传商品大图
         Route::any('goods/upload','GoodController@upload');
         //上传商品其他图片
@@ -165,6 +168,14 @@ Route::get('/', 'Home\IndexController@index');
 Route::post('home/search','Home\SearchController@search');
 // 前台收货地址
 Route::resource('home/address','Home\AddressController');
+//前台个人订单显示
+Route::resource('home/orders','Home\OrdersController');
+//取消订单
+Route::any('home/changeorders/{id}','Home\OrdersController@changeorders');
+//确认收货
+Route::any('home/shouhuo/{id}','Home\OrdersController@shouhuo');
+//前台订单评价
+Route::resource('home/comment','Home\CommentController');
 // 加载购物车
 Route::resource('home/mycart','Home\MycartController');
 
