@@ -226,13 +226,7 @@
                         <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
                     </a>
                     <ul class="sidebar-nav sidebar-nav-sub">
-                        <li class="sidebar-nav-link">
-                            <a href="{{url('admin/admin/create')}}">
-                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 添加管理员
-                            </a>
-                        </li>
-
-                        <li class="sidebar-nav-link">
+                          <li class="sidebar-nav-link">
                             <a href="{{url('admin/admin')}}">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 管理员列表
                             </a>
@@ -240,24 +234,12 @@
                     </ul>
                     <ul class="sidebar-nav sidebar-nav-sub">
                         <li class="sidebar-nav-link">
-                            <a href="{{url('admin/role/create')}}">
-                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 添加角色
-                            </a>
-                        </li>
-
-                        <li class="sidebar-nav-link">
                             <a href="{{url('admin/role')}}">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 角色列表
                             </a>
                         </li>
                     </ul>
                      <ul class="sidebar-nav sidebar-nav-sub">
-                        <li class="sidebar-nav-link">
-                            <a href="{{url('admin/auth/create')}}">
-                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 权限注册
-                            </a>
-                        </li>
-
                         <li class="sidebar-nav-link">
                             <a href="{{url('admin/auth')}}">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 权限列表

@@ -31,15 +31,13 @@ class Mtype extends Model
      */
     protected $fillable = ['mtype_name', 'merchant_id'];
     //    将分类数据排序，分类名称添加缩进，返回有层次关系的分类数据
-    public function tree(){
-        //先排序
-        $mtype = $this->get();
+    public static function tree($mtype){
         //添加缩进
-        $mtype = $this->getTree($mtype);
+        $mtype = self::getTree($mtype);
         return $mtype;
     }
 
-    public function getTree($mtype)
+    public static function getTree($mtype)
     {
         $arr = [];
         foreach($mtype as $k=>$v){
@@ -57,7 +55,6 @@ class Mtype extends Model
                 }
             }
         }
-
         return $arr;
 
     }

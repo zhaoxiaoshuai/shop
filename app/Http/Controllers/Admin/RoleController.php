@@ -22,29 +22,17 @@ class RoleController extends Controller
      */
     public function addAuth($id)
     {
-        //获取所有角色
+        
+        //获取角色
         $role = Role::find($id);
-         //定义权限组
-        $arr = [
-            '1'=>'入驻商管理',
-            '2'=>'用户管理',
-            '3'=>'分类管理',
-            '4'=>'商品管理',
-            '5'=>'订单管理',
-            '6'=>'友情链接管理',
-            '7'=>'权限管理',
-            '8'=>'轮播图管理',
-            '9'=>'系统配置管理'
-        ];  
+        
+        //获取所有权限组
+        $pauths = Auth::where('auth_group','0')->get();
+
+        
         //获取所有的权限
-        $auth = Auth::get();
-        $tmp = [];
-        foreach($arr as $k=>$v){
-            $tmp[$k]=[];
-        }
-        foreach($auth as $k=>$v){
-            array_push($tmp[$v['auth_group']],$auth[$k]);
-        }
+        $auths = Auth::get()->toArray();
+
         //获取拥有的权限
         $role_auth =Role::find($id)->auths()->get();
         $role_auth = $role_auth->toarray();
@@ -52,7 +40,7 @@ class RoleController extends Controller
         foreach($role_auth as $k=>$v){
             $id[]=$v['auth_id'];
         }
-        return view('admin.role.addauth',['role'=>$role,'auth'=>$tmp,'arr'=>$arr,'id'=>$id]);
+        return view('admin.role.addauth',compact('role','pauths','auths','role_auth'));
     }
     /**
      * 执行角色分配权限
@@ -63,6 +51,7 @@ class RoleController extends Controller
      */
     public function doaddAuth(Request $request)
     {
+        
         $data = $request->except('_token');
          
         //验证规则
@@ -72,7 +61,7 @@ class RoleController extends Controller
         
         //提示信息
          $mess=[
-            'auth_id.required'=>'必须输入角色名',
+            'auth_id.required'=>'必须选择权限',
            
         ];
         //进行验证
@@ -140,33 +129,14 @@ class RoleController extends Controller
      */
     public function create()
     {
-         //定义权限组
-        $arr = [
-            '1'=>'入驻商管理',
-            '2'=>'用户管理',
-            '3'=>'分类管理',
-            '4'=>'商品管理',
-            '5'=>'订单管理',
-            '6'=>'友情链接管理',
-            '7'=>'权限管理',
-            '8'=>'轮播图管理',
-            '9'=>'系统配置管理'
-        ];
-
+        //获取所有权限组
+        $pauths = Auth::where('auth_group','0')->get();
+        // dd($pauths);
         //获取所有的权限
-        $tmp = [];
-        foreach($arr as $k =>$v){
-
-            $tmp[$k] = [];
-        }
-        $auth = Auth::get();
-        foreach($auth as $k=>$v){
-            
-            array_push($tmp[$v['auth_group']],$auth[$k]);
-        }
+        $auths = Auth::get()->toArray();
         
         //引入添加角色表单
-        return view('admin.role.add',['data'=>$tmp,'arr'=>$arr]);
+        return view('admin.role.add',compact('pauths','auths'));
     }
 
     /**
@@ -181,6 +151,7 @@ class RoleController extends Controller
         
         //获取请求数据
         $data = $request -> except('_token');
+
         //验证规则
         $rule = [
             'role_name' => 'required',
@@ -211,7 +182,6 @@ class RoleController extends Controller
                 DB::beginTransaction();
                 //插入角色数据库并获取插入id
                 $res1 = Role::insertGetId($data);
-                
                 $arr = [];
                 foreach($auth_id as $k=>$v){
                     $arr[] = [
@@ -219,10 +189,9 @@ class RoleController extends Controller
                         "auth_id"=>$v,
                     ];
                 }
-                
+               
                 //插入角色与权限关系
                 $res2 = DB::table('role_auth')->insert($arr);
-                
                 //判断
                 if($res1 && $res2){
                     DB::commit();
@@ -259,7 +228,7 @@ class RoleController extends Controller
         
         //获取角色信息
         $role = Role::find($id);
-        return view('admin.role.edit',['data'=>$role,'auth'=>$tmp,'arr'=>$arr,'aole_auth'=>$role_auth]);
+        return view('admin.role.edit',['data'=>$role]);
     }
 
     /**

@@ -21,36 +21,19 @@
 	        </div>
 	    </div>
 	    <div class="widget-body am-fr">
-
 	        <form action="{{url('admin/auth')}}" class="am-form tpl-form-border-form tpl-form-border-br" method="POST" >
 	            <div class="am-form-group">
-	                <label for="auth_name" class="am-u-sm-3 am-form-label">权限名称</label>
+	                <label for="auth_name" class="am-u-sm-3 am-form-label">权限组名称</label>
 	                <div class="am-u-sm-9">
 	                    <input type="text" class="tpl-form-input" id="auth_name" name="auth_name" value="{{old('auth_name')}}" placeholder="请输入要添加的权限名称">
 	                    <small></small>
 	                </div>
 	            </div>
 	            <div class="am-form-group">
-	                <label for="auth_content" class="am-u-sm-3 am-form-label">权限内容</label>
+	                <label for="auth_content" class="am-u-sm-3 am-form-label">权限组内容</label>
 	                <div class="am-u-sm-9">
 	                    <input type="text" class="tpl-form-input" id="auth_content" name="auth_content" value="{{old('auth_content')}}" placeholder="请输入要添加的权限内容">
 	                    <small></small>
-	                </div>
-	            </div>
-	            <div class="am-form-group">
-	                <label for="auth_description" class="am-u-sm-3 am-form-label">权限描述</label>
-	                <div class="am-u-sm-9">
-                        <textarea class="" name="auth_description" rows="10" id="auth_description" placeholder="请输入权限描述">{{old('auth_description')}}</textarea>
-                    </div>
-	            </div>
-				<div class="am-form-group">
-	                <label for="auth_group" class="am-u-sm-3 am-form-label">权 限 组</label>
-	                <div class="am-u-sm-9">
-	                    <select data-am-selected="{searchBox: 0}" name="auth_group" style="display: none;">
-	                   	@foreach($data as $k=>$v)
-	                      <option value="{{$k}}">{{$v}}</option>
-	                   @endforeach
-	                    </select>
 	                </div>
 	            </div>
 	            <div class="am-form-group">

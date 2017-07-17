@@ -30,7 +30,6 @@
                     <option value="{{ $v['mtype_id'] }}">{{ $v['_name'] }}</option>
                 @endforeach   
                </select> 
-              </select>
           </div>
         </div>
         <div class="am-form-group">

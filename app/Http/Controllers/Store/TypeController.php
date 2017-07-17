@@ -20,8 +20,13 @@ class TypeController extends Controller
      */
     public function index()
     {
+
+        //获取店铺id
+        $id = session('store_admin')['merchant_id'];
+        //获取所有店铺的分类
+        $mtype = Mtype::where('merchant_id',$id)->get();
         //获取分类树
-        $mtype = (new Mtype)->tree();
+        $mtype = Mtype::tree($mtype);
         //加载店铺分类页面
         return view('store.type.index',compact('mtype'));
     }
@@ -35,8 +40,12 @@ class TypeController extends Controller
      */
     public function create()
     {
-
-        $mtype = (new Mtype)->tree();
+        //获取店铺id
+        $id = session('store_admin')['merchant_id'];
+        //获取所有店铺的分类
+        $mtype = Mtype::where('merchant_id',$id)->get();
+        //获取分类树
+        $mtype = Mtype::tree($mtype);
 
         //加载店铺分类添加页面
         return view('store.type.add',compact('mtype'));

@@ -24,7 +24,6 @@ Route::get('admin/login','Admin\LoginController@login');
 Route::post('admin/dologin','Admin\LoginController@dologin');
 //生成验证码
 Route::get('admin/captcha/{num}.jpg','Admin\LoginController@captcha')->where('name','[0-9]+');
-
 Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 	//没有权限返回页面
 	Route::get('back',function(){
@@ -84,8 +83,11 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 		//系统配置
 		Route::resource('config','ConfController');
 		//权限注册
+		Route::get('auth/createauth','AuthController@createauth');
 		Route::resource('auth','AuthController');
-		Route::any('uploadconf','ConfController@uploadconf');//LOGO图片上传
+
+		//LOGO图片上传
+		Route::any('uploadconf','ConfController@uploadconf');
 	});
 });
 

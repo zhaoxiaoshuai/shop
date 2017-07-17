@@ -25,10 +25,12 @@ class LoginController extends Controller
      */
     public function login(Request $request)
     {
+        $cookie = $request->cookie('admin');
+        
         if (session('adminFlag')) {
             return redirect('admin/index');
         }
-        $cookie = $request->cookie('admin');
+        
         // dd($cookie);
         //返回登录视图
         return view('Admin.login.login',['cookie'=>$cookie]);
@@ -44,7 +46,6 @@ class LoginController extends Controller
     {
         //接受数据
         $data = $request -> except('_token');
-
         //验证规则
         $rule = [
             'admin_name' => 'required',
@@ -66,9 +67,8 @@ class LoginController extends Controller
                         ->withInput();
         }else{
             //查询这个用户的密码
-            
              $admin = Admin::where('admin_name',$data['admin_name'])->first();
-            
+
             //判断用户是否存在
             if($admin){
 
@@ -83,7 +83,6 @@ class LoginController extends Controller
                         Cookie::queue('admin','',-1);
                     }
                     
-
                     //设置标志位  将用户信息存入session
                     session(['adminFlag'=>true]);
                     session(['admin'=>$admin]);

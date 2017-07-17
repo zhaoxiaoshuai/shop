@@ -3,16 +3,20 @@
 <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
     <div class="widget am-cf">
         <div class="widget-head am-cf">
-            <div class="widget-title  am-cf">角色列表</div></div>
+            <div class="widget-title  am-cf">权限列表</div></div>
         <div class="widget-body  am-fr">
             <div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
                 <div class="am-form-group">
-                    <div class="am-btn-toolbar">
-                       
+                         <div class="am-btn-toolbar">
+                        <div class="am-btn-group am-btn-group-xs">
+                            <button type="button" class="am-btn am-btn-default am-btn-success">
+                                <a href="{{url('admin/auth/create')}}"><span class="am-icon-plus"></span>新增权限组</a>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-            <form action="{{url('admin/role')}}" method="get">
+            <form action="{{url('admin/auth')}}" method="get">
                 <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
                     <div class="am-form-group tpl-table-list-select">
                     </div>
@@ -33,7 +37,6 @@
                             <th>ID</th>
                             <th>权限名</th>
                             <th>权限内容</th>
-                            <th>权限描述</th>
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -43,9 +46,10 @@
 	                            <td>{{$v['auth_id']}}</td>
 	                            <td>{{$v['auth_name']}}</td>
                                 <td>{{$v['auth_content']}}</td>
-	                            <td>{{$v['auth_description']}}</td>
 	                            <td>
 	                                <div class="tpl-table-black-operation">
+                                        <a href="{{url('admin/auth/createauth/?id='.$v['auth_id'])}}">
+                                        <i class="am-icon-pencil"></i>添加子权限</a>
 	                                    <a href="{{url('admin/auth/'.$v['auth_id'].'/edit')}}">
 	                                        <i class="am-icon-pencil"></i>编辑</a>
 	                                    <a href="javascript:;" onclick="Del({{$v['auth_id']}})"  class="tpl-table-black-operation-del">
@@ -61,7 +65,7 @@
             <div class="am-u-lg-12 am-cf">
                 <div class="am-fr">
               
-                {!! $data -> appends(['keywords'=>$key]) -> render() !!}
+                 {!! $data ->appends(['keywords'=>$key])-> render() !!}
                 </div>
             </div>
             

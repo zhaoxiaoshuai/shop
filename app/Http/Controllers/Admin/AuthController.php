@@ -14,6 +14,21 @@ use DB;
 class AuthController extends Controller
 {
     /**
+     * 添加权限
+     * @param 参数:无
+     * @return 返回添加权限页面
+     * @author zxs
+     * @Date 2017-7-16 
+     */
+    public function createauth(Request $request)
+    {
+        $id = $request -> only('id')['id'];
+        //获取所属权限组
+        $data = Auth::where('auth_id',$id)->get()[0];
+        //引入添加权限表单
+        return view('admin.auth.addauth',compact('data'));
+    }
+    /**
      * 权限列表
      * @param 参数:无
      * @return 返回权限列表页面
@@ -22,47 +37,33 @@ class AuthController extends Controller
      */
     public function index(Request $request)
     {
-        $count = 5;
-
+        $count = 100;
         if($request->has('keywords')){
             $key = trim($request->input('keywords')) ;
-            $role = Auth::where('auth_name','like',"%".$key."%")->paginate($count);
+            $auth = Auth::where('auth_name','like',"%".$key."%")->orderBy('auth_content')->paginate($count);
             return view('admin.auth.index',['data'=>$auth,'key'=>$key]);
         }else{
             //取出数据
-            $auth = Auth::paginate($count);
+            $auth = Auth::orderBy('auth_content')->paginate($count);
             //设置返回页面
             $key = '';
-            
             return view('admin.auth.index',['data'=>$auth,'key'=>$key]);
         }
        
     }
 
      /**
-     * 添加权限
+     * 添加权限组
      * @param 参数:无
-     * @return 返回添加权限页面
+     * @return 返回添加权限组页面
      * @author zxs
      * @Date 2017-7-5 
      */
     public function create()
     {
-        //定义权限组
-        $arr = [
-            '1'=>'入驻商管理',
-            '2'=>'用户管理',
-            '3'=>'分类管理',
-            '4'=>'商品管理',
-            '5'=>'订单管理',
-            '6'=>'友情链接管理',
-            '7'=>'权限管理',
-            '8'=>'轮播图管理',
-            '9'=>'系统配置管理'
-        ];
-
+        
         //引入添加权限表单
-        return view('admin.auth.add',['data'=>$arr]);
+        return view('admin.auth.addgroup',compact('data'));
     }
 
     /**
@@ -74,47 +75,85 @@ class AuthController extends Controller
      */
     public function store(Request $request)
     {
-        //获取请求数据
-        $data = $request -> except('_token');
-     
-        //验证规则
-        $rule = [
-            'auth_name' => 'required',
-            'auth_content' => 'required',
-            'auth_description' => 'required',
-            'auth_group' => 'required',
-        ];
 
-        //提示信息
-         $mess=[
-            'auth_name.required'=>'必须输入权限名',
-            'auth_content.required'=>'必须输入权限内容',
-            'auth_description.required'=>'必须输入权限描述',
-            'auth_group.required'=>'必须输入权限描述',
-           
-        ];
-        //进行验证
-        $validator = Validator::make($data,$rule,$mess);
-        if ($validator->fails()) {
-            return redirect('/admin/auth/create')
-                        ->withErrors($validator)
-                        ->withInput();
-        }else{
-            $auth = Auth::where('auth_content',$data['auth_content']) ->find(1);
-            if (!empty($auth)) {
-                return back()->with('error','该权限已存在');
+        if($request ->has('auth_group')){
+            //获取请求数据
+            $data = $request -> except('_token');
+            
+            //验证规则
+            $rule = [
+                'auth_name' => 'required',
+                'auth_content' => 'required',
+                'auth_group' => 'required',
+            ];
+            //提示信息
+             $mess=[
+                'auth_name.required'=>'必须输入权限名',
+                'auth_content.required'=>'必须输入权限内容',
+                'auth_group.required'=>'必须输入权限组',
+               
+            ];
+            //进行验证
+            $validator = Validator::make($data,$rule,$mess);
+            if ($validator->fails()) {
+                return redirect('/admin/auth/create')
+                            ->withErrors($validator)
+                            ->withInput();
             }else{
-                //插入数据库
-                $re = Auth::create($data);
-                //判断
-                if($re){
-                    return redirect('admin/auth');
+                $auth = Auth::where('auth_content',$data['auth_content']) ->find(1);
+                if (!empty($auth)) {
+                    return back()->with('error','该权限已存在');
                 }else{
-                    return back()->with('error','添加失败');
+                    //插入数据库
+                    $re = Auth::create($data);
+                    //判断
+                    if($re){
+                        return redirect('admin/auth');
+                    }else{
+                        return back()->with('error','添加失败');
+                    }
                 }
             }
+        }else{
+            //获取请求数据
+            $data = $request -> except('_token');
 
+            //验证规则
+            $rule = [
+                'auth_name' => 'required',
+                'auth_content' => 'required',
+            ];
+
+            //提示信息
+             $mess=[
+                'auth_name.required'=>'必须输入权限名',
+                'auth_content.required'=>'必须输入权限内容',
+               
+            ];
+            //进行验证
+            $validator = Validator::make($data,$rule,$mess);
+            if ($validator->fails()) {
+                return redirect('/admin/auth/create')
+                            ->withErrors($validator)
+                            ->withInput();
+            }else{
+                $auth = Auth::where('auth_content',$data['auth_content']) ->find(1);
+                
+                if (!empty($auth)) {
+                    return back()->with('error','该权限已存在');
+                }else{
+                    //插入数据库
+                    $re = Auth::create($data);
+                    //判断
+                    if($re){
+                        return redirect('admin/auth');
+                    }else{
+                        return back()->with('error','添加失败');
+                    }
+                }
+            }
         }
+        
     }
 
     /**
@@ -137,21 +176,16 @@ class AuthController extends Controller
      */
     public function edit($id)
     {
-        //定义权限组
-        $arr = [
-            '1'=>'入驻商管理',
-            '2'=>'用户管理',
-            '3'=>'分类管理',
-            '4'=>'商品管理',
-            '5'=>'订单管理',
-            '6'=>'友情链接管理',
-            '7'=>'权限管理',
-            '8'=>'轮播图管理',
-            '9'=>'系统配置管理'
-        ];
-         //取数据
+
+        //取要修改的数据
         $auth = Auth::find($id);
-        return view('admin.auth.edit',['data'=>$auth,'arr'=>$arr]);
+        if($auth['auth_group']){
+             //取出所属权限组
+            $pauth = Auth::where('auth_id',$auth['auth_group'])->get()[0];
+        }
+       
+         $pauth = '';
+        return view('admin.auth.edit',compact('auth','pauth'));
     }
 
     /**
@@ -163,6 +197,7 @@ class AuthController extends Controller
      */
     public function update(Request $request, $id)
     {
+
          //获取请求数据
         $data = $request -> except('_token','_method');
         // dd($id);
@@ -171,14 +206,12 @@ class AuthController extends Controller
         $rule = [
             'auth_name' => 'required',
             'auth_content' => 'required',
-            'auth_description' => 'required',
         ];
 
         //提示信息
          $mess=[
             'auth_name.required'=>'必须输入权限名',
             'auth_content.required'=>'必须输入权限内容',
-            'auth_description.required'=>'必须输入权限描述',
            
         ];
         //进行验证
