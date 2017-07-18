@@ -52,8 +52,10 @@
 	                                        <i class="am-icon-pencil"></i>分配权限</a>
                                         <a href="{{url('admin/role/'.$v['role_id'].'/edit')}}">
                                         <i class="am-icon-pencil"></i>编辑</a>
+                                        @if(!in_array($v['role_id'],$admin_role))
 	                                    <a href="javascript:;" onclick="Del({{$v['role_id']}})"  class="tpl-table-black-operation-del">
 	                                        <i class="am-icon-trash"></i>删除</a>
+                                        @endif
 	                                </div>
 	                            </td>
 	                        </tr>

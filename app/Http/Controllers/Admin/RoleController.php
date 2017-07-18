@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 
 use Validator;
 use App\http\Model\Role;
+use App\http\Model\Admin_role;
 use App\http\Model\Auth;
 use DB;
 class RoleController extends Controller
@@ -105,17 +106,21 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {
+        //取出所有管理员角色关系表里面的角色id数据
+        $admin_role = Admin_role::lists('role_id')->toArray();
+        $admin_role = array_unique($admin_role);
+        // dd($admin_role);
         $count = 5;
         if($request->has('keywords')){
             $key = trim($request->input('keywords')) ;
             $role = Role::where('role_name','like',"%".$key."%")->paginate($count);
-            return view('admin.role.index',['data'=>$role,'key'=>$key]);
+            return view('admin.role.index',['data'=>$role,'key'=>$key,'admin_role'=>$admin_role]);
         }else{
             //取出数据
             $role = Role::paginate($count);
             //设置返回页面
             $key = '';
-            return view('admin.role.index',['data'=>$role,'key'=>$key]);
+            return view('admin.role.index',['data'=>$role,'key'=>$key,'admin_role'=>$admin_role]);
         }
        
     }

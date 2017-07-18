@@ -37,6 +37,7 @@ class AuthController extends Controller
      */
     public function index(Request $request)
     {
+
         $count = 100;
         if($request->has('keywords')){
             $key = trim($request->input('keywords')) ;

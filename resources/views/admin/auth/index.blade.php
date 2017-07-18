@@ -52,7 +52,8 @@
                                         <i class="am-icon-pencil"></i>添加子权限</a>
 	                                    <a href="{{url('admin/auth/'.$v['auth_id'].'/edit')}}">
 	                                        <i class="am-icon-pencil"></i>编辑</a>
-	                                    <a href="javascript:;" onclick="Del({{$v['auth_id']}})"  class="tpl-table-black-operation-del">
+	                                   
+                                        <a href="javascript:;" onclick="Del({{$v['auth_id']}})"  class="tpl-table-black-operation-del">
 	                                        <i class="am-icon-trash"></i>删除</a>
 	                                </div>
 	                            </td>

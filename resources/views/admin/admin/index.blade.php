@@ -82,7 +82,7 @@
 	                                <div class="tpl-table-black-operation">
 	                                    <a href="{{url('admin/admin/'.$v['admin_id'].'/edit')}}">
 	                                        <i class="am-icon-pencil"></i>编辑</a>
-	                                    <a href="javascript:;" onclick="Del({{$v['admin_id']}})"  class="tpl-table-black-operation-del">
+                                        <a href="javascript:;" onclick="Del({{$v['admin_id']}})"  class="tpl-table-black-operation-del">
 	                                        <i class="am-icon-trash"></i>删除</a>
 	                                </div>
 	                            </td>
