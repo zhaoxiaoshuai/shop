@@ -114,38 +114,6 @@ class GoodController extends Controller
 //        dd($types);
         return view('home.good.gooddetail',compact('good','pics','line','comment','merchant'));
     }
-    /**
-     * 商品收藏页面
-     * @param  商品id
-     * @return $data
-     * @author gcj
-     * @Date
-     */
-     public function collection($id)
-    {   
-
-        $user_id = '48';
-        $res = Collectiongoods::insert(['user_id' => $user_id, 'good_id' => $id]);
-         if($res){
-           $data = [
-                'status'=>0,
-                'msg'=>'收藏成功！'
-           ];
-        }else{
-           $data = [
-               'status'=>1,
-               'msg'=>'收藏失败！'
-           ];
-       }
-       return $data;
-    }
-    /**
-     * 获取父类方法
-     * @param 子类$type
-     * @return $data
-     * @author gcj
-     * @Date
-     */
      public  function getparent($type)
     {
         //获取全部分类

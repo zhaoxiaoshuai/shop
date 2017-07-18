@@ -157,8 +157,7 @@
                     	<div class="s_city_t"></div>
                         <div class="ss_list_c">
                         	<ul>
-                            	<li><a href="#">我的收藏夹</a></li>
-                                <li><a href="#">我的收藏夹</a></li>
+                            	<li><a href="{{url('home/Collectiongoods')}}">我的收藏夹</a></li>
                             </ul>
                         </div>
                     </div>     
