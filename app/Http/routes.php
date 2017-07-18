@@ -55,6 +55,8 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
         Route::any('goods/uploadpic','GoodController@uploadpic');
 //        商品资源路由
 	    Route::resource('good','GoodController');
+        //店铺商品路由
+        Route::resource('mgood','MgoodController');
         //商品详情路由
 	    Route::any('good/detail/{id}','GoodController@detail');
 	    //角色管理

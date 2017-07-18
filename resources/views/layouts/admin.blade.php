@@ -182,6 +182,12 @@
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 商品列表
                             </a>
                         </li>
+
+                        <li class="sidebar-nav-link">
+                            <a href="{{url('admin/mgood')}}">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 店铺商品列表
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li class="sidebar-nav-link">
