@@ -81,6 +81,61 @@ class GoodController extends Controller
 
     }
 
+
+    /**
+     * 店铺商品列表
+     * @param  商品id $id
+     * @return 商品详情页面
+     * @author gcj
+     * @Date
+     */
+    public function mindex(Request $request)
+    {
+        // 获取指定输入值
+        $key1 = trim($request->input('keywords1'));
+        $key2 = trim($request->input('keywords2'));
+
+        // 多表查询
+        $data = DB::table('store')
+            ->join('user','store.user_id','=','user.user_id')
+            ->join('merchant','store.merchant_id','=','merchant.merchant_id')
+            ->select('store_id','user_name','store_username','merchant_name','merchant_leverl','store_phone','platform_use_fee','percent','audit_status')
+            ->where('audit_status','=','2')
+            ->orderBy('store_id','desc')
+            ->paginate(5);
+
+        // has 确认是否有输入值
+        if($request->has('keywords1')){
+            // 多表查询
+            $data = DB::table('store')
+                ->join('user','store.user_id','=','user.user_id')
+                ->join('merchant','store.merchant_id','=','merchant.merchant_id')
+                ->select('store_id','user_name','store_username','merchant_name','merchant_leverl','store_phone','platform_use_fee','percent','audit_status')
+                ->where('merchant_leverl','=',"{$key1}")
+                ->where('audit_status','=','2')
+                ->paginate(5);
+        }
+
+        // has 确认是否有输入值
+        if($request->has('keywords2')){
+            // 多表查询
+            $data = DB::table('store')
+                ->join('user','store.user_id','=','user.user_id')
+                ->join('merchant','store.merchant_id','=','merchant.merchant_id')
+                ->select('store_id','user_name','store_username','merchant_name','merchant_leverl','store_phone','platform_use_fee','percent','audit_status')
+                ->where('audit_status','=','2')
+                ->where('merchant_name','like',"%".$key2."%")
+                ->paginate(5);
+        }
+
+        $arr = ['1'=>'未审核','审核通过','审核不通过'];
+        $arr2 = ['1'=>'初级','中级','高级'];
+
+        // 加载商家列表模块
+        return view('admin.store.storelist',['data'=>$data,'arr'=>$arr,'arr2'=>$arr2,'key1'=>$key1,'key2'=>$key2]);
+
+    }
+
     /**
      * 商品详情
      * @param  商品id $id

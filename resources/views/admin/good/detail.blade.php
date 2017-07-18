@@ -127,6 +127,10 @@
             </table>
         </div>
         <div class="am-form-group">
+            <div class="am-u-sm-9 am-u-sm-push-3">
+                <button type="button" onclick="history.go(-1)" class="am-btn am-btn-primary tpl-btn-bg-color-success ">返回</button>
+            </div>
+        </div>
         </div>
     </form>
 @endsection
