@@ -49,10 +49,6 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 	    Route::get('admin/editself/{id}','adminController@editself');
 	    Route::post('admin/updateself/','adminController@updateself');
 	    //商品管理
-
-        // //商品标签
-        // Route::resource('label','LabelController');
-
         //上传商品大图
         Route::any('goods/upload','GoodController@upload');
         //上传商品其他图片
@@ -90,7 +86,6 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 		//权限注册
 		Route::get('auth/createauth','AuthController@createauth');
 		Route::resource('auth','AuthController');
-
 		//LOGO图片上传
 		Route::any('uploadconf','ConfController@uploadconf');
 	});
@@ -162,6 +157,8 @@ Route::post('home/user/findpwdok','Home\UserController@findpwdok');
 Route::post('home/user/phonefindpwd','Home\UserController@phonefindpwd');
 //确认手机修改密码
 Route::post('home/user/phonepwdfind','Home\UserController@phonepwdfind');
+
+
 //前台首页
 Route::get('/', 'Home\IndexController@index');
 //前台全局搜索
