@@ -11,8 +11,8 @@
             <div class="m_right">
                 <div class="m_des">
                     <table border="0" style="width:870px; line-height:22px;" cellspacing="0" cellpadding="0">
-                        <tr valign="top">
-                            <td width="115"><img src="@if(empty($deta->deta_face)) {{url('uploads/config/touxiang.jpg')}} @else {{url("".$deta->deta_face)}} @endif" name="pic" id="pic" width="90" height="90" />
+                        <tr valign="top" style="position:relative">
+                            <td width="115"><img src="@if(empty($deta->deta_face)) {{url('uploads/config/touxiang.jpg')}} @else {{url("".$deta->deta_face)}} @endif" name="pic" id="pic" width="90" height="90"  />
                                 <input type="hidden" name="deta_face" id="user_pic" style="width:300px;" value="{{$deta->deta_face}}">
                                 <input type="file" class="file_file" name="file_upload" id="file_upload" value="">
                                 <input type="button" value="上传头像" class="btn_btn">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Home;
 
 use App\Http\Model\Collectiongoods;
 use App\Http\Model\Good;
+use App\Http\Model\Merchant;
 
 use App\Http\Model\Goodpic;
 use App\Http\Model\Type;
@@ -26,7 +27,7 @@ class GoodController extends Controller
         $salecnt = $request->only('salecnt');
         $goods = Good::where('good_status','!=','2')->where('type_id','=',$id)->orderBy($salecnt['salecnt'],'desc')->paginate($perpage);
         return view('home.good.goodlist',['goods'=>$goods,'type_id'=>$id]);
-    }
+       }
 
         if($request->has('price')){
             $price = $request->only('price');
@@ -109,8 +110,11 @@ class GoodController extends Controller
            $line = implode($arr,'  >  ');
 //         dd($line);
 
+           //取出商品所在店铺
+           $merchant = Merchant::where('merchant_id',$good['merchant_id'])->get()[0];
+         // dd($merchant);
 //        dd($types);
-        return view('home.good.gooddetail',compact('good','pics','line','comment'));
+        return view('home.good.gooddetail',compact('good','pics','line','comment','merchant'));
     }
    
     /**

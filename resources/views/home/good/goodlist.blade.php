@@ -92,7 +92,7 @@
                         <span class="i_up">价格从低到高显示</span>
                         <span class="i_down">价格从高到低显示</span>     
                     </a>
-                    <a href="{{url('home/newgoodlist/').'/'.$type_id}}">新品</a>
+                    <a href="{{url('home/newgoodlist/')}}">新品</a>
                 </span>
                 <span class="fr">共发现120件</span>
             </div>

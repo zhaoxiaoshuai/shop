@@ -57,6 +57,6 @@ jq.fn.extend({
 	}						
 });
  
-jq(function(){
-	jq(".jj").jselect();
-});
+// jq(function(){
+// 	jq(".jj").jselect();
+// });

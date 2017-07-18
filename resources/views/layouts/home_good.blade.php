@@ -5,7 +5,7 @@
 
         <div class="logo" style="height:110px;margin-top:10px;"><a href="Index.html"><img src="{{ 'http://php182.oss-cn-beijing.aliyuncs.com/'.config('web.conf_logo') }}" /></a></div>
         <div class="search">
-            <form action="home/search" method="post">
+            <form action="{{url('home/search')}}" method="post">
                 {{ csrf_field() }}
                 <input type="text" value="" name="search" class="s_ipt" />
                 <input type="submit" value="搜索" class="s_btn" />

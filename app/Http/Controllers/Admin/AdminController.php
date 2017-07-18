@@ -24,12 +24,13 @@ class AdminController extends Controller
      */
     public function index(Request $request)
     {
-    	// dd(1);
+    	// dd($request->all());
         $count = 5;
         if($request->has('keywords')){
-            $key = trim($request->input('keywords')) ;
+            $key = trim($request->input('keywords'));
             $admins = Admin::where('admin_name','like',"%".$key."%")->paginate($count);
-            return view('admin.admin.index',['data'=>$admins,'key'=>$key]);
+            $order = '';
+            return view('admin.admin.index',['data'=>$admins,'key'=>$key,'o'=>$order]);
         }else{
         	//判断排序
         	if($request->has('o')){

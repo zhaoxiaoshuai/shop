@@ -21,7 +21,8 @@ class MerchantController extends Common
     {
         // dd($request->all());
         //获取店铺id
-        $id = 43;
+
+        $id = $request->input('merchant_id');
         //获取店铺信息
         $merchant = Merchant::where('merchant_id',$id)->get()[0];
         //获取店铺分类

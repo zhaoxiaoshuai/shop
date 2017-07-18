@@ -26,7 +26,7 @@
      <div class="shop-header-action">
       <a class="J-shop-follow shop-follow fl" rel="nofollow" href="javascript:;">收藏店铺</a> 
       <a href="javascript:;" class="chart fl clearfix" id="mogutalk_widget_box">
-       <div class="mogutalk_widget_btn kefu fl mogutalk_widget4" data-bid="1pile4#23" data-style="widget4" data-from="shop-header"></div></a>
+       <div class="mogutalk_widget_btn kefu fl mogutalk_widget4" onclick="_MEIQIA('showPanel')" data-bid="1pile4#23" data-style="widget4" data-from="shop-header"></div></a>
      </div>
      <div class="shop-header-arrow J-show-user-detail"></div>
      <div class="line-right fr"></div>
@@ -51,6 +51,23 @@
     </ul>
    </div>
   </div> 
+   <script type='text/javascript'>
+    (function(m, ei, q, i, a, j, s) {
+        m[i] = m[i] || function() {
+            (m[i].a = m[i].a || []).push(arguments)
+        };
+        j = ei.createElement(q),
+            s = ei.getElementsByTagName(q)[0];
+        j.async = true;
+        j.charset = 'UTF-8';
+        j.src = '//static.meiqia.com/dist/meiqia.js?_=t';
+        s.parentNode.insertBefore(j, s);
+    })(window, document, 'script', '_MEIQIA');
+     _MEIQIA('entId', '66109');
+    </script>
+    <script>
+     _MEIQIA('hidePanel');
+    </script>
 @section('content')
 
  @show 

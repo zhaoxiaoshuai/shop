@@ -96,8 +96,28 @@
         </div>    
 
         <div class="s_brand">
-        	<div class="s_brand_img"><img src="images/sbrand.jpg" width="188" height="132" /></div>
-            <div class="s_brand_c"><a href="#">进入品牌专区</a></div>
+        	<div class="shop-info-search-header">
+   <div class="shop-info-box">
+    <div class="J-user-info-box">
+     <div class="J-shop-user-info J-show-user-detail">
+          <a href="{{url('home/merchant/index?merchant_id='.$merchant['merchant_id'])}}" class="avatar" title="{{$merchant['merchant_name']}}"> 
+                <img style="width:80px;height:80px;margin: 22px 0px 10px 50px;" class="face fl" src="http://php182.oss-cn-beijing.aliyuncs.com/{{$merchant['merchant_logo']}}" />
+          </a>
+      <div class="name-score-wrap"> 
+       <div style="display:block;margin: 1px 1px 1px 60px;" class="name-wrap fl"> 
+            <a href="{{url('home/merchant/index')}}" class="name fl" title="{{$merchant['merchant_name']}}">{{$merchant['merchant_name']}}</a> 
+       </div> 
+      </div>
+     </div>
+     <div class="shop-header-action">
+     
+       <div class="mogutalk_widget_btn kefu fl mogutalk_widget4" style="width: 48px;
+        height:20px;background: url(https://s10.mogucdn.com/pic/150519/sp1ku_iezdizbwmi3temjugezdambqmmyde_1x1.gif) no-repeat 50%;background-size: 42px; margin: 1px 1px 1px 60px;cursor: pointer;" onclick="_MEIQIA('showPanel')" data-bid="1pile4#23" data-style="widget4" data-from="shop-header"></div>
+       </a>
+     </div>
+    </div>
+   </div>
+  </div>
         </div>
 
 
