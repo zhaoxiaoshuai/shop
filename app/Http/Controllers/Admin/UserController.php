@@ -10,10 +10,6 @@ use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
-    public function submit()
-    {
-        echo 1;
-    }
     /**
      * Display a listing of the resource.
      *
@@ -26,14 +22,24 @@ class UserController extends Controller
 //            $status = trim($request['status']);
             $username = trim($request['username']);
 //            $stas = User::where('status',$status)->paginate(3);
-            $data = User::where('user_email','like',"%".$username."%") -> orwhere('user_phone','like',"%".$username."%")->paginate(2);
+            $data = User::where('user_email','like',"%".$username."%") -> orwhere('user_phone','like',"%".$username."%")->paginate(3);
 //            dd($data);
             return view('admin.user.index',compact('data','username'));
         }else{
+            //判断排序
+            if($request->has('o')){
+                $order = $request->input('o');
+                $d = empty($request->input('d')) ? 'asc' : $request->input('d');
+//                 dd($order);
+                //取数据
+                $key = '';
+                $data = User::orderBy($order,$d) -> paginate(10);
+                return view('admin.user.index',compact('data','key','o','d'));
+            }
             //查询出User表所有的值
             $data = User::paginate(10);
             //向前台模板传变量
-            return view('admin.user.index',compact('data'));
+            return view('admin.user.index',compact('data','desc'));
         }
 
 
@@ -69,7 +75,7 @@ class UserController extends Controller
      */
     public function show()
     {
-        echo 4;
+
     }
 
     /**

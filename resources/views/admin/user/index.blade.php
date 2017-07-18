@@ -28,9 +28,29 @@
                                     <th>ID</th>
                                     <th>手机账号</th>
                                     <th>邮箱账号</th>
-                                    <th>创建时间</th>
+                                    <th>
+                                        @if(empty($d) || $d == 'asc')
+                                            <a href="{{url('admin/user/').'?o=createtime&d=desc'}}">
+                                                创建时间
+                                            </a>
+                                        @else
+                                            <a href="{{url('admin/user/').'?o=createtime'}}">
+                                                创建时间
+                                            </a>
+                                        @endif
+                                    </th>
                                     <th style="width:20px;">token</th>
-                                    <th>状态</th>
+                                    <th>
+                                        @if(empty($d) || $d == 'asc')
+                                            <a href="{{url('admin/user/').'?o=status&d=desc'}}">
+                                                状态
+                                            </a>
+                                        @else
+                                            <a href="{{url('admin/user/').'?o=status'}}">
+                                                状态
+                                            </a>
+                                        @endif
+                                    </th>
                                     <th>操作</th>
                                 </tr>
                                 </thead>
@@ -66,7 +86,6 @@
                             </table>
                             <?php
                                 $username  = empty($username) ? '' : $username;
-
                             ?>
                         </div>
                         <div class="am-u-lg-12 am-cf">
@@ -94,7 +113,6 @@
                                 }
                             </style>
                             <script>
-
                                 function DelUser(user_id){
                                     //询问框
                                     layer.confirm('是否确认删除？', {
@@ -117,8 +135,6 @@
                                     });
 
                                 }
-
-
                             </script>
                         </div>
                     </div>

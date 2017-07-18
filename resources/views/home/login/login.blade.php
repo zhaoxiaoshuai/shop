@@ -65,7 +65,7 @@
             @endif
             <div class="login-links">
                 <label for="remember-me">
-                    <input id="remember-me" type="checkbox" checked>记住密码</label>
+                    <input id="remember-me" type="checkbox" checked name="remember" >记住密码</label>
                 <a href="{{url('home/user/findpwd')}}" class="am-fr">忘记密码</a>
                 <a href="{{url('home/user/register')}}" class="zcnext am-fr am-btn-default">注册</a>
                 <br />
