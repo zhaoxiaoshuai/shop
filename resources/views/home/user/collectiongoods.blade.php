@@ -5,9 +5,7 @@
 	
 <div class="m_right">
             <p></p>
-            <div class="mem_tit">
-                <span class="fr" style="font-size:12px; color:#55555; font-family:'宋体'; margin-top:5px;">共发现4件</span>我的收藏
-            </div>
+            
             <table border="0" class="order_tab" style="width:930px;" cellspacing="0" cellpadding="0">
               <tbody>
               <tr>                                                                                                                                       

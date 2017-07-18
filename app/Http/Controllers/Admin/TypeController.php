@@ -143,7 +143,7 @@ class TypeController extends Controller
         $input = $request->except('_token','_method');
         
         $res = DB::table('type')->where('type_id', $id)->update($input);
-        dd($input);
+        
         if ( $res) {
             return redirect('admin/atype');
              

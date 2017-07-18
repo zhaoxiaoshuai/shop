@@ -20,10 +20,10 @@ class CollectiongoodsController extends Controller
 
     public function index(Request $request)
     {   
-        // 用户id
-        $user_id = '48';
-
-        $res1 = Collectiongoods::where ('user_id',$user_id)->get();
+ 
+        // 获取用户id
+        $id = session('logins')['user_id'];
+        $res1 = Collectiongoods::where ('user_id',$id)->get();
 
         $arr = [];
         foreach($res1 as $k=>$v){
@@ -33,6 +33,48 @@ class CollectiongoodsController extends Controller
         $good = Good::whereIn('good_id',$arr)->get();
         return view('home.user.collectiongoods',['data'=>$good]);
     }
+
+
+
+
+
+        /**
+     * 商品收藏
+     * @author 邹帅
+    */
+     public function collection($id)
+    {   
+        $user_id = session('logins')['user_id'];
+       
+
+        
+
+        if(empty($user_id)){
+           $data = [
+                'status'=>1,
+                'msg'=>'请先登入！'
+           ];
+           return;
+        }
+
+
+        $res = Collectiongoods::insert(['user_id' => $user_id, 'good_id' => $id,'collect_goods_time'=>time()]);
+         if($res){
+           $data = [
+                'status'=>0,
+                'msg'=>'收藏成功！'
+           ];
+        }else{
+           $data = [
+                'status'=>1,
+                'msg'=>'收藏失败！'
+           ];
+       }
+       return $data;
+
+    }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -113,10 +155,6 @@ class CollectiongoodsController extends Controller
            ];
        }
        return $data;
-
-
-
-
 
     }
 
