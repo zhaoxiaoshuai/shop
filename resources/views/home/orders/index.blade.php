@@ -21,13 +21,13 @@
                 <td>{{ $v['order_total'] }}</td>
                 <td>{{$status[$v->order_status]}}</td>
                 <td><a href="{{ url('home/orders/'.$v['order_id']) }}">详情</a> |
-                    @if($v->order_status == 3)
+                    @if( ($v['order_status'] == 3)  )
                     <a href="{{ url('home/comment/'.$v['order_id']) }}">评价</a> |
                     @endif
-                    @if( ($v->order_status == 2) || ($v->order_status == 1) )
+                    @if( ($v['order_status'] == 2) || ($v['order_status'] == 1) )
                     <a href="{{ url('home/changeorders/'.$v['order_id']) }}">取消订单</a>
                     @endif
-                    @if( ($v->order_status == 2) || ($v->order_status == 1) )
+                    @if( ($v['order_status'] == 2) || ($v['order_status'] == 1) )
                     <a href="{{ url('home/shouhuo/'.$v['order_id']) }}">确认收货</a>
                     @endif
                   </td>

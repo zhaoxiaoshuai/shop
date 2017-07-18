@@ -83,6 +83,8 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 		Route::resource('link','LinkController');
 		//轮播图路由
 		Route::resource('carousel','CarouselController');
+		//轮播图图片
+        Route::any('uploadcarousel','CarouselController@uploadcarousel');
 		//系统配置
 		Route::resource('config','ConfController');
 		//权限注册
@@ -94,10 +96,6 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 	});
 });
 
-
-//系统配置
-Route::resource('config','Admin\ConfController');
-Route::any('admin/uploadconf','Admin\ConfController@uploadconf');//LOGO图片上传
 
 
 // 商家信息路由

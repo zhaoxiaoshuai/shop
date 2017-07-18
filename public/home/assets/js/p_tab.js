@@ -3,7 +3,7 @@
 var jq = jQuery.noConflict();
 
 jQuery(function(){
-//ÓÅÊÆÒ³Ãæµã»÷×Óµ¼º½
+//ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½
 	var subNav_active = jq(".adv_active");
 	var subNav_scroll = function(target){
 		subNav_active.removeClass	("adv_active");
@@ -17,7 +17,7 @@ jQuery(function(){
 		jq("html,body").animate({scrollTop:targetScroll},300);
 		return false;
 	});
-	//Ò³ÃæÌø×ªÊ±¶¨Î»
+	//Ò³ï¿½ï¿½ï¿½ï¿½×ªÊ±ï¿½ï¿½Î»
 	if(window.location.hash){
 		var targetScroll = jq(window.location.hash).offset().top - 80;
 		jq("html,body").animate({scrollTop:targetScroll},300);

@@ -49,6 +49,7 @@ class CommentController extends Controller
         $comment->comment_level = $data['level'];
         $comment->comment_connect = $data['connect'];
         $comment->comment_time = time();
+        $id = $data['order_id'];
         $res = $comment->save();//执行添加语句
         if($res){
             return redirect('home/orders');

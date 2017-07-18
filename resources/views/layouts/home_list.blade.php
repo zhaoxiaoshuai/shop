@@ -1,7 +1,7 @@
             <!--Begin 商品分类详情 Begin-->
             <div class="nav">
                 <div class="nav_t">全部商品分类</div>
-                <div class="leftNav">
+                <div class="leftNav" style="display:block;">
                    <ul >
                    @foreach($data as $k=>$v)
                     <li >
@@ -10,7 +10,7 @@
                             <span class="fl">{{ $v['type_name']}}</span>
                              </div>
                         </a>
-                         <div class="zj" style="top:{{ $i = $i-40}}px;display:none;">
+                         <div class="zj" style="top:{{ $i = $i-40}}px;">
                             <div class="zj_l">
                                 <?php $type2 = DB::table('type')->where('pid',$v['type_id'])->get(); ?>
 
@@ -25,6 +25,7 @@
                                      @endif
                                 </div>
                                     @endforeach
+                            </div>
                         </div>
                     </li>
                     @endforeach         

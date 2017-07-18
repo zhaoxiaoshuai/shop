@@ -29,14 +29,14 @@
             <!--End Banner End-->
             <div class="inews">
                 <div class="news_t">
-                    <span class="fr"><a href="#">更多 ></a></span>新闻资讯
+                    <span class="fr"><a href="#">更多 ></a></span>最新预告
                 </div>
                 <ul>
-                    <li><span>[ 特惠 ]</span><a href="#">掬一轮明月 表无尽惦念</a></li>
-                    <li><span>[ 公告 ]</span><a href="#">好奇金装成长裤新品上市</a></li>
-                    <li><span>[ 特惠 ]</span><a href="#">大牌闪购 · 抢！</a></li>
-                    <li><span>[ 公告 ]</span><a href="#">发福利 买车就抢千元油卡</a></li>
-                    <li><span>[ 公告 ]</span><a href="#">家电低至五折</a></li>
+                    <li><span>[ 1 ]</span><a href="#">掬一轮明月 表无尽惦念</a></li>
+                    <li><span>[ 2 ]</span><a href="#">好奇金装成长裤新品上市</a></li>
+                    <li><span>[ 3 ]</span><a href="#">大牌闪购 · 抢！</a></li>
+                    <li><span>[ 4 ]</span><a href="#">发福利 买车就抢千元油卡</a></li>
+                    <li><span>[ 5 ]</span><a href="#">家电低至五折</a></li>
                 </ul>
                 <div class="charge_t">
                     话费充值<div class="ch_t_icon"></div>
@@ -95,7 +95,7 @@
                                             <div class="name">
                                                 <a href="home/gooddetail/{{ $v['good_id'] }}">
                                                     <h2>{{ $v['good_name'] }}</h2>
-                                                    {{ $v['good_desc'] }}
+                                                    {!! $v['good_desc'] !!}
                                                 </a>
                                             </div>
                                             <div class="price">
@@ -123,7 +123,6 @@
         <?php $arr[] = $v['type_id']; ?>
         <div class="i_t mar_10">
             <span class="fl">{{ $v['type_name'] }}</span>
-            <span class="i_mores fr"><a href="#">咖啡</a>&nbsp; &nbsp; | &nbsp; &nbsp;<a href="#">休闲零食</a>&nbsp; &nbsp; | &nbsp; &nbsp;<a href="#">饼干糕点</a>&nbsp; &nbsp; | &nbsp; &nbsp;<a href="#">冲饮谷物</a>&nbsp; &nbsp; | &nbsp; &nbsp;<a href="#">营养保健</a></span>
         </div>
         <div class="content">
             <div class="food_left">
