@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Home;
 use App\Http\Model\User;
 use App\Http\Model\User_details;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Cookie;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Gregwar\Captcha\CaptchaBuilder;
@@ -21,9 +21,13 @@ class LoginController extends Controller
      */
     public function login(Request $request)
     {
-
+//        判断用户是否记住密码
+        $cookie = $request->cookie('admin');
+        if (session('adminFlag')) {
+            return redirect('admin/index');
+        }
         //加载登录视图
-        return view('home.login.login');
+        return view('home.login.login',['cookie'=>$cookie]);
     }
 
     //登录验证
@@ -52,6 +56,12 @@ class LoginController extends Controller
                     //昵称加入session
                     session(['deta_name'=>$dd['deta_name']]);
                     $lasttime = ['lasttime'=>time()];
+                    //判断是否记住密码
+                    if(!empty($res['remember'])){
+                        Cookie::queue('admin',$res,10080);
+                    }else{
+                        Cookie::queue('admin','',-1);
+                    }
                     User::where('user_id',$res['user_id']) -> update($lasttime);
                     //正确 返回主页
                     return redirect('/');

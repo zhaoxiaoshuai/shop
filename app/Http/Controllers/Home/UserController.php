@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Home;
 
+use App\Http\Model\Store;
+use App\Http\Model\StoreAdmin;
 use App\Http\Model\User;
 use App\Http\Model\User_details;
 use Validator;
@@ -98,6 +100,7 @@ class UserController extends Controller
                 $token = $input['token'];
                 //调用发送邮件方法
                 self::mailto($id,$email,$token);
+
                 return redirect('home/user/activate');
             }else{
                 //发送失败 返回
@@ -115,7 +118,7 @@ class UserController extends Controller
     public static function mailto($id,$email,$token)
     {
 
-        Mail::send('home.mail.index', ['id' => $id,'email'=>$email,'token'=>$token], function ($m) use ($email) {
+         Mail::send('home.mail.index', ['id' => $id,'email'=>$email,'token'=>$token], function ($m) use ($email) {
 
             $m->to($email)->subject('这是一封注册邮件!');
         });
@@ -364,6 +367,7 @@ class UserController extends Controller
         }else{
             //不一致确认修改
             User::where('user_id',$input['id']) -> update(['user_password'=>$newpassword]);
+            StoreAdmin::where('user_id',$input['id']) -> update(['store_admin_password'=>$newpassword]);
             //修改成功返回用户详情页面
             return redirect('home/user/user_details')->with('updateok','修改成功');
         }
@@ -502,9 +506,8 @@ class UserController extends Controller
     public function exit(Request $request)
     {
         //清除session中存的用户信息
-        $request->session()->flush();
+        session()->flush();
         //跳转到主页
-        return redirect('/');
-
+        return redirect('/') -> with('exit','已退出');
     }
 }

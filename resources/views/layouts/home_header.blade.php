@@ -20,11 +20,6 @@
 
     <script type="text/javascript" src="{{ asset('home/assets/js/jquery-1.8.2.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('home/assets/js/menu.js') }}"></script>
-
-    <script type="text/javascript" src="{{ asset('home/assets/js/select.js') }}"></script>
-
-    <script type="text/javascript" src="{{ asset('home/assets/js/lrscroll.js') }}"></script>
-
     <script type="text/javascript" src="{{ asset('home/assets/js/iban.js') }}"></script>
     <script type="text/javascript" src="{{ asset('home/assets/js/fban.js') }}"></script>
     <script type="text/javascript" src="{{ asset('home/assets/js/f_ban.js') }}"></script>
@@ -35,7 +30,7 @@
     <script src="{{asset('layer/layer.js')}}"></script>
     <script type="text/javascript" src="{{ asset('home/assets/js/lrscroll_1.js') }}"></script>
     <script type="text/javascript" src="{{ asset('home/js/PCASClass.js') }}"></script>
-    <link type="text/css" rel="stylesheet" href="{{asset('assets/css/style.css')}}" />
+
     <script type="text/javascript" src="{{asset('home/assets/js/jquery-1.8.2.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('home/assets/js/menu.js')}}"></script>
 
@@ -150,6 +145,11 @@
                 &nbsp;|&nbsp;<a href="#">我的订单</a>&nbsp;|
                 </span>
              @endif
+             @if(session('exit'))
+                <script>
+                    layer.msg('已退出',{icon:1});
+                </script>
+             @endif
         	<span class="ss">
             	<div class="ss_list">
                 	<a href="#">收藏夹</a>
@@ -203,7 +203,7 @@
                         </div>
                     </div>
                 </div>
-            <span class="fr">|&nbsp;<a href="#">手机版&nbsp;<img src="{{ asset('home/assets/images/s_tel.png') }}" align="absmiddle" /></a></span>
+
         </span>
     </div>
 </div>

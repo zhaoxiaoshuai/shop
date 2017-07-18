@@ -14,14 +14,10 @@
 <![endif]-->
 <script type="text/javascript" src="{{ asset('home/assets/js/jquery-1.11.1.min_044d0927.js') }}"></script>
 <script type="text/javascript" src="{{ asset('home/assets/js/jquery.bxslider_e88acd1b.js') }}"></script>
-
 <script type="text/javascript" src="{{ asset('home/assets/js/jquery-1.8.2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('home/assets/js/menu.js') }}"></script>
-
 <script type="text/javascript" src="{{ asset('home/assets/js/select.js') }}"></script>
-
 <script type="text/javascript" src="{{ asset('home/assets/js/lrscroll.js') }}"></script>
-
 <script type="text/javascript" src="{{ asset('home/assets/js/iban.js') }}"></script>
 <script type="text/javascript" src="{{ asset('home/assets/js/fban.js') }}"></script>
 <script type="text/javascript" src="{{ asset('home/assets/js/f_ban.js') }}"></script>
