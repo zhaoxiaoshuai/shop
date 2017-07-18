@@ -20,24 +20,15 @@ class MycartController extends Controller
     public function index()
     {
         $uid = session('logins')['user_id'];
-        // dd(session('logins'));
-        // dd($uid);
-        // if(empty($uid)){
-        //     return view('home.login.login');
-        // }else{
-        //     //将session中的购物车信息插入到数据库中
-        //     // dd(session('cart'));
-        //     $data['good_id'] = session('cart')->good_id;
-        //     $data['user_id'] = $uid;
-        //     $data['cart_cnt'] = session('good_num');
-        //     // dd($data);
-        //     $res = Cart::create($data);
-        // }
         //加载购物车页面
-            $data1 = Cart::join('goods','goods.good_id','=','cart.good_id')->where('cart.user_id',$uid)->get();
-            // dd($data1);
+        session(['flag'=>'show']);
+        // dd(session('flag'));
+        $status = ['cart_status'=>0];
+        Cart::where('user_id',$uid)->update($status);
+        $data1 = Cart::join('goods','goods.good_id','=','cart.good_id')->where('cart.user_id',$uid)->get();
+        // dd($data1);
                     // dd($data1);
-            return view('home.mycart.index',['data1'=>$data1]);
+        return view('home.mycart.index',['data1'=>$data1]);
     }
 
     /**
@@ -47,7 +38,25 @@ class MycartController extends Controller
      */
     public function create()
     {
-        //
+        
+        //判断是否登录,登录之后插入数据库
+        $uid = session('logins')['user_id'];
+        // dd(session('logins'));
+        // dd($uid);
+        if(empty($uid)){
+            return view('home.login.login');
+        }else{
+            //将session中的购物车信息插入到数据库中
+            // dd(session('cart'));
+            $data['good_id'] = session('cart')->good_id;
+            $data['user_id'] = $uid;
+            $data['cart_cnt'] = session('good_num');
+            // dd($data);
+            $res = Cart::create($data);
+            if($res){
+               return redirect('home/mycart');  
+            }
+        }
     }
 
     /**

@@ -69,6 +69,10 @@ class AddressController extends Controller
         // dd($data1);
         $res = Address::create($data1);
         if($res){
+            // 如果session中有back那就跳到订单页去
+            if (!empty(session('back')) && session('back')=='commit') {
+                return redirect('/home/orders/create');
+            }
             return redirect('/home/address');
         }else{
             return "添加失败！";

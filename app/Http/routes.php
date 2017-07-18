@@ -170,6 +170,10 @@ Route::get('/', 'Home\IndexController@index');
 Route::post('home/search','Home\SearchController@search');
 // 前台收货地址
 Route::resource('home/address','Home\AddressController');
+// 订单路由
+Route::get('home/orders/commit','Home\OrdersController@commit');  //提交订单
+Route::post('home/orders/comfirm','Home\OrdersController@comfirm');  //确认订单
+Route::get('home/orders/finish','Home\OrdersController@finish');  //生成订单
 //前台个人订单显示
 Route::resource('home/orders','Home\OrdersController');
 //取消订单
@@ -183,8 +187,7 @@ Route::get('home/mycart/addmycart','Home\MycartController@addmycart');
 //清空购物车
 Route::get('home/mycart/delete','Home\MycartController@delete');
 Route::resource('home/mycart','Home\MycartController');
-// 订单路由
-Route::get('home/orders/commit','Home\OrdersController@commit');  //提交订单
+
 
 
 

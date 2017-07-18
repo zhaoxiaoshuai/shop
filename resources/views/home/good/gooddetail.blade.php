@@ -362,7 +362,7 @@
                   </tr>
                   <tr height="50" valign="bottom">
                   	<td>&nbsp;</td>
-                    <td><a href="{{url('home/mycart')}}" class="b_sure">去购物车结算</a><a href="{{url('/')}}" class="b_buy">继续购物</a></td>
+                    <td><a href="{{url('home/mycart/create')}}" class="b_sure">去购物车结算</a><a href="{{url('/')}}" class="b_buy">继续购物</a></td>
                   </tr>
                 </table>
 
