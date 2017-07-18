@@ -32,7 +32,7 @@ class CarouselController extends Controller
     }
 
     //执行ajax
-    public function upload()
+    public function uploadcarousel()
     {
 //        将上传文件移动到制定目录，并以新文件名命名
         $file = Input::file('file_upload');

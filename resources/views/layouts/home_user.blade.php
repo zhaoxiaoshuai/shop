@@ -1,7 +1,7 @@
 @include('layouts.home_header')
 <div class="m_top_bg">
         <div class="top">
-            <div class="m_logo" style="height:110px;width:210px;margin-top:15px;"><a href="Index.html"><img src="{{ 'http://php182.oss-cn-beijing.aliyuncs.com/'.config('web.conf_logo') }}"></a></div>
+            <div class="m_logo" style="height:110px;width:210px;margin-top:15px;"><a href="{{ url('') }}"><img src="{{ 'http://php182.oss-cn-beijing.aliyuncs.com/'.config('web.conf_logo') }}"></a></div>
             <div class="m_search" style="width:360px;margin-left:370px;">
                 <form>
                     <input type="text" value="" class="m_ipt" style="width:250px;">

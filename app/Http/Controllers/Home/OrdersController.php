@@ -10,6 +10,7 @@ use DB;
 use App\Http\Model\Orders;
 use App\Http\Model\Detail;
 use App\Http\Model\Comment;
+use App\Http\Model\User;
 
 class OrdersController extends Controller
 {
@@ -20,11 +21,20 @@ class OrdersController extends Controller
      */
     public function index()
     {
-
-        $orders = Orders::join('user','orders.user_id','=','user.user_id')
+        $id = session('logins')->user_id;
+//        dd($id);
+        $orders = User::join('orders','user.user_id','=','orders.user_id')
+            ->where('user.user_id',$id)
+            ->select('orders.order_id','orders.order_time','orders.order_total','orders.order_status')
             ->orderBy('order_time','desc')
             ->paginate(5);
-        return view('home.orders.index',compact('orders'));
+
+//        $com = Orders::join('comment','orders.order_id','=','comment.order_id')
+//            ->select('comment.comment_content')
+//            ->where('orders.order_id',)
+//            ->get()[0];
+//        dd($com);
+        return view('home.orders.index',['orders'=>$orders]);
     }
 
     /**

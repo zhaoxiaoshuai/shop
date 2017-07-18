@@ -22,9 +22,9 @@
               <tr valign="top" height="80">
                 <td>商品满意度</td>
                 <td colspan="2" style="padding-top:10px;">
-                    <input type="checkbox" name="level" value="1">差评
-                    <input type="checkbox" name="level" value="2">中评
-                    <input type="checkbox" name="level" value="3">好评
+                    <input type="radio" name="level" value="1">差评
+                    <input type="radio" name="level" value="2">中评
+                    <input type="radio" name="level" value="3">好评
                 </td>
               </tr>
                 <tr valign="top" height="180">
