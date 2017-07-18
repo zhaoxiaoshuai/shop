@@ -34,7 +34,8 @@
             </tr>
             @foreach($data1 as $k=>$v)
             <tr class="car_tr">
-                <td width="5%"><input type="checkbox"  name="" class="child"></td>
+
+                <td width="5%"><input type="checkbox"  name="cart_thcheck" class="child" value="{{$v->good_id}}"></td>
                 <td>
                     <div class="c_s_img">
                         <img src="http://php182.oss-cn-beijing.aliyuncs.com/{{ $v->good_pic}}" width="73" height="73" />
@@ -58,7 +59,7 @@
                 <td align="center" style="color:#ff4e00;" >
                     {{$v->good_price}}
                 </td>
-                <td align="center" >
+                <td align="center" class="good_price" >
                     {{$v->cart_cnt * $v->good_price }}
                 </td>
                 <td align="center" >
@@ -102,7 +103,7 @@
             <tr height="70">
                 <td colspan="6" style="font-family:'Microsoft YaHei'; border-bottom:0;">
                     <label class="r_rad">
-                        <input type="checkbox" name=""   class="all" /> 全选
+                        <input type="checkbox" name=""   class="all " /> 全选
                     </label>
                     
                     <label class="r_txt">
@@ -110,9 +111,9 @@
                     </label>
                     <span class="fr">
                         商品总价：
-                        <b style="font-size:22px; color:#ff4e00;">
-                           
-                        </b>
+                        <b style="font-size:22px; color:#ff4e00;" id="cont">
+                           0
+                        </b>    
                     </span>
                 </td>
             </tr>
@@ -122,7 +123,7 @@
                         <img src="{{ asset('home/images/buy1.gif') }}" />
                     </a>
                     &nbsp; &nbsp;
-                    <a href="{{url('home/orders/commit')}}">
+                    <a  href="javascript:;" id='comfirm'>
                         <img src="{{ asset('home/images/buy2.gif') }}" />
                     </a>
                 </td>
@@ -169,11 +170,41 @@
                 $('.child').prop("checked", true);
             }else{
                 //全不选
-                
                 $('.child').prop("checked", false);
                 
             }
         }) 
     </script>
     <!--End 弹出层-删除商品 End-->
+    <script type="text/javascript">
+    function abc(){
+        var h=0;
+        $('.car_tr').each(function(){
+            b=$(this).find('input:checked');
+            if(b.length>0){
+                h += parseInt($(this).find('td').eq(5).html());
+            };
+        });
+        $('#cont').html(h);
+    }
+    $('input').click(abc).change(abc);
+    </script>
+    <script type="text/javascript">
+        $('#comfirm').click(function(){
+
+            var good_id = [];
+           var good = $('.car_tr').find('input:checked');
+           good.each(function(){
+            good_id.push($(this).val());
+           });
+           $.get("{{url('home/orders/commit')}}", {good_id: good_id}, function(msg) {
+              console.log(good_id);
+              if(msg != '0'){
+                location.href="{{url('home/orders/create')}}";
+              }
+
+              // 
+           });
+        });
+    </script>
 @endsection

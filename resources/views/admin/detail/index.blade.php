@@ -48,7 +48,7 @@
                                         {{$v->good_price}}
                                     </td>
                                     <td class="am-text-middle">
-                                        {{$v->good_count}}
+                                        {{$v->order_cnt}}
                                     </td>
                                     <td class="am-text-middle">
                                         {{$v->order_total}}

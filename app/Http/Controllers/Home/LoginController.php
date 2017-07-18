@@ -64,6 +64,10 @@ class LoginController extends Controller
                     }
                     User::where('user_id',$res['user_id']) -> update($lasttime);
                     //正确 返回主页
+                    // 如果session中有flag那就跳到购物车去
+                    if (!empty(session('flag')) && session('flag')=='show') {
+                        return redirect('home/mycart');
+                    }
                     return redirect('/');
                 }else{
                     return back()->with('activation','请激活后重新登录');

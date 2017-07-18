@@ -10,7 +10,11 @@ use DB;
 use App\Http\Model\Orders;
 use App\Http\Model\Detail;
 use App\Http\Model\Comment;
+
 use App\Http\Model\User;
+use App\Http\Model\Cart;
+use App\Http\Model\Address;
+use App\Http\Model\Good;
 
 class OrdersController extends Controller
 {
@@ -44,7 +48,21 @@ class OrdersController extends Controller
      */
     public function create()
     {
-        //
+        //查询商品
+        $uid = session('logins')['user_id'];
+        $data = Cart::join('goods','goods.good_id','=','cart.good_id')->where('user_id',$uid)->where('cart_status',1)->get();
+        //显示生成订单列表
+        // dd($data);
+        //获取总金额
+        $total = "";
+        foreach ($data as $to) {
+            $total += $to->good_price*$to->cart_cnt;
+        }
+        //获取用户的地址
+        $list = Address::where('user_id',$uid)->get();
+        session(['back'=>'commit']);
+
+        return view('home.orders.commit',compact('data','total','list'));
     }
 
     /**
@@ -128,5 +146,91 @@ class OrdersController extends Controller
     {
         //
 
+    }
+
+    //提交订单
+    public function commit(Request $request)
+    {
+        //获取用户的信息
+        $uid = session('logins')['user_id'];
+        //获取选中的商品id
+        $good_id = $request->only('good_id')['good_id'];
+        //查询购物车中相应的商品id
+        $good = [];
+        $status = ['cart_status'=>1];
+        foreach ($good_id as $k => $v) {
+            $data = Cart::where('user_id',$uid)->where('good_id',$v)->update($status);
+        }
+
+        return $status;
+    }
+
+    //确认订单 加入订单信息
+    public function comfirm(Request $request)
+    {   
+        
+        //获取用户的id
+        $uid = session('logins')['user_id'];
+        //获取购买的信息
+        $list = Cart::join('goods','goods.good_id','=','cart.good_id')->where('user_id',$uid)->get();
+        $total = '';
+        foreach($list as $k=>$v){
+            $total += $v->cart_cnt * $v->good_price;
+        }
+        //获取用户的信息
+        $data = $request -> except('_token');
+        $address_id = $data['address'];
+        $order_msg = $data['order_msg'];
+        $res = Address::where('address_id',$address_id)->get();
+        // 获取数据 写入订单表
+        $data1['order_id'] = date('YmdHis').rand(1000,9999);
+        $data1['order_type'] = 1;
+        $data1['user_id'] = $uid;
+        $data1['order_time'] = time();
+        $data1['order_total'] = $total;
+        $data1['order_cnt'] = $v->cart_cnt;
+        $data1['order_status'] = 2;
+        $data1['order_msg'] = $order_msg;
+        foreach($res as $kk=>$vv){
+            $data1['order_linkman'] = $vv->name;
+            $data1['order_address'] = $vv->address;
+            $data1['order_phone'] = $vv->phone;
+        }
+        $res1 = Orders::create($data1);
+        // 获取数据写入详情表
+        $data2['order_id'] = $data1['order_id'];
+        $data2['good_id'] = $v->good_id;
+        $res2 = Detail::create($data2);
+        //修改商品表的库存和销量
+        $re = Good::where('good_id',$v->good_id)->get();
+        
+        foreach($re  as $kkk=>$vvv){
+            $data3['good_count'] = $vvv->good_count - $v->cart_cnt;
+            $data3['good_salecnt'] = $vvv->good_salecnt + $v->cart_cnt;
+        }
+        $res3 = Good::where('good_id',$v->good_id) -> update($data3);
+        // dd($res3);
+        if($res1 && $res2 && $res3){
+            return redirect()->action('Home\OrdersController@finish');
+        }else{
+            return back()->with('error','下单失败');
+        }
+        
+        
+        
+    }
+
+    public function finish()
+    {
+        //用户的id
+        $uid = session('logins')['user_id'];
+        //查询订单号
+        $data = Orders::where('user_id',$uid)->orderBy('order_time','desc')->first();
+        
+        $total = $data->order_total;
+        $order_id = $data->order_id;
+        // dd($order_id);
+        
+        return view('home.orders.comfirm',['total'=>$total,'order_id'=>$order_id]);
     }
 }
