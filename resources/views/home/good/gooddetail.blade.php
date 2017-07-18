@@ -245,17 +245,7 @@
                 <div class="des_con">
                 	<table border="0" align="center" style="width:745px; font-size:14px; font-family:'宋体';" cellspacing="0" cellpadding="0">
                       <tr>
-                        {{--<td width="265"><img src="" width="206" height="412" /></td>--}}
                         <td>
-                        	{{--<b>迪奥真我香水(Q版)</b><br />--}}
-                            {{--【商品规格】：5ml<br />--}}
-                            {{--【商品质地】：液体<br />--}}
-                            {{--【商品日期】：与专柜同步更新<br />--}}
-                            {{--【商品产地】：法国<br />--}}
-                            {{--【商品包装】：无外盒 无塑封<br />--}}
-                            {{--【商品香调】：花束花香调<br />--}}
-                            {{--【适用人群】：适合女性（都市白领，性感，有女人味的成熟女性）<br />--}}
-                            {{--{!! $good->good_desc !!}--}}
                             {!!$good->good_desc!!}
                             @foreach($pics as $k=>$v)
                                 <img src="http://php182.oss-cn-beijing.aliyuncs.com/{{$v->good_pics}}" tsImgS="images/ps1.jpg" width="750" height="410" style="display: block"/>

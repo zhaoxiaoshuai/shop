@@ -16,34 +16,37 @@
                         </div>
                     </div>
                 </div>
+                <form action="{{url('/admin/good')}}" method="get">
                 <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
                     <div class="am-form-group tpl-table-list-select">
-                        <select data-am-selected="{btnSize: 'sm'}" style="display: none;">
+                        <select data-am-selected="{btnSize: 'sm'}" name="keywords2" style="display: none;">
                             <option value="option1">所有类别</option>
-                            <option value="option2">IT业界</option>
-                            <option value="option3">数码产品</option>
-                            <option value="option3">笔记本电脑</option>
-                            <option value="option3">平板电脑</option>
-                            <option value="option3">只能手机</option>
-                            <option value="option3">超极本</option>
+                            <option value="">请选择</option>
+                            @foreach($type as $k=>$v)
+                                <?php
+                                $n = substr_count( $v['type_npath'] ,'-')-2;
+                                $v['type_name'] = str_repeat('&nbsp;',$n*8).'|--'.$v['type_name'];
+                                ?>
+                                <option value="{{ $v['type_id'] }}">{{ $v['type_name'] }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
                 <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
-                    <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-                        <form action="{{url('/admin/good')}}" method="get">
-                            <input type="text" class="am-form-field " name="keywords" style="width:60%">
+                    <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p" style="width:150px">
+
+                            <input type="text" class="am-form-field " name="keywords1" >
                             <span class="am-input-group-btn">
                             <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="submit"></button>
                             </span>
-                        </form>
+
                     </div>
                 </div>
+                </form>
                 <div class="am-u-sm-12">
                     <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black " id="example-r">
                         <thead>
                         <tr class="gradeX">
-                            <th class="tc" width="5%"><input type="checkbox" name="" id="inp"></th>
                             <th>商品ID</th>
                             <th>商品名称</th>
                             <th>商品状态</th>
@@ -52,9 +55,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                            @foreach ($data as $k=>$v)
-                                <tr class="gradeX">
-                                <td width="5%"><input type="checkbox" name="" class="cls"></td>
+                            @foreach ($good as $k=>$v)
                                 <td>{{$v->good_id}}</td>
                                 <td>{{$v->good_name}}</td>
                                 @if($v->good_status==1)
@@ -86,10 +87,12 @@
                 </div>
                 <div class="am-u-lg-12 am-cf">
                     <?php
-                    $key = empty($key)?'':$key;
+                    $key1 = empty($key1)?'':$key1;
+                    $key2 = empty($key2)?'':$key2;
                     ?>
+
                     <div class="am-fr">
-                            {!! $data->appends(['keywords' => $key])->render() !!}
+                            {!! $good->appends(['keywords1' => $key1,'keywords2' => $key2,'type'=>$type])->render() !!}
                     </div>
                 </div>
             </div>

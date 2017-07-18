@@ -128,6 +128,12 @@
             </div>
         </div>
         <div class="am-form-group">
+            <label for="user-name" class="am-u-sm-3 am-form-label">上传商品缩略图 <span class="tpl-form-line-small-title"></span></label>
+            <div class="am-u-sm-9">
+                <input type="file" class="tpl-form-input" id="user-name" name="good_pics[]" placeholder="点击上传商品缩略图" multiple>
+            </div>
+        </div>
+        <div class="am-form-group">
             <label for="user-name" class="am-u-sm-3 am-form-label">商品库存 <span class="tpl-form-line-small-title"></span></label>
             <div class="am-u-sm-9">
                 <input type="text" class="tpl-form-input" id="user-name" name="good_count" placeholder="请输入商品库存">
