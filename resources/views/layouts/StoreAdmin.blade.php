@@ -201,7 +201,12 @@
                     </a>
                     <ul class="sidebar-nav sidebar-nav-sub" style="display: none;">
                         <li class="sidebar-nav-link">
-                            <a href="">
+                            <a href="{{ url('store/comment/index') }}">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span>回复评论
+                            </a>
+                        </li>
+                        <li class="sidebar-nav-link">
+                            <a href="{{ url('store/comment/show') }}">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span>查看评论
                             </a>
                         </li>

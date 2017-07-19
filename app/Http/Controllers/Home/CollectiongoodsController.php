@@ -21,9 +21,11 @@ class CollectiongoodsController extends Controller
     public function index(Request $request)
     {   
  
+
         // 获取用户id
         $id = session('logins')['user_id'];
         $res1 = Collectiongoods::where ('user_id',$id)->get();
+
 
         $arr = [];
         foreach($res1 as $k=>$v){
