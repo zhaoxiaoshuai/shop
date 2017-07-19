@@ -26,7 +26,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 	//ajax判断验证码
 	Route::post('proving','LoginController@proving');
 	//判断登录和权限中间件组
-	Route::group(['middleware' =>['login','has.auth']] ,function(){
+	Route::group(['middleware' =>['adminlogin','has.auth']] ,function(){
 		//后台退出
 		Route::get('logout','LoginController@logout');
 		//后台首页
@@ -91,88 +91,94 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 });
 
 /*==========================前台===============================*/
-//前台登录
-Route::get('home/login','Home\LoginController@login');
-Route::post('home/login/do','Home\LoginController@logindo');
-//前台用户操作
-Route::controller('home/user','Home\UserController');
 //前台首页
 Route::get('/', 'Home\IndexController@index');
-//前台全局搜索
-Route::post('home/search','Home\SearchController@search');
-// 前台收货地址
-Route::resource('home/address','Home\AddressController');
-// 订单路由
-Route::get('home/orders/commit','Home\OrdersController@commit');  //提交订单
-Route::post('home/orders/comfirm','Home\OrdersController@comfirm');  //确认订单
-Route::get('home/orders/finish','Home\OrdersController@finish');  //生成订单
-//前台个人订单显示
-Route::resource('home/orders','Home\OrdersController');
-//取消订单
-Route::any('home/changeorders/{id}','Home\OrdersController@changeorders');
-//确认收货
-Route::any('home/shouhuo/{id}','Home\OrdersController@shouhuo');
-//去付款
-Route::any('home/jiesuan/{id}','Home\OrdersController@jiesuan');
-//前台订单评价
-Route::resource('home/comment','Home\CommentController');
-// 加载购物车
-Route::get('home/mycart/addmycart','Home\MycartController@addmycart');
-//清空购物车
-Route::get('home/mycart/delete','Home\MycartController@delete');
-Route::resource('home/mycart','Home\MycartController');
-// 前台商家路由
-Route::resource('home/hstore','Home\StoreController');
-// 入驻市场路由
-Route::get('home/MerSettled','Home\StoreController@MerSettled');
-//入驻市场提交
-Route::post('home/CreateStore','Home\StoreController@CreateStore');
-// 用户入驻市场申请页面路由1(如果用户没登录走这个路由)
-Route::get('home/MerApplication1','Home\StoreController@MerApplication1');
-// 用户入驻市场申请页面路由2
-Route::get('home/MerApplication2','Home\StoreController@MerApplication2');
-// 用户入驻市场申请页面路由3
-Route::get('home/MerApplication3','Home\StoreController@MerApplication3');
-// 用户入驻市场申请图片上传
-Route::any('home/upload1','Home\StoreController@upload1');
-Route::any('home/upload2','Home\StoreController@upload2');
-//前台商品路由
-//前台商品列表页路由
-Route::any('home/goodlist/{id}','Home\GoodController@goodList');
-//前台商品详情页路由
-Route::any('/home/gooddetail/{id}','Home\GoodController@goodDetail');
-//前台新品商品列表页路由
-Route::any('home/newgoodlist/{id}','Home\GoodController@newgoodList');
-//前台店铺路由
-Route::controller('/home/merchant','Home\MerchantController');
-//收藏详情页
-Route::resource('home/Collectiongoods','Home\CollectiongoodsController');
-Route::get('home/collection/{id}','Home\CollectiongoodsController@collection');
+Route::group(['prefix'=>'home','namespace'=>'Home'],function(){
+	//前台全局搜索
+	Route::post('search','SearchController@search');
+	//前台登录
+	Route::get('login','LoginController@login');
+	Route::post('login/do','LoginController@logindo');
+	//前台商品路由
+	//前台商品列表页路由
+	Route::any('goodlist/{id}','GoodController@goodList');
+	//前台商品详情页路由
+	Route::any('gooddetail/{id}','GoodController@goodDetail');
+	//前台新品商品列表页路由
+	Route::any('newgoodlist/{id}','GoodController@newgoodList');
+	//前台店铺路由
+	Route::controller('merchant','MerchantController');
+	Route::group(['middleware' =>'homelogin'] ,function(){
+		//前台用户操作
+		Route::controller('user','UserController');
+		// 前台收货地址
+		Route::resource('address','AddressController');
+		// 订单路由
+		Route::get('orders/commit','OrdersController@commit');  //提交订单
+		Route::post('orders/comfirm','OrdersController@comfirm');  //确认订单
+		Route::get('orders/finish','OrdersController@finish');  //生成订单
+		//前台个人订单显示
+		Route::resource('orders','OrdersController');
+		//取消订单
+		Route::any('changeorders/{id}','OrdersController@changeorders');
+		//确认收货
+		Route::any('shouhuo/{id}','OrdersController@shouhuo');
+		//去付款
+		Route::any('jiesuan/{id}','OrdersController@jiesuan');
+		//前台订单评价
+		Route::resource('comment','CommentController');
+		// 加载购物车
+		Route::get('mycart/addmycart','MycartController@addmycart');
+		//清空购物车
+		Route::get('mycart/delete','MycartController@delete');
+		Route::resource('mycart','MycartController');
+		// 前台商家路由
+		Route::resource('hstore','StoreController');
+		// 入驻市场路由
+		Route::get('MerSettled','StoreController@MerSettled');
+		//入驻市场提交
+		Route::post('CreateStore','StoreController@CreateStore');
+		// 用户入驻市场申请页面路由1(如果用户没登录走这个路由)
+		Route::get('MerApplication1','StoreController@MerApplication1');
+		// 用户入驻市场申请页面路由2
+		Route::get('MerApplication2','StoreController@MerApplication2');
+		// 用户入驻市场申请页面路由3
+		Route::get('MerApplication3','StoreController@MerApplication3');
+		// 用户入驻市场申请图片上传
+		Route::any('upload1','StoreController@upload1');
+		Route::any('upload2','StoreController@upload2');
+		//收藏详情页
+		Route::resource('Collectiongoods','CollectiongoodsController');
+		Route::get('collection/{id}','CollectiongoodsController@collection');
+	});
 
+});
 
 /*==========================商家后台===============================*/
-
-// 商家后台店铺管理
-Route::controller('store/setup','Store\MersetupController');
-// 商家后台商品管理
-Route::resource('store/goods','Store\GoodsController');
-// 添加商品上传图片
-Route::any('store/upload','Store\GoodsController@upload');
-// 商家后台分类管理
-Route::resource('store/type','Store\TypeController');
-// 商家后台订单管理
-Route::resource('store/orders','Store\OrderController');
-// 商家后台登录 处理登录 退出 首页 修改密码
-Route::controller('store/admin','Store\LoginController');
-// 生成验证码
-Route::get('store/captcha/{num}.jpg','Store\LoginController@captcha')->where('name','[0-9]+');
-// ajax判断验证码
-Route::post('store/proving','Store\LoginController@proving');
-// 商家后台登录页(用于商家中的管理员登录)
-Route::get('store/login2','Store\LoginController@login2');
-// 商家后台回复评论
-Route::controller('store/comment','Store\CommentController');
-// 商家后台首页
-Route::get('store/index','Store\LoginController@index');
-
-
+Route::group(['prefix'=>'store','namespace'=>'Store'],function(){
+	// 商家后台登录页(用于商家中的管理员登录)
+	Route::get('login2','LoginController@login2');
+	// 商家后台登录 处理登录 退出 首页 修改密码
+	Route::controller('admin','LoginController');
+	//判断登录和权限中间件组
+	Route::group(['middleware' =>['storelogin']] ,function(){
+		// 商家后台店铺管理
+		Route::controller('setup','MersetupController');
+		// 商家后台商品管理
+		Route::resource('goods','GoodsController');
+		// 添加商品上传图片
+		Route::any('upload','GoodsController@upload');
+		// 商家后台分类管理
+		Route::resource('type','TypeController');
+		// 商家后台订单管理
+		Route::resource('orders','OrderController');
+		// 生成验证码
+		Route::get('captcha/{num}.jpg','LoginController@captcha')->where('name','[0-9]+');
+		// ajax判断验证码
+		Route::post('proving','LoginController@proving');
+		// 商家后台回复评论
+		Route::controller('comment','CommentController');
+		// 商家后台首页
+		Route::get('index','LoginController@index');
+	});
+});

@@ -8,7 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Validator;
-use App\http\Model\Admin;
+use App\Http\Model\Admin;
 use Illuminate\Support\Facades\Crypt;
 use App\http\Model\Role;
 use App\http\Model\Admin_role;
@@ -24,10 +24,6 @@ class AdminController extends Controller
      */
     public function index(Request $request)
     {
-          
-        // $ip = $request->getClientIp();  
-        // dd($ip);
-    	// dd($request->all());
         //每一页显示条数
         $count = 5;
         //判断来源
@@ -86,7 +82,6 @@ class AdminController extends Controller
     {
         //获取请求数据
         $data = $request -> except('_token');
-        
         //验证规则
         $rule = [
             'admin_name' => 'required',
@@ -113,7 +108,6 @@ class AdminController extends Controller
             'admin_email.required'=>'必须输入email',
             'admin_email.email'=>'email格式不正确',
             'role_id.required'=>'必须选择角色',
-
         ];
         //进行验证
         $validator = Validator::make($data,$rule,$mess);
@@ -157,10 +151,7 @@ class AdminController extends Controller
                     return back()->with('error','添加失败');
                 }
             }
-
         }
-
-
     }
 
     /**
@@ -173,7 +164,6 @@ class AdminController extends Controller
     {
         //
     }
-
     /**
      * 修改管理员页面
      * @param 参数:$id 管理员id
@@ -201,7 +191,6 @@ class AdminController extends Controller
     {
         //接受数据
         $data = $request -> except(['_token','_method']);
-        
         //设置规则
         $rule = [
             'admin_phone' => 'required',
@@ -269,10 +258,8 @@ class AdminController extends Controller
         $res1 = Admin::where('admin_id',$id)->delete();
         //删除管理员和角色的关联表中数据
         $res2 = DB::table('admin_role')->where('admin_id', $id)->delete();
-
         //0表示成功 其他表示失败
        if($res1 && $res2){
-            
            $data = [
                 'status'=>0,
                 'msg'=>'删除成功！'
@@ -310,7 +297,6 @@ class AdminController extends Controller
     public function updateself(Request $request)
     {
         $data = $request->except('_token');
-        
          //验证规则
         $rule = [
             'oldpassword' => 'required',
@@ -318,7 +304,6 @@ class AdminController extends Controller
             'admin_password' => ['regex:/^[a-zA-Z\d_]{6,16}$/'],
             'repassword' => 'required|same:admin_password',
         ];
-
         //提示信息
          $mess=[
             'oldpassword.required'=>'必须输入管理员名',
@@ -348,5 +333,4 @@ class AdminController extends Controller
             }
         }
     }
-
 }

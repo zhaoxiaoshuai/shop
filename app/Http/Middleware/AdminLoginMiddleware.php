@@ -4,10 +4,10 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class LoginMiddleware
+class AdminLoginMiddleware
 {
     /**
-     * 判断是否登录
+     * 判断后台管理员是否登录
      *
      * @param  用户请求数据
      * @return 登录返回请求页面未登录返回登录页面
@@ -16,17 +16,10 @@ class LoginMiddleware
      */
     public function handle($request, Closure $next)
     {
-        // $route = \Route::current()->getName();
-        // dd($route);
         if(session('adminFlag')){
             return $next($request);
         }else{
             return redirect('admin/login');
         }
-        
     }
-//     admin.index.admin
-// admin.admin.edit
-// admin.admin.destroy
-// admin.admin.create
 }

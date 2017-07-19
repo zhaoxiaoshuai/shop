@@ -37,8 +37,8 @@ class AuthController extends Controller
      */
     public function index(Request $request)
     {
-
         $count = 100;
+        //判断请求来自哪里
         if($request->has('keywords')){
             $key = trim($request->input('keywords')) ;
             $auth = Auth::where('auth_name','like',"%".$key."%")->orderBy('auth_content')->paginate($count);
@@ -76,7 +76,7 @@ class AuthController extends Controller
      */
     public function store(Request $request)
     {
-
+    	//判断请求来自哪里
         if($request ->has('auth_group')){
             //获取请求数据
             $data = $request -> except('_token');
@@ -92,7 +92,6 @@ class AuthController extends Controller
                 'auth_name.required'=>'必须输入权限名',
                 'auth_content.required'=>'必须输入权限内容',
                 'auth_group.required'=>'必须输入权限组',
-               
             ];
             //进行验证
             $validator = Validator::make($data,$rule,$mess);
@@ -118,18 +117,15 @@ class AuthController extends Controller
         }else{
             //获取请求数据
             $data = $request -> except('_token');
-
             //验证规则
             $rule = [
                 'auth_name' => 'required',
                 'auth_content' => 'required',
             ];
-
             //提示信息
              $mess=[
                 'auth_name.required'=>'必须输入权限名',
                 'auth_content.required'=>'必须输入权限内容',
-               
             ];
             //进行验证
             $validator = Validator::make($data,$rule,$mess);
@@ -154,7 +150,6 @@ class AuthController extends Controller
                 }
             }
         }
-        
     }
 
     /**
@@ -184,7 +179,6 @@ class AuthController extends Controller
              //取出所属权限组
             $pauth = Auth::where('auth_id',$auth['auth_group'])->get()[0];
         }
-       
          $pauth = '';
         return view('admin.auth.edit',compact('auth','pauth'));
     }
@@ -208,12 +202,10 @@ class AuthController extends Controller
             'auth_name' => 'required',
             'auth_content' => 'required',
         ];
-
         //提示信息
          $mess=[
             'auth_name.required'=>'必须输入权限名',
             'auth_content.required'=>'必须输入权限内容',
-           
         ];
         //进行验证
         $validator = Validator::make($data,$rule,$mess);

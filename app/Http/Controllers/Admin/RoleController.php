@@ -8,9 +8,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Validator;
-use App\http\Model\Role;
-use App\http\Model\Admin_role;
-use App\http\Model\Auth;
+use App\Http\Model\Role;
+use App\Http\Model\Admin_role;
+use App\Http\Model\Auth;
 use DB;
 class RoleController extends Controller
 {
@@ -23,17 +23,12 @@ class RoleController extends Controller
      */
     public function addAuth($id)
     {
-        
         //获取角色
         $role = Role::find($id);
-        
         //获取所有权限组
         $pauths = Auth::where('auth_group','0')->get();
-
-        
         //获取所有的权限
         $auths = Auth::get()->toArray();
-
         //获取拥有的权限
         $role_auth =Role::find($id)->auths()->get();
         $role_auth = $role_auth->toarray();
@@ -52,18 +47,14 @@ class RoleController extends Controller
      */
     public function doaddAuth(Request $request)
     {
-        
         $data = $request->except('_token');
-         
         //验证规则
         $rule = [
             'auth_id' => 'required',
         ];
-        
         //提示信息
          $mess=[
             'auth_id.required'=>'必须选择权限',
-           
         ];
         //进行验证
         $validator = Validator::make($data,$rule,$mess);
@@ -79,7 +70,7 @@ class RoleController extends Controller
                     'auth_id'=>$v
                 ];
             }
-            
+            //开启事务
             DB::beginTransaction();
             //删除原有角色和权限的关联
             $re1 = DB::table('role_auth')->where('role_id', $data['role_id'])->delete();
@@ -94,8 +85,6 @@ class RoleController extends Controller
                 return back()->with('error','授权失败');
             }
         }
-       
-        
     }
     /**
      * 角色列表
@@ -122,7 +111,6 @@ class RoleController extends Controller
             $key = '';
             return view('admin.role.index',['data'=>$role,'key'=>$key,'admin_role'=>$admin_role]);
         }
-       
     }
 
      /**
@@ -139,7 +127,6 @@ class RoleController extends Controller
         // dd($pauths);
         //获取所有的权限
         $auths = Auth::get()->toArray();
-        
         //引入添加角色表单
         return view('admin.role.add',compact('pauths','auths'));
     }
@@ -156,20 +143,17 @@ class RoleController extends Controller
         
         //获取请求数据
         $data = $request -> except('_token');
-
         //验证规则
         $rule = [
             'role_name' => 'required',
             'role_description' => 'required',
             'auth_id' => 'required',
         ];
-
         //提示信息
          $mess=[
             'role_name.required'=>'必须输入角色名',
             'role_description.required'=>'必须输入角色描述',
             'auth_id.required'=>'必须选择权限',
-           
         ];
         //进行验证
         $validator = Validator::make($data,$rule,$mess);
@@ -194,7 +178,6 @@ class RoleController extends Controller
                         "auth_id"=>$v,
                     ];
                 }
-               
                 //插入角色与权限关系
                 $res2 = DB::table('role_auth')->insert($arr);
                 //判断
@@ -206,7 +189,6 @@ class RoleController extends Controller
                     return back()->with('error','添加失败');
                 }
             }
-
         }
     }
 
@@ -230,7 +212,6 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        
         //获取角色信息
         $role = Role::find($id);
         return view('admin.role.edit',['data'=>$role]);
@@ -253,7 +234,6 @@ class RoleController extends Controller
             'role_name' => 'required',
             'role_description' => 'required',
         ];
-
         //提示信息
          $mess=[
             'role_name.required'=>'角色名不能为空',
@@ -268,7 +248,6 @@ class RoleController extends Controller
         }else{
             //更新数据库
             $re = Role::where('role_id',$id) ->update($data);
-
             //判断
             if($re){
                 return redirect('/admin/role');
