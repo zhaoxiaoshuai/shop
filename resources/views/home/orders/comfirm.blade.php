@@ -36,7 +36,7 @@
               </tr>
               <tr>
                 <td>
-                	<div class="btn_u" style="margin:0 auto; padding:0 20px; width:120px;"><a href="#">立即使用支付宝支付</a></div>
+                	<div class="btn_u" style="margin:0 auto; padding:0 20px; width:120px;"><a href="{{url('home/orders')}}">立即使用支付宝支付</a></div>
                 	<a href="{{url('/')}}">首页</a> &nbsp; &nbsp; <a href="{{url('home/user/user_details')}}">用户中心</a>
                 </td>
               </tr>

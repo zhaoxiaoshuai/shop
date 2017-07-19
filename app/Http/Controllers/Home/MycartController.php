@@ -18,7 +18,12 @@ class MycartController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
+
+        //判断是否登录
+        if(empty(session('logins'))){
+            return view('home.login.login');
+        }
         $uid = session('logins')['user_id'];
         //加载购物车页面
         session(['flag'=>'show']);
@@ -48,7 +53,7 @@ class MycartController extends Controller
         }else{
             //将session中的购物车信息插入到数据库中
             // dd(session('cart'));
-            $data['good_id'] = session('cart')->good_id;
+            $data['good_id'] = session('cart')['good_id'];
             $data['user_id'] = $uid;
             $data['cart_cnt'] = session('good_num');
             // dd($data);

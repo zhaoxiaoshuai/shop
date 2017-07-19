@@ -178,6 +178,8 @@ Route::resource('home/orders','Home\OrdersController');
 Route::any('home/changeorders/{id}','Home\OrdersController@changeorders');
 //确认收货
 Route::any('home/shouhuo/{id}','Home\OrdersController@shouhuo');
+//去付款
+Route::any('home/jiesuan/{id}','Home\OrdersController@jiesuan');
 //前台订单评价
 Route::resource('home/comment','Home\CommentController');
 // 加载购物车
