@@ -61,7 +61,7 @@
                 <span class="fl" style="margin-left:400px">
 
 
-                    会员 : <a href="{{url('home/user/user_details')}}">{{session('deta_name')}}</a> &nbsp;&nbsp;&nbsp;
+                    会员 : <a href="{{url('home/user/userdetails')}}">{{session('deta_name')}}</a> &nbsp;&nbsp;&nbsp;
 
                     <a href="{{url('home/user/exit')}}">退出</a>
                     &nbsp;|&nbsp;<a href="{{ url('home/orders') }}">我的订单</a>&nbsp;|
