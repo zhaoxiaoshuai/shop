@@ -33,15 +33,15 @@
                         <label for="user">
                             <i class="am-icon-user"></i>
                         </label>
-                        <input type="text" name="username" id="username" placeholder="邮箱/手机/用户名"></div>
+                        <input type="text" name="username" id="username" value="{{$cookie['username'] or ''}}" placeholder="邮箱/手机/用户名"></div>
                     <div class="user-pass">
                         <label for="password">
                             <i class="am-icon-lock"></i>
                         </label>
-                        <input type="password" name="user_password" id="user_password" placeholder="请输入密码"></div>
+                        <input type="password" name="user_password" id="user_password" value="{{$cookie['user_password'] or ''}}" placeholder="请输入密码"></div>
                     <div class="am-cf">
                         <input type="submit" name="" value="登 录" class="am-btn am-btn-primary am-btn-sm"></div>
-                </form>
+
             </div>
             @if(session('error'))
             <script>
@@ -65,13 +65,15 @@
             @endif
             <div class="login-links">
                 <label for="remember-me">
-                    <input id="remember-me" type="checkbox" checked name="remember" >记住密码</label>
+                    <input id="remember-me" type="checkbox" checked name="remember" >记住密码
+                </label>
                 <a href="{{url('home/user/findpwd')}}" class="am-fr">忘记密码</a>
                 <a href="{{url('home/user/register')}}" class="zcnext am-fr am-btn-default">注册</a>
                 <br />
             </div>
         </div>
     </div>
+    </form>
 </div>
 <div class="footer ">
     <div class="footer-hd ">

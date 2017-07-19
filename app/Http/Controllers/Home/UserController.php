@@ -27,14 +27,14 @@ class UserController extends Controller
      *  
      */
 
-    public function register()
+    public function getRegister()
     {
         //返回注册视图
         return view('home.user.register');
     }
 
     //ajax查询用户是否注册
-    public function emailajax(Request $request)
+    public function getEmailajax(Request $request)
     {
         //获取输入的邮箱
         $email=$request->input('email');
@@ -58,7 +58,7 @@ class UserController extends Controller
     }
 
     //邮箱添加用户操作
-    public function create(Request $request)
+    public function postCreate(Request $request)
     {
         //验证用户输入的信息
         $inputs = $request -> except('_token');
@@ -136,7 +136,7 @@ class UserController extends Controller
         });
     }
 
-    public function activate()
+    public function getActivate()
     {
         //加载静态页面
         return view('home.mail.activate');
@@ -145,7 +145,7 @@ class UserController extends Controller
     /*
      * 激活邮箱验证
      * */
-    public function okactivate(Request $request)
+    public function getOkactivate(Request $request)
     {
         //获取数据
         $id = $request -> id;
@@ -165,7 +165,7 @@ class UserController extends Controller
     /*
      * 手机注册用户
      */
-    public function phoneajax(Request $request)
+    public function getPhoneajax(Request $request)
     {
         //获取手机号
         $phone = $request -> input('phone');
@@ -197,7 +197,7 @@ class UserController extends Controller
      *
      * 手机号添加用户操作
      */
-    public function phonecreate(Request $request)
+    public function postPhonecreate(Request $request)
     {
         $inputs = $request -> except('_token');
         $rule=[
@@ -251,7 +251,7 @@ class UserController extends Controller
 
     }
 
-    public function phonecreateto()
+    public function getPhonecreateto()
     {
         //加载静态页面
         return view('home.user.okregister');
@@ -261,7 +261,7 @@ class UserController extends Controller
     /*
      * 个人中心 用户详情
      * */
-    public function user_details(Request $request)
+    public function getUserdetails(Request $request)
     {
 //        $res = $request->session()->all(session('logins'));
         //查询用户信息
@@ -275,7 +275,7 @@ class UserController extends Controller
     /*
      * 头像上传
      * */
-    public function upload()
+    public function postUpload()
     {
 
         //        将上传文件移动到制定目录，并以新文件名命名
@@ -305,7 +305,7 @@ class UserController extends Controller
     /*
     *  修改信息
     */
-    public function update(Request $request)
+    public function postUpdate(Request $request)
     {
 //        dd($request->all());
         //获取用户信息
@@ -317,7 +317,7 @@ class UserController extends Controller
         $re = User_details::where('user_id',$data['user_id']) ->update($data);
         if($re){
             //修改成功跳转信息详情页
-            return redirect('home/user/user_details')->with('okupdate','修改成功');
+            return redirect('home/user/userdetails')->with('okupdate','修改成功');
         }else{
             //修改失败 返回上一步
             return back()->with('error');
@@ -327,7 +327,7 @@ class UserController extends Controller
     /*
      * 修改密码
      * */
-    public function edit(Request $request,$id )
+    public function getEdit(Request $request,$id )
     {
         //加载修改密码页面  给页面返回用户id
         return view('home.user.editpassword',compact('id'));
@@ -336,7 +336,7 @@ class UserController extends Controller
     /*
      * Ajax验证密码
      * */
-    public function editpassword(Request $request)
+    public function postEditpassword(Request $request)
     {
         //获取用户信息
         $input = $request->except('_token');
@@ -353,7 +353,7 @@ class UserController extends Controller
     /*
      * 确认修改密码
      * */
-    public function updatepassword(Request $request)
+    public function postUpdatepassword(Request $request)
     {
         //获取数据
         $input = $request -> except('_token');
@@ -369,14 +369,14 @@ class UserController extends Controller
             User::where('user_id',$input['id']) -> update(['user_password'=>$newpassword]);
             StoreAdmin::where('user_id',$input['id']) -> update(['store_admin_password'=>$newpassword]);
             //修改成功返回用户详情页面
-            return redirect('home/user/user_details')->with('updateok','修改成功');
+            return redirect('home/user/userdetails')->with('updateok','修改成功');
         }
     }
 
     /*
      * 找回密码页面
      * */
-    public function findpwd()
+    public function getFindpwd()
     {
         return view('home.user.findpwd');
     }
@@ -384,7 +384,7 @@ class UserController extends Controller
     /*
      *找回密码操作
      * */
-    public function dofindpwd(Request $request)
+    public function getDofindpwd(Request $request)
     {
         //获取用户输入的账号
         $user = $request-> user;
@@ -397,7 +397,7 @@ class UserController extends Controller
     /*
      * 发送找回密码验证码
      * */
-    public function okfindpwd(Request $request)
+    public function postOkfindpwd(Request $request)
     {
         //获取用户信息
         $input = $request -> except('_token','code');
@@ -426,7 +426,7 @@ class UserController extends Controller
     /*
      * 手机修改密码
      * */
-    public function phonefindpwd(Request $request)
+    public function postPhonefindpwd(Request $request)
     {
         //获去用户输入的账号
         $request -> except('_token','code');
@@ -437,7 +437,7 @@ class UserController extends Controller
     /*
      *手机确认修改密码
      */
-    public function phonepwdfind(Request $request)
+    public function postPhonepwdfind(Request $request)
     {
         //获取用户输入的账号
         $input = $request -> except('_token');
@@ -460,7 +460,7 @@ class UserController extends Controller
     /*
      * email修改密码
      * */
-    public function emailfindpwd(Request $request)
+    public function getEmailfindpwd(Request $request)
     {
 //        dd($request -> all());
         //获取用户信息
@@ -480,7 +480,7 @@ class UserController extends Controller
     /*
      * email确认修改密码
      * */
-    public function findpwdok(Request $request)
+    public function postFindpwdok(Request $request)
     {
         //获取信息
         $input = $request -> except('_token');
@@ -503,7 +503,7 @@ class UserController extends Controller
     /*
      * 退出登录
      * */
-    public function exit(Request $request)
+    public function getExit(Request $request)
     {
         //清除session中存的用户信息
         session()->flush();

@@ -70,7 +70,7 @@
                                     layer.msg('请输入正确的邮箱格式',{icon:5});
                                     return false;
                                 }else{
-                                    $.get('emailajax',{email:email},function(data){
+                                    $.get("{{url('home/user/emailajax')}}",{email:email},function(data){
                                         if(data.status==2){
                                             layer.msg(data.msg,{icon:5});
                                             return false;

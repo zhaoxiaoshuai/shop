@@ -11,12 +11,7 @@
 |
 */
 /*==========================后台===============================*/
-//后台登录
-Route::get('admin/login','Admin\LoginController@login');
-//处理登录
-Route::post('admin/dologin','Admin\LoginController@dologin');
-//生成验证码
-Route::get('admin/captcha/{num}.jpg','Admin\LoginController@captcha')->where('name','[0-9]+');
+//前缀和命名空间组
 Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 	//没有权限返回页面
 	Route::get('back',function(){
@@ -30,7 +25,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 	Route::get('captcha/{num}.jpg','LoginController@captcha')->where('name','[0-9]+');
 	//ajax判断验证码
 	Route::post('proving','LoginController@proving');
-
+	//判断登录和权限中间件组
 	Route::group(['middleware' =>['login','has.auth']] ,function(){
 		//后台退出
 		Route::get('logout','LoginController@logout');
@@ -46,7 +41,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
         Route::any('goods/upload','GoodController@upload');
         //上传商品其他图片
         Route::any('goods/uploadpic','GoodController@uploadpic');
-//        商品资源路由
+		//商品资源路由
 	    Route::resource('good','GoodController');
         //店铺商品路由
         Route::resource('mgood','MgoodController');
@@ -99,53 +94,8 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 //前台登录
 Route::get('home/login','Home\LoginController@login');
 Route::post('home/login/do','Home\LoginController@logindo');
-//前台退出
-Route::get('home/user/exit','Home\UserController@exit');
-//前台用户注册
-Route::get('home/user/register','Home\UserController@register');
-//发送邮箱Ajax
-Route::get('home/user/emailajax','Home\UserController@emailajax');
-//激活邮箱
-Route::get('home/user/activate','Home\UserController@activate');
-Route::get('home/user/okactivate','Home\UserController@okactivate');
-//发送手机Ajax
-Route::get('home/user/phoneajax','Home\UserController@phoneajax');
-//邮箱添加用户
-Route::post('home/user/create','Home\UserController@create');
-//手机添加用户
-Route::post('home/user/phonecreate','Home\UserController@phonecreate');
-Route::get('home/user/phonecreateto','Home\UserController@phonecreateto');
-//个人中心
-Route::get('home/user/mycenter','Home\UserController@mycenter');
-//用户详情
-Route::get('home/user/user_details','Home\UserController@user_details');
-
-//用户评论
-//Route::resource('home/user/user_comment','Home\CommentController');
-//修改信息
-Route::post('home/user/update','Home\UserController@update');
-//头像上传
-Route::post('home/user/upload','Home\UserController@upload');
-//修改密码
-Route::get('home/user/edit/{id}','Home\UserController@edit');
-Route::post('home/user/editpassword','Home\UserController@editpassword');
-Route::post('home/user/updatepassword','Home\UserController@updatepassword');
-//找回密码页面
-Route::get('home/user/findpwd','Home\UserController@findpwd');
-//发送验证码
-Route::get('home/user/dofindpwd','Home\UserController@dofindpwd');
-//确认验证码
-Route::post('home/user/okfindpwd','Home\UserController@okfindpwd');
-//邮箱修改密码
-Route::get('home/user/emailfindpwd','Home\UserController@emailfindpwd');
-//确认修改密码
-Route::post('home/user/findpwdok','Home\UserController@findpwdok');
-//手机修改密码
-Route::post('home/user/phonefindpwd','Home\UserController@phonefindpwd');
-//确认手机修改密码
-Route::post('home/user/phonepwdfind','Home\UserController@phonepwdfind');
-
-
+//前台用户操作
+Route::controller('home/user','Home\UserController');
 //前台首页
 Route::get('/', 'Home\IndexController@index');
 //前台全局搜索
@@ -162,18 +112,13 @@ Route::resource('home/orders','Home\OrdersController');
 Route::any('home/changeorders/{id}','Home\OrdersController@changeorders');
 //确认收货
 Route::any('home/shouhuo/{id}','Home\OrdersController@shouhuo');
-//前台订单评价
+//前台评论
 Route::resource('home/comment','Home\CommentController');
 // 加载购物车
 Route::get('home/mycart/addmycart','Home\MycartController@addmycart');
 //清空购物车
 Route::get('home/mycart/delete','Home\MycartController@delete');
 Route::resource('home/mycart','Home\MycartController');
-
-
-
-
-
 // 前台商家路由
 Route::resource('home/hstore','Home\StoreController');
 // 入驻市场路由
@@ -202,10 +147,9 @@ Route::controller('/home/merchant','Home\MerchantController');
 Route::resource('home/Collectiongoods','Home\CollectiongoodsController');
 Route::get('home/collection/{id}','Home\CollectiongoodsController@collection');
 
-////前台商品按销量排序列表页路由
-//Route::any('home/salelist/{id}','Home\GoodController@saleList');
 
 /*==========================商家后台===============================*/
+
 // 商家后台店铺管理
 Route::controller('store/setup','Store\MersetupController');
 // 商家后台商品管理

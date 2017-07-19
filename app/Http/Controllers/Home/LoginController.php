@@ -21,11 +21,9 @@ class LoginController extends Controller
      */
     public function login(Request $request)
     {
-//        判断用户是否记住密码
+
+        //判断用户是否记住密码
         $cookie = $request->cookie('home');
-        if (session('homeFlag')) {
-            return redirect('home/index');
-        }
         //加载登录视图
         return view('home.login.login',['cookie'=>$cookie]);
     }
@@ -34,10 +32,9 @@ class LoginController extends Controller
     public function logindo(Request $request)
     {
         //获取输入的值
-        $request -> except('_token');
+        $data = $request -> except('_token');
         //查询用户名是否存在
         $res = User::where('user_email',$request['username']) -> orwhere('user_phone',$request['username']) ->first();
-//        dd($res);
         if(!$res){
             //不存在 返回
             return back()->with('error','用户不存在');
@@ -47,6 +44,7 @@ class LoginController extends Controller
             {
                 //不正确 返回
                 return back()->with('errors','账号或密码错误');
+
             }else{
                 if($res['status']>0){
                     //查询昵称
@@ -57,10 +55,10 @@ class LoginController extends Controller
                     session(['deta_name'=>$dd['deta_name']]);
                     $lasttime = ['lasttime'=>time()];
                     //判断是否记住密码
-                    if(!empty($res['remember'])){
-                        Cookie::queue('admin',$res,10080);
+                    if(!empty($data['remember'])){
+                        Cookie::queue('home',$data,10080);
                     }else{
-                        Cookie::queue('admin','',-1);
+                        Cookie::queue('home','',-1);
                     }
                     User::where('user_id',$res['user_id']) -> update($lasttime);
                     //正确 返回主页
