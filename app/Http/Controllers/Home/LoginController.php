@@ -24,6 +24,7 @@ class LoginController extends Controller
 
         //判断用户是否记住密码
         $cookie = $request->cookie('home');
+
         //加载登录视图
         return view('home.login.login',['cookie'=>$cookie]);
     }

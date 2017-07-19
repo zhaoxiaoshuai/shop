@@ -47,20 +47,11 @@ class CollectiongoodsController extends Controller
      public function collection($id)
     {   
         $user_id = session('logins')['user_id'];
-       
-
-        
 
         if(empty($user_id)){
-           $data = [
-                'status'=>1,
-                'msg'=>'请先登入！'
-           ];
-           return;
-        }
-
-
-        $res = Collectiongoods::insert(['user_id' => $user_id, 'good_id' => $id,'collect_goods_time'=>time()]);
+            return view('home.login.login');
+        }else{
+            $res = Collectiongoods::insert(['user_id' => $user_id, 'good_id' => $id,'collect_goods_time'=>time()]);
          if($res){
            $data = [
                 'status'=>0,
@@ -73,6 +64,12 @@ class CollectiongoodsController extends Controller
            ];
        }
        return $data;
+        }
+
+
+
+
+        
 
     }
 

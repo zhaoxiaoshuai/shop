@@ -41,29 +41,24 @@
                 <tr>
                   <th>ID</th>
                   <th>分类名称</th>
-                  <th>是否显示</th>
-                  <th>首页推荐</th>
+                  <th>父ID</th>
+                  <th>NPATH</th>
                   <th>分类描述</th>
                   <th>操作</th>
                 </tr>
               </thead>
 
               <tbody>
-              <?php
-                $arr = ['1'=>'是','否'];
-                $arr1 = ['1'=>'最新','精品','热门'];
-              ?>
                 @foreach($data as $k=>$v)
                 <?php 
-                  
                   $n = substr_count( $v['type_npath'] ,'-')-2;
                   $v['type_name'] = str_repeat('&nbsp;',$n*8).'|--'.$v['type_name'];
                 ?>
                 <tr class="gradeX">
                   <td>{{ $v['type_id'] }}</td>
                   <td>{{ $v['type_name'] }}</td>
-                  <td>{{ $arr[$v['type_show']] }}</td>
-                  <td>{{ $arr1[$v['type_recommend']] }}</td>
+                  <td>{{ $v['pid'] }}</td>
+                  <td>{{ $v['type_npath'] }}</td>
                   <td>{{ $v['type_describe'] }}</td>
                     
                   <td>
