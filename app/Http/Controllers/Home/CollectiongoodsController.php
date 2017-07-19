@@ -20,6 +20,7 @@ class CollectiongoodsController extends Controller
 
     public function index(Request $request)
     {   
+ 
         // 用户id
         $user_id = '48';
 

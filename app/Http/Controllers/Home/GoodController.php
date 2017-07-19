@@ -119,7 +119,6 @@ class GoodController extends Controller
     */
      public function collection($id)
     {   
-
         $user_id = '48';
         $res = Collectiongoods::insert(['user_id' => $user_id, 'good_id' => $id]);
          if($res){

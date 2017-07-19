@@ -268,6 +268,26 @@
 
                 <li class="sidebar-nav-link">
                     <a href="javascript:;" class="sidebar-nav-sub-title">
+                        <i class="am-icon-link sidebar-nav-link-logo"></i> 评论管理
+                        <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                    </a>
+                    <ul class="sidebar-nav sidebar-nav-sub">
+                        <li class="sidebar-nav-link">
+                            <a href="{{ url('admin/comment/index') }}">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 回复评论
+                            </a>
+                        </li>
+
+                        <li class="sidebar-nav-link">
+                            <a href="{{ url('admin/comment/show') }}">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 查看评论
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="sidebar-nav-link">
+                    <a href="javascript:;" class="sidebar-nav-sub-title">
                         <i class="am-icon-link sidebar-nav-link-logo"></i> 轮播图管理
                         <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
                     </a>

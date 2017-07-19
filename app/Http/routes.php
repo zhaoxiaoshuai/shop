@@ -88,7 +88,8 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 		//权限注册
 		Route::get('auth/createauth','AuthController@createauth');
 		Route::resource('auth','AuthController');
-
+		// 评论管理
+		Route::controller('comment','CommentController');
 		//LOGO图片上传
 		Route::any('uploadconf','ConfController@uploadconf');
 	});
@@ -237,13 +238,14 @@ Route::controller('store/admin','Store\LoginController');
 Route::get('store/captcha/{num}.jpg','Store\LoginController@captcha')->where('name','[0-9]+');
 // ajax判断验证码
 Route::post('store/proving','Store\LoginController@proving');
-
 // 商家后台登录页(用于商家中的管理员登录)
 Route::get('store/login2','Store\LoginController@login2');
-
+// 商家后台回复评论
+Route::controller('store/comment','Store\CommentController');
 // 商家后台首页
 Route::get('store/index','Store\LoginController@index');
 //收藏详情页
+
 Route::resource('home/Collectiongoods','Home\CollectiongoodsController');
-Route::get('home/collection','Home\GoodController@collection');
+Route::get('home/collection/{id}','Home\GoodController@collection');
 

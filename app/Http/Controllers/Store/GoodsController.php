@@ -192,10 +192,17 @@ class GoodsController extends Controller
         $data = Good::where('good_id',$id)->first();
        // 根据传过来的商品id获取type_id查找shop_type表里的分类
         $type = DB::table('type')->where('type_id',$data->type_id)->first();
-       // dd($type['type_id']);
+       
         $types = DB::table('type')->get();
-       // dd($types);
-        return view('store.goods.edit',compact('data','type','types'));
+        
+         // 获取店铺的id
+        $merchant_id = session('store_admin')['merchant_id'];
+        // 获取分类
+        $mtype = Mtype::where('merchant_id',$merchant_id)->get();
+        //获取分类树
+        $mtype = Mtype::tree($mtype);
+
+        return view('store.goods.edit',compact('data','type','types','mtype'));
     }
 
     /**
