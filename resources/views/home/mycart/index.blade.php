@@ -43,7 +43,7 @@
                     {{$v->good_name}}
                 </td>
                 <td align="center">
-                    {{$v->good_desc}}
+                    {!! $v->good_desc !!}
                 </td>
                 <td align="center">
                     <div class="c_num">
@@ -198,13 +198,14 @@
             good_id.push($(this).val());
            });
            $.get("{{url('home/orders/commit')}}", {good_id: good_id}, function(msg) {
-              console.log(good_id);
-              if(msg != '0'){
+              console.log(msg);
+              if(msg){
                 location.href="{{url('home/orders/create')}}";
               }
 
               // 
            });
+           return false;
         });
     </script>
 @endsection

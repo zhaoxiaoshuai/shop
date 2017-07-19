@@ -12,7 +12,7 @@
                 <td width="20%">订单状态</td>
                 <td width="25%">操作</td>
               </tr>
-                <?php $status = ['1'=>'下单未发货','出库,未收货','已收货','作废','订单已取消'];
+                <?php $status = ['1'=>'下单未发货','出库,未收货','已收货','作废','订单已取消','待付款'];
                 ?>
                 @foreach($orders as $k=>$v)
               <tr>
@@ -21,10 +21,13 @@
                 <td>{{ $v['order_total'] }}</td>
                 <td>{{$status[$v->order_status]}}</td>
                 <td><a href="{{ url('home/orders/'.$v['order_id']) }}">详情</a> |
+                    @if( ($v['order_status'] == 6) )
+                    <a href="{{ url('home/jiesuan/'.$v['order_id']) }}">去付款</a> |
+                    @endif
                     @if( ($v['order_status'] == 3)  )
                     <a href="{{ url('home/comment/'.$v['order_id']) }}">评价</a> |
                     @endif
-                    @if( ($v['order_status'] == 2) || ($v['order_status'] == 1) )
+                    @if( ($v['order_status'] == 2) || ($v['order_status'] == 1) || ($v['order_status'] == 6))
                     <a href="{{ url('home/changeorders/'.$v['order_id']) }}">取消订单</a>
                     @endif
                     @if( ($v['order_status'] == 2) || ($v['order_status'] == 1) )
@@ -34,7 +37,15 @@
               </tr>
                  @endforeach
             </table>
-            
+            <style>
+                .pagination li {
+                            
+                    font-size: 15px;
+                    float:left;
+                    padding: 6px 12px;
+                }
+            </style>
+             {!! $orders->render() !!}
         </div>
 
 	<!--End 用户中心 End-->

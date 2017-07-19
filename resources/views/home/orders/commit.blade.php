@@ -26,7 +26,7 @@
                     <div class="c_s_img"><img src="http://php182.oss-cn-beijing.aliyuncs.com/{{ $v->good_pic}}" width="73" height="73" /></div>
                     {{$v->good_name}}
                 </td>
-                <td align="center">{{$v->good_desc}}</td>
+                <td align="center">{!! $v->good_desc !!}</td>
                 <td align="center">{{$v->cart_cnt}}</td>
                 <td align="center" style="color:#ff4e00;">￥{{$v->good_price}}</td>
                 <td align="center">{{$v->good_price * $v->cart_cnt}}</td>

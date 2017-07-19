@@ -16,6 +16,7 @@ use App\Http\Model\Cart;
 use App\Http\Model\Address;
 use App\Http\Model\Good;
 
+
 class OrdersController extends Controller
 {
     /**
@@ -32,6 +33,7 @@ class OrdersController extends Controller
             ->select('orders.order_id','orders.order_time','orders.order_total','orders.order_status')
             ->orderBy('order_time','desc')
             ->paginate(5);
+            // dd($orders);
 
 //        $com = Orders::join('comment','orders.order_id','=','comment.order_id')
 //            ->select('comment.comment_content')
@@ -113,6 +115,17 @@ class OrdersController extends Controller
             return back()->with('error','取消失败');
         }
     }
+
+     //去付款
+    public function jiesuan($id)
+    {
+        $data = Orders::where('order_id',$id)->update(['order_status'=>1]);
+        if($data){
+            return redirect('home/orders');
+        }else{
+            return back()->with('error','付款失败');
+        }
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -173,10 +186,18 @@ class OrdersController extends Controller
         $uid = session('logins')['user_id'];
         //获取购买的信息
         $list = Cart::join('goods','goods.good_id','=','cart.good_id')->where('user_id',$uid)->get();
+        // dd($list);
+        $arr = [];
         $total = '';
         foreach($list as $k=>$v){
             $total += $v->cart_cnt * $v->good_price;
+            array_push($arr,$v->good_id);
         }
+        
+        session(['arr'=>$arr]);
+        // dd($arr[]);
+
+        DB::beginTransaction();
         //获取用户的信息
         $data = $request -> except('_token');
         $address_id = $data['address'];
@@ -189,7 +210,7 @@ class OrdersController extends Controller
         $data1['order_time'] = time();
         $data1['order_total'] = $total;
         $data1['order_cnt'] = $v->cart_cnt;
-        $data1['order_status'] = 2;
+        $data1['order_status'] = 6;
         $data1['order_msg'] = $order_msg;
         foreach($res as $kk=>$vv){
             $data1['order_linkman'] = $vv->name;
@@ -198,21 +219,26 @@ class OrdersController extends Controller
         }
         $res1 = Orders::create($data1);
         // 获取数据写入详情表
-        $data2['order_id'] = $data1['order_id'];
-        $data2['good_id'] = $v->good_id;
-        $res2 = Detail::create($data2);
+         foreach($arr as $o){
+             $res2 = DB::table('detail')->insert([
+                ['order_id' => $data1['order_id'],'good_id' => $o]
+            ]);
+        }
+       
         //修改商品表的库存和销量
         $re = Good::where('good_id',$v->good_id)->get();
         
         foreach($re  as $kkk=>$vvv){
-            $data3['good_count'] = $vvv->good_count - $v->cart_cnt;
-            $data3['good_salecnt'] = $vvv->good_salecnt + $v->cart_cnt;
+            $data3['good_count'] = $vvv->good_count - $data1['order_cnt'];
+            $data3['good_salecnt'] = $vvv->good_salecnt + $data1['order_cnt'];
         }
         $res3 = Good::where('good_id',$v->good_id) -> update($data3);
         // dd($res3);
         if($res1 && $res2 && $res3){
+            DB::commit();
             return redirect()->action('Home\OrdersController@finish');
         }else{
+            DB::rollBack();
             return back()->with('error','下单失败');
         }
         
@@ -229,8 +255,11 @@ class OrdersController extends Controller
         
         $total = $data->order_total;
         $order_id = $data->order_id;
-        // dd($order_id);
-        
+        //  清空购物车里面购买的商品
+        //商品的id
+        $arr = session('arr');
+        //删除对应的购物车商品
+        $res = Cart::whereIn('good_id',$arr)->delete();
         return view('home.orders.comfirm',['total'=>$total,'order_id'=>$order_id]);
     }
 }
