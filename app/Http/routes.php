@@ -10,13 +10,6 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-DB::listen(function($sql, $bindings, $time) {
-                // dump($sql);
-                // dump($bindings);
-            });
-
-
-
 /*==========================后台===============================*/
 //后台登录
 Route::get('admin/login','Admin\LoginController@login');
@@ -90,25 +83,15 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 		Route::resource('auth','AuthController');
 		//LOGO图片上传
 		Route::any('uploadconf','ConfController@uploadconf');
+		// 商家信息路由
+		Route::resource('astore','StoreController');
+		Route::get('astoreindex/{x}','StoreController@astoreindex');
+		// 后台分类管理
+		Route::resource('atype','TypeController');
+		// 用户管理
+		Route::resource('user','UserController');
 	});
 });
-
-
-
-// 商家信息路由
-Route::resource('admin/astore','Admin\StoreController');
-Route::get('admin/astoreindex/{x}','Admin\StoreController@astoreindex');
-
-// 商家店铺路由
-// Route::resource('admin/merchant','Admin\MerchantController');
-
-// 后台分类管理
-Route::resource('admin/atype','Admin\TypeController');
-
-// 用户管理
-Route::resource('admin/user','Admin\UserController');
-
-
 
 /*==========================前台===============================*/
 //前台登录
@@ -211,11 +194,11 @@ Route::any('home/goodlist/{id}','Home\GoodController@goodList');
 Route::any('/home/gooddetail/{id}','Home\GoodController@goodDetail');
 //前台新品商品列表页路由
 Route::any('home/newgoodlist/{id}','Home\GoodController@newgoodList');
-
-
 //前台店铺路由
 Route::controller('/home/merchant','Home\MerchantController');
-
+//收藏详情页
+Route::resource('home/Collectiongoods','Home\CollectiongoodsController');
+Route::get('home/collection/{id}','Home\CollectiongoodsController@collection');
 
 ////前台商品按销量排序列表页路由
 //Route::any('home/salelist/{id}','Home\GoodController@saleList');
@@ -243,8 +226,5 @@ Route::get('store/login2','Store\LoginController@login2');
 
 // 商家后台首页
 Route::get('store/index','Store\LoginController@index');
-//收藏详情页
 
-Route::resource('home/Collectiongoods','Home\CollectiongoodsController');
-Route::get('home/collection/{id}','Home\CollectiongoodsController@collection');
 

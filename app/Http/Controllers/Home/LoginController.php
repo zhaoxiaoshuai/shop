@@ -22,9 +22,9 @@ class LoginController extends Controller
     public function login(Request $request)
     {
 //        判断用户是否记住密码
-        $cookie = $request->cookie('admin');
-        if (session('adminFlag')) {
-            return redirect('admin/index');
+        $cookie = $request->cookie('home');
+        if (session('homeFlag')) {
+            return redirect('home/index');
         }
         //加载登录视图
         return view('home.login.login',['cookie'=>$cookie]);

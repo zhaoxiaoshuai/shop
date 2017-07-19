@@ -24,12 +24,20 @@ class AdminController extends Controller
      */
     public function index(Request $request)
     {
+          
+        // $ip = $request->getClientIp();  
+        // dd($ip);
     	// dd($request->all());
+        //每一页显示条数
         $count = 5;
-        if($request->has('keywords')){
+        //判断来源
+        if($request -> has('keywords')){
+            //接受请求数据
             $key = trim($request->input('keywords'));
+            //根据请求取数据
             $admins = Admin::where('admin_name','like',"%".$key."%")->paginate($count);
             $order = '';
+            //返回视图
             return view('admin.admin.index',['data'=>$admins,'key'=>$key,'o'=>$order]);
         }else{
         	//判断排序
@@ -119,16 +127,19 @@ class AdminController extends Controller
             if (!empty($admin)) {
                 return back()->with('error','该用户名以存在');
             }else{
+                //创建时间
                 $data['admin_create'] = time();
+                //最后登录事件
                 $data['admin_lasttime'] = 0;
+                //去除不需要的数据
                 unset($data['repassword']);
                 $role_id = $data['role_id'];
                 unset($data['role_id']);
+                //加密
                 $data['admin_password'] = Crypt::encrypt($data['admin_password']);
                 //插入数据库
                 DB::beginTransaction();
                 $re1 = Admin::insertGetId($data);
-                
                 $arr = [];
                 foreach($role_id as $k => $v) {
                     $arr[] = [
@@ -136,7 +147,6 @@ class AdminController extends Controller
                         'role_id'=>$v
                      ];
                 }
-                
                 $re2 = DB::table('admin_role')->insert($arr);
                 //判断
                 if($re1 && $re2){
@@ -216,24 +226,24 @@ class AdminController extends Controller
                         ->withInput();
         }else{
             $arr = [];
+            //设置同时删除多条数据的格式
             foreach ($data['role_id'] as $k => $v) {
                 $arr[] = [
                     'admin_id' => $id,
                     'role_id' => $v,
                 ];
             }
-            dd($arr);
+            // dd($arr);
             unset($data['role_id']);
             //开启事务
             DB::beginTransaction();
             //更新管理员表
-            $re1 = Admin::where('admin_id',$id) ->update($data);
+            $re1 = Admin::find($id) ->update($data);
             //删除原有管理员和角色的关联
             $re2 = DB::table('admin_role')->where('admin_id', $id)->delete();
             //插入新的关联
             $re3 = DB::table('admin_role')->insert($arr);
-            
-            if($re1 or $re2 && $re3){
+            if($re1 && $re2 && $re3){
                 DB::commit();
                 return redirect('admin/admin');
             }else{
