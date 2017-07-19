@@ -63,7 +63,7 @@
         j.src = '//static.meiqia.com/dist/meiqia.js?_=t';
         s.parentNode.insertBefore(j, s);
     })(window, document, 'script', '_MEIQIA');
-     _MEIQIA('entId', ' ');
+     _MEIQIA('entId', '66109');
     </script>
     <script>
      _MEIQIA('hidePanel');
