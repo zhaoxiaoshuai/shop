@@ -55,19 +55,19 @@
         	<div class="list_t">
             	<span class="fl list_or">
                 	<a href="{{url('home/goodlist/').'/'.$type_id}}" class="now">默认</a>
-                    <a href="{{url('home/goodlist/').'/'.$type_id.'?salecnt=good_salecnt'}}">
-                    	<span class="fl">销量</span>                        
-                        <span class="i_up">销量从低到高显示</span>
-                        <span class="i_down">销量从高到低显示</span>                                                     
-                    </a>
-                    <a href="{{url('home/goodlist/').'/'.$type_id.'?salecnt=good_price'}}">
-                    	<span class="fl">价格</span>                        
-                        <span class="i_up">价格从低到高显示</span>
-                        <span class="i_down">价格从高到低显示</span>     
-                    </a>
+                    {{--<a href="{{url('home/goodlist/').'/'.$type_id.'?salecnt=good_salecnt'}}">--}}
+                    	{{--<span class="fl">销量</span>                        --}}
+                        {{--<span class="i_up">销量从低到高显示</span>--}}
+                        {{--<span class="i_down">销量从高到低显示</span>                                                     --}}
+                    {{--</a>--}}
+                    {{--<a href="{{url('home/goodlist/').'/'.$type_id.'?salecnt=good_price'}}">--}}
+                    	{{--<span class="fl">价格</span>                        --}}
+                        {{--<span class="i_up">价格从低到高显示</span>--}}
+                        {{--<span class="i_down">价格从高到低显示</span>     --}}
+                    {{--</a>--}}
                     <a href="{{url('home/newgoodlist/').'/'.$type_id}}">新品</a>
                 </span>
-                <span class="fr">共发现120件</span>
+                <span class="fr">共发现{{count($newgoods)}}件</span>
             </div>
             <div class="list_c">
             	

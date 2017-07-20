@@ -25,48 +25,56 @@ class GoodController extends Controller
      * @author gcj
      * @Date
      */
-    public function goodList(Request $request,$id)
+    public function goodList(Request $request,$type_id)
     {
-    $perpage = 8;
+    	$perpage = 2;
+		//取出销量前四的商品
+
+        $good = Good::where('good_status','!=','2')
+            ->where('type_id','=',$type_id)
+            ->orderBy('good_salecnt','desc')
+            ->limit(4)
+            ->get();
+
         //取出分类下所有标签
-        $labels = Label::where('type_id',$id)->get();
-        // dd($labels);
+        $labels = Label::where('type_id',$type_id)->get();
         //取出标签下的值
         $arr= [];
         foreach ($labels as $k => $v) {
             $v['attr'] = Label_attr::where('label_id',$v['label_id'])->get();
             $arr[] = $v;
         }
-        // dd($arr);
-        
-        //取出销量前四的商品
-        $good = Good::where('good_status','!=','2')->where('type_id','=',$id)->orderBy('good_salecnt','desc')->limit(4)->get();
-        //如果通过标签搜索过来
+        //是否是标签过来的
         if($request->has('la_id')){
             //取出商品属性关系表中的商品id
-            $good_id = Good_attr::where('la_id',$request->input('la_id'))->lists('good_id');
+            $good_id = Good_attr::where('la_id',$request
+            		->input('la_id'))
+            		->lists('good_id');
             //取出商品
-            $goods = Good::whereIn('good_id',$good_id)->paginate($perpage);
-
-             return view('home.good.goodlist',['arr'=>$arr,'goods'=>$goods,'type_id'=>$id,'good'=>$good]);
-
+            $goods = Good::whereIn('good_id',$good_id)
+            		->paginate($perpage);
+            $order = '';
+            $d = '';
+            return view('home.good.goodlist',compact('good','order','goods','d','type_id','arr'));
         }
-       //判断是否传递销量参数
-        if($request->has('salecnt')){
-        $salecnt = $request->only('salecnt');
-        $goods = Good::where('good_status','!=','2')->where('type_id','=',$id)->orderBy($salecnt['salecnt'],'desc')->paginate($perpage);
-
-        return view('home.good.goodlist',['goods'=>$goods,'type_id'=>$id,'good'=>$good]);
+        
+        //判断是否传递参数
+        if($request->has('order')){
+            $order = $request->input('order');
+            $d = empty($request->input('d')) ? 'asc' : $request->input('d');
+            $goods = Good::where('good_status','!=','2')
+                ->where('type_id','=',$type_id)
+                ->orderBy($order,$d)
+                ->paginate($perpage);
+            return view('home.good.goodlist',compact('good','order','goods','d','type_id','arr'));
         }
-        //判断是否传递价格参数
-        if($request->has('price')){
-            $price = $request->only('price');
-            $goods = Good::where('good_status','!=','2')->where('type_id','=',$id)->orderBy($price ['price'],'desc')->paginate($perpage);
-            return view('home.good.goodlist',['goods'=>$goods,'type_id'=>$id,'good'=>$good]);
-        }
+        $order = '';
+        $d = '';
         //取出所有 非下架商品并分页   商品状态0新品 1上架 2下架
-        $goods = Good::where('good_status','!=','2')->where('type_id','=',$id)->paginate($perpage);
-        return view('home.good.goodlist',['arr'=>$arr,'goods'=>$goods,'type_id'=>$id,'good'=>$good]);
+        $goods = Good::where('good_status','!=','2')
+        	->where('type_id','=',$type_id)
+        	->paginate($perpage);
+        return view('home.good.goodlist',compact('good','order','goods','d','type_id','arr'));
     }
 
     /**
@@ -78,21 +86,10 @@ class GoodController extends Controller
      */
     public function newgoodList(Request $request,$id)
     {
-        $perpage = 8;
+        $perpage = 2;
         //取出销量前四的商品
         $good = Good::where('good_status','!=','2')->where('type_id','=',$id)->orderBy('good_salecnt','desc')->limit(4)->get();
-        //如果有销量参数
-        if($request->has('salecnt')){
-            $salecnt = $request->only('salecnt');
-            $goods = Good::where('good_status','!=','2')->where('type_id','=',$id)->orderBy($salecnt['salecnt'],'desc')->paginate($perpage);
-            return view('home.good.newgoodlist',['newgoods'=>$newgoods,'type_id'=>$id,'good'=>$good]);
-        }
-        //如果有价格参数
-        if($request->has('price')){
-            $price = $request->only('price');
-            $newgoods = Good::where('good_status','!=','2')->where('type_id','=',$id)->orderBy($price ['price'],'desc')->paginate($perpage);
-            return view('home.good.newgoodlist',['newgoods'=>$goods,'type_id'=>$id,'good'=>$good]);
-        }
+
         //取出所有新品商品 商品状态0新品 1上架 2下架
         $newgoods = Good::where('good_status','=','0')->where('type_id','=',$id)->paginate(4);
 //        dd($goods);
@@ -111,12 +108,17 @@ class GoodController extends Controller
         Good::where('good_id',$id)->increment('good_vcnt');
         //关联分类表
         $good =   Good::join('type','goods.type_id','=','type.type_id')->where('good_id',$id)->first();
+        //随机取出当前分类5件商品
+        $like = Good::join('type','goods.type_id','=','type.type_id')
+            ->where('good_id',$id)
+            ->orderBy(\DB::raw('RAND()'))
+            ->take(4)
+            ->get();
         //关联评论表
         $comment = Good::join('comment','goods.good_id','=','comment.good_id')
             ->join('user_details','comment.user_id','=','user_details.user_id')
             ->where('goods.good_id',$id)
             ->paginate(10);
-        // return view('home.good.gooddetail',['good'=>$good,'comment'=>$comment]);
         //取出该商品所有的图片
         $pics = Good::find($id)->pics()->get();
         //取出该当前子分类
@@ -135,9 +137,7 @@ class GoodController extends Controller
         
            //取出商品所在店铺
            $merchant = Merchant::where('merchant_id',$good['merchant_id'])->first();
-         // dd($merchant);
-//        dd($types);
-        return view('home.good.gooddetail',compact('good','pics','line','comment','merchant','coll'));
+        return view('home.good.gooddetail',compact('good','pics','line','comment','merchant','like','coll'));
     }
      public  function getparent($type)
     {

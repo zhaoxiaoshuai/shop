@@ -56,14 +56,14 @@ class GoodController extends Controller
      */
     public function index(Request $request)
     {
-        $page = 5;
+        $page = 4;
         $key1 = trim($request->input('keywords1')) ;
         $key2 = trim($request->input('keywords2')) ;
-        $type = Type::get();
+        $type = DB::table('type')->orderBy('type_npath','asc')->get();
+        $type1 = Type::get();
         //关键字查询$keywords1
         if($request->has('keywords1')){
 
-//            dd($key);
             $good = Good::where('good_name','like',"%".$key1."%")
                 ->where('merchant_id','0')
                 ->paginate($page);
@@ -81,7 +81,7 @@ class GoodController extends Controller
                     ->paginate($page);
             }
 
-        return view('admin.good.index',compact('good','key1','key2','type'));
+        return view('admin.good.index',compact('good','key1','key2','type','type1'));
 
     }
 
@@ -170,10 +170,7 @@ class GoodController extends Controller
     public function create()
     {
         $type = DB::table('type')->orderBy('type_npath','asc')->get();
-        $label = DB::table('label')->get();
-//        dd($label);
-//        dd($type);
-        return view('admin.good.add',['type'=>$type,'label'=>$label]);
+        return view('admin.good.add',['type'=>$type]);
     }
 
     /**
@@ -300,7 +297,7 @@ class GoodController extends Controller
         //取出该商品分类
         $type = DB::table('type')->where('type_id',$data->type_id)->first();
         //取出所有分类
-        $types = DB::table('type')->get();
+        $types = DB::table('type')->orderBy('type_npath','asc')->get();
         //取出该商品所有图片
         $pics = DB::table('goodpic')->where('good_id',$id)->get();
 

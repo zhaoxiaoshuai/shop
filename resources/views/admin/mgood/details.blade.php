@@ -1,4 +1,4 @@
-@extends('layouts.StoreAdmin')
+@extends('layouts.admin')
 
 @section('content')
 	<form class="am-form tpl-form-line-form" action="{{url('admin/mgood/'.$data->good_id)}}" method="post"  id="good_form">

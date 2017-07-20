@@ -29,7 +29,7 @@ class SearchController extends Controller
 //        }
 ////        dd($arr);
         $data = DB::table('goods')->where('good_name','like','%'.$search.'%')->get();
-        dd($data);
+        
         return view('home/goodlist',['data'=>$data]);
     }
 }

@@ -30,7 +30,9 @@ class IndexController extends Controller
 //        dd($goods);
         //楼层
         $datas = DB::table('type')->where('pid',0)->limit(3)->get();
-        return view('home.index',['data'=>$type,'i'=>$i,'carousel'=>$carousel,'link'=>$link,'goods'=>$goods,'datas'=>$datas]);
+        //导航
+        $navs = DB::table('navs')->take(8)->get();
+        return view('home.index',['data'=>$type,'i'=>$i,'carousel'=>$carousel,'link'=>$link,'goods'=>$goods,'datas'=>$datas,'navs'=>$navs]);
     }
 
 

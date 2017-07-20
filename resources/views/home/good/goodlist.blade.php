@@ -49,19 +49,20 @@
         	<div class="list_t">
             	<span class="fl list_or">
                 	<a href="{{url('home/goodlist/').'/'.$type_id}}" class="now">默认</a>
-                    <a href="{{url('home/goodlist/').'/'.$type_id.'?salecnt=good_salecnt'}}" id="sale">
+                    <a href="{{url('home/goodlist/').'/'.$type_id.'?order=good_salecnt'}}{{empty($d) || $d == 'asc'? '&d=desc' : ''}}" id="sale">
                     	<span class="fl">销量</span>                        
                         <span class="i_up">销量从低到高显示</span>
                         <span class="i_down">销量从高到低显示</span>
                     </a>
 
-                    <a href="{{url('home/goodlist/').'/'.$type_id.'?salecnt=good_price'}}">
+                    <a href="{{url('home/goodlist/').'/'.$type_id.'?order=good_price'}}{{empty($d) || $d == 'asc'? '&d=desc' : ''}}">
                     	<span class="fl">价格</span>                        
                         <span class="i_up">价格从低到高显示</span>
                         <span class="i_down">价格从高到低显示</span>     
                     </a>
-                    <a href="{{url('home/newgoodlist/')}}">新品</a>
+                    <a href="{{url('home/newgoodlist/').'/'.$type_id}}">新品</a>
                 </span>
+                <span class="fr">共发现{{count($goods)}}件</span>
                 <span class="fr"></span>
             </div>
 
@@ -73,7 +74,7 @@
                 	<li>
                     	<div class="img"><a href="{{url('home/gooddetail')}}/{{$v->good_id}}"><img src="http://php182.oss-cn-beijing.aliyuncs.com/{{$v->good_pic}}" width="210" height="185" /></a></div>
                         <div class="price">
-                            <font>￥<span>{{$v->good_price}}</span></font> &nbsp; 26R
+                            <font>￥<span>{{$v->good_price}}</span></font> &nbsp;
                         </div>
                         <div class="name"><a href="{{url('home/gooddetail')}}/{{$v->good_id}}">{{$v->good_name}}</a></div>
                         <div class="carbg">

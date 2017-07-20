@@ -132,7 +132,7 @@
                 </script>
             </div>            
         </div>    
-
+        @if($merchant)
         <div class="s_brand">
         	<div class="shop-info-search-header">
    <div class="shop-info-box">
@@ -157,126 +157,26 @@
    </div>
   </div>
         </div>
-
-
     </div>
+    @endif
     <div class="content mar_20">
     	<div class="l_history">
         	<div class="fav_t">用户还喜欢</div>
         	<ul>
+                @foreach($like as $k=>$v)
             	<li>
-                    <div class="img"><a href="#"><img src="images/his_1.jpg" width="185" height="162" /></a></div>
-                	<div class="name"><a href="#">Dior/迪奥香水2件套装</a></div>
+                    <div class="img"><a href="{{url('home/gooddetail')}}/{{$v->good_id}}"><img src="http://php182.oss-cn-beijing.aliyuncs.com/{{$v->good_pic}}" width="185" height="162" /></a></div>
+                	<div class="name"><a href="{{url('home/gooddetail')}}/{{$v->good_id}}">{{$v->good_name}}</a></div>
                     <div class="price">
-                    	<font>￥<span>368.00</span></font> &nbsp; 18R
+                    	<font>￥<span>{{$v->good_price}}</span></font> &nbsp;
                     </div>
                 </li>
-                <li>
-                    <div class="img"><a href="#"><img src="images/his_2.jpg" width="185" height="162" /></a></div>
-                	<div class="name"><a href="#">Dior/迪奥香水2件套装</a></div>
-                    <div class="price">
-                    	<font>￥<span>768.00</span></font> &nbsp; 18R
-                    </div>
-                </li>
-                <li>
-                    <div class="img"><a href="#"><img src="images/his_3.jpg" width="185" height="162" /></a></div>
-                	<div class="name"><a href="#">Dior/迪奥香水2件套装</a></div>
-                    <div class="price">
-                    	<font>￥<span>680.00</span></font> &nbsp; 18R
-                    </div>
-                </li>
-                <li>
-                    <div class="img"><a href="#"><img src="images/his_4.jpg" width="185" height="162" /></a></div>
-                	<div class="name"><a href="#">Dior/迪奥香水2件套装</a></div>
-                    <div class="price">
-                    	<font>￥<span>368.00</span></font> &nbsp; 18R
-                    </div>
-                </li>
-                <li>
-                    <div class="img"><a href="#"><img src="images/his_5.jpg" width="185" height="162" /></a></div>
-                	<div class="name"><a href="#">Dior/迪奥香水2件套装</a></div>
-                    <div class="price">
-                    	<font>￥<span>368.00</span></font> &nbsp; 18R
-                    </div>
-                </li>
+                @endforeach
         	</ul>
         </div>
         <div class="l_list">
+
             <div class="des_border">
-            	<div class="des_tit">
-                	<ul>
-                    	<li class="current">推荐搭配</li>
-                    </ul>
-                </div>
-                <div class="team_list">
-                	<div class="img"><a href="#"><img src="images/mat_1.jpg" width="160" height="140" /></a></div>
-                	<div class="name"><a href="#">倩碧补水组合套装8折促销</a></div>
-                    <div class="price">
-                    	<div class="checkbox"><input type="checkbox" name="zuhe" checked="checked" /></div>
-                    	<font>￥<span>768.00</span></font> &nbsp; 18R
-                    </div>
-                </div>
-                <div class="team_icon"><img src="images/jia_b.gif" /></div>
-                <div class="team_list">
-                	<div class="img"><a href="#"><img src="images/mat_2.jpg" width="160" height="140" /></a></div>
-                	<div class="name"><a href="#">香奈儿邂逅清新淡香水50ml</a></div>
-                    <div class="price">
-                    	<div class="checkbox"><input type="checkbox" name="zuhe" /></div>
-                    	<font>￥<span>749.00</span></font> &nbsp; 18R
-                    </div>
-                </div>
-                <div class="team_icon"><img src="images/jia_b.gif" /></div>
-                <div class="team_list">
-                	<div class="img"><a href="#"><img src="images/mat_3.jpg" width="160" height="140" /></a></div>
-                	<div class="name"><a href="#">香奈儿邂逅清新淡香水50ml</a></div>
-                    <div class="price">
-                    	<div class="checkbox"><input type="checkbox" name="zuhe" checked="checked" /></div>
-                    	<font>￥<span>749.00</span></font> &nbsp; 18R
-                    </div>
-                </div>
-                <div class="team_icon"><img src="images/equl.gif" /></div>
-                <div class="team_sum">
-                	套餐价：￥<span>1517</span><br />
-                    <input type="text" value="1" class="sum_ipt" /><br />
-                    <a href="#"><img src="images/z_buy.gif" /></a>
-                </div>
-
-            </div>
-            <div class="des_border">
-                <div class="des_tit">
-                	<ul>
-                    	{{--<li class="current"><a href="#p_attribute">商品属性</a></li>--}}
-                        {{--<li><a href="#p_details">商品详情</a></li>--}}
-                        <li><a href="#p_comment">商品评论</a></li>
-                    </ul>
-                </div>
-                <div class="des_con" id="p_attribute">
-
-                	<table border="0" align="center" style="width:100%; font-family:'宋体'; margin:10px auto;" cellspacing="0" cellpadding="0">
-                      {{--<tr>--}}
-                        {{--<td>商品名称：迪奥香水</td>--}}
-                        {{--<td>商品编号：1546211</td>--}}
-                        {{--<td>品牌： 迪奥（Dior）</td>--}}
-                        {{--<td>上架时间：2015-09-06 09:19:09 </td>--}}
-                      {{--</tr>--}}
-                      {{--<tr>--}}
-                        {{--<td>商品毛重：160.00g</td>--}}
-                        {{--<td>商品产地：法国</td>--}}
-                        {{--<td>香调：果香调香型：淡香水/香露EDT</td>--}}
-                        {{--<td>&nbsp;</td>--}}
-                      {{--</tr>--}}
-                      {{--<tr>--}}
-                        {{--<td>容量：1ml-15ml </td>--}}
-                        {{--<td>类型：女士香水，Q版香水，组合套装</td>--}}
-                        {{--<td>&nbsp;</td>--}}
-                        {{--<td>&nbsp;</td>--}}
-                      {{--</tr>--}}
-                        {{--{!!$good->good_desc!!}--}}
-                    </table>
-
-
-                </div>
-          	</div>
 
             <div class="des_border" id="p_details">
                 <div class="des_t">商品详情</div>
@@ -286,7 +186,7 @@
                         <td>
                             {!!$good->good_desc!!}
                             @foreach($pics as $k=>$v)
-                                <img src="http://php182.oss-cn-beijing.aliyuncs.com/{{$v->good_pics}}" tsImgS="images/ps1.jpg" width="750" height="410" style="display: block"/>
+                                <img src="http://php182.oss-cn-beijing.aliyuncs.com/{{$v->good_pics}}" tsImgS="images/ps1.jpg" width="750"  style="display: block"/>
                                 <br>
                             @endforeach
                         </td>
@@ -294,14 +194,7 @@
                     </table>
 
                     <p align="center">
-                    {{--@foreach($pics as $k=>$v)--}}
-                        {{--<img src="http://php182.oss-cn-beijing.aliyuncs.com/{{$v->good_pics}}" tsImgS="images/ps1.jpg" width="79" height="79" style="display: block"/>--}}
-                            {{--<br>--}}
-                    {{--@endforeach--}}
-                    {{--<img src="" width="746" height="425" /><br /><br />--}}
-                    {{--<img src="images/de3.jpg" width="750" height="417" /><br /><br />--}}
-                    {{--<img src="images/de4.jpg" width="750" height="409" /><br /><br />--}}
-                    {{--<img src="images/de5.jpg" width="750" height="409" />--}}
+
 					</p>
 
                 </div>
@@ -332,7 +225,6 @@
                         </table>
                     </td>
                     <td width="185" class="jud_bg">
-                    	购买过雅诗兰黛第六代特润精华露50ml的顾客，在收到商品才可以对该商品发表评论
                     </td>
                   </tr>
                 </table>
@@ -359,8 +251,6 @@
           	</div>
 
 
-        </div>
-    </div>
 
 
     <!--Begin 弹出层-收藏成功 Begin-->
