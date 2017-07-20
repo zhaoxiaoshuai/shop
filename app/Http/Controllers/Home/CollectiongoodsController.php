@@ -33,101 +33,8 @@ class CollectiongoodsController extends Controller
         }
         
         $good = Good::whereIn('good_id',$arr)->get();
+
         return view('home.user.collectiongoods',['data'=>$good]);
-    }
-
-
-
-
-
-        /**
-     * 商品收藏
-     * @author 邹帅
-    */
-     public function collection($id)
-    {   
-        $user_id = session('logins')['user_id'];
-
-        if(empty($user_id)){
-            return view('home.login.login');
-        }else{
-            $res = Collectiongoods::insert(['user_id' => $user_id, 'good_id' => $id,'collect_goods_time'=>time()]);
-         if($res){
-           $data = [
-                'status'=>0,
-                'msg'=>'收藏成功！'
-           ];
-        }else{
-           $data = [
-                'status'=>1,
-                'msg'=>'收藏失败！'
-           ];
-       }
-       return $data;
-        }
-
-
-
-
-        
-
-    }
-
-
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        // return 111111;/
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /**
@@ -157,5 +64,59 @@ class CollectiongoodsController extends Controller
 
     }
 
-    
+
+
+
+    public function Coll($gid)
+    {   
+        $user_id = session('logins')['user_id'];
+        //判断是否登录
+        if(!$user_id){
+            return 4;
+        }
+        //点击前判断是否存在
+        $coll = Collectiongoods::where('good_id',$gid) -> where('user_id',$user_id ) -> first();
+
+        //判断
+        if($coll){
+            return 3;
+        }
+        //获取商品
+        $goods = Good::where('good_id',$gid) -> first();
+        //保存收藏表
+        $res = Collectiongoods::insert(['good_id'=>$gid,'user_id'=>$user_id]);
+        //判断
+        if($res){
+            return 1;
+        }else{
+            return 2;
+        }
+    }
+    /**
+    *取消收藏
+    */
+    public function Delcoll($gid)
+    {
+        //获取商品
+        $goods = Good::where('good_id',$gid) -> first();
+        //删除收藏表数据
+        // $res = Collectiongoods::where('good_id',$gid) -> where('user_id',$user_id) -> delete();
+        $res = Collectiongoods::where('good_id', $gid)->delete();
+        //判断
+        if($res){
+            return 1;
+        }else{
+            return 2;
+        }
+    }
 }
+
+
+
+
+    
+
+    
+
+    
+
