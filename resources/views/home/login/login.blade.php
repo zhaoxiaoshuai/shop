@@ -38,7 +38,7 @@
                         <label for="password">
                             <i class="am-icon-lock"></i>
                         </label>
-                        <input type="password" name="user_password" id="user_password" value="{{$cookie['user_password'] or ''}}" placeholder="请输入密码"></div>
+                        <input type="password"  name="user_password" id="user_password" value="{{$cookie['user_password'] or ''}}" placeholder="请输入密码"></div>
                     <div class="am-cf">
                         <input type="submit" name="" value="登 录" class="am-btn am-btn-primary am-btn-sm"></div>
 

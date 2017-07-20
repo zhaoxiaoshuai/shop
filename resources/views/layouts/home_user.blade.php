@@ -34,7 +34,7 @@
         <div class="left_m">
             <div class="left_m_t t_bg2">会员中心</div>
             <ul>
-                <li><a href="{{url('home/user/user_details')}}"  class="now">用户信息</a></li>
+                <li><a href="{{url('home/user/userdetails')}}"  class="now">用户信息</a></li>
                 <li><a href="{{url('home/user/edit/'.session('logins')['user_id'])}}">修改密码</a>
                 </li>
             </ul>
