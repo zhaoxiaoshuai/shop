@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use DB;
 
 class CommentController extends Controller
 {
@@ -21,12 +22,10 @@ class CommentController extends Controller
      */
     public function getIndex()
     {
-        $com = Comment::join('goods','goods.good_id','=','comment.good_id')
-                        ->where('comment.merchant_id','0')
-                        ->where('comment.reply_connect','=','')
-                        ->select('id','good_name','comment_connect','comment_time')
-                        ->paginate(5);
-        
+        $com = DB::table('comment')
+                    ->join('goods','comment.good_id','=','goods.good_id')
+                    ->where('comment.merchant_id','0')
+                    ->paginate(5);
         //加载商品评论列表
         return view('admin.comment.index',compact('com'));
     }
@@ -90,7 +89,7 @@ class CommentController extends Controller
 
             $com = Comment::join('goods','goods.good_id','=','comment.good_id')
                             ->where('comment.merchant_id','0')
-                            ->where('comment.reply_connect','!=','')
+                            ->where('comment.reply_connect','!=','null')
                             ->where('goods.good_name','like',"%".$key."%")
                             ->select('good_name','comment_level','comment_connect','comment_time','reply_connect','reply_time')
                             ->paginate(5);
@@ -99,7 +98,7 @@ class CommentController extends Controller
         }else{  
             $com = Comment::join('goods','goods.good_id','=','comment.good_id')
                             ->where('comment.merchant_id','0')
-                            ->where('comment.reply_connect','!=','')
+                            ->where('comment.reply_connect','!=','null')
                             ->select('good_name','comment_level','comment_connect','comment_time','reply_connect','reply_time')
                             ->paginate(5);
             // dd($com);
