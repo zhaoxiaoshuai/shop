@@ -16,7 +16,8 @@ use App\Http\Model\Comment;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use DB;
-class GoodController extends Controller
+use App\Http\Controllers\Common;
+class GoodController extends Common
 {
     /**
      * 商品列表

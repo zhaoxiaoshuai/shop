@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use DB;
-class IndexController extends Controller
+use App\Http\Controllers\Common;
+class IndexController extends Common
 {
     /**
      * 加载一个商城主页面
@@ -30,9 +31,8 @@ class IndexController extends Controller
 //        dd($goods);
         //楼层
         $datas = DB::table('type')->where('pid',0)->limit(3)->get();
-        //导航
-        $navs = DB::table('navs')->take(8)->get();
-        return view('home.index',['data'=>$type,'i'=>$i,'carousel'=>$carousel,'link'=>$link,'goods'=>$goods,'datas'=>$datas,'navs'=>$navs]);
+        
+        return view('home.index',['data'=>$type,'i'=>$i,'carousel'=>$carousel,'link'=>$link,'goods'=>$goods,'datas'=>$datas]);
     }
 
 
