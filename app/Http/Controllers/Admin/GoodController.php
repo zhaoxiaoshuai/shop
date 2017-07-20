@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Model\Good;
 use App\Http\Model\Goodpic;
 use App\Http\Model\Type;
+use App\Http\Model\Label;
+use App\Http\Model\Label_attr;
+use App\Http\Model\Good_attr;
+
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -189,7 +193,6 @@ class GoodController extends Controller
       $role =  [
             'good_name' => 'required',
             'type_id' => 'required',
-            'good_label' => 'required',
             'good_price' => 'required|numeric',
             'good_desc' => 'required',
             'good_count' => 'required|numeric',
@@ -200,7 +203,6 @@ class GoodController extends Controller
         $mess=[
             'good_name.required'=>'请填写商品名称',
             'type_id.required'=>'请选择商品分类',
-            'good_label.required'=>'请选择商品标签',
             'good_price.required'=>'请填写商品价格',
             'good_price.numeric'=>'商品价格请填写数字',
             'good_desc.required'=>'请填写商品描述',
@@ -316,10 +318,10 @@ class GoodController extends Controller
     {
         //获取页面传值
         $input =  Input::except('_token','file_upload','_method');
+
         $role =  [
             'good_name' => 'required',
             'type_id' => 'required',
-            'good_label' => 'required',
             'good_price' => 'required|numeric',
             'good_desc' => 'required',
             'good_count' => 'required|numeric',
@@ -330,7 +332,6 @@ class GoodController extends Controller
         $mess=[
             'good_name.required'=>'请填写商品名称',
             'type_id.required'=>'请选择商品分类',
-            'good_label.required'=>'请选择商品标签',
             'good_price.required'=>'请填写商品价格',
             'good_price.numeric'=>'商品价格请填写数字',
             'good_desc.required'=>'请填写商品描述',
@@ -427,5 +428,55 @@ class GoodController extends Controller
             ];
         }
         return $data;
+    }
+     /**
+     * 商品添加标签
+     * @param   商品id $id
+     * @return 
+     * @author 
+     * @Date
+     */
+    public function setlabel($id)
+    {
+        //获取商品分类ID
+        $type_id = Good::where('good_id',$id)->first()['type_id'];
+        //获取分类下的标签
+        $labels = label::where('type_id',$type_id)->get()->toArray();
+        //获取标签下的标签值
+        $arr = [];
+        foreach ($labels as $k => $v) {
+          $v['attr'] = Label_attr::where('label_id',$v['label_id'])->get()->toArray();
+          $arr[] = $v;
+        }
+        
+        return view('admin.good.setlabel',compact('arr','id'));
+    }
+     /**
+     * 执行添加标签
+     * @param   商品id $id
+     * @return 
+     * @author 
+     * @Date
+     */
+    public function dosetlabel(Request $request)
+    {
+        // dd($request->all());
+        $data = $request->except('_token');
+        $arr= [];
+        foreach($data['label_attr_id'] as $k=>$v){
+          $arr[] = [
+              'good_id'=>$data['good_id'],
+              'la_id'=>$v
+          ];
+        }
+        // dd($arr);
+        //插入关系表
+        $res = Good_attr::insert($arr);
+        
+        if($res){
+            return redirect('admin/good');
+        }else{
+            return back()->with('error','修改失败');
+        }
     }
 }

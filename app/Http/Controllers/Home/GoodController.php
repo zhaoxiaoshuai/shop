@@ -9,7 +9,9 @@ use App\Http\Model\Merchant;
 use App\Http\Model\Goodpic;
 use App\Http\Model\Type;
 use Illuminate\Http\Request;
-
+use App\Http\Model\Label;
+use App\Http\Model\Label_attr;
+use App\Http\Model\Good_attr;
 use App\Http\Model\Comment;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -25,16 +27,37 @@ class GoodController extends Controller
      */
     public function goodList(Request $request,$id)
     {
-        $perpage = 8;
+    $perpage = 8;
+        //取出分类下所有标签
+        $labels = Label::where('type_id',$id)->get();
+        // dd($labels);
+        //取出标签下的值
+        $arr= [];
+        foreach ($labels as $k => $v) {
+            $v['attr'] = Label_attr::where('label_id',$v['label_id'])->get();
+            $arr[] = $v;
+        }
+        // dd($arr);
+        
         //取出销量前四的商品
         $good = Good::where('good_status','!=','2')->where('type_id','=',$id)->orderBy('good_salecnt','desc')->limit(4)->get();
+        //如果通过标签搜索过来
+        if($request->has('la_id')){
+            //取出商品属性关系表中的商品id
+            $good_id = Good_attr::where('la_id',$request->input('la_id'))->lists('good_id');
+            //取出商品
+            $goods = Good::whereIn('good_id',$good_id)->paginate($perpage);
+
+             return view('home.good.goodlist',['arr'=>$arr,'goods'=>$goods,'type_id'=>$id,'good'=>$good]);
+
+        }
        //判断是否传递销量参数
         if($request->has('salecnt')){
         $salecnt = $request->only('salecnt');
         $goods = Good::where('good_status','!=','2')->where('type_id','=',$id)->orderBy($salecnt['salecnt'],'desc')->paginate($perpage);
 
         return view('home.good.goodlist',['goods'=>$goods,'type_id'=>$id,'good'=>$good]);
-    }
+        }
         //判断是否传递价格参数
         if($request->has('price')){
             $price = $request->only('price');
@@ -43,7 +66,7 @@ class GoodController extends Controller
         }
         //取出所有 非下架商品并分页   商品状态0新品 1上架 2下架
         $goods = Good::where('good_status','!=','2')->where('type_id','=',$id)->paginate($perpage);
-        return view('home.good.goodlist',['goods'=>$goods,'type_id'=>$id,'good'=>$good]);
+        return view('home.good.goodlist',['arr'=>$arr,'goods'=>$goods,'type_id'=>$id,'good'=>$good]);
     }
 
     /**

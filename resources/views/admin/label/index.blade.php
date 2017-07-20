@@ -7,8 +7,6 @@
                 <div class="widget am-cf">
                     <div class="widget-head am-cf">
                         <div class="widget-title  am-cf">标签列表</div>
-
-
                     </div>
                     <div class="widget-body  am-fr">
 
@@ -20,7 +18,7 @@
                             </div>
                         </div>
                         <div class="am-u-sm-12 am-u-md-6 am-u-lg-3" style="width:100px">
-                            标签名称
+                            搜索
                         </div>
                         <form action="{{ url('admin/label') }}" method="GET">
                             <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
@@ -39,6 +37,7 @@
                         <tr>
                             <th>ID</th>
                             <th>标签名称</th>
+                            <th>所属分类</th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -46,13 +45,14 @@
                         @if(!empty($data))
                             @foreach($data as $k => $v)
                                 <tr class="gradeX">
-                                    <td>{{ $v->id }}</td>
-                                    <td>{{ $v->label_name }}</td>
-
+                                    <td>{{ $v['label_id'] }}</td>
+                                    <td>{{ $v['label_name'] }}</td>
+                                    <td>{{ $v['type_name'] }}</td>
                                     <td>
                                         <div class="tpl-table-black-operation">
-                                            <a href="{{ url('admin/label/'.$v->id.'/edit') }}"><i class="am-icon-pencil"></i> 编辑</a>
-                                            <a href="javascript:;" onclick="DelLabel({{$v->id}})" class="tpl-table-black-operation-del"><i class="am-icon-trash"></i> 删除</a>
+                                         <a href="{{ url('admin/label/'.$v['label_id']) }}"><i class="am-icon-pencil"></i> 详情</a>
+                                            <a href="{{ url('admin/label/'.$v['label_id'].'/edit') }}"><i class="am-icon-pencil"></i> 编辑</a>
+                                            <a href="javascript:;" onclick="DelLabel({{$v['label_id']}})" class="tpl-table-black-operation-del"><i class="am-icon-trash"></i> 删除</a>
                                         </div>
                                     </td>
                                 </tr>
@@ -88,8 +88,7 @@
                         <style>
                             .am-fr .pagination li{float:left;fone-size:20px;padding-left:10px;}
                         </style>
-                        <?php $key = empty($key) ? '' : $key; ?>
-                        {!! $data->appends(['keywords' => $key])->render() !!}
+                        
                     </div>
                 </div>
             </div>

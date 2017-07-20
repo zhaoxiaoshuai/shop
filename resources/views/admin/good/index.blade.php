@@ -77,6 +77,9 @@
                                         <a href="{{url('admin/good/detail').'/'.$v->good_id}}">
                                             <i class="am-icon-pencil"></i> 查看
                                         </a>
+                                          <a href="{{url('admin/good/setlabel').'/'.$v->good_id}}">
+                                            <i class="am-icon-pencil"></i> 增加标签
+                                        </a>
                                     </div>
                                 </td>
                                 </tr>

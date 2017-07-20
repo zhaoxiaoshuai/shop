@@ -10,7 +10,13 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+
 /*==========================后台===============================*/
+Route::resource('admin/label','Admin\LabelController');
+Route::get('admin/good/setlabel/{id}','Admin\GoodController@setlabel');
+Route::post('admin/good/dosetlabel','Admin\GoodController@dosetlabel');
+
+
 //前缀和命名空间组
 Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 	//没有权限返回页面
@@ -106,11 +112,11 @@ Route::group(['prefix'=>'home','namespace'=>'Home'],function(){
 	Route::any('gooddetail/{id}','GoodController@goodDetail');
 	//前台新品商品列表页路由
 	Route::any('newgoodlist/{id}','GoodController@newgoodList');
+	//前台用户操作
+	Route::controller('user','UserController');
 	//前台店铺路由
 	Route::controller('merchant','MerchantController');
 	Route::group(['middleware' =>'homelogin'] ,function(){
-		//前台用户操作
-		Route::controller('user','UserController');
 		// 前台收货地址
 		Route::resource('address','AddressController');
 		// 订单路由

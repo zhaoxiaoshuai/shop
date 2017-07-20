@@ -60,6 +60,7 @@ class UserController extends Controller
     //邮箱添加用户操作
     public function postCreate(Request $request)
     {
+        
         //验证用户输入的信息
         $inputs = $request -> except('_token');
         $rule=[

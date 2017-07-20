@@ -21,10 +21,10 @@
                 <input type="text" class="tpl-form-input" id="user-name" name="good_name" placeholder="请输入商品名称">
             </div>
         </div>
-        <div class="am-form-group">
+        <div id="xxoo" class="am-form-group">
             <label for="user-phone" class="am-u-sm-3 am-form-label">商品分类 <span class="tpl-form-line-small-title"></span></label>
             <div class="am-u-sm-9">
-                <select data-am-selected="{searchBox: 0}"  name="type_id">
+                <select id='type_type' data-am-selected="{searchBox: 0}"  name="type_id">
                     <option value="">请选择</option>
                     @foreach($type as $k=>$v)
                         <?php
@@ -36,6 +36,32 @@
                 </select>
             </div>
         </div>
+        <script type="text/javascript">
+            // $(function () {
+            //     $("#type_type").change(function () {
+            //         var type_id = $(this).val();
+            //         // console.log(type_id);
+            //         $.get('/admin/good/getlabel',{type_id:type_id},function(data) {
+            //             // console.log(data);
+            //             var c =[];
+            //             $.each(data,function(k,v){
+            //                 // var a =  $('#xxoo').clone(true);
+            //                 // var x = a.find('select').attr('name','label_name[]').html('');
+            //                 // $.each(v.attr,function(m,n){
+            //                 //    //.appendTo(a);
+            //                 //    x.append($('<option></option>').html(n.label_attr_name).val(n['la_id']));
+            //                 // });
+            //                 // c.push(a); 
+            //             })  
+            //             $.each(c,function(m,n){
+            //                 $('#xxoo').after(n);
+            //             });
+            //         });
+            //     });
+            // });
+            
+
+        </script>
         <div class="am-form-group">
             <label for="user-phone" class="am-u-sm-3 am-form-label">商品状态 <span class="tpl-form-line-small-title"></span></label>
             <div class="am-u-sm-9">

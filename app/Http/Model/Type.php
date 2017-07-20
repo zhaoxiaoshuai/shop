@@ -13,5 +13,11 @@ class Type extends Model
     protected $guarded = [];
     public $timestamps = false;
 
-
+     /**
+     * 获取分类的标签。
+     */
+    public function labels()
+    {
+        return $this->hasMany('App\Http\Model\Label','type_id','type_id');
+    }
 }
