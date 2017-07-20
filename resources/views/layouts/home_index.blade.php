@@ -21,11 +21,7 @@
     <div class="menu_bg">
         <div class="menu">
 @include('layouts.home_list')
-            <ul class="menu_r">
-                @foreach($navs as $k=>$v)
-                <li><a href="{{url($v['nav_url'])}}">{{($v['nav_name'])}}</a></li>
-                    @endforeach
-            </ul>
+@include('layouts.home_nav')
         </div>
     </div>
     <!--End Menu End-->
