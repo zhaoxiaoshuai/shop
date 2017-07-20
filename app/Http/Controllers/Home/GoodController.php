@@ -109,7 +109,7 @@ class GoodController extends Controller
            $line = implode($arr,'  >  ');
 
            //取出商品所在店铺
-           $merchant = Merchant::where('merchant_id',$good['merchant_id'])->get()[0];
+           $merchant = Merchant::where('merchant_id',$good['merchant_id'])->first();
          // dd($merchant);
 //        dd($types);
         return view('home.good.gooddetail',compact('good','pics','line','comment','merchant'));
