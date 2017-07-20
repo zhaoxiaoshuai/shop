@@ -8,7 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Validator;
-use App\http\Model\admin;
+use App\Http\Model\admin;
 use Illuminate\Support\Facades\Crypt;
 use Gregwar\Captcha\CaptchaBuilder;
 use Gregwar\Captcha\PhraseBuilder;
