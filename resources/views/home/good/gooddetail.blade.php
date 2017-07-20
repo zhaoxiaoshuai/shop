@@ -63,11 +63,49 @@
                         <a href="#"><img src="images/sh_4.gif" /></a>
                         <a href="#"><img src="images/sh_5.gif" /></a>
                     </div>
-                </div>
-                
-                 
-                <div  class="d_care"><a href="javascript:;" onclick="Collection({{$good->good_id}})">收藏商品</a></div>
-                
+                </div>                
+                @if($coll)
+                    <a href="javascript:;"  id="delcollGood" ><span class="d_care"   aria-hidden="">已收藏</span></a>
+                @else
+                    <a href="javascript:;"  id="collGood" ><span class="d_care"   aria-hidden="">收藏</span></a>
+                @endif
+
+                <script>
+            $(function(){
+                //收藏
+                $('#collGood').click(function()
+                {
+                    $.get("{{url('home/collection/'.$good->good_id)}}",{},function(data){
+                        if(data == 1){
+                            location.href = location.href;
+                            layer.msg('收藏成功',{icon:1});
+                        }else if(data == 2){
+                            location.href = location.href;
+                            layer.msg('收藏失败',{icon:2});
+                        }else if(data == 3){
+                            location.href = location.href;
+                            layer.msg('已收藏',{icon:1});
+                        }else if(data == 4){
+                            layer.msg('请先登录',{icon:2});
+                            location.href = 'http://www.lamp182.com/home/login';
+                        }                                               
+                    });
+                });
+                //取消收藏
+                $('#delcollGood').click(function()
+                {
+                    $.get("{{url('home/collection1/'.$good->good_id)}}",{},function(data){
+                        if(data == 1){
+                            location.href = location.href;
+                            layer.msg('取消收藏成功',{icon:1});
+                        }else if(data == 2){
+                            location.href = location.href;
+                            layer.msg('取消收藏失败',{icon:2});
+                        }                   
+                    });
+                });
+            });
+        </script>
 
 
               

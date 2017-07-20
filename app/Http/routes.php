@@ -116,6 +116,9 @@ Route::group(['prefix'=>'home','namespace'=>'Home'],function(){
 	Route::controller('user','UserController');
 	//前台店铺路由
 	Route::controller('merchant','MerchantController');
+
+	//收藏
+	Route::get('collection/{id}','CollectiongoodsController@Coll');
 	Route::group(['middleware' =>'homelogin'] ,function(){
 		// 前台收货地址
 		Route::resource('address','AddressController');
@@ -155,7 +158,8 @@ Route::group(['prefix'=>'home','namespace'=>'Home'],function(){
 		Route::any('upload2','StoreController@upload2');
 		//收藏详情页
 		Route::resource('Collectiongoods','CollectiongoodsController');
-		Route::get('collection/{id}','CollectiongoodsController@collection');
+		
+		Route::get('collection1/{id}','CollectiongoodsController@Delcoll');
 	});
 
 });
