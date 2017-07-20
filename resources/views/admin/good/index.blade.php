@@ -92,7 +92,7 @@
                     ?>
 
                     <div class="am-fr">
-                            {!! $good->appends(['keywords1' => $key1,'keywords2' => $key2,'type'=>$type])->render() !!}
+                            {!! $good->appends(['keywords1' => $key1,'keywords2' => $key2,'type1'=>$type1])->render() !!}
                     </div>
                 </div>
             </div>

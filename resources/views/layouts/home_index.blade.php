@@ -48,14 +48,9 @@
         <div class="menu">
 @include('layouts.home_list')
             <ul class="menu_r">
-                <li><a href="">首页</a></li>
-                <li><a href="">美食</a></li>
-                <li><a href="">生鲜</a></li>
-                <li><a href="">家居</a></li>
-                <li><a href="">女装</a></li>
-                <li><a href="">美妆</a></li>
-                <li><a href="">数码</a></li>
-                <li><a href="">团购</a></li>
+                @foreach($navs as $k=>$v)
+                <li><a href="{{url($v['nav_url'])}}">{{($v['nav_name'])}}</a></li>
+                    @endforeach
             </ul>
         </div>
     </div>

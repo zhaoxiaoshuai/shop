@@ -311,6 +311,26 @@
                         </li>
                     </ul>
                 </li>
+
+                <li class="sidebar-nav-link">
+                    <a href="javascript:;" class="sidebar-nav-sub-title">
+                        <i class="am-icon-link sidebar-nav-link-logo"></i> 导航管理
+                        <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                    </a>
+                    <ul class="sidebar-nav sidebar-nav-sub">
+                        <li class="sidebar-nav-link">
+                            <a href="{{ url('admin/nav/create') }}">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 添加导航
+                            </a>
+                        </li>
+
+                        <li class="sidebar-nav-link">
+                            <a href="{{ url('admin/nav') }}">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 导航列表
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 
                 <li class="sidebar-nav-link">
                     <a href="{{ url('admin/config/1/edit') }}">

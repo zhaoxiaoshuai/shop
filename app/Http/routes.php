@@ -87,6 +87,8 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 		Route::resource('atype','TypeController');
 		// 用户管理
 		Route::resource('user','UserController');
+		//导航管理
+        Route::resource('nav','NavController');
 	});
 });
 
