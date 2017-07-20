@@ -20,19 +20,19 @@
       <div class="am-form-group"> 
         <label for="user-name" class="am-u-sm-3 am-form-label">管理员</label> 
         <div class="am-u-sm-9"> 
-         <input type="text" value="{{ $store_admin['store_admin_name'] }}" readonly class="tpl-form-input" id="user-name"/> 
+         <input type="password" value="{{ $store_admin['store_admin_name'] }}" readonly class="tpl-form-input" id="user-name"/> 
         </div> 
        </div> 
        <div class="am-form-group"> 
         <label for="user-name" class="am-u-sm-3 am-form-label">原密码</label> 
         <div class="am-u-sm-9"> 
-         <input type="text" name="pwd" class="tpl-form-input" id="user-name" placeholder="请输入原密码" /> 
+         <input type="password" name="pwd" class="tpl-form-input" id="user-name" placeholder="请输入原密码" /> 
         </div> 
        </div> 
        <div class="am-form-group"> 
         <label for="user-name" class="am-u-sm-3 am-form-label">新密码</label> 
         <div class="am-u-sm-9"> 
-         <input type="text" name="newpwd" class="tpl-form-input" id="user-name" placeholder="请输入新密码" /> 
+         <input type="password" name="newpwd" class="tpl-form-input" id="user-name" placeholder="请输入新密码" /> 
         </div> 
        </div>
        <div class="am-form-group"> 

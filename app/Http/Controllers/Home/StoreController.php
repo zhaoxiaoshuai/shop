@@ -13,6 +13,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
 use App\Services\OSS;
 use Validator;
+use DB;
 
 class StoreController extends Controller
 {
@@ -75,17 +76,18 @@ class StoreController extends Controller
             // dump($data2);
             
             // 获取当前用户的用户id，用户名和密码存入到商家管理表(shop_store_admin)
-            $user_id = $res['user_id']; // 用户id。。。。。。。。。。。。。。。
-            $user = User::where('user_id',$user_id)->first();
+            // $user_id = $res['user_id']; // 用户id。。。。。。。。。。。。。。。
+            // $user = User::where('user_id',$res['user_id'])->first();
             
             // 获取指定数据存在相对应的表中shop_store_admin
             $data3['merchant_id'] = $merid;
             $data3['user_id'] = $res['user_id'];
-            $data3['store_admin_name'] = $user['user_name'];
-            $data3['store_admin_password'] = $user['user_password'];
+            $data3['store_admin_name'] = $res['user_name'];
+            $data3['store_admin_password'] = $res['user_password'];
             $data3['status'] = '1';
             $data3['insert_time'] = time();
             $sto_adm = StoreAdmin::create($data3);
+
 
             return redirect('home/MerApplication3');
         }else{
@@ -94,51 +96,6 @@ class StoreController extends Controller
         
 
         
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 
     public function upload1()

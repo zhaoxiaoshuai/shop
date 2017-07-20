@@ -35,6 +35,7 @@
             </thead>
             <tbody>
                 @foreach($com as $k=>$v)
+                @if(!$v['reply_connect']){
                     <tr class="gradeX">
                     <td width="5%"><input type="checkbox" name="" class="cls"></td>
                     <td>{{ $v['good_name'] }}</td>
@@ -45,11 +46,10 @@
                         	<a href="{{url('admin/comment/reply/'.$v['id'])}}">
                                 <i class="am-icon-pencil"></i> 回复
                             </a>
-                            
-                            
                         </div>
                     </td>
                     </tr>
+                @endif
           		@endforeach
             <!-- more data -->
             </tbody>

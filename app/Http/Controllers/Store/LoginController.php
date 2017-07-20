@@ -30,7 +30,7 @@ class LoginController extends Controller
         $res = session('logins');
 
         // 判断是否登录
-        if(!empty($res)){
+        if($res){
 
             // 如果不是商家返回到商家登录
             if($res['status'] == 2){
@@ -42,13 +42,13 @@ class LoginController extends Controller
             }else{
                 // 如果不是商家就返回到申请入驻
                 echo '<script>alert("亲,您还不是商家，去申请入驻！")</script>';
-                return view('home.store.MerSettled');
+                return redirect('home/MerApplication2');
             }
            
         }else{
             // 如果没登陆就返回前台登录视图
             echo '<script>alert("亲,您还没有登录，去登录！")</script>';
-            return view('home.login.login');
+            return redirect('home/login');
         }
 
         
