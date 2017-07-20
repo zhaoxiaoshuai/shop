@@ -12,6 +12,7 @@
                 <td align="center" width="180">单价</td>
                 <td align="center" width="180">数量</td>
                 <td align="center" width="160">价格</td>
+                <td align="center" width="160">操作</td>
               </tr>
                 @foreach($data as $v)
               <tr>
@@ -21,6 +22,7 @@
                 <td align="center">￥{{ $v['good_price'] }}</td>
                 <td align="center">{{ $v['order_cnt'] }}</td>
                 <td align="center">{{ $v['order_total'] }}</td>
+                <td align="center"><a href="{{ url('home/comment/'.$v['good_id']) }}">评论</a></td>
               </tr>
                     @endforeach
             </table>

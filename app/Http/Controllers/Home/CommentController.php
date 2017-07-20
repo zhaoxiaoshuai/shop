@@ -69,7 +69,7 @@ class CommentController extends Controller
 //        评论列表
         $data = Detail::join('orders','detail.order_id','=','orders.order_id')
             ->join('goods','goods.good_id','=','detail.good_id')
-            ->where('orders.order_id','=',$id)
+            ->where('goods.good_id','=',$id)
             ->get();
         return view('home.comment.index',['data'=>$data]);
     }

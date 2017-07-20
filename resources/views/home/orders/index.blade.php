@@ -24,9 +24,6 @@
                     @if( ($v['order_status'] == 6) )
                     <a href="{{ url('home/jiesuan/'.$v['order_id']) }}">去付款</a> |
                     @endif
-                    @if( ($v['order_status'] == 3)  )
-                    <a href="{{ url('home/comment/'.$v['order_id']) }}">评价</a> |
-                    @endif
                     @if( ($v['order_status'] == 2) || ($v['order_status'] == 1) || ($v['order_status'] == 6))
                     <a href="{{ url('home/changeorders/'.$v['order_id']) }}">取消订单</a>
                     @endif
