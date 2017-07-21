@@ -6,11 +6,12 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Common;
 use App\Http\Model\Cart;
 use App\Http\Model\Good;
 
 
-class MycartController extends Controller
+class MycartController extends Common
 {
     /**
      * Display a listing of the resource.

@@ -106,15 +106,19 @@ class ConfController extends Controller
     {
        // 读出config数据表中的conf_name,conf_content这两列数据，
         $arr = DB::table('config')->where('id',1)->first();
-//        dd($arr);
+       // dd($arr);
        // 变成字符串形式
         $str ='<?php  return '.var_export($arr,true).';';
+        // dd($str);
         //找到要写入的文件的路径
 //        base_path函数返回项目根目录的绝对路径：
 //        config_path函数返回应用配置目录的绝对路径：
-        $path = base_path().'\config\web.php';
+        $path = base_path().'/config/web.php';
+    
 //        dd($path);
-        file_put_contents($path,$str);
+       $aa =  file_put_contents($path,$str);
+
+       // dd($aa);
 
 
 //        写入config/web.php文件
