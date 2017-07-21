@@ -38,10 +38,10 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 		//后台首页
 		Route::get('index','LoginController@index');
 	    //管理员管理
-	    Route::resource('admin','adminController');
+	    Route::resource('admin','AdminController');
 	    //管理员修改自己信息
-	    Route::get('admin/editself/{id}','adminController@editself');
-	    Route::post('admin/updateself/','adminController@updateself');
+	    Route::get('admin/editself/{id}','AdminController@editself');
+	    Route::post('admin/updateself/','AdminController@updateself');
 	    //商品管理
         //上传商品大图
         Route::any('goods/upload','GoodController@upload');
@@ -59,7 +59,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 	    Route::get('role/roleauth/{id}','RoleController@addAuth');
 	    Route::post('role/doroleauth','RoleController@doaddAuth');
 		//管理员管理
-		Route::resource('admin','adminController');
+		Route::resource('admin','AdminController');
 		//订单管理
 		Route::resource('orders','OrdersController');
 		// 后台分类管理

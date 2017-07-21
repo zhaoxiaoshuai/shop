@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
@@ -10,8 +11,8 @@ use App\Http\Controllers\Controller;
 use Validator;
 use App\Http\Model\Admin;
 use Illuminate\Support\Facades\Crypt;
-use App\http\Model\Role;
-use App\http\Model\Admin_role;
+use App\Http\Model\Role;
+use App\Http\Model\Admin_role;
 use DB;
 class AdminController extends Controller
 {

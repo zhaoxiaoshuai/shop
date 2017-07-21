@@ -15,9 +15,10 @@ use App\Http\Model\User;
 use App\Http\Model\Cart;
 use App\Http\Model\Address;
 use App\Http\Model\Good;
+use App\Http\Controllers\Common;
 
 
-class OrdersController extends Controller
+class OrdersController extends Common
 {
     /**
      * 订单显示页面
@@ -200,6 +201,7 @@ class OrdersController extends Controller
         DB::beginTransaction();
         //获取用户的信息
         $data = $request -> except('_token');
+        
         $address_id = $data['address'];
         $order_msg = $data['order_msg'];
         $res = Address::where('address_id',$address_id)->get();
