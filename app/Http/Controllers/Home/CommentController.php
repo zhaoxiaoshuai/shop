@@ -64,7 +64,8 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-  public function show(Request $request,$id)
+
+    public function show(Request $request,$id)
     {
 //        评论列表
         //获取传递的参数 订单号
