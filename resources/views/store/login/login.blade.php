@@ -55,7 +55,7 @@
                     </div>
                     <div class="am-form-group">
                         <input type="text" style="float: left;width: 56%; margin-top: 10px;"  class="tpl-form-input" id="code" placeholder="请输入验证码">
-                        <div style="float:right" id="imgCode" ><img id="img_img" src="{{url('store/captcha/123.jpg')}}" alt="点击切换验证码"></div>
+                        <div style="float:right" id="imgCode" ><img id="img_img" src="{{ url('store/captcha/123.jpg') }}" alt="点击切换验证码"></div>
                     </div>
 
                     <div class="am-form-group tpl-login-remember-me">

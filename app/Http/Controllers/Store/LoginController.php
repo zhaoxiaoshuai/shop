@@ -41,13 +41,13 @@ class LoginController extends Controller
             return view('store.login.login',['cookie'=>$cookie]);
             }else{
                 // 如果不是商家就返回到申请入驻
-                echo '<script>alert("亲,您还不是商家，去申请入驻！")</script>';
+                // echo '<script>alert("亲,您    还不是商家，去申请入驻！")</script>';
                 return redirect('home/MerApplication2');
             }
            
         }else{
             // 如果没登陆就返回前台登录视图
-            echo '<script>alert("亲,您还没有登录，去登录！")</script>';
+            // echo '<script>alert("亲,您还没有登录，去登录！")</script>';
             return redirect('home/login');
         }
 

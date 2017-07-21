@@ -45,25 +45,25 @@
                 @foreach ($data as $k=>$v)
                     <tr class="gradeX">
                     <td width="5%"><input type="checkbox" name="" class="cls"></td>
-                    <td>{{$v->good_id}}</td>
-                    <td>{{$v->good_name}}</td>
-                    @if($v->good_status==1)
+                    <td>{{$v['good_id']}}</td>
+                    <td>{{$v['good_name']}}</td>
+                    @if($v['good_status']==1)
                         <td>上架</td>
-                    @elseif($v->good_status==2)
+                    @elseif($v['good_status']==2)
                         <td>下架</td>
-                    @elseif($v->good_status==0)
+                    @elseif($v['good_status']==0)
                         <td>新品</td>
                     @endif
-                    <td>{{date('Y-m-d H:i:s',$v->good_ctime)}}</td>
+                    <td>{{date('Y-m-d H:i:s',$v['good_ctime'])}}</td>
                     <td>
                         <div class="tpl-table-black-operation">
-                            <a href="{{url('store/goods/'.$v->good_id.'/edit')}}">
+                            <a href="{{url('store/goods/'.$v['good_id'].'/edit')}}">
                                 <i class="am-icon-pencil"></i> 编辑
                             </a>
-                            <a href="javascript:;" onclick="DelGood({{$v->good_id}})" class="tpl-table-black-operation-del">
+                            <a href="javascript:;" onclick="DelGood({{$v['good_id']}})" class="tpl-table-black-operation-del">
                                 <i class="am-icon-trash"></i> 删除
                             </a>
-                            <a href="{{url('store/goods/').'/'.$v->good_id}}">
+                            <a href="{{url('store/goods/').'/'.$v['good_id']}}">
                                 <i class="am-icon-pencil"></i> 查看
                             </a>
                         </div>
