@@ -60,7 +60,7 @@
                                         <td>{{$v->user_id}}</td>
                                         <td>{{$v->user_phone}}</td>
                                         <td>{{$v->user_email}}</td>
-                                        <td>{{date('Y-m-d',$v->createtime)}}</td>
+                                        <td>{{date('Y-m-d H:i:s',$v->createtime)}}</td>
                                         <td>{{$v->token}}</td>
                                         <td>{{$v->status}}</td>
                                         <td>
