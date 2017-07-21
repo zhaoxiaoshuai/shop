@@ -175,6 +175,8 @@ Route::group(['prefix'=>'store','namespace'=>'Store'],function(){
 	// 商家后台登录 处理登录 退出 首页 修改密码
 	Route::controller('admin','LoginController');
 	//判断登录和权限中间件组
+	// 生成验证码
+		Route::get('captcha/{num}.jpg','LoginController@captcha')->where('name','[0-9]+');
 	Route::group(['middleware' =>['storelogin']] ,function(){
 		// 商家后台店铺管理
 		Route::controller('setup','MersetupController');
@@ -186,8 +188,7 @@ Route::group(['prefix'=>'store','namespace'=>'Store'],function(){
 		Route::resource('type','TypeController');
 		// 商家后台订单管理
 		Route::resource('orders','OrderController');
-		// 生成验证码
-		Route::get('captcha/{num}.jpg','LoginController@captcha')->where('name','[0-9]+');
+		
 		// ajax判断验证码
 		Route::post('proving','LoginController@proving');
 		// 商家后台回复评论

@@ -29,20 +29,23 @@ class GoodsController extends Controller
     {
         // 获取店铺的id
         $merchant_id = session('store_admin')['merchant_id'];
+
         // 如果keywords参数有值说明是通过查询进入index方法的，否则是通过商品列表导航进入的
         if($request->has('keywords')){
             $key = trim($request->input('keywords')) ;
-            $good = Good::where('good_name','like',"%".$key."%")
+            $good = Good::join('type','goods.type_id','=','type.type_id')
+                        ->where('good_name','like',"%".$key."%")
                         ->where('merchant_id',$merchant_id)
-                        ->paginate(10);;
+                        ->paginate(10);
             return view('store.goods.index',['data'=>$good,'key'=>$key]);
         }else{
             //两表联查shop_goods shop_type
-            $data =  Good::join('type','goods.type_id','=','type.type_id')
+            $data =  DB::table('goods')
+                            ->join('type','goods.type_id','=','type.type_id')
                             ->where('merchant_id',$merchant_id)
                             ->orderBy('goods.good_id','asc')
                             ->paginate(10);
-           // dd($data);
+       
                  // 向前台模板传变量的一种方法
             return view('store.goods.index',compact('data'));
         }
@@ -138,7 +141,8 @@ class GoodsController extends Controller
 
         $data =  $request -> except('_token','file_upload');
         $data['good_ctime'] = time();
-        $data['merchant_id'] = session('store_admin')['merchant_id'];
+   
+    
 
         $role =  [
             'good_name' => 'required',
@@ -213,10 +217,12 @@ class GoodsController extends Controller
             }else{
                 $inp =  Input::except('_token','file_upload','good_pics');
                 $inp['good_ctime'] = time();
+                // 获取店铺id
+                $inp['merchant_id'] = session('store_admin')['merchant_id'];
                 $re = Good::insert($inp);
                 if ($re) {
-//             如果添加成功添加到商品列表页
-                    return redirect('admin/good');
+//             如果添加成功到商品列表页
+                    return redirect('store/goods');
                 } else {
                     return back()->with('error', '添加失败');
                 }
