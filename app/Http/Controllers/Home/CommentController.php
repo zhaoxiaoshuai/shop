@@ -64,13 +64,18 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request,$id)
     {
 //        评论列表
+        //获取传递的参数 订单号
+        $res = $request->all();
+
         $data = Detail::join('orders','detail.order_id','=','orders.order_id')
             ->join('goods','goods.good_id','=','detail.good_id')
             ->where('goods.good_id','=',$id)
+            ->where('detail.order_id','=',$res['order_id'])
             ->get();
+            // dd($data);
         return view('home.comment.index',['data'=>$data]);
     }
 
