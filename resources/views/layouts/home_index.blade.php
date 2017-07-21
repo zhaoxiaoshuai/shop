@@ -7,7 +7,8 @@
         <div class="search">
             <form action="{{url('home/search')}}" method="post">
                 {{ csrf_field() }}
-                <input type="text" value="" name="search" class="s_ipt" />
+
+                <input type="text" value="{{$search or ''}}" name="search" class="s_ipt" />
                 <input type="submit" value="搜索" class="s_btn" />
             </form>
         </div>

@@ -27,9 +27,11 @@ class SearchController extends Controller
 //                }
 //            }
 //        }
-////        dd($arr);
-        $data = DB::table('goods')->where('good_name','like','%'.$search.'%')->get();
-        dd($data);
-        return view('home/goodlist',['data'=>$data]);
+
+        $data = DB::table('goods')->where('good_name','like','%'.$search.'%')->paginate(8);
+        $goods = DB::table('goods')->where('good_name','like','%'.$search.'%')->limit(4)->get();
+//        dump($data);
+//        dd($goods);
+        return view('home.good.goodsearch',['data'=>$data,'goods'=>$goods,'search'=>$search]);
     }
 }
