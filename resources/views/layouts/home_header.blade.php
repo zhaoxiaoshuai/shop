@@ -17,7 +17,6 @@
     <![endif]-->
     <script type="text/javascript" src="{{ asset('home/assets/js/jquery-1.11.1.min_044d0927.js') }}"></script>
     <script type="text/javascript" src="{{ asset('home/assets/js/jquery.bxslider_e88acd1b.js') }}"></script>
-
     <script type="text/javascript" src="{{ asset('home/assets/js/jquery-1.8.2.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('home/assets/js/menu.js') }}"></script>
     <script type="text/javascript" src="{{ asset('home/assets/js/iban.js') }}"></script>
@@ -33,19 +32,16 @@
     <link type="text/css" rel="stylesheet" href="{{asset('home/assets/css/style.css')}}" />
     <script type="text/javascript" src="{{asset('home/assets/js/jquery-1.8.2.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('home/assets/js/menu.js')}}"></script>
-
+    <link rel="stylesheet" href="{{asset('home/css/layui.css')}}"  media="all">
     <script type="text/javascript" src="{{asset('home/assets/js/lrscroll_1.js')}}"></script>
-
+    <script src="{{asset('home/js/layui.js')}}" charset="utf-8"></script>
     <link rel="stylesheet" type="text/css" href="{{asset('home/assets/css/ShopShow.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{asset('home/assets/css/MagicZoom.css')}}" />
     <script type="text/javascript" src="{{asset('home/assets/js/MagicZoom.js')}}"></script>
-
     <script type="text/javascript" src="{{asset('home/assets/js/num.js')}}">
         var jq = jQuery.noConflict();
     </script>
-
     <script type="text/javascript" src="{{asset('home/assets/js/p_tab.js')}}"></script>
-
     <script type="text/javascript" src="{{asset('home/assets/js/shade.js')}}"></script>
 </head>
 <body>
@@ -59,10 +55,7 @@
         <!--End 所在收货地区 End-->
              @if(session('logins'))
                 <span class="fl" style="margin-left:400px">
-
-
-                    会员 : <a href="{{url('home/user/userdetails')}}">{{session('deta_name')}}</a> &nbsp;&nbsp;&nbsp;
-
+                    欢迎 : <a style="color:#C40D0D;" href="{{url('home/user/userdetails')}}">{{session('deta_name')}}</a> &nbsp;&nbsp;&nbsp;
                     <a href="{{url('home/user/exit')}}">退出</a>
                     &nbsp;|&nbsp;<a href="{{ url('home/orders') }}">我的订单</a>&nbsp;|
                 </span>

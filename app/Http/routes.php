@@ -94,6 +94,8 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 //前台首页
 Route::get('/', 'Home\IndexController@index');
 Route::group(['prefix'=>'home','namespace'=>'Home'],function(){
+	//前台用户操作
+		Route::controller('user','UserController');
 	//前台全局搜索
 	Route::post('search','SearchController@search');
 	//前台登录
@@ -109,8 +111,7 @@ Route::group(['prefix'=>'home','namespace'=>'Home'],function(){
 	//前台店铺路由
 	Route::controller('merchant','MerchantController');
 	Route::group(['middleware' =>'homelogin'] ,function(){
-		//前台用户操作
-		Route::controller('user','UserController');
+		
 		// 前台收货地址
 		Route::resource('address','AddressController');
 		// 订单路由

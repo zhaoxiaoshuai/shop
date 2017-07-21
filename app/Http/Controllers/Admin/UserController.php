@@ -22,7 +22,7 @@ class UserController extends Controller
 //            $status = trim($request['status']);
             $username = trim($request['username']);
 //            $stas = User::where('status',$status)->paginate(3);
-            $data = User::where('user_email','like',"%".$username."%") -> orwhere('user_phone','like',"%".$username."%")->paginate(3);
+            $data = User::where('user_email','like',"%".$username."%") -> orwhere('user_phone','like',"%".$username."%")->paginate(5);
 //            dd($data);
             return view('admin.user.index',compact('data','username'));
         }else{
@@ -33,11 +33,11 @@ class UserController extends Controller
 //                 dd($order);
                 //取数据
                 $key = '';
-                $data = User::orderBy($order,$d) -> paginate(10);
+                $data = User::orderBy($order,$d) -> paginate(5);
                 return view('admin.user.index',compact('data','key','o','d'));
             }
             //查询出User表所有的值
-            $data = User::paginate(10);
+            $data = User::paginate(5);
             //向前台模板传变量
             return view('admin.user.index',compact('data','desc'));
         }

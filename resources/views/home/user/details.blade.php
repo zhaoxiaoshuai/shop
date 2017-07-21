@@ -29,6 +29,7 @@
                                             {{date('Y年-m月-d日 H:i:s',session('logins')['lasttime'])}}
                                         @endif
                                 </p>
+                                <div>注册日期 : <strong>{{date('Y年-m月-d日',$data->createtime)}}</strong> </div>
                                 <div class="m_notice">
                                     用户中心公告！
                                 </div>
@@ -47,11 +48,13 @@
                     </script>
                 @endif
                 <div class="mem_t">账号信息</div>
-
                     {{csrf_field()}}
                     <input type="hidden" name="user_id" value="{{$data -> user_id}}">
                     <span style="margin:0px 100px;">
-                        <em style="color:red;">*</em>&nbsp;&nbsp;&nbsp;昵&nbsp;&nbsp;&nbsp;&nbsp;称&nbsp;:&nbsp;<input type="text" name="deta_name" value="{{$deta->deta_name}}">
+                        <em style="color:red;">*</em>&nbsp;&nbsp;&nbsp;昵&nbsp;&nbsp;&nbsp;&nbsp;称&nbsp;:&nbsp;
+                        <div class="layui-inline">
+                            <input type="text" class="layui-input" name="deta_name" value="{{$deta->deta_name}}">
+                            </div>
                     </span><br /><br />
                     <span style="margin:0px 100px;">
                         <em style="color:red;">*</em>&nbsp;&nbsp;&nbsp;性&nbsp;&nbsp;&nbsp;&nbsp;别&nbsp;:&nbsp;
@@ -61,7 +64,9 @@
                     </span><br /><br />
                     <span style="margin:0px 100px;">
                         <em style="color:red;">*</em>&nbsp;&nbsp;&nbsp;年&nbsp;&nbsp;&nbsp;&nbsp;龄&nbsp;:&nbsp;
-                        <input type="text" name="deta_age" value="{{$deta->deta_age}}">
+                        <div class="layui-inline">
+                        <input type="text" class="layui-input" name="deta_age" value="{{$deta->deta_age}}">
+                            </div>
                     </span><br><br>
 
                                         <script type="text/javascript">
@@ -116,11 +121,43 @@
                                         </script>
                     <span style="margin:0px 100px;">
                         <em style="color:red;">*</em>&nbsp;&nbsp;&nbsp;所在地&nbsp;:&nbsp;
-                        <input type="text" name="deta_addr" value="{{$deta->deta_addr}}">
+                        <div class="layui-inline">
+                        <input type="text" class="layui-input" name="deta_addr" value="{{$deta->deta_addr}}">
+                        </div>
                     </span><br><br>
+                <span style="margin:0px 100px;">
+                <em style="color:red;">*</em>&nbsp;&nbsp;&nbsp;生&nbsp;&nbsp;&nbsp;&nbsp;日&nbsp;:&nbsp;
+                <div class="layui-inline">
+                    <input class="layui-input" name="deta_birthday" placeholder="选择生日" value="{{date('Y-m-d',$deta->deta_birthday)}}" onclick="layui.laydate({elem: this, festival: true})">
+                </div>
+                    </span><br><br>
+                <script>
+                    layui.use('laydate', function(){
+                        var laydate = layui.laydate;
+                        var start = {
+                            min: laydate.now()
+                            ,max: '2099-06-16 23:59:59'
+                            ,istoday: false
+                            ,choose: function(datas){
+                                end.min = datas; //开始日选好后，重置结束日的最小日期
+                                end.start = datas //将结束日的初始值设定为开始日
+                            }
+                        };
+
+                        var end = {
+                            min: laydate.now()
+                            ,max: '2099-06-16 23:59:59'
+                            ,istoday: false
+                            ,choose: function(datas){
+                                start.max = datas; //结束日选好后，重置开始日的最大日期
+                            }
+                        };
+                    });
+                </script>
                     <span style="margin:0px 100px;">
                         <em style="color:red;">*</em>&nbsp;&nbsp;&nbsp;职&nbsp;&nbsp;&nbsp;&nbsp;业&nbsp;:&nbsp;
-                        <select class="selt" name="deta_job" id="industryInfo">
+                        <div class="layui-inline">
+                        <select class="layui-input" name="deta_job" id="industryInfo">
                             <option value="">请选择</option>
                             <option  @if($deta->deta_job=='计算机硬件及网络设备') {{'selected'}}  @endif value="计算机硬件及网络设备">计算机硬件及网络设备</option>
                             <option  @if($deta->deta_job=='计算机软件') {{'selected'}}  @endif value="计算机软件">计算机软件</option>
@@ -167,10 +204,13 @@
                             <option  @if($deta->deta_job=='学术/科研') {{'selected'}}  @endif value="学术/科研">学术/科研</option>
                             <option  @if($deta->deta_job=='其它') {{'selected'}}  @endif value="其它">其它</option>
                             <option  @if($deta->deta_job=='农/林/牧/渔') {{'selected'}}  @endif value="农/林/牧/渔">农/林/牧/渔</option>
-                            <option  @if($deta->deta_job=='跨领域经营') {{'selected'}}  @endif value="跨领域经营">跨领域经营</option></select>
+                            <option  @if($deta->deta_job=='跨领域经营') {{'selected'}}  @endif value="跨领域经营">跨领域经营</option>
+                        </select>
+                            </div>
                     </span><br><br>
                     <span style="margin:0px 200px;">
-                        <input type="submit"  value="修改">
+                        <input type="submit" class="layui-btn" value="修改">
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                     </span>
                 </form>
             </div>

@@ -60,7 +60,7 @@
             @endif
             @if(session('okfindpwd'))
                 <script>
-                    layer.msg('修改成功',{icon:1});
+                    layer.msg('修改成功',{icon:6});
                 </script>
             @endif
             <div class="login-links">
@@ -74,7 +74,7 @@
         </div>
     </div>
     </form>
-</div>
+</div6
 <div class="footer ">
     <div class="footer-hd ">
         <p>

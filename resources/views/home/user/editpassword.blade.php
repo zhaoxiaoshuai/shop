@@ -15,7 +15,7 @@
                             <input type="hidden" name="_token" value="{{csrf_token()}}">
                             <input type="hidden" name="id" value="{{$id}}">
                             <p style="margin-top:70px;">
-                                <span style="font-size:15px;">当前密码</span>
+                                <span style="font-size:15px;">原始密码</span>
                                 <input type="password" style="width: 280px;height: 25px;border: 2px solid #dfdfdf;" id="jpass" name="password">
                                 <span></span>
                             </p>
