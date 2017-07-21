@@ -164,38 +164,25 @@ class TypeController extends Controller
     {
         $arr = DB::table('type')->where('pid',$id)->get();
         $arr1 = DB::table('goods')->where('type_id',$id)->get();
-        
+        //分类下有子类
         if($arr){
-            $data =[
-                'status'=>1,
-                'msg'=>'分类下有子类'
-            ];
-            return;
+            return 1;
         }
-
+        // 分类下有商品
         if($arr1){
-            $data =[
-                'status'=>1,
-                'msg'=>'分类下有商品'  
-            ];
-            return;
+            return 2;
         }
         //删除对应id的用户
         $res = DB::table('type')->where('type_id', $id)->delete();
 
-        // 0表示成功 其他表示失败
+        
         if($res){
-           $data = [
-                'status'=>0,
-                'msg'=>'删除成功！'
-           ];
+            // 删除成功
+           return 3;
         }else{
-           $data = [
-               'status'=>1,
-               'msg'=>'删除失败！'
-           ];
+            //删除失败
+           return 4;
        }
-       return $data;
     }
 }
 

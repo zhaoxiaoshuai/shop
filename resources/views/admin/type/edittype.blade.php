@@ -49,12 +49,7 @@
           </div>
         </div>
 
-        <div class="am-form-group">
-          <label class="am-u-sm-3 am-form-label">关键字 :
-            <span class="tpl-form-line-small-title"></span></label>
-          <div class="am-u-sm-9">
-            <input name="type_keyword" type="text" value="{{ $v['type_keyword'] }}"></div>
-        </div>
+        
 
         <div class="am-form-group">
           <label for="user-intro" class="am-u-sm-3 am-form-label">分类描述 :</label>

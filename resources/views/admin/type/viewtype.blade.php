@@ -99,12 +99,18 @@
                 btn: ['确定','取消'] //按钮
             }, function(){ 
                 $.post("{{url('admin/atype/')}}/"+type_id,{'_method':'DELETE','_token':"{{csrf_token()}}"},function(data){
-                if(data.status == 0){
+                if(data == 3){
                     location.href = location.href;
-                    layer.msg(data.msg, {icon: 6});
-                }else{
+                    layer.msg('删除成功', {icon: 6});
+                }else if(data == 4){
                     location.href = location.href;
-                    layer.msg(data.msg, {icon: 5});
+                    layer.msg('删除失败', {icon: 5});
+                }else if(data == 1){
+                    location.href = location.href;
+                    layer.msg('删除失败,分类下有子类', {icon: 5});
+                }else if(data == 2){
+                    location.href = location.href;
+                    layer.msg('删除失败,分类下有商品', {icon: 5});
                 }
                 });
 

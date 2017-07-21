@@ -51,12 +51,7 @@
           </div>
         </div>
 
-        <div class="am-form-group">
-          <label class="am-u-sm-3 am-form-label">关键字 :
-            <span class="tpl-form-line-small-title"></span></label>
-          <div class="am-u-sm-9">
-            <input name="type_keyword" type="text" placeholder="输入搜索关键字"></div>
-        </div>
+        
         
         
         
