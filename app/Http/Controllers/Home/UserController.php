@@ -189,7 +189,7 @@ class UserController extends Controller
 
         $phone_code = rand(1000,9999);
         session(['phone_code'=>$phone_code]);
-        $str = 'http://106.ihuyi.com/webservice/sms.php?method=Submit&account=C13001825&password=28b3f7951fd54ff596293a79b7959405&format=json&mobile='.$phone.'&content=您的验证码是：'.$phone_code.'。请不要把验证码泄露给其他人。';
+        $str = 'http://106.ihuyi.com/webservice/sms.php?method=Submit&account=C72793654&password=8f2ca413965c70e3985b3f6f97ee8bcb&format=json&mobile='.$phone.'&content=您的验证码是：'.$phone_code.'。请不要把验证码泄露给其他人。';
         $res = PhoneController::get($str);
         return $res;
     }

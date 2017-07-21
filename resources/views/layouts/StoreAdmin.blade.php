@@ -178,24 +178,6 @@
                 </li>
                 <li class="sidebar-nav-link">
                     <a href="javascript:;" class="sidebar-nav-sub-title">
-                        <i class="am-icon-table sidebar-nav-link-logo"></i> 权限管理
-                        <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
-                    </a>
-                    <ul class="sidebar-nav sidebar-nav-sub" style="display: none;">
-                        <li class="sidebar-nav-link">
-                            <a href="">
-                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span>添加管理员
-                            </a>
-                        </li>
-                        <li class="sidebar-nav-link">
-                            <a href="">
-                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span>添加角色
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="sidebar-nav-link">
-                    <a href="javascript:;" class="sidebar-nav-sub-title">
                         <i class="am-icon-table sidebar-nav-link-logo"></i> 评论管理
                         <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
                     </a>

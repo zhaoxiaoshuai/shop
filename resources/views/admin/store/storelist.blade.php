@@ -64,7 +64,7 @@
            <td> 
             <div class="tpl-table-black-operation"> 
              <a href="{{ url('admin/astoreindex/'.$v['store_id']) }}"> <i class=""></i> 查看 </a> 
-             <a href="{{ url('/home/merchant/index/'.$v['merchant_id'])}}"> <i class=""></i> 店铺 </a>
+             <a href="{{ url('/home/merchant/index/?merchant_id='.$v['merchant_id'])}}"> <i class=""></i> 店铺 </a>
              <a href="javascript:;" onclick="DelStore({{ $v['store_id'] }})" class="tpl-table-black-operation-del"> <i class="am-icon-trash"></i> 删除 </a> 
             </div> </td> 
           </tr> 

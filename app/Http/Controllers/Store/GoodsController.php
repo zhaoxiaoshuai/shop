@@ -68,7 +68,7 @@ class GoodsController extends Controller
     {
 
         // 获取商城分类
-        $type = DB::table('type')->get();
+         $type = DB::table('type')->orderBy('type_npath','asc')->get();
         
          // 获取店铺的id
         $merchant_id = session('store_admin')['merchant_id'];
@@ -295,7 +295,7 @@ class GoodsController extends Controller
        // 根据传过来的商品id获取type_id查找shop_type表里的分类
         $type = DB::table('type')->where('type_id',$data->type_id)->first();
        
-        $types = DB::table('type')->get();
+         $types = DB::table('type')->orderBy('type_npath','asc')->get();
 
        // dd($types);
         //取出该商品的所有图片
