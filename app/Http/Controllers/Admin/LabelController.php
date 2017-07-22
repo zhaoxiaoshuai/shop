@@ -28,7 +28,8 @@ class LabelController extends Controller
         // }
         // $a = Type::find(130)->labels()->get();
         // $a = Label::find(1)->type()->first();
-        $data =  Label::get()->toArray();
+       $data =  Label::get()->toArray();
+	//$type = DB::table('type')->orderBy('type_npath','asc')->get();
         $arr = [];
         foreach($data as $k=>$v){
            $v['type_name'] = Label::find($v['label_id'])->type()->first()['type_name'];
@@ -46,7 +47,8 @@ class LabelController extends Controller
     public function create()
     {
         //获取全部分类
-        $types = Type::get();
+       // $types = Type::get();
+	$types= DB::table('type')->orderBy('type_npath','asc')->get();
         // dd($types);
         return view('admin.label.add',compact('types'));
     }
