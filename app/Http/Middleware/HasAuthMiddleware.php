@@ -18,26 +18,26 @@ class HasAuthMiddleware
     {
 
          //获取所请求的方法名字
-        // $route = \Route::current()->getActionName();
+         $route = \Route::current()->getActionName();
         // // dd($route);
         // //获取登录用户角色
-        // $roles = Admin::find(session('admin')['admin_id'])->roles()->get();
+         $roles = Admin::find(session('admin')['admin_id'])->roles()->get();
         // // dd($roles);
         // //获取角色权限
-        // $arr = [];
-        // foreach ($roles as $k => $role) {
-        //     $auths = $role -> auths()->get();
-        //     foreach($auths as $kk => $auth){
-        //         $arr[]=$auth['auth_content'];
-        //     }
-        // }
+         $arr = [];
+         foreach ($roles as $k => $role) {
+             $auths = $role -> auths()->get();
+             foreach($auths as $kk => $auth){
+                 $arr[]=$auth['auth_content'];
+             }
+         }
         // //将重复的权限去掉
-        // $arr = array_unique($arr);
+         $arr = array_unique($arr);
         // // dd($arr);
         // //判断用户是否拥有权限
-        // if(!in_array($route,$arr)){
-        //     return redirect('admin/back');
-        // }
+         if(!in_array($route,$arr)){
+             return redirect('admin/back');
+         }
         
         // dd($arr);
         return $next($request);

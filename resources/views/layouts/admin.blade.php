@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Amaze UI Admin index Examples</title>
+    <title>{{ config('web.conf_title') }}</title>
     <meta name="description" content="这是一个 index 页面">
     <meta name="keywords" content="index">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -98,7 +98,7 @@
             <div class="tpl-sidebar-user-panel">
                 <div class="tpl-user-panel-slide-toggleable">
                     <div style="border-radius:100%;width:135px" class="tpl-user-panel-profile-picture">
-                        <img src="http://php182.oss-cn-beijing.aliyuncs.com/uploads/config/201707082335265615.png" alt="">
+                        <img src="http://php182.oss-cn-beijing.aliyuncs.com/{{ config('web.conf_logo') }}" alt="">
                     </div>
                     <span class="user-panel-logged-in-text">
                          

@@ -31,10 +31,10 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 	Route::get('captcha/{num}.jpg','LoginController@captcha')->where('name','[0-9]+');
 	//ajax判断验证码
 	Route::post('proving','LoginController@proving');
-	//判断登录和权限中间件组
-	Route::group(['middleware' =>['adminlogin','has.auth']] ,function(){
 		//后台退出
 		Route::get('logout','LoginController@logout');
+	//判断登录和权限中间件组
+	Route::group(['middleware' =>['adminlogin']] ,function(){
 		//后台首页
 		Route::get('index','LoginController@index');
 	    //管理员管理

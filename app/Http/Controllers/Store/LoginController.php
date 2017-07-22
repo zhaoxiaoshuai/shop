@@ -8,8 +8,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Validator;
-use App\http\Model\StoreAdmin;
-use App\http\Model\User;
+use App\Http\Model\StoreAdmin;
+use App\Http\Model\User;
 use Illuminate\Support\Facades\Crypt;
 use Gregwar\Captcha\CaptchaBuilder;
 use Gregwar\Captcha\PhraseBuilder;

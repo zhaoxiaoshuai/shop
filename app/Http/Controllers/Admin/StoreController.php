@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Model\Store;
-use App\Http\Model\merchant;
+use App\Http\Model\Merchant;
 use App\Http\Model\StoreAdmin;
 use App\Http\Model\User;
 use Illuminate\Http\Request;
