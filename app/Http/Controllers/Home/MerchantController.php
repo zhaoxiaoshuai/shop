@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Common;
-use App\http\Model\Merchant;
-use App\http\Model\Mtype;
-use App\http\Model\Good;
+use App\Http\Model\Merchant;
+use App\Http\Model\Mtype;
+use App\Http\Model\Good;
 
 class MerchantController extends Common
 {

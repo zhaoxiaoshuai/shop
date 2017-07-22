@@ -131,15 +131,15 @@
     .am-fr .pagination li span{
         font-size: 15px;
         padding: 6px 12px; 
-    padding: 6px 12px;
-    background: #3f4649;
-    border: none;
+        padding: 6px 12px;
+        background: #3f4649;
+        border: none;
     }
     .am-fr .pagination li a{
         font-size: 15px;
         padding: 6px 12px; 
-	  border: 1px solid #167fa1;
-	  padding: 6px 12px; 
+	    border: 1px solid #167fa1;
+	    padding: 6px 12px; 
     }
 </style>
 @endsection

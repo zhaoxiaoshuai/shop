@@ -8,7 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Validator;
-use App\http\Model\Auth;
+use App\Http\Model\Auth;
 use DB;
 
 class AuthController extends Controller
