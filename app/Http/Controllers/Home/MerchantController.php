@@ -61,7 +61,6 @@ class MerchantController extends Common
         //获取分类商品
         $count = 2;
         $goods = Good::where('merchant_id',$merchant_id) ->where('mtype_id',$mtype_id)-> paginate($count);
-        
         //获取店铺信息
         $merchant = Merchant::where('merchant_id',$merchant_id)->get();
         //获取店铺分类
@@ -71,6 +70,5 @@ class MerchantController extends Common
         // dd($goods);
         //加载前台店铺页面
         return view('home/merchant/goodlist',compact('merchant','mtype','goods'));
-        
     }
 }
