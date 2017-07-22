@@ -54,9 +54,7 @@ class MerchantController extends Common
      */
     public function getGoodlist(Request $request)
     {
-        if(!$request->has(['merchant_id','mtype_id'])){
-            return view('errors.404');
-        }
+        
         //获取店铺id
         $merchant_id = $request->only('merchant_id')['merchant_id'];
         //获取分类id
@@ -70,9 +68,7 @@ class MerchantController extends Common
         $merchant = Merchant::where('merchant_id',$merchant_id)->get();
         //获取店铺分类
         $mtype = Mtype::where('merchant_id',$merchant_id)->get();
-        if($merchant or $mtype){
-            return view('errors.404');
-        }   
+         
         $merchant = $merchant[0];
 
         // dd($goods);

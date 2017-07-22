@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use DB;
-class SearchController extends Controller
+use App\Http\Controllers\Common;
+class SearchController extends Common
 {
     //接收查询的信息
     public function search(Request $request)
