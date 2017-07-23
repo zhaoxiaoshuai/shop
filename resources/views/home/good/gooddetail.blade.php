@@ -10,7 +10,7 @@
     <div class="content">
 
         <div id="tsShopContainer">
-            <div id="tsImgS"><a href="images/p_big.jpg" title="Images" class="MagicZoom" id="MagicZoom"><img src="http://php182.oss-cn-beijing.aliyuncs.com/{{$good->good_pic}}" width="390" height="390" /></a></div>
+            <div id="tsImgS"><a href="" title="Images" class="MagicZoom" id="MagicZoom"><img src="http://php182.oss-cn-beijing.aliyuncs.com/{{$good->good_pic}}" width="390" height="390" /></a></div>
             <div id="tsPicContainer">
                 <div id="tsImgSArrL" onclick="tsScrollArrLeft()"></div>
                 <div id="tsImgSCon" style="width: 360px">
@@ -57,11 +57,7 @@
             	<div class="d_sh">
                 	分享
                     <div class="d_sh_bg">
-                    	<a href="#"><img src="images/sh_1.gif" /></a>
-                        <a href="#"><img src="images/sh_2.gif" /></a>
-                        <a href="#"><img src="images/sh_3.gif" /></a>
-                        <a href="#"><img src="images/sh_4.gif" /></a>
-                        <a href="#"><img src="images/sh_5.gif" /></a>
+                    	
                     </div>
                 </div>                
                 @if($coll)
@@ -87,7 +83,7 @@
                             layer.msg('已收藏',{icon:1});
                         }else if(data == 4){
                             layer.msg('请先登录',{icon:2});
-                            location.href = 'http://www.lamp182.com/home/login';
+                            location.href = "{{url('/home/login')}}";
                         }                                               
                     });
                 });
