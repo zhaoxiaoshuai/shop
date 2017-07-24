@@ -37,18 +37,23 @@ class AuthController extends Controller
      */
     public function index(Request $request)
     {
-        $count = 100;
+        //$count = 100;
         //判断请求来自哪里
         if($request->has('keywords')){
-            $key = trim($request->input('keywords')) ;
-            $auth = Auth::where('auth_name','like',"%".$key."%")->orderBy('auth_content')->paginate($count);
-            return view('admin.auth.index',['data'=>$auth,'key'=>$key]);
+            $key = trim($request -> input('keywords')) ;
+            $auths = Auth::where('auth_group',0) -> where('auth_name','like',"%".$key."%")->get();
+            //取出分类树
+            // $auths = Auth::tree($auths);
+            return view('admin.auth.index',['data'=>$auths,'key'=>$key]);
         }else{
-            //取出数据
-            $auth = Auth::orderBy('auth_content')->paginate($count);
+            //获取全部分类
+            $auths = Auth::where('auth_group',0)->get();
+            //取出分类树
+            // $auths = Auth::tree($auths);
+            // dd($auths);
             //设置返回页面
             $key = '';
-            return view('admin.auth.index',['data'=>$auth,'key'=>$key]);
+            return view('admin.auth.index',['data'=>$auths,'key'=>$key]);
         }
        
     }
@@ -135,7 +140,7 @@ class AuthController extends Controller
                             ->withInput();
             }else{
                 $auth = Auth::where('auth_content',$data['auth_content']) ->find(1);
-                
+                //判断
                 if (!empty($auth)) {
                     return back()->with('error','该权限已存在');
                 }else{
@@ -160,7 +165,10 @@ class AuthController extends Controller
      */
     public function show($id)
     {
-        //
+        //获取详细权限
+        $auths = Auth::where('auth_group',$id) -> get();
+        $key = '';
+        return view('admin.auth.index',['data'=>$auths,'key'=>$key]);
     }
 
     /**

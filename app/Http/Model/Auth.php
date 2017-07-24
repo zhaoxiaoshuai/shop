@@ -32,12 +32,9 @@ class Auth extends Model
     protected $fillable = ['auth_id', 'auth_name','auth_content','auth_description','auth_group'];
 
     //将权限数据排序，权限名称添加缩进，返回有层次关系的权限数据
-    public static function tree(){
-        //获取所有权限
-        $auths = self::get();
+    public static function tree($auths){
         //添加缩进
         $auths = self::getTree($auths);
-
         return $auths;
     }
 
@@ -45,13 +42,14 @@ class Auth extends Model
     {
         $arr = [];
         foreach($auths as $k=>$v){
-//            判断是否是一级类
+            //判断是否是一级类
+            $brr  = [];
             if($auths[$k]->auth_group == 0){
                 $auths[$k]['_name'] =  $auths[$k]->auth_name;
                 $arr[] = $auths[$k];
-//                找当前一级类下的二级类
+                //找当前一级类下的二级类
                 foreach ($auths as $m=>$n){
-//                    当前分类是在遍历的一级类的子分类
+                    //当前分类是在遍历的一级类的子分类
                    if($v->auth_id == $n->auth_group){
                         $auths[$m]['_name'] = "|-|-".$auths[$m]->auth_name;
                         $arr[] = $auths[$m];
@@ -60,6 +58,5 @@ class Auth extends Model
             }
         }
         return $arr;
-
     }
 }

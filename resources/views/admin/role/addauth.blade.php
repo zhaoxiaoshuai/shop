@@ -36,7 +36,8 @@
 	                    <tbody>
 	                    @foreach($pauths as $k => $v)	
 	                        <tr class="gradeX">
-	                            <td style="width: 160px;">
+	                            <td style="width: 160px;" >
+	                            <input type="checkbox" class="all" >
 	                            	{{$v['auth_name']}}
 	                            </td>
 	                            <td>
@@ -50,7 +51,6 @@
 												checked
 												@endif
 											@endforeach
-
 		                            		 name="auth_id[]" value="{{$vv['auth_id']}}" >&nbsp;&nbsp;{{$vv['auth_name']}}
 		                            	</div>
 		                            	@endif
@@ -61,7 +61,21 @@
 	                    </tbody>
 	                </table>
                 </div>
-
+				<script type="text/javascript">
+					$('.all').click(function() {				
+						var a = this.checked; 
+						$(this).parent().next().find('input').each(function(){
+							this.checked = a;
+						});
+					}).parent().next().find('input').click(function(){
+						var v = true;
+						$(this).parent().parent().find('input').each(function(){
+							if(!this.checked){
+								v = false;
+							}
+						}).parent().parent().prev().children()[0].checked = v;
+					});
+				</script>
 	            </div>
 	            <div class="am-form-group">
 	                <div class="am-u-sm-9 am-u-sm-push-3">

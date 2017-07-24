@@ -12,6 +12,9 @@
                             <button type="button" class="am-btn am-btn-default am-btn-success">
                                 <a href="{{url('admin/auth/create')}}"><span class="am-icon-plus"></span>新增权限组</a>
                             </button>
+                            <button type="button" class="am-btn am-btn-default am-btn-info">
+                                <a href="javascript:;" onclick="history.go(-1)"><span class="am-icon-plus"></span>返回上一步</a>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -50,6 +53,8 @@
 	                                <div class="tpl-table-black-operation">
                                         <a href="{{url('admin/auth/createauth/?id='.$v['auth_id'])}}">
                                         <i class="am-icon-pencil"></i>添加子权限</a>
+                                        <a href="{{url('admin/auth/'.$v['auth_id'])}}">
+                                        <i class="am-icon-pencil"></i>查看子权限</a>
 	                                    <a href="{{url('admin/auth/'.$v['auth_id'].'/edit')}}">
 	                                        <i class="am-icon-pencil"></i>编辑</a>
 	                                   
@@ -66,7 +71,7 @@
             <div class="am-u-lg-12 am-cf">
                 <div class="am-fr">
               
-                 {!! $data ->appends(['keywords'=>$key])-> render() !!}
+                  <!-- $data ->appends(['keywords'=>$key])-> render() !!} -->
                 </div>
             </div>
             

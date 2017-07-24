@@ -12,10 +12,6 @@
 */
 
 /*==========================后台===============================*/
-Route::resource('admin/label','Admin\LabelController');
-Route::get('admin/good/setlabel/{id}','Admin\GoodController@setlabel');
-Route::post('admin/good/dosetlabel','Admin\GoodController@dosetlabel');
-
 
 //前缀和命名空间组
 Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
@@ -31,17 +27,21 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 	Route::get('captcha/{num}.jpg','LoginController@captcha')->where('name','[0-9]+');
 	//ajax判断验证码
 	Route::post('proving','LoginController@proving');
-		//后台退出
-		Route::get('logout','LoginController@logout');
+	//后台退出
+	Route::get('logout','LoginController@logout');
 	//判断登录和权限中间件组
 	Route::group(['middleware' =>['adminlogin']] ,function(){
 		//后台首页
 		Route::get('index','LoginController@index');
-	    //管理员管理
-	    Route::resource('admin','AdminController');
-	    //管理员修改自己信息
-	    Route::get('admin/editself/{id}','AdminController@editself');
-	    Route::post('admin/updateself/','AdminController@updateself');
+		//导航管理
+        Route::resource('nav','NavController');
+	    // 后台分类管理
+		Route::resource('atype','TypeController');
+		//标签管理
+		Route::resource('label','LabelController');
+		//给商品设置标签
+		Route::get('good/setlabel/{id}','GoodController@setlabel');
+		Route::post('good/dosetlabel','GoodController@dosetlabel');
 	    //商品管理
         //上传商品大图
         Route::any('goods/upload','GoodController@upload');
@@ -53,19 +53,10 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
         Route::resource('mgood','MgoodController');
         //商品详情路由
 	    Route::any('good/detail/{id}','GoodController@detail');
-	    //角色管理
-	    Route::resource('role','RoleController');
-	    //给角色授权
-	    Route::get('role/roleauth/{id}','RoleController@addAuth');
-	    Route::post('role/doroleauth','RoleController@doaddAuth');
-		//管理员管理
-		Route::resource('admin','AdminController');
+	    // 评论管理
+		Route::controller('comment','CommentController');		
 		//订单管理
 		Route::resource('orders','OrdersController');
-		// 后台分类管理
-		Route::resource('atype','TypeController');
-		// 用户管理
-		Route::resource('user','UserController');
 		//订单详情
 		Route::resource('detail','DetailController');
 		// 商家管理
@@ -73,28 +64,32 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 		Route::get('astoreindex/{x}','StoreController@astoreindex');
 		//友情链接
 		Route::resource('link','LinkController');
+		// 用户管理
+		Route::resource('user','UserController');
+		// 商家信息路由
+		Route::resource('astore','StoreController');
+		Route::get('astoreindex/{x}','StoreController@astoreindex');
+        //角色管理
+	    Route::resource('role','RoleController');
+	    //给角色授权
+	    Route::get('role/roleauth/{id}','RoleController@addAuth');
+	    Route::post('role/doroleauth','RoleController@doaddAuth');
+		//管理员管理
+		Route::resource('admin','AdminController');
+	    //管理员修改自己信息
+	    Route::get('admin/editself/{id}','AdminController@editself');
+	    Route::post('admin/updateself/','AdminController@updateself');
+	    //权限注册
+		Route::get('auth/createauth','AuthController@createauth');
+		Route::resource('auth','AuthController');
+		//LOGO图片上传
+		Route::any('uploadconf','ConfController@uploadconf');
 		//轮播图路由
 		Route::resource('carousel','CarouselController');
 		//轮播图图片
         Route::any('uploadcarousel','CarouselController@uploadcarousel');
 		//系统配置
 		Route::resource('config','ConfController');
-		//权限注册
-		Route::get('auth/createauth','AuthController@createauth');
-		Route::resource('auth','AuthController');
-		// 评论管理
-		Route::controller('comment','CommentController');
-		//LOGO图片上传
-		Route::any('uploadconf','ConfController@uploadconf');
-		// 商家信息路由
-		Route::resource('astore','StoreController');
-		Route::get('astoreindex/{x}','StoreController@astoreindex');
-		// 后台分类管理
-		Route::resource('atype','TypeController');
-		// 用户管理
-		Route::resource('user','UserController');
-		//导航管理
-        Route::resource('nav','NavController');
 	});
 });
 
@@ -103,7 +98,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 Route::get('/', 'Home\IndexController@index');
 Route::group(['prefix'=>'home','namespace'=>'Home'],function(){
 	//前台用户操作
-		Route::controller('user','UserController');
+	Route::controller('user','UserController');
 	//前台全局搜索
 	Route::post('search','SearchController@search');
 	//前台登录
@@ -120,7 +115,6 @@ Route::group(['prefix'=>'home','namespace'=>'Home'],function(){
 	Route::controller('user','UserController');
 	//前台店铺路由
 	Route::controller('merchant','MerchantController');
-
 	//收藏
 	Route::get('collection/{id}','CollectiongoodsController@Coll');
 	Route::group(['middleware' =>'homelogin'] ,function(){
@@ -162,7 +156,6 @@ Route::group(['prefix'=>'home','namespace'=>'Home'],function(){
 		Route::any('upload2','StoreController@upload2');
 		//收藏详情页
 		Route::resource('Collectiongoods','CollectiongoodsController');
-		
 		Route::get('collection1/{id}','CollectiongoodsController@Delcoll');
 	});
 
@@ -176,8 +169,8 @@ Route::group(['prefix'=>'store','namespace'=>'Store'],function(){
 	Route::controller('admin','LoginController');
 	//判断登录和权限中间件组
 	// 生成验证码
-		Route::get('captcha/{num}.jpg','LoginController@captcha')->where('name','[0-9]+');
-	Route::group(['middleware' =>['storelogin']] ,function(){
+	Route::get('captcha/{num}.jpg','LoginController@captcha')->where('name','[0-9]+');
+    Route::group(['middleware' =>['storelogin']] ,function(){
 		// 商家后台店铺管理
 		Route::controller('setup','MersetupController');
 		// 商家后台商品管理
@@ -188,7 +181,6 @@ Route::group(['prefix'=>'store','namespace'=>'Store'],function(){
 		Route::resource('type','TypeController');
 		// 商家后台订单管理
 		Route::resource('orders','OrderController');
-		
 		// ajax判断验证码
 		Route::post('proving','LoginController@proving');
 		// 商家后台回复评论
